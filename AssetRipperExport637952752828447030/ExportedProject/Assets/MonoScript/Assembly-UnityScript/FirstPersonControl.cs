@@ -190,7 +190,7 @@ public class FirstPersonControl : MonoBehaviour
 				if (!Application.isMobilePlatform)
 		{
 			moveTouchPad.position = updateKeyboardControls();
-			if (Input.GetKeyDown("c"))
+			if (Input.GetKeyDown("`"))
 			{
 				PlayerPrefs.DeleteAll();
 			}
