@@ -808,6 +808,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("Utopia", 4002);
 		levelNumsForMusicInMult.Add("Arena", 7);
 		levelNumsForMusicInMult.Add("Winter", 4003);
+		levelNumsForMusicInMult.Add("campaignsuperreal", 4005);
 		levelNumsForMusicInMult.Add("School", 1009);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
