@@ -419,13 +419,13 @@ public sealed class WeaponManager : MonoBehaviour
 		MaceTag = "Mace";
 		CrossbowTag = "Crossbow";
 		tagToStoreIDMapping = new Dictionary<string, string>();
-		multiplayerWeaponTags = new string[29]
+		multiplayerWeaponTags = new string[30]
 		{
 			MultiplayerMeleeTag, _initialWeaponName, "FirstShotgun", "UziWeapon", CrystalSwordTag, MinersWeaponTag, m16Tag, EagleTag, MagicBowTag, GoldenAxeTag,
 			SPASTag, GlockTag, FAMASTag, ChainsawTag, ScytheTag, ShovelTag, HammerTag, Sword_2Tag, StaffTag, Red_StoneTag,
-			LightSwordTag, BerettaTag, MinigunTag, CrossbowTag, MaceTag, "AK47", "Machingun", "Revolver", UziTag
+			LightSwordTag, BerettaTag, MinigunTag, CrossbowTag, MaceTag, "AK47", "Machingun", "Revolver", UziTag, "SilverEagle"
 		};
-		_initialMultiplayerWeaponTags = new string[/*8*/29]
+		_initialMultiplayerWeaponTags = new string[/*8*/30]
 		{
 			//multiplayerWeaponTags[0],
 			//multiplayerWeaponTags[1],
@@ -437,7 +437,7 @@ public sealed class WeaponManager : MonoBehaviour
 			//multiplayerWeaponTags[28]
 			MultiplayerMeleeTag, _initialWeaponName, "FirstShotgun", "UziWeapon", CrystalSwordTag, MinersWeaponTag, m16Tag, EagleTag, MagicBowTag, GoldenAxeTag,
 			SPASTag, GlockTag, FAMASTag, ChainsawTag, ScytheTag, ShovelTag, HammerTag, Sword_2Tag, StaffTag, Red_StoneTag,
-			LightSwordTag, BerettaTag, MinigunTag, CrossbowTag, MaceTag, "AK47", "Machingun", "Revolver", UziTag
+			LightSwordTag, BerettaTag, MinigunTag, CrossbowTag, MaceTag, "AK47", "Machingun", "Revolver", UziTag, "SilverEagle"
 		};
 		tagToStoreIDMapping.Add(CrystalSwordTag, "crystalsword");
 		tagToStoreIDMapping.Add(MinersWeaponTag, "MinerWeapon");
@@ -471,13 +471,13 @@ public sealed class WeaponManager : MonoBehaviour
 	{
 		_playerWeapons.Clear();
 		CurrentWeaponIndex = 0;
-		UnityEngine.Object[] array = new UnityEngine.Object[29];
-		for (int i = 0; i < 29; i++)
+		UnityEngine.Object[] array = new UnityEngine.Object[30];
+		for (int i = 0; i < 30; i++)
 		{
 			int i2 = i + 1;
 			array[i] = Resources.Load("Weapons/Weapon" + i2);
 		}
-		array[28] = Resources.Load("Weapons/Weapon29");
+		array[29] = Resources.Load("Weapons/Weapon30");
 		for (int i = 0; i < array.Length; i++)
 		{
 			GameObject gameObject = array[i] as GameObject;
@@ -928,12 +928,12 @@ public sealed class WeaponManager : MonoBehaviour
 		}
 		_weaponsInGame = GetWeaponPrefabs();
 		Reset();
-		for (int i = 0; i < 29; i++)
+		for (int i = 0; i < 30; i++)
 		{
 			int i2 = i + 1;
 			weaponsInGame[i] = Resources.Load("Weapons/Weapon" + i2);
 		}
-		weaponsInGame[28] = Resources.Load("Weapons/Weapon29");
+		weaponsInGame[29] = Resources.Load("Weapons/Weapon30");
 	}
 
 	public void AddStaff()
