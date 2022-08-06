@@ -787,6 +787,7 @@ public sealed class Defs
 		mapNamesForUser.Add("Utopia", "Utopia");
 		mapNamesForUser.Add("Arena", "Arena");
 		mapNamesForUser.Add("Assault", "Warehouse");
+		mapNamesForUser.Add("campaignsuperreal", "Campaign Full Super Real");
 		mapNamesForUser.Add("Winter", "Winter");
 		mapNamesForUser.Add("School", "School");
 		levelNumsForMusicInMult.Add("Maze", 2);
