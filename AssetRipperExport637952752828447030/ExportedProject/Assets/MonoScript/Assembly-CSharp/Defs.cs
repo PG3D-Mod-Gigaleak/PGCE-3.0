@@ -685,13 +685,7 @@ public sealed class Defs
 		}
 	}
 
-	public static string MainMenuScene
-	{
-		get
-		{
-			return "Menu_Utopia";
-		}
-	}
+	public static string[] MainMenuScenes = new string[] { "Menu_Utopia", "Menu_Maze" };
 
 	public static string ShouldReoeatActionSett
 	{

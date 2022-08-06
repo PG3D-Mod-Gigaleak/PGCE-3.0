@@ -320,8 +320,9 @@ public sealed class Controller : MonoBehaviour
 			float num2 = (float)Screen.height / 768f;
 			if (GUI.RepeatButton(new Rect((float)backBut.active.background.width * 0.1f * num2, rectAbout.y + rectAbout.height / 2f - (float)(backBut.active.background.height / 2) * num2, (float)backBut.active.background.width * num2, (float)backBut.active.background.height * num2), string.Empty, backBut))
 			{
+				int random = (int)UnityEngine.Random.Range(0, Defs.MainMenuScenes.Length);
 				GUIHelper.DrawLoading();
-				Application.LoadLevel(Defs.MainMenuScene);
+				Application.LoadLevel(Defs.MainMenuScenes[random]);
 			}
 			if (GUI.Button(rectCreateNew, string.Empty, butCreateNew))
 			{

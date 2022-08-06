@@ -628,9 +628,10 @@ public sealed class ConnectGUI : MonoBehaviour
 			}
 			if (GUI.RepeatButton(LeftButtonRect, string.Empty, back))
 			{
+				int random = (int)UnityEngine.Random.Range(0, Defs.MainMenuScenes.Length);
 				GUIHelper.DrawLoading();
 				typeConnect = 0;
-				Application.LoadLevel(Defs.MainMenuScene);
+				Application.LoadLevel(Defs.MainMenuScenes[random]);
 			}
 			if (GUI.RepeatButton(RightButtonRect, string.Empty, profile) && !isFirstFrame)
 			{

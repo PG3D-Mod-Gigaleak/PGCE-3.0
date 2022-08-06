@@ -254,8 +254,9 @@ public sealed class GameOver : MonoBehaviour
 		float height = num4 * ((float)quit.normal.background.height / (float)quit.normal.background.width);
 		if (GUI.Button(new Rect((float)Screen.width * 0.5f - num4 / 2f, (float)Screen.height - num2 - num3 * 1f, num4, height), string.Empty, quit))
 		{
+			int random = (int)UnityEngine.Random.Range(0, Defs.MainMenuScenes.Length);
 			GUI.enabled = true;
-			Application.LoadLevel(Defs.MainMenuScene);
+			Application.LoadLevel(Defs.MainMenuScenes[random]);
 		}
 		float width = (float)(elixir.width * Screen.height) / 768f;
 		float num5 = (float)(elixir.height * Screen.height) / 768f;

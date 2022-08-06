@@ -403,7 +403,8 @@ public sealed class SpisokSkinov : MonoBehaviour
 			GUIHelper.DrawLoading();
 			if (PlayerPrefs.GetInt(Defs.ProfileEnteredFromMenu, 0) == 1)
 			{
-				Application.LoadLevel(Defs.MainMenuScene);
+				int random = (int)UnityEngine.Random.Range(0, Defs.MainMenuScenes.Length);
+				Application.LoadLevel(Defs.MainMenuScenes[random]);
 			}
 			else
 			{

@@ -373,10 +373,11 @@ public sealed class Switcher : MonoBehaviour
 	private void LoadMenu()
 	{
 		string text;
+		int random = (int)UnityEngine.Random.Range(0, Defs.MainMenuScenes.Length);
 		switch (GlobalGameController.currentLevel)
 		{
 		case -1:
-			text = Defs.MainMenuScene;
+			text = Defs.MainMenuScenes[random];
 			break;
 		case 0:
 			text = "Cementery";
@@ -412,7 +413,7 @@ public sealed class Switcher : MonoBehaviour
 			text = "Castle";
 			break;
 		default:
-			text = Defs.MainMenuScene;
+			text = Defs.MainMenuScenes[random];
 			break;
 		}
 		if (GlobalGameController.currentLevel == -1)
