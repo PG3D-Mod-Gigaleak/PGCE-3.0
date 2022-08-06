@@ -481,7 +481,7 @@ public sealed class WeaponManager : MonoBehaviour
 		for (int i = 0; i < array.Length; i++)
 		{
 			GameObject gameObject = array[i] as GameObject;
-			if (gameObject.CompareTag(_initialWeaponName) || gameObject.CompareTag("Knife") || (PlayerPrefs.GetInt("MultyPlayer") == 1 && Array.IndexOf(_initialMultiplayerWeaponTags, gameObject.tag) >= 0))
+			if (/*gameObject.CompareTag(_initialWeaponName) || gameObject.CompareTag("Knife") */ Array.IndexOf(_initialMultiplayerWeaponTags, gameObject.tag) >= 0 || (PlayerPrefs.GetInt("MultyPlayer") == 1 && Array.IndexOf(_initialMultiplayerWeaponTags, gameObject.tag) >= 0))
 			{
 				Weapon weapon = new Weapon();
 				weapon.weaponPrefab = gameObject;
