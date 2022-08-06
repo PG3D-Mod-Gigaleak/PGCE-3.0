@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class MenuBackgroundMusic : MonoBehaviour
 {
-	private static string[] scenetsToPlayMusicOn = new string[4]
+	private static string[] scenetsToPlayMusicOn = new string[5]
 	{
 		Defs.MainMenuScenes[0],
 		Defs.MainMenuScenes[1],
+		Defs.MainMenuScenes[2],
 		"ConnectScene",
 		"SettingScene"
 	};
@@ -20,7 +21,12 @@ public class MenuBackgroundMusic : MonoBehaviour
 	{
 		if (Array.IndexOf(scenetsToPlayMusicOn, Application.loadedLevelName) >= 0)
 		{
-			if (!base.GetComponent<AudioSource>().isPlaying)
+			if (!base.GetComponent<AudioSource>().isPlaying && (Array.IndexOf(Defs.MainMenuScenes, Application.loadedLevelName) >= 0))
+			{
+				base.GetComponent<AudioSource>().clip = Resources.Load("menumusic_" + Application.loadedLevelName) as AudioClip;
+				base.GetComponent<AudioSource>().Play();
+			}
+			if (!base.GetComponent<AudioSource>().isPlaying && !(Array.IndexOf(Defs.MainMenuScenes, Application.loadedLevelName) >= 0))
 			{
 				base.GetComponent<AudioSource>().Play();
 			}
