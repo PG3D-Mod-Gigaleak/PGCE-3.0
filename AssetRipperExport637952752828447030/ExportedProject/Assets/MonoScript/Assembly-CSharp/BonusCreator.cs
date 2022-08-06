@@ -50,13 +50,13 @@ public class BonusCreator : MonoBehaviour
 		if (!_isMultiplayer)
 		{
 			weaponPrefabs = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().weaponsInGame;
-			UnityEngine.Object[] array = new UnityEngine.Object[30];
-			for (int i = 0; i < 30; i++)
+			UnityEngine.Object[] array = new UnityEngine.Object[32];
+			for (int i = 0; i < 32; i++)
 			{
 			int i2 = i + 1;
 			array[i] = Resources.Load("Weapons/Weapon" + i2);
 			}
-			array[29] = Resources.Load("Weapons/Weapon30");
+			array[31] = Resources.Load("Weapons/Weapon32");
 			for (int i = 0; i < array.Length; i++)
 			{
 				GameObject gameObject = array[i] as GameObject;
@@ -88,13 +88,13 @@ public class BonusCreator : MonoBehaviour
 
 	public GameObject GetPrefabWithTag(string tagName)
 	{
-		UnityEngine.Object[] array = new UnityEngine.Object[30];
-		for (int i = 0; i < 30; i++)
+		UnityEngine.Object[] array = new UnityEngine.Object[32];
+		for (int i = 0; i < 32; i++)
 		{
 			int i2 = i + 1;
 			array[i] = Resources.Load("Weapons/Weapon" + i2);
 		}
-		array[29] = Resources.Load("Weapons/Weapon30");
+		array[31] = Resources.Load("Weapons/Weapon3");
 		for (int i = 0; i < array.Length; i++)
 		{
 			GameObject gameObject = array[i] as GameObject;
