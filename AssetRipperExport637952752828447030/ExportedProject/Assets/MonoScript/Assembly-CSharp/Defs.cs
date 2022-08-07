@@ -4,7 +4,7 @@ using UnityEngine;
 public sealed class Defs
 {
 
-	public static int numOfWeapons = 33;
+	public static int numOfWeapons = 35;
 
 	public enum RuntimeAndroidEdition
 	{
