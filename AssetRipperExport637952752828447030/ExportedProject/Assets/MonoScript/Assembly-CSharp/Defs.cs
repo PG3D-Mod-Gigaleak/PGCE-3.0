@@ -792,6 +792,7 @@ public sealed class Defs
 		mapNamesForUser.Add("Utopia", "Utopia");
 		mapNamesForUser.Add("Arena", "Arena");
 		mapNamesForUser.Add("Assault", "Warehouse");
+		mapNamesForUser.Add("Abandoned_Pool", "Abandoned Pool");
 		mapNamesForUser.Add("campaignsuperreal", "Campaign Full Super Real");
 		mapNamesForUser.Add("Winter", "Winter");
 		mapNamesForUser.Add("School", "School");
@@ -810,6 +811,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("Dust", 1006);
 		levelNumsForMusicInMult.Add("Bridge", 1007);
 		levelNumsForMusicInMult.Add("Assault", 1008);
+		levelNumsForMusicInMult.Add("Abandoned_Pool", 4006);
 		levelNumsForMusicInMult.Add("Farm", 4001);
 		levelNumsForMusicInMult.Add("Utopia", 4002);
 		levelNumsForMusicInMult.Add("Arena", 7);
