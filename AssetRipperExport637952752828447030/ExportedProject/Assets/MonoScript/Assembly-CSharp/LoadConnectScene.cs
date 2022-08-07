@@ -4,18 +4,15 @@ public sealed class LoadConnectScene : MonoBehaviour
 {
 	public static string sceneToLoad = string.Empty;
 
-	public static Texture textureToShow;
-
-	private Texture loading;
+	public static Texture loading;
 
 	private GameObject aInd;
 
 	private void Start()
 	{
-		loading = textureToShow;
 		if (loading == null)
 		{
-			loading = Resources.Load("main_loading") as Texture;
+			loading = Resources.Load("MenuLoading_" + Defs.CurrentMainMenuScene) as Texture;
 		}
 		Invoke("_loadConnectScene", 2.5f);
 		aInd = StoreKitEventListener.purchaseActivityInd;

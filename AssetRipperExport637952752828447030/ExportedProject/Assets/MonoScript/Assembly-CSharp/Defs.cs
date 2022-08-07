@@ -3,6 +3,9 @@ using UnityEngine;
 
 public sealed class Defs
 {
+
+	public static int numOfWeapons = 33;
+
 	public enum RuntimeAndroidEdition
 	{
 		None = 0,
@@ -685,7 +688,9 @@ public sealed class Defs
 		}
 	}
 
-	public static string[] MainMenuScenes = new string[] { "Menu_Utopia", "Menu_Maze", "Menu_Islands" };
+	public static string[] MainMenuScenes = new string[] { "Menu_Utopia", "Menu_Maze", "Menu_Islands", "Menu_City" };
+
+	public static string CurrentMainMenuScene;
 
 	public static string ShouldReoeatActionSett
 	{
@@ -759,7 +764,7 @@ public sealed class Defs
 	{
 		get
 		{
-			return (Application.platform != RuntimePlatform.Android) ? "https://itunes.apple.com/us/app/pixel-gun-3d-block-world-pocket/id640111933?mt=8" : ((AndroidEdition == RuntimeAndroidEdition.Amazon) ? "http://www.amazon.com/Pixel-Gun-Cooperative-Multiplayer-minecraft/dp/B00GEDHISE/ref=sr_1_11?s=mobile-apps&ie=UTF8&qid=1383742218&sr=1-11&keywords=minecraft+shooter" : ((AndroidEdition != RuntimeAndroidEdition.GooglePro) ? "https://play.google.com/store/apps/details?id=com.P3D.Pixlgun" : "https://play.google.com/store/apps/details?id=com.P3D.PixlgunPro"));
+			return (Application.platform != RuntimePlatform.Android) ? "https://apps.apple.com/us/app/bug-heroes/id412789616" : ((AndroidEdition == RuntimeAndroidEdition.Amazon) ? "https://play.google.com/store/apps/details?id=com.foursakenmedia.bugheroes2&hl=en_US&gl=US" : ((AndroidEdition != RuntimeAndroidEdition.GooglePro) ? "https://play.google.com/store/apps/details?id=com.foursakenmedia.bugheroes2&hl=en_US&gl=US" : "https://play.google.com/store/apps/details?id=com.foursakenmedia.bugheroes2&hl=en_US&gl=US"));
 		}
 	}
 

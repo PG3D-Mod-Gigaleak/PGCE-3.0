@@ -294,7 +294,7 @@ public sealed class Initializer : MonoBehaviour
 				}
 				else
 				{
-					LoadConnectScene.textureToShow = null;
+					LoadConnectScene.loading = null;
 					LoadConnectScene.sceneToLoad = "ConnectScene";
 					Application.LoadLevel("PromScene");
 				}
@@ -313,7 +313,7 @@ public sealed class Initializer : MonoBehaviour
 			}
 			else
 			{
-				LoadConnectScene.textureToShow = null;
+				LoadConnectScene.loading = null;
 				LoadConnectScene.sceneToLoad = "ConnectScene";
 				Application.LoadLevel("PromScene");
 			}

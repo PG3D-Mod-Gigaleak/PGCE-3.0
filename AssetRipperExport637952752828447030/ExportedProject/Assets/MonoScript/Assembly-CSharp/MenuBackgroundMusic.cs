@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class MenuBackgroundMusic : MonoBehaviour
 {
-	private static string[] scenetsToPlayMusicOn = new string[5]
+	private static string[] scenetsToPlayMusicOn = new string[6]
 	{
 		Defs.MainMenuScenes[0],
 		Defs.MainMenuScenes[1],
 		Defs.MainMenuScenes[2],
+		Defs.MainMenuScenes[3],
 		"ConnectScene",
 		"SettingScene"
 	};

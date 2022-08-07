@@ -36,6 +36,8 @@ public sealed class Switcher : MonoBehaviour
 
 	private void Start()
 	{
+		int random = (int)UnityEngine.Random.Range(0, Defs.MainMenuScenes.Length);
+		Defs.CurrentMainMenuScene = Defs.MainMenuScenes[random];
 		Debug.Log("0 GlobalGameController.currentLevel " + GlobalGameController.currentLevel);
 		AudioListener.volume = (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true) ? 1 : 0);
 		if (GlobalGameController._currentIndexInMapping >= GlobalGameController.NumOfLevels - 1 && GlobalGameController.currentLevel != 101 && !isGameOver)
@@ -94,7 +96,7 @@ public sealed class Switcher : MonoBehaviour
 			}
 			else if (GlobalGameController.currentLevel == -1)
 			{
-				fonToDraw = Resources.Load("main_loading") as Texture;
+			fonToDraw = Resources.Load("MenuLoading_" + Defs.CurrentMainMenuScene) as Texture;
 			}
 			else if (GlobalGameController.currentLevel == 101)
 			{
@@ -373,11 +375,10 @@ public sealed class Switcher : MonoBehaviour
 	private void LoadMenu()
 	{
 		string text;
-		int random = (int)UnityEngine.Random.Range(0, Defs.MainMenuScenes.Length);
 		switch (GlobalGameController.currentLevel)
 		{
 		case -1:
-			text = Defs.MainMenuScenes[random];
+			text = Defs.CurrentMainMenuScene;
 			break;
 		case 0:
 			text = "Cementery";
@@ -413,7 +414,7 @@ public sealed class Switcher : MonoBehaviour
 			text = "Castle";
 			break;
 		default:
-			text = Defs.MainMenuScenes[random];
+			text = Defs.CurrentMainMenuScene;
 			break;
 		}
 		if (GlobalGameController.currentLevel == -1)

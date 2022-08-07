@@ -419,14 +419,14 @@ public sealed class WeaponManager : MonoBehaviour
 		MaceTag = "Mace";
 		CrossbowTag = "Crossbow";
 		tagToStoreIDMapping = new Dictionary<string, string>();
-		multiplayerWeaponTags = new string[32]
+		multiplayerWeaponTags = new string[]
 		{
 			MultiplayerMeleeTag, _initialWeaponName, "FirstShotgun", "UziWeapon", CrystalSwordTag, MinersWeaponTag, m16Tag, EagleTag, MagicBowTag, GoldenAxeTag,
 			SPASTag, GlockTag, FAMASTag, ChainsawTag, ScytheTag, ShovelTag, HammerTag, Sword_2Tag, StaffTag, Red_StoneTag,
 			LightSwordTag, BerettaTag, MinigunTag, CrossbowTag, MaceTag, "AK47", "Machingun", "Revolver", UziTag, "SilverEagle", "FAMAS2",
-			"QuickSilverCrossbow"
+			"QuickSilverCrossbow", "RavenGun"
 		};
-		_initialMultiplayerWeaponTags = new string[/*8*/32]
+		_initialMultiplayerWeaponTags = new string[]
 		{
 			//multiplayerWeaponTags[0],
 			//multiplayerWeaponTags[1],
@@ -439,7 +439,7 @@ public sealed class WeaponManager : MonoBehaviour
 			MultiplayerMeleeTag, _initialWeaponName, "FirstShotgun", "UziWeapon", CrystalSwordTag, MinersWeaponTag, m16Tag, EagleTag, MagicBowTag, GoldenAxeTag,
 			SPASTag, GlockTag, FAMASTag, ChainsawTag, ScytheTag, ShovelTag, HammerTag, Sword_2Tag, StaffTag, Red_StoneTag,
 			LightSwordTag, BerettaTag, MinigunTag, CrossbowTag, MaceTag, "AK47", "Machingun", "Revolver", UziTag, "SilverEagle", "FAMAS2",
-			"QuickSilverCrossbow"
+			"QuickSilverCrossbow", "RavenGun"
 		};
 		tagToStoreIDMapping.Add(CrystalSwordTag, "crystalsword");
 		tagToStoreIDMapping.Add(MinersWeaponTag, "MinerWeapon");
@@ -473,13 +473,13 @@ public sealed class WeaponManager : MonoBehaviour
 	{
 		_playerWeapons.Clear();
 		CurrentWeaponIndex = 0;
-		UnityEngine.Object[] array = new UnityEngine.Object[32];
-		for (int i = 0; i < 32; i++)
+		UnityEngine.Object[] array = new UnityEngine.Object[Defs.numOfWeapons];
+		for (int i = 0; i < Defs.numOfWeapons; i++)
 		{
 			int i2 = i + 1;
 			array[i] = Resources.Load("Weapons/Weapon" + i2);
 		}
-		array[31] = Resources.Load("Weapons/Weapon32");
+		array[Defs.numOfWeapons - 1] = Resources.Load("Weapons/Weapon" + Defs.numOfWeapons);
 		for (int i = 0; i < array.Length; i++)
 		{
 			GameObject gameObject = array[i] as GameObject;

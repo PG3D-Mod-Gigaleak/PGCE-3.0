@@ -296,7 +296,7 @@ public sealed class ConnectGUI : MonoBehaviour
 		{
 			PlayerPrefs.SetInt("typeConnect__", 1);
 		}
-		LoadConnectScene.textureToShow = null;
+		LoadConnectScene.loading = null;
 		LoadConnectScene.sceneToLoad = "ConnectScene";
 		Application.LoadLevel("PromScene");
 	}
@@ -628,10 +628,9 @@ public sealed class ConnectGUI : MonoBehaviour
 			}
 			if (GUI.RepeatButton(LeftButtonRect, string.Empty, back))
 			{
-				int random = (int)UnityEngine.Random.Range(0, Defs.MainMenuScenes.Length);
 				GUIHelper.DrawLoading();
 				typeConnect = 0;
-				Application.LoadLevel(Defs.MainMenuScenes[random]);
+				Application.LoadLevel(Defs.CurrentMainMenuScene);
 			}
 			if (GUI.RepeatButton(RightButtonRect, string.Empty, profile) && !isFirstFrame)
 			{
@@ -1762,7 +1761,7 @@ public sealed class ConnectGUI : MonoBehaviour
 		head_serv_name = null;
 		head_worldwide = null;
 		yield return Resources.UnloadUnusedAssets();
-		LoadConnectScene.textureToShow = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masLoading[selectMapIndex] : masLoadingCOOP[selectMapIndex]);
+		LoadConnectScene.loading = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masLoading[selectMapIndex] : masLoadingCOOP[selectMapIndex]);
 		LoadConnectScene.sceneToLoad = goMapName;
 		yield return Application.LoadLevelAsync("PromScene");
 	}

@@ -1056,8 +1056,7 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 				else
 				{
-					int random = (int)UnityEngine.Random.Range(0, Defs.MainMenuScenes.Length);
-					Application.LoadLevel(Defs.MainMenuScenes[random]);
+					Application.LoadLevel(Defs.CurrentMainMenuScene);
 				}
 			}
 			if (StoreKitEventListener.billingSupported && GUI.Button(position12, string.Empty, shopFromPauseStyle) && CurHealth > 0f)

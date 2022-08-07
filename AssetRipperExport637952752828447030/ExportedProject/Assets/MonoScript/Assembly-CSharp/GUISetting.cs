@@ -60,8 +60,7 @@ public sealed class GUISetting : MonoBehaviour
 		PlayerPrefs.Save();
 		if (GUI.Button(new Rect((float)Screen.width / 2f - (float)settingPlashka.width * num * 0.5f, (float)Screen.height * 0.9f - (float)back.normal.background.height * 0.5f * num, (float)back.normal.background.width * num, (float)back.normal.background.height * num), string.Empty, back))
 		{
-			int random = (int)UnityEngine.Random.Range(0, Defs.MainMenuScenes.Length);
-			Application.LoadLevel(Defs.MainMenuScenes[random]);
+			Application.LoadLevel(Defs.CurrentMainMenuScene);
 		}
 		GUI.enabled = !StoreKitEventListener.purchaseInProcess;
 		Rect position3 = new Rect((float)Screen.width / 2f + (float)settingPlashka.width * num * 0.5f - (float)restore.normal.background.width * num, (float)Screen.height * 0.9f - (float)restore.normal.background.height * 0.5f * num, (float)restore.normal.background.width * num, (float)restore.normal.background.height * num);
