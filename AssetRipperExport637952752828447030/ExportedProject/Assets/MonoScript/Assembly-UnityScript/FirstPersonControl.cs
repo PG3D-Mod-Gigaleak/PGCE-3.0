@@ -190,7 +190,7 @@ public class FirstPersonControl : MonoBehaviour
 				if (!Application.isMobilePlatform)
 		{
 			moveTouchPad.position = updateKeyboardControls();
-			if (Input.GetKeyDown("p"))
+			if (Input.GetKeyDown(KeyCode.F9))
 			{
 				PlayerPrefs.DeleteAll();
 			}
@@ -206,6 +206,7 @@ public class FirstPersonControl : MonoBehaviour
 			{
 				jumpButton.jumpPressed = false;
 			}
+		}
 		Vector3 motion = thisTransform.TransformDirection(new Vector3(moveTouchPad.position.x, 0f, moveTouchPad.position.y));
 		motion.y = 0f;
 		motion.Normalize();
@@ -315,7 +316,6 @@ public class FirstPersonControl : MonoBehaviour
 		vector2 *= Time.deltaTime * @float;
 		thisTransform.Rotate(0f, vector2.x, 0f, Space.World);
 		cameraPivot.Rotate(0f - vector2.y, 0f, 0f);
-	}
 	}
 
 	public virtual void Main()

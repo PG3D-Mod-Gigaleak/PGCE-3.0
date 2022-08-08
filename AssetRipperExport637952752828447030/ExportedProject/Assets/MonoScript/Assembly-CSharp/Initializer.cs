@@ -215,6 +215,11 @@ public sealed class Initializer : MonoBehaviour
 			position = new Vector3(19.36158f, 19.61019f, -24.24763f);
 			rotation = Quaternion.Euler(new Vector3(35.9299f, -11.80757f, -1.581451f));
 		}
+		if (PlayerPrefs.GetString("MapName").Equals("Town"))
+		{
+			position = new Vector3(-52.1f, 14f, -146.5f);
+			rotation = Quaternion.Euler(new Vector3(4.136f, 10.833f, 0f));
+		}
 		if (PlayerPrefs.GetString("MapName").Equals("Abandoned_Pool"))
 		{
 			position = new Vector3(19.36158f, 19.61019f, -24.24763f);

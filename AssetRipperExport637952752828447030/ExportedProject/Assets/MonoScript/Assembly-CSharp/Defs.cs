@@ -4,7 +4,7 @@ using UnityEngine;
 public sealed class Defs
 {
 
-	public static int numOfWeapons = 38;
+	public static int numOfWeapons = 40;
 
 	public enum RuntimeAndroidEdition
 	{
@@ -792,6 +792,7 @@ public sealed class Defs
 		mapNamesForUser.Add("Utopia", "Utopia");
 		mapNamesForUser.Add("Arena", "Arena");
 		mapNamesForUser.Add("Assault", "Warehouse");
+		mapNamesForUser.Add("Town", "Town");
 		mapNamesForUser.Add("Abandoned_Pool", "Abandoned Pool");
 		mapNamesForUser.Add("campaignsuperreal", "Campaign Full Super Real");
 		mapNamesForUser.Add("Winter", "Winter");
@@ -811,6 +812,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("Dust", 1006);
 		levelNumsForMusicInMult.Add("Bridge", 1007);
 		levelNumsForMusicInMult.Add("Assault", 1008);
+		levelNumsForMusicInMult.Add("Town", 4007);
 		levelNumsForMusicInMult.Add("Abandoned_Pool", 4006);
 		levelNumsForMusicInMult.Add("Farm", 4001);
 		levelNumsForMusicInMult.Add("Utopia", 4002);
