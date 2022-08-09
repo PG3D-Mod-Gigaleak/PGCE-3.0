@@ -424,7 +424,7 @@ public sealed class WeaponManager : MonoBehaviour
 			MultiplayerMeleeTag, _initialWeaponName, "FirstShotgun", "UziWeapon", CrystalSwordTag, MinersWeaponTag, m16Tag, EagleTag, MagicBowTag, GoldenAxeTag,
 			SPASTag, GlockTag, FAMASTag, ChainsawTag, ScytheTag, ShovelTag, HammerTag, Sword_2Tag, StaffTag, Red_StoneTag,
 			LightSwordTag, BerettaTag, MinigunTag, CrossbowTag, MaceTag, "AK47", "Machingun", "Revolver", UziTag, "SilverEagle", "FAMAS2",
-			"QuickSilverCrossbow", "RavenGun", "GoldMP5", "UkraineHammer", "Scythe2", "Beretta2", "BigSword", "MYAK47", "Glow_Stone", "Demon_SPAS", "BEAST",
+			"QuickSilverCrossbow", "RavenGun", "GoldMP5", "UkraineHammer", "Scythe2", "Beretta2", "BigSword", "MYAK47", "Glow_Stone", "Demon_SPAS", "BEAST", "not mega destroyer",
 			"Chainsaw2", "WaterMace", "HammerTroll", "ShinySword"
 		};
 		_initialMultiplayerWeaponTags = new string[]
@@ -440,7 +440,7 @@ public sealed class WeaponManager : MonoBehaviour
 			MultiplayerMeleeTag, _initialWeaponName, "FirstShotgun", "UziWeapon", CrystalSwordTag, MinersWeaponTag, m16Tag, EagleTag, MagicBowTag, GoldenAxeTag,
 			SPASTag, GlockTag, FAMASTag, ChainsawTag, ScytheTag, ShovelTag, HammerTag, Sword_2Tag, StaffTag, Red_StoneTag,
 			LightSwordTag, BerettaTag, MinigunTag, CrossbowTag, MaceTag, "AK47", "Machingun", "Revolver", UziTag, "SilverEagle", "FAMAS2",
-			"QuickSilverCrossbow", "RavenGun", "GoldMP5", "UkraineHammer", "Scythe2", "Beretta2", "BigSword", "MYAK47", "Glow_Stone", "Demon_SPAS", "BEAST",
+			"QuickSilverCrossbow", "RavenGun", "GoldMP5", "UkraineHammer", "Scythe2", "Beretta2", "BigSword", "MYAK47", "Glow_Stone", "Demon_SPAS", "BEAST", "not mega destroyer",
 			"Chainsaw2", "WaterMace", "HammerTroll", "ShinySword"
 		};
 		tagToStoreIDMapping.Add(CrystalSwordTag, "crystalsword");
