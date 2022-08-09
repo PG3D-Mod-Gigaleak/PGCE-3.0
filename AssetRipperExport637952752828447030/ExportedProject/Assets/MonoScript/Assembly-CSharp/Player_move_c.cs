@@ -1381,9 +1381,13 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void IdleAnimation()
 	{
-		if (_singleOrMultiMine() && (bool)___weaponManager && (bool)___weaponManager.currentWeaponSounds)
+		if (_singleOrMultiMine() && (bool)___weaponManager && (bool)___weaponManager.currentWeaponSounds && !isSwap())
 		{
 			___weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().CrossFade(myCAnim("Idle"));
+		}
+		else if (_singleOrMultiMine() && (bool)___weaponManager && (bool)___weaponManager.currentWeaponSounds && isSwap())
+		{
+			___weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play(myCAnim("Idle"));
 		}
 	}
 
@@ -2196,7 +2200,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void ReloadPressed()
 	{
-		if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.CurrentWeaponIndex < 0 || _weaponManager.CurrentWeaponIndex >= _weaponManager.playerWeapons.Count || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack <= 0 || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == _weaponManager.currentWeaponSounds.ammoInClip)
+		if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.CurrentWeaponIndex < 0 || _weaponManager.CurrentWeaponIndex >= _weaponManager.playerWeapons.Count || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack <= 0 || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == _weaponManager.currentWeaponSounds.ammoInClip || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
 		{
 			return;
 		}
@@ -2221,7 +2225,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void ShotPressed()
 	{
-		if ((PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")))
+		if ((PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
 		{
 			return;
 		}
@@ -2878,34 +2882,103 @@ public sealed class Player_move_c : MonoBehaviour
 		damageShown = false;
 	}
 
+	public IEnumerator SwapInRoutine()
+	{
+		if(_weaponManager.currentWeaponSounds.isSwapIn)
+		{
+		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Stop();
+		isSwappin = true;
+		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play("SwapIn");
+		yield return new WaitForSeconds(_weaponManager.currentWeaponSounds.swapTime);
+		isSwappin = false;
+		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Stop();
+		}
+	}
+
+	public IEnumerator SwapOutRoutine(bool isAlpha1)
+	{
+		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Stop();
+		isSwappin = true;
+		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play("SwapOut");
+		yield return new WaitForSeconds(_weaponManager.currentWeaponSounds.swapTime);
+		isSwappin = false;
+		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Stop();
+		if (!isAlpha1)
+		{
+		_weaponManager.CurrentWeaponIndex++;
+								int count = _weaponManager.playerWeapons.Count;
+								count = ((count == 0) ? 1 : count);
+								_weaponManager.CurrentWeaponIndex %= count;
+								ChangeWeapon(_weaponManager.CurrentWeaponIndex, false);
+									StartCoroutine(SwapInRoutine());
+		}
+		if (isAlpha1)
+		{
+			_weaponManager.CurrentWeaponIndex--;
+								if (_weaponManager.CurrentWeaponIndex < 0)
+								{
+									_weaponManager.CurrentWeaponIndex = _weaponManager.playerWeapons.Count - 1;
+								}
+								_weaponManager.CurrentWeaponIndex %= _weaponManager.playerWeapons.Count;
+								ChangeWeapon(_weaponManager.CurrentWeaponIndex, false);
+									StartCoroutine(SwapInRoutine());
+		}
+	}
+
 	private IEnumerator SetCanReceiveSwipes()
 	{
 		yield return new WaitForSeconds(0.1f);
 		canReceiveSwipes = true;
 	}
 
+	public bool isSwappin;
+
+	public bool isSwapping()
+	{
+		return isSwappin;
+	}
+
+	public bool isSwap()
+	{
+		return _weaponManager.currentWeaponSounds.isSwapIn || _weaponManager.currentWeaponSounds.isSwapOut;
+	}
+
 	private void Update()
 	{
 			if (!Application.isMobilePlatform)
 		{
-			        if (Input.GetKeyDown(KeyCode.Alpha2))
+			        if (Input.GetKeyDown(KeyCode.Alpha2) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
         {
        if ((((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1) || PlayerPrefs.GetInt("MultyPlayer") != 1)
 							{
+								if (_weaponManager.currentWeaponSounds.isSwapOut)
+								{
+									StartCoroutine(SwapOutRoutine(false));
+								}
+								if (!_weaponManager.currentWeaponSounds.isSwapOut)
+								{
 								_weaponManager.CurrentWeaponIndex++;
 								int count = _weaponManager.playerWeapons.Count;
 								count = ((count == 0) ? 1 : count);
 								_weaponManager.CurrentWeaponIndex %= count;
 								ChangeWeapon(_weaponManager.CurrentWeaponIndex, false);
+									StartCoroutine(SwapInRoutine());
+								}
 							}
 							canReceiveSwipes = false;
 							StartCoroutine(SetCanReceiveSwipes());
 							slideMagnitudeX = 0f;
 						}
-                if (Input.GetKeyDown(KeyCode.Alpha1))
+                if (Input.GetKeyDown(KeyCode.Alpha1) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
         {
 					if ((((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1) || PlayerPrefs.GetInt("MultyPlayer") != 1)
 							{
+								if (_weaponManager.currentWeaponSounds.isSwapOut)
+								{
+									StartCoroutine(SwapOutRoutine(true));
+								}
+								if (!_weaponManager.currentWeaponSounds.isSwapOut)
+								{
 								_weaponManager.CurrentWeaponIndex--;
 								if (_weaponManager.CurrentWeaponIndex < 0)
 								{
@@ -2913,6 +2986,8 @@ public sealed class Player_move_c : MonoBehaviour
 								}
 								_weaponManager.CurrentWeaponIndex %= _weaponManager.playerWeapons.Count;
 								ChangeWeapon(_weaponManager.CurrentWeaponIndex, false);
+									StartCoroutine(SwapInRoutine());
+							}
 							}
 							canReceiveSwipes = false;
 							StartCoroutine(SetCanReceiveSwipes());

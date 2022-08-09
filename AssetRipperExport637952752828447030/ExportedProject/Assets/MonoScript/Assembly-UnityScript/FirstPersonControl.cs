@@ -259,14 +259,14 @@ public class FirstPersonControl : MonoBehaviour
 		if (!(timeUpdateAnim >= 0f) && character.isGrounded)
 		{
 			timeUpdateAnim = 0.5f;
-			if (!(new Vector2(motion.x, motion.z).magnitude <= 0f))
+			if (!(new Vector2(motion.x, motion.z).magnitude <= 0f) && !_playerGun.GetComponent<Player_move_c>().isSwapping())
 			{
 				if (_playerGun != null)
 				{
 					_playerGun.SendMessage("WalkAnimation");
 				}
 			}
-			else if (_playerGun != null)
+			else if (_playerGun != null && !_playerGun.GetComponent<Player_move_c>().isSwapping())
 			{
 				_playerGun.SendMessage("IdleAnimation");
 			}

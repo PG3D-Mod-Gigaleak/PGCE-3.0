@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class WeaponSounds : MonoBehaviour
 {
+	public float swapTime = 1f;
+
+	public bool isSwapIn = false;
+
+	public bool isSwapOut = false;
+
 	public AudioClip shoot;
 
 	public AudioClip reload;
