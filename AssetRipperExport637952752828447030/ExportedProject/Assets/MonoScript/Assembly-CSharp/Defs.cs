@@ -688,7 +688,7 @@ public sealed class Defs
 		}
 	}
 
-	public static string[] MainMenuScenes = new string[] { "Menu_Utopia", "Menu_Maze", "Menu_Islands", "Menu_City" };
+	public static string[] MainMenuScenes = new string[] { "Menu_Utopia", "Menu_Maze", "Menu_Islands", "Menu_City", "Menu_Slender" };
 
 	public static string CurrentMainMenuScene;
 
