@@ -41,9 +41,16 @@ public class PersConfigurator : MonoBehaviour
 		}
 		else
 		{
-			original = list[Random.Range(0, list.Count)].weaponPrefab;
+			UnityEngine.Object[] array = new UnityEngine.Object[Defs.numOfWeapons];
+		for (int i = 0; i < Defs.numOfWeapons; i++)
+		{
+			int i2 = i + 1;
+			array[i] = Resources.Load("Weapons/Weapon" + i2);
 		}
-		GameObject gameObject = Object.Instantiate(original) as GameObject;
+		array[Defs.numOfWeapons - 1] = Resources.Load("Weapons/Weapon" + Defs.numOfWeapons);
+			original = array[Random.Range(0, array.Length - 1)] as GameObject;
+		}
+		GameObject gameObject = Object.Instantiate(original);
 		gameObject.transform.parent = body.transform;
 		weapon = gameObject;
 		weapon.transform.localPosition = Vector3.zero;

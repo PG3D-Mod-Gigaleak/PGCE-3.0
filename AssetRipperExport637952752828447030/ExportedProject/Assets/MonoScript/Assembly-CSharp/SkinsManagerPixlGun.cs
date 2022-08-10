@@ -18,7 +18,7 @@ public class SkinsManagerPixlGun : MonoBehaviour
 		Object[] array2 = array;
 		for (int i = 0; i < array2.Length; i++)
 		{
-			Texture texture = (Texture)array2[i];
+			Texture texture = array2[i] as Texture;
 			skins.Add(texture.name, texture);
 		}
 	}

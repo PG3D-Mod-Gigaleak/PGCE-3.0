@@ -67,6 +67,8 @@ public sealed class MainMenu : MonoBehaviour
 
 	public GUIStyle twitterStyle;
 
+	public GUIStyle ArmoryStyle;
+
 	public Texture fon;
 
 	public Texture bottomShadow;
@@ -257,6 +259,14 @@ public sealed class MainMenu : MonoBehaviour
 			GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().Reset();
 			FlurryPluginWrapper.LogCOOPModePress();
 			Application.LoadLevel("ConnectScene");
+		}
+		int arg4 = 3;
+		if (GUI.RepeatButton(func(arg4), string.Empty, ArmoryStyle))
+		{
+			GUIHelper.DrawLoading();
+			GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().Reset();
+			Debug.Log("hi you pressed me");
+			Application.LoadLevel("ArmoryScene");
 		}
 	}
 

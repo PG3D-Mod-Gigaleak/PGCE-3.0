@@ -6,33 +6,38 @@ public class WeaponsComparer : IComparer
 {
 	private static int baseLngth = "Weapon".Length;
 
-	private static string[] multiplayerWeaponsOrd = new string[25]
+	private static string[] multiplayerWeaponsOrd = new string[5]
 	{
-		"Weapon1",
-		"Weapon2",
-		"Weapon3",
-		"Weapon9",
-		WeaponManager.GoldenEagleWeaponName,
-		WeaponManager.BerettaWN,
-		WeaponManager.GlockWN,
-		WeaponManager.CombatRifleWeaponName,
-		WeaponManager.MinigunWN,
-		WeaponManager.SpasWeaponName,
-		WeaponManager.FAMASWN,
-		WeaponManager.MagicBowWeaponName,
-		WeaponManager.LaserRifleWN,
-		WeaponManager.LightSwordWN,
-		"Weapon6",
-		"Weapon7",
-		WeaponManager.GoldenAxeWeaponnName,
-		WeaponManager.ChainsawWN,
-		WeaponManager.ScytheWN,
-		WeaponManager.MaceWN,
-		WeaponManager.ShovelWN,
-		WeaponManager.CrossbowWN,
-		WeaponManager.Sword_2_WN,
-		WeaponManager.HammerWN,
-		WeaponManager.StaffWN
+		//"Weapon1",
+		//"Weapon2",
+		//"Weapon3",
+		//"Weapon9",
+		//WeaponManager.GoldenEagleWeaponName,
+		//WeaponManager.BerettaWN,
+		//WeaponManager.GlockWN,
+		//WeaponManager.CombatRifleWeaponName,
+		//WeaponManager.MinigunWN,
+		//WeaponManager.SpasWeaponName,
+		//WeaponManager.FAMASWN,
+		//WeaponManager.MagicBowWeaponName,
+		//WeaponManager.LaserRifleWN,
+		//WeaponManager.LightSwordWN,
+		//"Weapon6",
+		//"Weapon7",
+		//WeaponManager.GoldenAxeWeaponnName,
+		//WeaponManager.ChainsawWN,
+		//WeaponManager.ScytheWN,
+		//WeaponManager.MaceWN,
+		//WeaponManager.ShovelWN,
+		//WeaponManager.CrossbowWN,
+		//WeaponManager.Sword_2_WN,
+		//WeaponManager.HammerWN,
+		//WeaponManager.StaffWN
+		PlayerPrefs.GetString("cat1"),
+		PlayerPrefs.GetString("cat5"),
+		PlayerPrefs.GetString("cat2"),
+		PlayerPrefs.GetString("cat4"),
+		PlayerPrefs.GetString("cat3")
 	};
 
 	public int Compare(object x, object y)
