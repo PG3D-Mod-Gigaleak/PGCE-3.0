@@ -259,7 +259,7 @@ Transform:
   - {fileID: 4486653430990604}
   m_Father: {fileID: 4986598270983512}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -51.430267, z: 90.00001}
 --- !u!4 &4751137685496000
 Transform:
   m_ObjectHideFlags: 1
@@ -281,14 +281,14 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1306081573228178}
-  m_LocalRotation: {x: -0.0000003989921, y: 0.0000005057622, z: -0.70710677, w: 0.7071069}
+  m_LocalRotation: {x: 0.542171, y: 0.19128717, z: -0.54430276, w: 0.6108964}
   m_LocalPosition: {x: 0.2500001, y: 1.375, z: 0}
   m_LocalScale: {x: -1.5875, y: -1.5875, z: -1.5875}
   m_Children:
   - {fileID: 4550745953753014}
   m_Father: {fileID: 4089663687141656}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 77.79983, y: 0.00084979984, z: -89.99914}
 --- !u!12 &12783709108250396
 ParticleAnimator:
   m_ObjectHideFlags: 1
@@ -610,6 +610,8 @@ Animation:
   - {fileID: 7400000, guid: 2bb83188163e00f448c035eddfca20a2, type: 2}
   - {fileID: 7400000, guid: 8c98c1eb410ce5d45b400dc5c36c599d, type: 2}
   - {fileID: 7400000, guid: a72256108ea26a74ebc93b1916aa1754, type: 2}
+  - {fileID: 7400000, guid: fd7fd38f761584645963fe8544c15ea7, type: 2}
+  - {fileID: 7400000, guid: 39b35938478de4045bffcca0b71cd02b, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -638,6 +640,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 1
+  isSwapOut: 1
   shoot: {fileID: 8300000, guid: 6e46d6d38929ab24082f7f3d3f0455f9, type: 3}
   reload: {fileID: 8300000, guid: 7ba55b4c1a6e4a14888ce87362255a57, type: 3}
   empty: {fileID: 8300000, guid: 7a430345fb1626043b19d700b3991f07, type: 3}

@@ -20,37 +20,39 @@ public class PersConfigurator : MonoBehaviour
 		component.Reset();
 		int num = 0;
 		GameObject original = null;
-		List<Weapon> list = new List<Weapon>();
-		foreach (Weapon playerWeapon in component.playerWeapons)
-		{
-			if (WeaponManager.tagToStoreIDMapping.ContainsKey(playerWeapon.weaponPrefab.tag))
-			{
-				list.Add(playerWeapon);
-			}
-		}
-		if (list.Count == 0)
-		{
-			foreach (Weapon playerWeapon2 in component.playerWeapons)
-			{
-				if (playerWeapon2.weaponPrefab.tag.Equals(WeaponManager._initialWeaponName))
-				{
-					original = playerWeapon2.weaponPrefab;
-					break;
-				}
-			}
-		}
-		else
-		{
-			UnityEngine.Object[] array = new UnityEngine.Object[Defs.numOfWeapons];
+		List<UnityEngine.Object> list = new List<UnityEngine.Object>();
 		for (int i = 0; i < Defs.numOfWeapons; i++)
 		{
 			int i2 = i + 1;
-			array[i] = Resources.Load("Weapons/Weapon" + i2);
+			Object obj = Resources.Load("Weapons/Weapon" + i2);
+			list.Add(obj);
 		}
-		array[Defs.numOfWeapons - 1] = Resources.Load("Weapons/Weapon" + Defs.numOfWeapons);
-			original = array[Random.Range(0, array.Length - 1)] as GameObject;
-		}
-		GameObject gameObject = Object.Instantiate(original);
+		Object obj2 = Resources.Load("Weapons/Weapon" + Defs.numOfWeapons);
+		list.Add(obj2);
+		//List<Weapon> list = new List<Weapon>();
+		//foreach (Weapon playerWeapon in component.playerWeapons)
+		//{
+		//	if (WeaponManager.tagToStoreIDMapping.ContainsKey(playerWeapon.weaponPrefab.tag))
+		//	{
+		//		list.Add(playerWeapon);
+		//	}
+		//}
+		//if (list.Count == 0)
+		//{
+		//	foreach (Weapon playerWeapon2 in component.playerWeapons)
+		//	{
+		//		if (playerWeapon2.weaponPrefab.tag.Equals(WeaponManager._initialWeaponName))
+		//		{
+		//			original = playerWeapon2.weaponPrefab;
+		//			break;
+		//		}
+		//	}
+		//}
+		//else
+		//{
+			original = list[Random.Range(0, list.Count)] as GameObject;
+		//}
+		GameObject gameObject = Object.Instantiate(original) as GameObject;
 		gameObject.transform.parent = body.transform;
 		weapon = gameObject;
 		weapon.transform.localPosition = Vector3.zero;
