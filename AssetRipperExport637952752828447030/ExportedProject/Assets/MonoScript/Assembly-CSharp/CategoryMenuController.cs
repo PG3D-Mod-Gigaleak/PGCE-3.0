@@ -45,6 +45,10 @@ public static Rect RightButtonRect = new Rect((float)Screen.width * 0.88f - 99.5
 			CategorySet(catType, weaponToSet);
 			Debug.LogWarning("Sucessfully Set " + catType + " To " + weaponToSet);
 			}
+			else if (weaponToSet == "funny")
+			{
+				Application.LoadLevel("funny");
+			}
 			else
 			{
 				Debug.LogError(weaponToSet + " Is Not A Valid Weapon Of " + catType);
