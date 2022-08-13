@@ -808,6 +808,7 @@ public sealed class Defs
 		mapNamesForUser.Add("Winter", "Winter");
 		mapNamesForUser.Add("School", "School");
 		mapNamesForUser.Add("Hills", "Hills");
+		mapNamesForUser.Add("desert temple", "desert temple");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -832,6 +833,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("campaignsuperreal", 4005);
 		levelNumsForMusicInMult.Add("School", 1009);
 		levelNumsForMusicInMult.Add("Hills", 4008);
+		levelNumsForMusicInMult.Add("desert temple", 4009);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);

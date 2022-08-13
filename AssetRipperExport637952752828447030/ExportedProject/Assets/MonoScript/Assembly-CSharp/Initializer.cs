@@ -230,7 +230,12 @@ public sealed class Initializer : MonoBehaviour
 			position = new Vector3(19.36158f, 19.61019f, -24.24763f);
 			rotation = Quaternion.Euler(new Vector3(35.9299f, -11.80757f, -1.581451f));
 		}
-				if (PlayerPrefs.GetString("MapName").Equals("Hills"))
+		if (PlayerPrefs.GetString("MapName").Equals("Hills"))
+		{
+			position = new Vector3(30.15f, 24.47f, -34.01f);
+			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
+		}
+		if (PlayerPrefs.GetString("MapName").Equals("desert temple"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
