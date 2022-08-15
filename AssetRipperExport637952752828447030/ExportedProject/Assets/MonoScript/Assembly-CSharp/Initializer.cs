@@ -240,6 +240,11 @@ public sealed class Initializer : MonoBehaviour
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
+		if (PlayerPrefs.GetString("MapName").Equals("EndersHouse"))
+		{
+			position = new Vector3(8.49f, 1.14f, 0.05f);
+			rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
+		}
 		if (PlayerPrefs.GetString("MapName").Equals("minecraft_church"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
