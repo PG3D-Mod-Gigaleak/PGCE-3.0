@@ -762,7 +762,7 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: 81aa8b1f9d0dc07438325826309fceb6, type: 2}
   - {fileID: 7400000, guid: 60fc78a92c2f1954086826765226eca4, type: 2}
-  - {fileID: 7400000, guid: 97f1e1742d4c97e4fa3684009c0f0389, type: 2}
+  - {fileID: 7400000, guid: b6b10df4a9efa8b41b1779978595b199, type: 2}
   - {fileID: 7400000, guid: bd0b4733fd0b76b4898f455a46a93087, type: 2}
   - {fileID: 7400000, guid: fa2d70f0b6006d442b44e6531d257deb, type: 2}
   - {fileID: 7400000, guid: cfd700dd10081104eb18c5fff69b0121, type: 2}
@@ -801,6 +801,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 8300000, guid: 9ed80c98b20eaa7418fa022409d5154d, type: 3}
   reload: {fileID: 0}
   empty: {fileID: 0}
@@ -822,6 +825,9 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 2.2
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  maxHealItems: 0
 --- !u!148 &148507308238915976
 NetworkView:
   m_ObjectHideFlags: 1
