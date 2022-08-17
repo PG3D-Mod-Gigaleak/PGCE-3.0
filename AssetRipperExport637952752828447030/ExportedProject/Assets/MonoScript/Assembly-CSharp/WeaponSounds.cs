@@ -50,6 +50,12 @@ public class WeaponSounds : MonoBehaviour
 
 	public float meleeAttackTimeModifier = 0.57f;
 
+	public bool isHeal;
+
+	public float healAmount;
+
+	public int maxHealItems;
+
 	public int MaxAmmoWithRespectToInApp
 	{
 		get

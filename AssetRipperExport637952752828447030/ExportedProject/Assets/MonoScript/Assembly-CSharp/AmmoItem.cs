@@ -125,9 +125,13 @@ public class AmmoItem : MonoBehaviour
 		{
 			return;
 		}
-		if (!GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().AddAmmo())
+		if (!GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().AddAmmo() && !GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().currentWeaponSounds.isHeal)
 		{
 			GlobalGameController.Score += Defs.ScoreForSurplusAmmo;
+		}
+		if (GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().currentWeaponSounds.isHeal)
+		{
+			GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().AddHeal();
 		}
 		if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
 		{

@@ -923,6 +923,21 @@ public sealed class WeaponManager : MonoBehaviour
 		return false;
 	}
 
+	public void AddHeal()
+	{
+		Weapon weapon = (Weapon)playerWeapons[CurrentWeaponIndex];
+		WeaponSounds component = weapon.weaponPrefab.GetComponent<WeaponSounds>();
+		if (weapon.currentAmmoInClip < component.maxHealItems)
+		{
+			weapon.currentAmmoInClip++;
+			Debug.LogError("breh");
+		}
+		else
+		{
+			Debug.LogError("bruh");
+		}
+	}
+
 	public void SetMaxAmmoFrAllWeapons()
 	{
 		foreach (Weapon playerWeapon in playerWeapons)

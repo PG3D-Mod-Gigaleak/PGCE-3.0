@@ -812,10 +812,16 @@ public sealed class Player_move_c : MonoBehaviour
 				Debug.LogWarning("OnGUI(): _weaponManager.currentWeaponSounds is null.");
 			}
 		}
-		if (_weaponManager != null && _weaponManager.CurrentWeaponIndex >= 0 && _weaponManager.CurrentWeaponIndex < _weaponManager.playerWeapons.Count && !_weaponManager.currentWeaponSounds.isMelee)
+		if (_weaponManager != null && _weaponManager.CurrentWeaponIndex >= 0 && _weaponManager.CurrentWeaponIndex < _weaponManager.playerWeapons.Count && !_weaponManager.currentWeaponSounds.isMelee && !_weaponManager.currentWeaponSounds.isHeal)
 		{
 			GUI.DrawTexture(position5, ammoTexture);
 			GUI.Box(position6, ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip + "/" + ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack, AmmoBox);
+		}
+		if (_weaponManager.currentWeaponSounds.isHeal)
+		{
+			GUI.DrawTexture(position5, ammoTexture);
+			string str = ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip.ToString();
+			GUI.Box(position6, str, AmmoBox);
 		}
 		ScoreBox.fontSize = Mathf.RoundToInt((float)Screen.height * 0.035f);
 		float num9 = (float)(enemiesTxture.width * Screen.width) / 1024f;
@@ -2200,7 +2206,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void ReloadPressed()
 	{
-		if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.CurrentWeaponIndex < 0 || _weaponManager.CurrentWeaponIndex >= _weaponManager.playerWeapons.Count || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack <= 0 || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == _weaponManager.currentWeaponSounds.ammoInClip || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
+		if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.isHeal ||  _weaponManager.CurrentWeaponIndex < 0 || _weaponManager.CurrentWeaponIndex >= _weaponManager.playerWeapons.Count || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack <= 0 || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == _weaponManager.currentWeaponSounds.ammoInClip || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
 		{
 			return;
 		}
@@ -2230,7 +2236,7 @@ public sealed class Player_move_c : MonoBehaviour
 			return;
 		}
 		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Stop();
-		if (_weaponManager.currentWeaponSounds.isMelee)
+		if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.isHeal)
 		{
 			_Shot();
 		}
@@ -2257,11 +2263,14 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void _Shot()
 	{
+		if (!_weaponManager.currentWeaponSounds.isHeal || _weaponManager.currentWeaponSounds.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
+		{
 		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play(myCAnim("Shoot"));
 		shootS();
 		if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
 		{
 			base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.shoot);
+		}
 		}
 	}
 
@@ -2673,6 +2682,19 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public void shootS()
 	{
+		if (_weaponManager.currentWeaponSounds.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
+		{
+			if (CurHealth <= 9f)
+			{
+			CurHealth += _weaponManager.currentWeaponSounds.healAmount;
+			if (CurHealth > 9f)
+			{
+				CurHealth = 9f;
+			}
+			}
+			((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
+			return;
+		}
 		if (!_weaponManager.currentWeaponSounds.isMelee)
 		{
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0f));
