@@ -465,7 +465,6 @@ public sealed class MainMenu : MonoBehaviour
 				PlayerPrefs.SetInt("freeTube", 1);
 				int int3 = Storager.getInt(Defs.Coins, false);
 				Storager.setInt(Defs.Coins, int3 + 5, false);
-				Application.OpenURL("https://www.youtube.com/watch?v=AnxYHKe2Uwg&ab");
 			}
 		}
 		else
