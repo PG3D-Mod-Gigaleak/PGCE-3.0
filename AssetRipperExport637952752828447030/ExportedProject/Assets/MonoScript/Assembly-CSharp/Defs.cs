@@ -14,7 +14,7 @@ public sealed class Defs
 
 	public static string cat5;
 
-	public static int numOfWeapons = 56;
+	public static int numOfWeapons = 54;
 
 	public enum RuntimeAndroidEdition
 	{
@@ -811,6 +811,7 @@ public sealed class Defs
 		mapNamesForUser.Add("desert_temple", "Desert Temple");
 		mapNamesForUser.Add("minecraft_church", "cathedralllll");
 		mapNamesForUser.Add("EndersHouse", "An Enderman's House");
+		mapNamesForUser.Add("Upside_down_castle", "Upside Down Hell Castle");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -838,6 +839,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("desert_temple", 4009);
 		levelNumsForMusicInMult.Add("minecraft_church", 4010);
 		levelNumsForMusicInMult.Add("EndersHouse", 4011);
+		levelNumsForMusicInMult.Add("Upside_down_castle", 500);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
