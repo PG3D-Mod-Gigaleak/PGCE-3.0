@@ -812,6 +812,7 @@ public sealed class Defs
 		mapNamesForUser.Add("minecraft_church", "cathedralllll");
 		mapNamesForUser.Add("EndersHouse", "An Enderman's House");
 		mapNamesForUser.Add("Upside_down_castle", "Upside Down Hell Castle");
+		mapNamesForUser.Add("weird", "Weird Dimension");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -840,6 +841,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("minecraft_church", 4010);
 		levelNumsForMusicInMult.Add("EndersHouse", 4011);
 		levelNumsForMusicInMult.Add("Upside_down_castle", 500);
+		levelNumsForMusicInMult.Add("weird", 501);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
