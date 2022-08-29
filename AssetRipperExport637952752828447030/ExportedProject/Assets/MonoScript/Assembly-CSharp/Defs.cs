@@ -14,7 +14,7 @@ public sealed class Defs
 
 	public static string cat5;
 
-	public static int numOfWeapons = 64;
+	public static int numOfWeapons = 65;
 
 	public enum RuntimeAndroidEdition
 	{
@@ -698,7 +698,7 @@ public sealed class Defs
 		}
 	}
 
-	public static string[] MainMenuScenes = new string[] { "Menu_Utopia", "Menu_Maze", "Menu_Islands", "Menu_City", "Menu_Slender" };
+	public static string[] MainMenuScenes = new string[] { "Menu_Utopia", "Menu_Maze", "Menu_Islands", "Menu_City", "Menu_Slender", "Menu_Hills" };
 
 	public static string CurrentMainMenuScene;
 
