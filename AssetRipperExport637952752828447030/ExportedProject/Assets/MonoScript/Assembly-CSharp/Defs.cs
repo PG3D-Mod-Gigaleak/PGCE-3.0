@@ -14,7 +14,7 @@ public sealed class Defs
 
 	public static string cat5;
 
-	public static int numOfWeapons = 65;
+	public static int numOfWeapons = 66;
 
 	public enum RuntimeAndroidEdition
 	{
@@ -815,6 +815,7 @@ public sealed class Defs
 		mapNamesForUser.Add("weird", "Weird Dimension");
 		mapNamesForUser.Add("main_menu_but_how", "Main Menu");
 		mapNamesForUser.Add("ants_life_warehouse", "Ants Life: Warehouse");
+	    mapNamesForUser.Add("PiratIsland", "Pirate Island");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -846,6 +847,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("weird", 501);
 		levelNumsForMusicInMult.Add("main_menu_but_how", 502);
 		levelNumsForMusicInMult.Add("ants_life_warehouse", 503);
+		levelNumsForMusicInMult.Add("PiratIsland", 504);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
