@@ -426,7 +426,7 @@ public sealed class WeaponManager : MonoBehaviour
 			LightSwordTag, BerettaTag, MinigunTag, CrossbowTag, MaceTag, "AK47", "Machingun", "Revolver", UziTag, "SilverEagle", "FAMAS2",
 			"QuickSilverCrossbow", "RavenGun", "GoldMP5", "UkraineHammer", "Scythe2", "Beretta2", "BigSword", "MYAK47", "Glow_Stone", "Demon_SPAS", "BEAST", "not mega destroyer", "Slime_Cannon", "not desert eagle", "candy sword", "tom cube", "slendy_toy1", "fries",
 			"Chainsaw2", "WaterMace", "HammerTroll", "ShinySword", "happy_mace", "weird pickaxe", "mega tom", "wide gun", "kryptonite blaster beta", "ghost hands", "pirate saber", "plant arm", "sky islands as a weapon", "monster wand", "dragon bazooka", "bruhmomer",
-			"mech suit", "TigerPistol", "mp5", "Trophy", "buntu", "fishgun", "tibhategun", "sniper rifle"
+			"mech suit", "TigerPistol", "mp5", "Trophy", "buntu", "fishgun", "tibhategun", "sniper rifle", "drip hammer"
 		};
 		_initialMultiplayerWeaponTags = new string[]
 		{
@@ -443,7 +443,7 @@ public sealed class WeaponManager : MonoBehaviour
 			LightSwordTag, BerettaTag, MinigunTag, CrossbowTag, MaceTag, "AK47", "Machingun", "Revolver", UziTag, "SilverEagle", "FAMAS2",
 			"QuickSilverCrossbow", "RavenGun", "GoldMP5", "UkraineHammer", "Scythe2", "Beretta2", "BigSword", "MYAK47", "Glow_Stone", "Demon_SPAS", "BEAST", "not mega destroyer", "Slime_Cannon", "not desert eagle", "candy sword", "tom cube", "slendy_toy1", "fries",
 			"Chainsaw2", "WaterMace", "HammerTroll", "ShinySword", "happy_mace", "weird pickaxe", "mega tom", "wide gun", "kryptonite blaster beta", "ghost hands", "pirate saber", "plant arm", "sky islands as a weapon", "monster wand", "dragon bazooka", "bruhmomer",
-			"mech suit", "TigerPistol", "mp5", "Trophy", "buntu", "fishgun", "tibhategun", "sniper rifle"
+			"mech suit", "TigerPistol", "mp5", "Trophy", "buntu", "fishgun", "tibhategun", "sniper rifle", "drip hammer"
 		};
 		tagToStoreIDMapping.Add(CrystalSwordTag, "crystalsword");
 		tagToStoreIDMapping.Add(MinersWeaponTag, "MinerWeapon");

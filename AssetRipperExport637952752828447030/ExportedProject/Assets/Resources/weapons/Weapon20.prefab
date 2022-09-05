@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 114962129941291370}
   m_Layer: 0
   m_Name: Weapon20
-  m_TagString: Hammer
+  m_TagString: drip hammer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123,7 +123,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4395529291143399}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0.000006830189, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -36.776108, y: -47.70513, z: 31.455967}
 --- !u!4 &4395529291143399
 Transform:
   m_ObjectHideFlags: 1
@@ -151,7 +151,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4531846320888271}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -23.398487, y: 162.11978, z: -170.93843}
+  m_LocalEulerAnglesHint: {x: -13.721157, y: 173.05801, z: -176.37415}
 --- !u!4 &4531846320888271
 Transform:
   m_ObjectHideFlags: 1
@@ -165,7 +165,7 @@ Transform:
   - {fileID: 4501802305979806}
   m_Father: {fileID: 4395529291143399}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 94.15704, y: 105.78691, z: 105.78691}
+  m_LocalEulerAnglesHint: {x: 48.71566, y: -177.34856, z: -175.50563}
 --- !u!4 &4674236886392620
 Transform:
   m_ObjectHideFlags: 1
@@ -187,7 +187,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1562659983953639}
   m_LocalRotation: {x: 0.000000021855694, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -5.439922, y: 11.686369, z: -27.086193}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4674236886392620}
@@ -242,7 +242,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 15d3a70d09ae8574780c91ba3c5d50cd, type: 2}
+  - {fileID: 2100000, guid: e9e69f35a1faf5c438c4602cb394c1a0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -353,7 +353,7 @@ MonoBehaviour:
   swapTime: 1
   isSwapIn: 1
   isSwapOut: 1
-  shoot: {fileID: 8300000, guid: 783292e07bc101d4f892d730a35a2485, type: 3}
+  shoot: {fileID: 8300000, guid: 7e2a78f9019c0514cb1683660d60c835, type: 3}
   reload: {fileID: 0}
   empty: {fileID: 0}
   isSerialShooting: 1
@@ -363,17 +363,20 @@ MonoBehaviour:
   maxAmmo: 0
   isMelee: 1
   range: 3
-  damage: 150
+  damage: 5000
   speedModifier: 0.9
   animationObject: {fileID: 1503615018637812}
   Probability: 0
   damageRange: {x: -70, y: 70}
   gunPosition: {x: 0, y: -1.7, z: 0}
-  preview: {fileID: 2800000, guid: 5fd13a057ede3e34c9aab9d14dbf4a83, type: 3}
+  preview: {fileID: 2800000, guid: a348c5c14ab9d3c4ba32b243adc6821e, type: 3}
   inAppExtensionModifier: 10
   meleeAngle: 45
-  multiplayerDamage: 3
+  multiplayerDamage: 4
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  maxHealItems: 0
 --- !u!114 &114962129941291370
 MonoBehaviour:
   m_ObjectHideFlags: 1
