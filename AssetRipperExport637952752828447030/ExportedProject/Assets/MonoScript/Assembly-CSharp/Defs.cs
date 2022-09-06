@@ -818,6 +818,7 @@ public sealed class Defs
 	    mapNamesForUser.Add("PiratIsland", "Pirate Island");
 		mapNamesForUser.Add("buntu", "Buntu");
 		mapNamesForUser.Add("DripDust", "Drip Dust");
+		mapNamesForUser.Add("Slender_but_bad", "256p Slender Forest");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -852,6 +853,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("PiratIsland", 504);
 		levelNumsForMusicInMult.Add("buntu", 505);
 		levelNumsForMusicInMult.Add("DripDust", 506);
+		levelNumsForMusicInMult.Add("Slender_but_bad", 507);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
