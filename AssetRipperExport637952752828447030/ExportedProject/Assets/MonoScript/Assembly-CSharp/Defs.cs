@@ -819,6 +819,8 @@ public sealed class Defs
 		mapNamesForUser.Add("buntu", "Buntu");
 		mapNamesForUser.Add("DripDust", "Drip Dust");
 		mapNamesForUser.Add("Slender_but_bad", "256p Slender Forest");
+		mapNamesForUser.Add("Training_11.2.4", "Training from 11.2.4");
+		mapNamesForUser.Add("glitch_world", "Left over geometry data from pg3d");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -854,6 +856,8 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("buntu", 505);
 		levelNumsForMusicInMult.Add("DripDust", 506);
 		levelNumsForMusicInMult.Add("Slender_but_bad", 507);
+		levelNumsForMusicInMult.Add("Training_11.2.4", 508);
+		levelNumsForMusicInMult.Add("glitch_world", 509);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
