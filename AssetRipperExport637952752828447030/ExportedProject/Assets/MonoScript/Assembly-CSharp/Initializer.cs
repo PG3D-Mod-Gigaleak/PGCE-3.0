@@ -295,6 +295,11 @@ public sealed class Initializer : MonoBehaviour
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
+		if (PlayerPrefs.GetString("MapName").Equals("northpolebut"))
+		{
+			position = new Vector3(30.15f, 24.47f, -34.01f);
+			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
+		}
 		tc = UnityEngine.Object.Instantiate(tempCam, position, rotation) as GameObject;
 
 		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
