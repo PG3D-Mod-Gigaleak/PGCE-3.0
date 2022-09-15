@@ -39,10 +39,6 @@ public sealed class AppsMenu : MonoBehaviour
 
 	private void Start()
 	{
-		if (!Application.isEditor)
-		{
-			expPath = GooglePlayDownloader.GetExpansionFilePath();
-		}
 		StartCoroutine(loadLevel());
 	}
 
@@ -60,42 +56,11 @@ public sealed class AppsMenu : MonoBehaviour
 
 	private void OnGUI()
 	{
-		Rect position = new Rect(((float)Screen.width - 2048f * (float)Screen.height / 1154f) / 2f, 0f, 2048f * (float)Screen.height / 1154f, Screen.height);
-		GUI.DrawTexture(position, androidFon, ScaleMode.StretchToFill);
-		if (!Application.isEditor)
-		{
-			if (!GooglePlayDownloader.RunningOnAndroid())
-			{
-				GUI.Label(new Rect(10f, 10f, Screen.width - 10, 20f), "Use GooglePlayDownloader only on Android device!");
-			}
-			else if (string.IsNullOrEmpty(expPath))
-			{
-				GUI.Label(new Rect(10f, 10f, Screen.width - 10, 20f), "External storage is not available!");
-			}
-		}
 	}
 
 	protected IEnumerator loadLevel()
 	{
-		if (!Application.isEditor && ApplicationBinarySplitted)
-		{
-			string mainPath = GooglePlayDownloader.GetMainOBBPath(expPath);
-			if (Debug.isDebugBuild)
-			{
-				Debug.Log(string.Format("ExpPath: {0}, MainPath: {1}", expPath, mainPath));
-			}
-			if (mainPath == null)
-			{
-				GooglePlayDownloader.FetchOBB();
-			}
-			while (mainPath == null)
-			{
-				log("waiting mainPath " + mainPath);
-				yield return new WaitForSeconds(0.5f);
-				mainPath = GooglePlayDownloader.GetMainOBBPath(expPath);
-			}
-		}
-		yield return new WaitForSeconds(0.5f);
 		Application.LoadLevel("Loading");
+		yield return new WaitForSeconds(0.001f);
 	}
 }

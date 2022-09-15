@@ -143,12 +143,20 @@ public sealed class Controller : MonoBehaviour
 		}
 		if (PlayerPrefs.GetInt(Defs.SkinEditorMode, 0) == 1)
 		{
-			object[] array = Resources.LoadAll(folderName);
+			object[] array = new object[(PlayerPrefs.GetInt(Defs.SkinEditorMode, 0) != 0) ? 28 : 16];
+			for (int i = 0; i < array.Length; i++)
+			{
+				array[i] = Resources.Load((PlayerPrefs.GetInt(Defs.SkinEditorMode, 0) != 0) ? "Multiplayer Skins" : "Skins");
+			}
 			PlayerPrefs.SetInt(Defs.NumOfMultSkinsSett, array.Length);
 		}
 		if (!Load.LoadBool(CreateSpisokSkinov_sett))
 		{
-			object[] array2 = Resources.LoadAll(folderName);
+			object[] array2 = new object[(PlayerPrefs.GetInt(Defs.SkinEditorMode, 0) != 0) ? 28 : 16];
+			for (int i = 0; i < array2.Length; i++)
+			{
+				array2[i] = Resources.Load((PlayerPrefs.GetInt(Defs.SkinEditorMode, 0) != 0) ? "Multiplayer Skins" : "Skins");
+			}
 			if (PlayerPrefs.GetInt(Defs.SkinEditorMode, 0) == 0)
 			{
 				Debug.Log("arrTextur.length: " + array2.Length + "\narrTextur: " + array2);
@@ -163,7 +171,7 @@ public sealed class Controller : MonoBehaviour
 				string text = baseName + i;
 				arrTitleSkin.Add(arrVremTitle[i]);
 				arrNameSkin.Add(text);
-				SkinsManager.SaveTextureWithName((Texture2D)array2[i], text, false);
+				SkinsManager.SaveTextureWithName(array2[i] as Texture2D, text, false);
 			}
 			string[] variable = arrNameSkin.ToArray(typeof(string)) as string[];
 			Debug.Log("arrStringNameSkin");

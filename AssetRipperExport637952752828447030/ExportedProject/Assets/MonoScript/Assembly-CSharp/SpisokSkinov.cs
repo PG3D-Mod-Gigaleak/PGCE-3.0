@@ -357,7 +357,9 @@ public sealed class SpisokSkinov : MonoBehaviour
 		}
 		string value = (string)arrNameSkin[mainController.previewControl.CurrentTextureIndex];
 		PlayerPrefs.SetString(Defs.SkinNameMultiplayer, value);
+		Debug.LogError(value);
 		PlayerPrefs.SetInt(Defs.SkinIndexMultiplayer, num);
+		Debug.LogError(num + string.Empty);
 		PlayerPrefs.SetString("NamePlayer", namePlayer);
 		PlayerPrefs.Save();
 	}

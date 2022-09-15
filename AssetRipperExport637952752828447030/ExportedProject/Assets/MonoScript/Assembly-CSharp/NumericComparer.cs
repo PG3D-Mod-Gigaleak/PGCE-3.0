@@ -15,4 +15,14 @@ public class NumericComparer : IComparer
 		int num2 = int.Parse(name2);
 		return num - num2;
 	}
+	public int Compare(Texture x, Texture y)
+	{
+		string name = x.name;
+		string name2 = y.name;
+		name = name.Substring(baseLngth);
+		name2 = name2.Substring(baseLngth);
+		int num = int.Parse(name);
+		int num2 = int.Parse(name2);
+		return num - num2;
+	}
 }
