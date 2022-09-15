@@ -19,42 +19,64 @@ public GUIStyle nameStyle;
 
 public GUIStyle setButton;
 
-private string weaponToSet;
+public GUIStyle arrow1;
+
+public GUIStyle arrow2;
+
+public GUIStyle labelThingy;
+
+public string currentWeapon;
+
+public Texture currentWeaponTexture;
+
+public string currentWeaponName;
 
 private float koofScreen = (float)Screen.height / 768f;
 
-public static Rect NameFieldRect = new Rect((float)Screen.width * 0.12f - 99.5f * (float)Screen.height / 768f + 700f, (float)Screen.height * 0.9f - 43.5f * (float)Screen.height / 768f - 450f, (float)(199 * Screen.height) / 768f, (float)(87 * Screen.height) / 768f);
+	public void Start()
+	{
+		currentWeapon = weapons[0];
+	}
 
-public static Rect SetButtonRect = new Rect((float)Screen.width * 0.12f - 99.5f * (float)Screen.height / 768f + 700f, (float)Screen.height * 0.9f - 43.5f * (float)Screen.height / 768f - 350f, (float)(199 * Screen.height) / 768f, (float)(87 * Screen.height) / 768f);
-
-public static Rect LeftButtonRect = new Rect((float)Screen.width * 0.12f - 99.5f * (float)Screen.height / 768f, (float)Screen.height * 0.9f - 43.5f * (float)Screen.height / 768f, (float)(199 * Screen.height) / 768f, (float)(87 * Screen.height) / 768f);
-
-public static Rect RightButtonRect = new Rect((float)Screen.width * 0.88f - 99.5f * (float)Screen.height / 768f, LeftButtonRect.y + LeftButtonRect.height - (float)(193 * Screen.height) / 768f, (float)(199 * Screen.height) / 768f, (float)(193 * Screen.height) / 768f);
-
+	public void Update()
+	{
+		currentWeaponTexture = Utilities.LoadObject("Weapons/" + currentWeapon).GetComponent<WeaponSounds>().preview;
+		currentWeaponName = Utilities.LoadObject("Weapons/" + currentWeapon).tag;
+	}
 
 	public void OnGUI()
 	{
-		
 		Rect position = new Rect(((float)Screen.width - 2048f * (float)Screen.height / 1154f) / 2f, 0f, 2048f * (float)Screen.height / 1154f, Screen.height);
 		GUI.DrawTexture(position, catFon, ScaleMode.StretchToFill);
-		weaponToSet = GUI.TextField(new Rect((float)Screen.width * 0.5f, (float)Screen.height * 0.2f, (float)Screen.width * 0.3f, (float)Screen.height * 0.05f), weaponToSet, nameStyle);
-		if (GUI.Button(SetButtonRect, string.Empty, setButton))
+		GUI.DrawTexture(Utilities.screenScaleRect(0.35f, 0.34f, 0.2f, 0.15f), currentWeaponTexture, ScaleMode.StretchToFill);
+		GUI.Label(Utilities.screenScaleRect(0.45f, 0.2f, 0.4f, 0.7f), currentWeaponName, labelThingy);
+		if (GUI.Button(Utilities.screenScaleRect(0.6f, 0.4f, 0.03f, 0.05f), string.Empty, arrow1))
 		{
-			if (Array.IndexOf(weapons, weaponToSet) >= 0)
+			if (weaponIndex() >= weapons.Length - 1)
 			{
-			CategorySet(catType, weaponToSet);
-			Debug.LogWarning("Sucessfully Set " + catType + " To " + weaponToSet);
+				currentWeapon = weapons[0];
+				return;
 			}
-			else if (weaponToSet == "funny")
+			if (weaponIndex() < weapons.Length - 1)
 			{
-				Application.LoadLevel("funny");
-			}
-			else
-			{
-				Debug.LogError(weaponToSet + " Is Not A Valid Weapon Of " + catType);
+				currentWeapon = weapons[weaponIndex() + 1];
 			}
 		}
-		if (GUI.Button(LeftButtonRect, string.Empty, back))
+		if (GUI.Button(Utilities.screenScaleRect(0.35f, 0.4f, 0.03f, 0.05f), string.Empty, arrow2))
+		{
+			if (weaponIndex() < 1)
+			{
+				currentWeapon = weapons[weapons.Length - 1];
+				return;
+			}
+				currentWeapon = weapons[weaponIndex() - 1];
+		}
+		if (GUI.Button(Utilities.screenScaleRect(0.43f, 0.55f, 0.12f, 0.1f), string.Empty, setButton))
+		{
+			CategorySet(catType, currentWeaponName);
+			Debug.LogWarning("Sucessfully Set " + catType + " To " + currentWeaponName);
+		}
+		if (GUI.Button(Utilities.screenScaleRect(0.1f, 0.8f, 0.12f, 0.1f), string.Empty, back))
 		{
 			GUIHelper.DrawLoading();
 			Application.LoadLevel("ArmoryScene");
@@ -64,4 +86,15 @@ public static Rect RightButtonRect = new Rect((float)Screen.width * 0.88f - 99.5
 	{
 		PlayerPrefs.SetString(catnumber, weapon);
 	} 
+	public int weaponIndex()
+	{
+		for (int i = 0; i < weapons.Length; i++)
+		{
+			if (currentWeapon == weapons[i])
+			{
+				return i;
+			}
+		}
+		return 0;
+	}
 }
