@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MouseControls : MonoBehaviour {
 
-    public static bool islocked;
-
     public float mouseSensitivity = 100f;
 
     public Transform playerBody;
@@ -15,11 +13,11 @@ public class MouseControls : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Cursor.lockState = CursorLockMode.Locked;
-        islocked = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        bool islocked = Cursor.lockState == CursorLockMode.Locked;
         if (!Application.isMobilePlatform)
         {
         if (islocked)   {
@@ -33,20 +31,6 @@ public class MouseControls : MonoBehaviour {
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
-        }
-        else if (!islocked)
-        {
-            Cursor.visible = true;
-        }
-        if (Input.GetKeyDown(KeyCode.F1) && !islocked)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            islocked = true;
-        }
-        else if (Input.GetKeyDown(KeyCode.F1) && islocked)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            islocked = false;
         }
         }
     }

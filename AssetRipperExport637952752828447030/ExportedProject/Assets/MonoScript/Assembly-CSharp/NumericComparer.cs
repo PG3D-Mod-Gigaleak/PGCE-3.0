@@ -7,8 +7,10 @@ public class NumericComparer : IComparer
 
 	public int Compare(object x, object y)
 	{
-		string name = ((Texture)x).name;
-		string name2 = ((Texture)y).name;
+		Texture xt = x as Texture;
+		Texture yt = y as Texture;
+		string name = xt.name;
+		string name2 = yt.name;
 		name = name.Substring(baseLngth);
 		name2 = name2.Substring(baseLngth);
 		int num = int.Parse(name);

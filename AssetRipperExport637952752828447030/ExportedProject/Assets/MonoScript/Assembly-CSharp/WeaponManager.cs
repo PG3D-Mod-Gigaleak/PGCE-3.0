@@ -412,6 +412,21 @@ public sealed class WeaponManager : MonoBehaviour
 		}
 	}
 
+	void Update()
+	{
+		bool islocked = Cursor.lockState == CursorLockMode.Locked;
+        if (Input.GetKeyDown(KeyCode.F1) && !islocked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+			Cursor.visible = false;
+        }
+        else if (Input.GetKeyDown(KeyCode.F1) && islocked)
+        {
+            Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
+        }
+	}
+
 	static WeaponManager()
 	{
 		CrystalSwordTag = "CrystalSword";
