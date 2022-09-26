@@ -14,7 +14,7 @@ public sealed class Defs
 
 	public static string cat5;
 
-	public static int numOfWeapons = 80;
+	public static int numOfWeapons = 83;
 
 	public enum RuntimeAndroidEdition
 	{
@@ -698,7 +698,7 @@ public sealed class Defs
 		}
 	}
 
-	public static string[] MainMenuScenes = new string[] { "Menu_Utopia", "Menu_Maze", "Menu_Islands", "Menu_City", "Menu_Slender", "Menu_Hills" };
+	public static string[] MainMenuScenes = new string[] { "Menu_Utopia", "Menu_Maze", "Menu_Islands", "Menu_City", "Menu_Slender", "Menu_Hills", "Menu_Unused_ParkingSpace" };
 
 	public static string CurrentMainMenuScene;
 
@@ -823,6 +823,7 @@ public sealed class Defs
 		mapNamesForUser.Add("glitch_world", "Left over geometry data from pg3d");
 		mapNamesForUser.Add("northpolebut", "North Pole map but");
 		mapNamesForUser.Add("Stupid52", "Area 52 but very unfunny");
+		mapNamesForUser.Add("COMZ_older_village", "COMZ unused village");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -862,6 +863,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("glitch_world", 509);
 		levelNumsForMusicInMult.Add("northpolebut", 510);
 		levelNumsForMusicInMult.Add("Stupid52", 511);
+		levelNumsForMusicInMult.Add("COMZ_older_village", 512);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);

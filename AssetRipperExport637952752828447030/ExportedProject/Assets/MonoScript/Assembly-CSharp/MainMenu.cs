@@ -464,7 +464,7 @@ public sealed class MainMenu : MonoBehaviour
 				FlurryPluginWrapper.LogFreeCoinsYoutube();
 				PlayerPrefs.SetInt("freeTube", 1);
 				int int3 = Storager.getInt(Defs.Coins, false);
-				Storager.setInt(Defs.Coins, int3 + 5, false);
+				Storager.setInt(Defs.Coins, int3 + 100, false);
 			}
 		}
 		else
