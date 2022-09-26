@@ -310,6 +310,11 @@ public sealed class Initializer : MonoBehaviour
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
+		if (PlayerPrefs.GetString("MapName").Equals("COMZ_unused_hospital"))
+		{
+			position = new Vector3(11.2f, 2.6f, -0.8f);
+			rotation = Quaternion.Euler(new Vector3(8.966001f, -99.898f, -1.191f));
+		}
 		tc = UnityEngine.Object.Instantiate(tempCam, position, rotation) as GameObject;
 
 		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
