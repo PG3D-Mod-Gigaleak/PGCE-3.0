@@ -441,7 +441,8 @@ public sealed class WeaponManager : MonoBehaviour
 			LightSwordTag, BerettaTag, MinigunTag, CrossbowTag, MaceTag, "AK47", "Machingun", "Revolver", UziTag, "SilverEagle", "FAMAS2",
 			"QuickSilverCrossbow", "RavenGun", "GoldMP5", "UkraineHammer", "Scythe2", "Beretta2", "BigSword", "MYAK47", "Glow_Stone", "Demon_SPAS", "BEAST", "not mega destroyer", "Slime_Cannon", "not desert eagle", "candy sword", "tom cube", "slendy_toy1", "fries",
 			"Chainsaw2", "WaterMace", "HammerTroll", "ShinySword", "happy_mace", "weird pickaxe", "mega tom", "wide gun", "kryptonite blaster beta", "ghost hands", "pirate saber", "plant arm", "sky islands as a weapon", "monster wand", "dragon bazooka", "bruhmomer",
-			"mech suit", "TigerPistol", "mp5", "Trophy", "buntu", "fishgun", "tibhategun", "sniper rifle", "drip hammer", "Hammer (3.6)", "unknown box", "sodamachine", "disability", "martian ray gun", "4jfyHJ6X93jtr", "piramid", "comzp90", "comzmp5", "comzak47", "comzaug"
+			"mech suit", "TigerPistol", "mp5", "Trophy", "buntu", "fishgun", "tibhategun", "sniper rifle", "drip hammer", "Hammer (3.6)", "unknown box", "sodamachine", "disability", "martian ray gun", "4jfyHJ6X93jtr", "piramid", "comzp90", "comzmp5", "comzak47", "comzaug",
+			"comzxm", "comzremington", "comzshotgun", "enditank"
 		};
 		_initialMultiplayerWeaponTags = new string[]
 		{
@@ -453,12 +454,14 @@ public sealed class WeaponManager : MonoBehaviour
 			//multiplayerWeaponTags[26],
 			//multiplayerWeaponTags[27],
 			//multiplayerWeaponTags[28]
-			MultiplayerMeleeTag, _initialWeaponName, "FirstShotgun", "UziWeapon", CrystalSwordTag, MinersWeaponTag, m16Tag, EagleTag, MagicBowTag, GoldenAxeTag,
-			SPASTag, GlockTag, FAMASTag, ChainsawTag, ScytheTag, ShovelTag, HammerTag, Sword_2Tag, StaffTag, Red_StoneTag,
-			LightSwordTag, BerettaTag, MinigunTag, CrossbowTag, MaceTag, "AK47", "Machingun", "Revolver", UziTag, "SilverEagle", "FAMAS2",
-			"QuickSilverCrossbow", "RavenGun", "GoldMP5", "UkraineHammer", "Scythe2", "Beretta2", "BigSword", "MYAK47", "Glow_Stone", "Demon_SPAS", "BEAST", "not mega destroyer", "Slime_Cannon", "not desert eagle", "candy sword", "tom cube", "slendy_toy1", "fries",
-			"Chainsaw2", "WaterMace", "HammerTroll", "ShinySword", "happy_mace", "weird pickaxe", "mega tom", "wide gun", "kryptonite blaster beta", "ghost hands", "pirate saber", "plant arm", "sky islands as a weapon", "monster wand", "dragon bazooka", "bruhmomer",
-			"mech suit", "TigerPistol", "mp5", "Trophy", "buntu", "fishgun", "tibhategun", "sniper rifle", "drip hammer", "Hammer (3.6)", "unknown box", "sodamachine", "disability", "martian ray gun", "4jfyHJ6X93jtr", "piramid", "comzp90", "comzmp5", "comzak47", "comzaug"
+			//MultiplayerMeleeTag, _initialWeaponName, "FirstShotgun", "UziWeapon", CrystalSwordTag, MinersWeaponTag, m16Tag, EagleTag, MagicBowTag, GoldenAxeTag,
+			//SPASTag, GlockTag, FAMASTag, ChainsawTag, ScytheTag, ShovelTag, HammerTag, Sword_2Tag, StaffTag, Red_StoneTag,
+			//LightSwordTag, BerettaTag, MinigunTag, CrossbowTag, MaceTag, "AK47", "Machingun", "Revolver", UziTag, "SilverEagle", "FAMAS2",
+			//"QuickSilverCrossbow", "RavenGun", "GoldMP5", "UkraineHammer", "Scythe2", "Beretta2", "BigSword", "MYAK47", "Glow_Stone", "Demon_SPAS", "BEAST", "not mega destroyer", "Slime_Cannon", "not desert eagle", "candy sword", "tom cube", "slendy_toy1", "fries",
+			//"Chainsaw2", "WaterMace", "HammerTroll", "ShinySword", "happy_mace", "weird pickaxe", "mega tom", "wide gun", "kryptonite blaster beta", "ghost hands", "pirate saber", "plant arm", "sky islands as a weapon", "monster wand", "dragon bazooka", "bruhmomer",
+			//"mech suit", "TigerPistol", "mp5", "Trophy", "buntu", "fishgun", "tibhategun", "sniper rifle", "drip hammer", "Hammer (3.6)", "unknown box", "sodamachine", "disability", "martian ray gun", "4jfyHJ6X93jtr", "piramid", "comzp90", "comzmp5", "comzak47", "comzaug",
+			//"comzxm", "comzremington"
+			"bruh"
 		};
 		tagToStoreIDMapping.Add(CrystalSwordTag, "crystalsword");
 		tagToStoreIDMapping.Add(MinersWeaponTag, "MinerWeapon");

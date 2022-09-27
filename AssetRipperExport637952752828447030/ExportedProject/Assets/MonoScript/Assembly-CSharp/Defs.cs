@@ -14,7 +14,7 @@ public sealed class Defs
 
 	public static string cat5;
 
-	public static int numOfWeapons = 85;
+	public static int numOfWeapons = 89;
 
 	public enum RuntimeAndroidEdition
 	{
@@ -825,6 +825,9 @@ public sealed class Defs
 		mapNamesForUser.Add("Stupid52", "Area 52 but very unfunny");
 		mapNamesForUser.Add("COMZ_older_village", "COMZ unused village");
 		mapNamesForUser.Add("COMZ_unused_hospital", "COMZ unused hospital");
+		mapNamesForUser.Add("COMZ_test", "COMZ test map");
+		mapNamesForUser.Add("COMZ_unused_parkingspace", "COMZ unused parking lot");
+		mapNamesForUser.Add("SandboxSmall", "Endi Tank Sandbox");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -866,6 +869,9 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("Stupid52", 511);
 		levelNumsForMusicInMult.Add("COMZ_older_village", 512);
 		levelNumsForMusicInMult.Add("COMZ_unused_hospital", 513);
+		levelNumsForMusicInMult.Add("COMZ_test", 514);
+		levelNumsForMusicInMult.Add("COMZ_unused_parkingspace", 515);
+		levelNumsForMusicInMult.Add("SandboxSmall", 516);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);

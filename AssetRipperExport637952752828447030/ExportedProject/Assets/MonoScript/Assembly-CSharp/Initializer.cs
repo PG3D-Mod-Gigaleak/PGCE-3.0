@@ -312,8 +312,23 @@ public sealed class Initializer : MonoBehaviour
 		}
 		if (PlayerPrefs.GetString("MapName").Equals("COMZ_unused_hospital"))
 		{
-			position = new Vector3(11.2f, 2.6f, -0.8f);
+			position = new Vector3(11.2f, 2.71f, 9.9f);
+			rotation = Quaternion.Euler(new Vector3(0f, -45.053f, 0f));
+		}
+		if (PlayerPrefs.GetString("MapName").Equals("COMZ_test"))
+		{
+			position = new Vector3(10.78f, 2.6f, -0.8f);
 			rotation = Quaternion.Euler(new Vector3(8.966001f, -99.898f, -1.191f));
+		}
+		if (PlayerPrefs.GetString("MapName").Equals("COMZ_unused_parkingspace"))
+		{
+			position = new Vector3(3f, 2.18f, -2.15f);
+			rotation = Quaternion.Euler(new Vector3(5.661f, -131.569f, -1.738f));
+		}
+		if (PlayerPrefs.GetString("MapName").Equals("SandboxSmall"))
+		{
+			position = new Vector3(-20.2f, 10f, -28.4f);
+			rotation = Quaternion.Euler(new Vector3(12.826f, 51.444f, 3.004f));
 		}
 		tc = UnityEngine.Object.Instantiate(tempCam, position, rotation) as GameObject;
 
