@@ -442,7 +442,7 @@ public sealed class WeaponManager : MonoBehaviour
 			"QuickSilverCrossbow", "RavenGun", "GoldMP5", "UkraineHammer", "Scythe2", "Beretta2", "BigSword", "MYAK47", "Glow_Stone", "Demon_SPAS", "BEAST", "not mega destroyer", "Slime_Cannon", "not desert eagle", "candy sword", "tom cube", "slendy_toy1", "fries",
 			"Chainsaw2", "WaterMace", "HammerTroll", "ShinySword", "happy_mace", "weird pickaxe", "mega tom", "wide gun", "kryptonite blaster beta", "ghost hands", "pirate saber", "plant arm", "sky islands as a weapon", "monster wand", "dragon bazooka", "bruhmomer",
 			"mech suit", "TigerPistol", "mp5", "Trophy", "buntu", "fishgun", "tibhategun", "sniper rifle", "drip hammer", "Hammer (3.6)", "unknown box", "sodamachine", "disability", "martian ray gun", "4jfyHJ6X93jtr", "piramid", "comzp90", "comzmp5", "comzak47", "comzaug",
-			"comzxm", "comzremington", "comzshotgun", "enditank", "zombie", "SVD"
+			"comzxm", "comzremington", "comzshotgun", "enditank", "zombie", "SVD", "chicken"
 		};
 		_initialMultiplayerWeaponTags = new string[]
 		{
@@ -950,11 +950,6 @@ public sealed class WeaponManager : MonoBehaviour
 		if (weapon.currentAmmoInClip < component.maxHealItems)
 		{
 			weapon.currentAmmoInClip++;
-			Debug.LogError("breh");
-		}
-		else
-		{
-			Debug.LogError("bruh");
 		}
 	}
 

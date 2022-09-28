@@ -28,7 +28,7 @@ public class MenuBackgroundMusic : MonoBehaviour
 		{
 			if (!base.GetComponent<AudioSource>().isPlaying && (Array.IndexOf(Defs.MainMenuScenes, Application.loadedLevelName) >= 0))
 			{
-				base.GetComponent<AudioSource>().clip = Resources.Load("menumusic_" + Application.loadedLevelName) as AudioClip;
+				base.GetComponent<AudioSource>().clip = Resources.Load("MenuResources/Music/menumusic_" + Application.loadedLevelName) as AudioClip;
 				base.GetComponent<AudioSource>().Play();
 			}
 			if (!base.GetComponent<AudioSource>().isPlaying && !(Array.IndexOf(Defs.MainMenuScenes, Application.loadedLevelName) >= 0))

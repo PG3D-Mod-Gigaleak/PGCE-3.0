@@ -1837,7 +1837,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		int currentWeaponIndex = _weaponManager.CurrentWeaponIndex;
 		Weapon weapon = (Weapon)_weaponManager.playerWeapons[currentWeaponIndex];
-		return weapon.currentAmmoInBackpack < _weaponManager.currentWeaponSounds.MaxAmmoWithRespectToInApp;
+		return weapon.currentAmmoInBackpack < _weaponManager.currentWeaponSounds.MaxAmmoWithRespectToInApp || _weaponManager.currentWeaponSounds.isHeal;
 	}
 
 	private void SwitchPause()
@@ -2684,6 +2684,19 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		if (_weaponManager.currentWeaponSounds.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
 		{
+			if (_weaponManager.currentWeaponSounds.HealArmor)
+			{
+			if (curArmor <= 9f)
+			{
+			curArmor += _weaponManager.currentWeaponSounds.healAmount;
+			if (curArmor > 9f)
+			{
+				curArmor = 9f;
+			}
+			}
+			((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
+			return;
+			}
 			if (CurHealth <= 9f)
 			{
 			CurHealth += _weaponManager.currentWeaponSounds.healAmount;

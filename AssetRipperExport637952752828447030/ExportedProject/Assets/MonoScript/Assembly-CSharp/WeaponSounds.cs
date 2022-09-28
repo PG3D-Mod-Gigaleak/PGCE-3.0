@@ -54,6 +54,8 @@ public class WeaponSounds : MonoBehaviour
 
 	public float healAmount;
 
+	public bool HealArmor;
+
 	public int maxHealItems;
 
 	public int MaxAmmoWithRespectToInApp
