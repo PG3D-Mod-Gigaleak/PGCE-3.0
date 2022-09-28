@@ -1,0 +1,491 @@
+-debug
+-target:library
+-nowarn:0169
+-langversion:4
+-out:Temp/Assembly-CSharp.dll
+-unsafe
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEditor.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.CoreModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.AccessibilityModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.ParticleSystemModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.PhysicsModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.VehiclesModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClothModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.AnimationModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.TextRenderingModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainPhysicsModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.IMGUIModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterInputModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.UNETModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.DirectorModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityAnalyticsModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.PerformanceReportingModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityConnectModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.WebModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.ARModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.VRModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.UIElementsModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.StyleSheetsModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.AssetBundleModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.AudioModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.CrashReportingModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.GameCenterModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.GridModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.ImageConversionModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.InputModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.JSONSerializeModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.ParticlesLegacyModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.Physics2DModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.TerrainModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.TilemapModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestAudioModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestTextureModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.UnityWebRequestWWWModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.VideoModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/Managed/UnityEngine/UnityEngine.WindModule.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/UnityExtensions/Unity/TestRunner/net35/unity-custom/nunit.framework.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/UnityExtensions/Unity/UIAutomation/UnityEngine.UIAutomation.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll"
+-r:"C:/Program Files/Unity/Hub/Editor/2017.4.40f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll"
+-r:Assets/MonoScript/Assembly-CSharp-firstpass.dll
+-r:Assets/MonoScript/Assembly-UnityScript-firstpass.dll
+-r:Assets/MonoScript/DecalSystem.Runtime.dll
+-r:Assets/MonoScript/FlyingText3D.dll
+-r:Assets/MonoScript/HOTween.dll
+-r:Assets/MonoScript/Mono.Security.dll
+-r:Assets/MonoScript/P31RestKit.dll
+-r:Assets/MonoScript/Photon3Unity3D.dll
+-r:"C:/Users/Тулуня/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.13/UnityEngine.Analytics.dll"
+-r:"C:/Users/Тулуня/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.purchasing@0.0.19/UnityEngine.Purchasing.dll"
+-r:"C:/Users/Тулуня/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.10/UnityEngine.StandardEvents.dll"
+-define:UNITY_5_3_OR_NEWER
+-define:UNITY_5_4_OR_NEWER
+-define:UNITY_5_5_OR_NEWER
+-define:UNITY_5_6_OR_NEWER
+-define:UNITY_2017_1_OR_NEWER
+-define:UNITY_2017_2_OR_NEWER
+-define:UNITY_2017_3_OR_NEWER
+-define:UNITY_2017_4_OR_NEWER
+-define:UNITY_2017_4_40
+-define:UNITY_2017_4
+-define:UNITY_2017
+-define:ENABLE_AUDIO
+-define:ENABLE_CACHING
+-define:ENABLE_CLOTH
+-define:ENABLE_DUCK_TYPING
+-define:ENABLE_GENERICS
+-define:ENABLE_PVR_GI
+-define:ENABLE_MICROPHONE
+-define:ENABLE_MULTIPLE_DISPLAYS
+-define:ENABLE_PHYSICS
+-define:ENABLE_SPRITERENDERER_FLIPPING
+-define:ENABLE_SPRITES
+-define:ENABLE_GRID
+-define:ENABLE_TILEMAP
+-define:ENABLE_TERRAIN
+-define:ENABLE_RAKNET
+-define:ENABLE_DIRECTOR
+-define:ENABLE_UNET
+-define:ENABLE_LZMA
+-define:ENABLE_UNITYEVENTS
+-define:ENABLE_WEBCAM
+-define:ENABLE_WWW
+-define:ENABLE_CLOUD_SERVICES_COLLAB
+-define:ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS
+-define:ENABLE_CLOUD_SERVICES_ADS
+-define:ENABLE_CLOUD_HUB
+-define:ENABLE_CLOUD_PROJECT_ID
+-define:ENABLE_CLOUD_SERVICES_USE_WEBREQUEST
+-define:ENABLE_CLOUD_SERVICES_UNET
+-define:ENABLE_CLOUD_SERVICES_BUILD
+-define:ENABLE_CLOUD_LICENSE
+-define:ENABLE_EDITOR_HUB
+-define:ENABLE_EDITOR_HUB_LICENSE
+-define:ENABLE_WEBSOCKET_CLIENT
+-define:ENABLE_DIRECTOR_AUDIO
+-define:ENABLE_DIRECTOR_TEXTURE
+-define:ENABLE_TIMELINE
+-define:ENABLE_EDITOR_METRICS
+-define:ENABLE_EDITOR_METRICS_CACHING
+-define:ENABLE_NATIVE_ARRAY
+-define:ENABLE_SPRITE_MASKING
+-define:INCLUDE_DYNAMIC_GI
+-define:INCLUDE_GI
+-define:ENABLE_MONO_BDWGC
+-define:PLATFORM_SUPPORTS_MONO
+-define:RENDER_SOFTWARE_CURSOR
+-define:INCLUDE_PUBNUB
+-define:ENABLE_PLAYMODE_TESTS_RUNNER
+-define:ENABLE_VIDEO
+-define:ENABLE_RMGUI
+-define:ENABLE_PACKMAN
+-define:ENABLE_CUSTOM_RENDER_TEXTURE
+-define:ENABLE_STYLE_SHEETS
+-define:ENABLE_LOCALIZATION
+-define:PLATFORM_STANDALONE_WIN
+-define:PLATFORM_STANDALONE
+-define:UNITY_STANDALONE_WIN
+-define:UNITY_STANDALONE
+-define:ENABLE_SUBSTANCE
+-define:ENABLE_RUNTIME_GI
+-define:ENABLE_MOVIES
+-define:ENABLE_NETWORK
+-define:ENABLE_CRUNCH_TEXTURE_COMPRESSION
+-define:ENABLE_UNITYWEBREQUEST
+-define:ENABLE_CLOUD_SERVICES
+-define:ENABLE_CLOUD_SERVICES_ANALYTICS
+-define:ENABLE_CLOUD_SERVICES_PURCHASING
+-define:ENABLE_CLOUD_SERVICES_CRASH_REPORTING
+-define:ENABLE_EVENT_QUEUE
+-define:ENABLE_CLUSTERINPUT
+-define:ENABLE_VR
+-define:ENABLE_AR
+-define:ENABLE_WEBSOCKET_HOST
+-define:ENABLE_MONO
+-define:NET_2_0_SUBSET
+-define:ENABLE_PROFILER
+-define:DEBUG
+-define:TRACE
+-define:UNITY_ASSERTIONS
+-define:UNITY_EDITOR
+-define:UNITY_EDITOR_64
+-define:UNITY_EDITOR_WIN
+-define:ENABLE_NATIVE_ARRAY_CHECKS
+-define:UNITY_TEAM_LICENSE
+Assets/export/PGW/Interpolate.cs
+Assets/export/PGW/MeleeWeaponTrail.cs
+Assets/export/PGW/SwordTrail.cs
+Assets/MonoScript/Assembly-CSharp/ActiveAnimation.cs
+Assets/MonoScript/Assembly-CSharp/ActivityIndicator.cs
+Assets/MonoScript/Assembly-CSharp/ActorProperties.cs
+Assets/MonoScript/Assembly-CSharp/AmmoItem.cs
+Assets/MonoScript/Assembly-CSharp/AndroidInappIABManager.cs
+Assets/MonoScript/Assembly-CSharp/AnimatedAlpha.cs
+Assets/MonoScript/Assembly-CSharp/AnimatedColor.cs
+Assets/MonoScript/Assembly-CSharp/AnimationOrTween/Direction.cs
+Assets/MonoScript/Assembly-CSharp/AnimationOrTween/DisableCondition.cs
+Assets/MonoScript/Assembly-CSharp/AnimationOrTween/EnableCondition.cs
+Assets/MonoScript/Assembly-CSharp/AnimationOrTween/Trigger.cs
+Assets/MonoScript/Assembly-CSharp/AppsMenu.cs
+Assets/MonoScript/Assembly-CSharp/ArmoryController.cs
+Assets/MonoScript/Assembly-CSharp/ArrayListWrapper.cs
+Assets/MonoScript/Assembly-CSharp/AuthenticationValues.cs
+Assets/MonoScript/Assembly-CSharp/AutoFade.cs
+Assets/MonoScript/Assembly-CSharp/BetterList.cs
+Assets/MonoScript/Assembly-CSharp/BMFont.cs
+Assets/MonoScript/Assembly-CSharp/BMGlyph.cs
+Assets/MonoScript/Assembly-CSharp/BMSymbol.cs
+Assets/MonoScript/Assembly-CSharp/BonusCreator.cs
+Assets/MonoScript/Assembly-CSharp/BotAI.cs
+Assets/MonoScript/Assembly-CSharp/BotHealth.cs
+Assets/MonoScript/Assembly-CSharp/BotMovement.cs
+Assets/MonoScript/Assembly-CSharp/BotTrigger.cs
+Assets/MonoScript/Assembly-CSharp/Bullet.cs
+Assets/MonoScript/Assembly-CSharp/ByteReader.cs
+Assets/MonoScript/Assembly-CSharp/CategoryMenuController.cs
+Assets/MonoScript/Assembly-CSharp/ChatLabel.cs
+Assets/MonoScript/Assembly-CSharp/ChatScroll.cs
+Assets/MonoScript/Assembly-CSharp/ChatViewrController.cs
+Assets/MonoScript/Assembly-CSharp/CloudServerRegion.cs
+Assets/MonoScript/Assembly-CSharp/CoinBonus.cs
+Assets/MonoScript/Assembly-CSharp/CoinConfigurator.cs
+Assets/MonoScript/Assembly-CSharp/CoinsAddIndic.cs
+Assets/MonoScript/Assembly-CSharp/CoinsMessage.cs
+Assets/MonoScript/Assembly-CSharp/coinsPlashka.cs
+Assets/MonoScript/Assembly-CSharp/coinsShop.cs
+Assets/MonoScript/Assembly-CSharp/CoinsUpdater.cs
+Assets/MonoScript/Assembly-CSharp/ConnectAndJoinRandom.cs
+Assets/MonoScript/Assembly-CSharp/ConnectGUI.cs
+Assets/MonoScript/Assembly-CSharp/ConnectionState.cs
+Assets/MonoScript/Assembly-CSharp/Controller.cs
+Assets/MonoScript/Assembly-CSharp/copyComponent.cs
+Assets/MonoScript/Assembly-CSharp/crossHair.cs
+Assets/MonoScript/Assembly-CSharp/CryptoPlayerPrefs.cs
+Assets/MonoScript/Assembly-CSharp/CryptoPlayerPrefsManager.cs
+Assets/MonoScript/Assembly-CSharp/CryptoPlayerPrefsX.cs
+Assets/MonoScript/Assembly-CSharp/CustomAuthenticationType.cs
+Assets/MonoScript/Assembly-CSharp/CustomDialog.cs
+Assets/MonoScript/Assembly-CSharp/CustomTypes.cs
+Assets/MonoScript/Assembly-CSharp/Defs.cs
+Assets/MonoScript/Assembly-CSharp/DestroyChecker.cs
+Assets/MonoScript/Assembly-CSharp/DisconnectCause.cs
+Assets/MonoScript/Assembly-CSharp/DownloadObbExample.cs
+Assets/MonoScript/Assembly-CSharp/ElixirSprite.cs
+Assets/MonoScript/Assembly-CSharp/EnemiesLabel.cs
+Assets/MonoScript/Assembly-CSharp/ErrorCode.cs
+Assets/MonoScript/Assembly-CSharp/EventCode.cs
+Assets/MonoScript/Assembly-CSharp/ExitGames/Client/DemoParticle/TimeKeeper.cs
+Assets/MonoScript/Assembly-CSharp/Extensions.cs
+Assets/MonoScript/Assembly-CSharp/FilterBadWorld.cs
+Assets/MonoScript/Assembly-CSharp/FlashFire.cs
+Assets/MonoScript/Assembly-CSharp/Flurry.cs
+Assets/MonoScript/Assembly-CSharp/FlurryEventListener.cs
+Assets/MonoScript/Assembly-CSharp/FlurryPluginWrapper.cs
+Assets/MonoScript/Assembly-CSharp/FriendInfo.cs
+Assets/MonoScript/Assembly-CSharp/GameCenterSingleton.cs
+Assets/MonoScript/Assembly-CSharp/GameOver.cs
+Assets/MonoScript/Assembly-CSharp/GameProperties.cs
+Assets/MonoScript/Assembly-CSharp/GlobalGameController.cs
+Assets/MonoScript/Assembly-CSharp/GotToNextLevel.cs
+Assets/MonoScript/Assembly-CSharp/GUIHelper.cs
+Assets/MonoScript/Assembly-CSharp/GUISetting.cs
+Assets/MonoScript/Assembly-CSharp/HealthItem.cs
+Assets/MonoScript/Assembly-CSharp/HitManager.cs
+Assets/MonoScript/Assembly-CSharp/HoleScript.cs
+Assets/MonoScript/Assembly-CSharp/HOTweenDemoBrain.cs
+Assets/MonoScript/Assembly-CSharp/IgnoreTimeScale.cs
+Assets/MonoScript/Assembly-CSharp/InAppData.cs
+Assets/MonoScript/Assembly-CSharp/InAppInstancer.cs
+Assets/MonoScript/Assembly-CSharp/InGameGUI.cs
+Assets/MonoScript/Assembly-CSharp/Initializer.cs
+Assets/MonoScript/Assembly-CSharp/InputToEvent.cs
+Assets/MonoScript/Assembly-CSharp/InRoomChat.cs
+Assets/MonoScript/Assembly-CSharp/JKeepCharOnPlatform.cs
+Assets/MonoScript/Assembly-CSharp/JoinType.cs
+Assets/MonoScript/Assembly-CSharp/KeybordHolder.cs
+Assets/MonoScript/Assembly-CSharp/KeybordShow.cs
+Assets/MonoScript/Assembly-CSharp/KillsLabel.cs
+Assets/MonoScript/Assembly-CSharp/LANBroadcastService.cs
+Assets/MonoScript/Assembly-CSharp/LanguageSelection.cs
+Assets/MonoScript/Assembly-CSharp/Load.cs
+Assets/MonoScript/Assembly-CSharp/LoadbalancingPeer.cs
+Assets/MonoScript/Assembly-CSharp/LoadConnectScene.cs
+Assets/MonoScript/Assembly-CSharp/LoadLevel.cs
+Assets/MonoScript/Assembly-CSharp/Localization.cs
+Assets/MonoScript/Assembly-CSharp/MainMenu.cs
+Assets/MonoScript/Assembly-CSharp/ManualPhotonViewAllocator.cs
+Assets/MonoScript/Assembly-CSharp/MatchmakingMode.cs
+Assets/MonoScript/Assembly-CSharp/MenuBackgroundMusic.cs
+Assets/MonoScript/Assembly-CSharp/Message.cs
+Assets/MonoScript/Assembly-CSharp/MouseControls.cs
+Assets/MonoScript/Assembly-CSharp/MoveByKeys.cs
+Assets/MonoScript/Assembly-CSharp/NetworkingPeer.cs
+Assets/MonoScript/Assembly-CSharp/NetworkInterpolatedTransform.cs
+Assets/MonoScript/Assembly-CSharp/NetworkStartTable.cs
+Assets/MonoScript/Assembly-CSharp/NGUIDebug.cs
+Assets/MonoScript/Assembly-CSharp/NGUIMath.cs
+Assets/MonoScript/Assembly-CSharp/NGUITools.cs
+Assets/MonoScript/Assembly-CSharp/NumericComparer.cs
+Assets/MonoScript/Assembly-CSharp/ObjectLabel.cs
+Assets/MonoScript/Assembly-CSharp/OnAwakeUsePhotonView.cs
+Assets/MonoScript/Assembly-CSharp/OnClickDestroy.cs
+Assets/MonoScript/Assembly-CSharp/OnClickInstantiate.cs
+Assets/MonoScript/Assembly-CSharp/OnClickLoadSomething.cs
+Assets/MonoScript/Assembly-CSharp/OnSerializeRigidBody.cs
+Assets/MonoScript/Assembly-CSharp/OnSerializeTransform.cs
+Assets/MonoScript/Assembly-CSharp/OperationCode.cs
+Assets/MonoScript/Assembly-CSharp/Palitra.cs
+Assets/MonoScript/Assembly-CSharp/PanTouchInfo.cs
+Assets/MonoScript/Assembly-CSharp/ParameterCode.cs
+Assets/MonoScript/Assembly-CSharp/Pauser.cs
+Assets/MonoScript/Assembly-CSharp/PauseTapReceiver.cs
+Assets/MonoScript/Assembly-CSharp/PBitStream.cs
+Assets/MonoScript/Assembly-CSharp/PeerState.cs
+Assets/MonoScript/Assembly-CSharp/PersConfigurator.cs
+Assets/MonoScript/Assembly-CSharp/Photon/MonoBehaviour.cs
+Assets/MonoScript/Assembly-CSharp/PhotonHandler.cs
+Assets/MonoScript/Assembly-CSharp/PhotonLagSimulationGui.cs
+Assets/MonoScript/Assembly-CSharp/PhotonLogLevel.cs
+Assets/MonoScript/Assembly-CSharp/PhotonMessageInfo.cs
+Assets/MonoScript/Assembly-CSharp/PhotonNetwork.cs
+Assets/MonoScript/Assembly-CSharp/PhotonNetworkingMessage.cs
+Assets/MonoScript/Assembly-CSharp/PhotonPlayer.cs
+Assets/MonoScript/Assembly-CSharp/PhotonStatsGui.cs
+Assets/MonoScript/Assembly-CSharp/PhotonStream.cs
+Assets/MonoScript/Assembly-CSharp/PhotonTargets.cs
+Assets/MonoScript/Assembly-CSharp/PhotonView.cs
+Assets/MonoScript/Assembly-CSharp/PingCloudRegions.cs
+Assets/MonoScript/Assembly-CSharp/Player_move_c.cs
+Assets/MonoScript/Assembly-CSharp/PlayerPrefsX.cs
+Assets/MonoScript/Assembly-CSharp/PointedAtGameObjectInfo.cs
+Assets/MonoScript/Assembly-CSharp/posNGUI.cs
+Assets/MonoScript/Assembly-CSharp/PreviewController.cs
+Assets/MonoScript/Assembly-CSharp/PunEvent.cs
+Assets/MonoScript/Assembly-CSharp/RanksTapReceiver.cs
+Assets/MonoScript/Assembly-CSharp/Redactor.cs
+Assets/MonoScript/Assembly-CSharp/RestartOnTap.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/AmazonMarketProduct.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/AndroidFacebookFacade.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/AndroidTwitterFacade.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/ArrayListChecker.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/CrashReporter.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/DummyFacebookFacade.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/DummyTwitterFacade.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/FacebookFacade.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/GoogleMarketProduct.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/IMarketProduct.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/IosFacebookFacade.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/IosTwitterFacade.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/MarketProductFactory.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/PixelGun3D/RegenerationMode.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/ServiceLocator.cs
+Assets/MonoScript/Assembly-CSharp/Rilisoft/TwitterFacade.cs
+Assets/MonoScript/Assembly-CSharp/Room.cs
+Assets/MonoScript/Assembly-CSharp/RoomInfo.cs
+Assets/MonoScript/Assembly-CSharp/Rotator.cs
+Assets/MonoScript/Assembly-CSharp/SampleWebView.cs
+Assets/MonoScript/Assembly-CSharp/Save.cs
+Assets/MonoScript/Assembly-CSharp/ScenePrerenderer.cs
+Assets/MonoScript/Assembly-CSharp/ScoresLabel.cs
+Assets/MonoScript/Assembly-CSharp/Scr.cs
+Assets/MonoScript/Assembly-CSharp/ServerSettings.cs
+Assets/MonoScript/Assembly-CSharp/ServerTime.cs
+Assets/MonoScript/Assembly-CSharp/SettingBonus.cs
+Assets/MonoScript/Assembly-CSharp/Shoot.cs
+Assets/MonoScript/Assembly-CSharp/ShopTapReceiver.cs
+Assets/MonoScript/Assembly-CSharp/ShowNick.cs
+Assets/MonoScript/Assembly-CSharp/SkinName.cs
+Assets/MonoScript/Assembly-CSharp/SkinsManager.cs
+Assets/MonoScript/Assembly-CSharp/SkinsManagerPixlGun.cs
+Assets/MonoScript/Assembly-CSharp/SmoothSyncMovement.cs
+Assets/MonoScript/Assembly-CSharp/Sounds.cs
+Assets/MonoScript/Assembly-CSharp/SpawnMonster.cs
+Assets/MonoScript/Assembly-CSharp/SpisokSkinov.cs
+Assets/MonoScript/Assembly-CSharp/SpringPanel.cs
+Assets/MonoScript/Assembly-CSharp/SpringPosition.cs
+Assets/MonoScript/Assembly-CSharp/Storager.cs
+Assets/MonoScript/Assembly-CSharp/StoreKitEventListener.cs
+Assets/MonoScript/Assembly-CSharp/Switcher.cs
+Assets/MonoScript/Assembly-CSharp/synchCamAndPlayer.cs
+Assets/MonoScript/Assembly-CSharp/TapInfo.cs
+Assets/MonoScript/Assembly-CSharp/test.cs
+Assets/MonoScript/Assembly-CSharp/TestDontDestroyOnLoad.cs
+Assets/MonoScript/Assembly-CSharp/ThirdPersonNetwork.cs
+Assets/MonoScript/Assembly-CSharp/TimeLabel.cs
+Assets/MonoScript/Assembly-CSharp/TweenAlpha.cs
+Assets/MonoScript/Assembly-CSharp/TweenColor.cs
+Assets/MonoScript/Assembly-CSharp/TweenFOV.cs
+Assets/MonoScript/Assembly-CSharp/TweenOrthoSize.cs
+Assets/MonoScript/Assembly-CSharp/TweenPosition.cs
+Assets/MonoScript/Assembly-CSharp/TweenRotation.cs
+Assets/MonoScript/Assembly-CSharp/TweenScale.cs
+Assets/MonoScript/Assembly-CSharp/TweenTransform.cs
+Assets/MonoScript/Assembly-CSharp/TweenVolume.cs
+Assets/MonoScript/Assembly-CSharp/UIAnchor.cs
+Assets/MonoScript/Assembly-CSharp/UIAtlas.cs
+Assets/MonoScript/Assembly-CSharp/UIButton.cs
+Assets/MonoScript/Assembly-CSharp/UIButtonActivate.cs
+Assets/MonoScript/Assembly-CSharp/UIButtonColor.cs
+Assets/MonoScript/Assembly-CSharp/UIButtonKeyBinding.cs
+Assets/MonoScript/Assembly-CSharp/UIButtonKeys.cs
+Assets/MonoScript/Assembly-CSharp/UIButtonMessage.cs
+Assets/MonoScript/Assembly-CSharp/UIButtonOffset.cs
+Assets/MonoScript/Assembly-CSharp/UIButtonPlayAnimation.cs
+Assets/MonoScript/Assembly-CSharp/UIButtonRotation.cs
+Assets/MonoScript/Assembly-CSharp/UIButtonScale.cs
+Assets/MonoScript/Assembly-CSharp/UIButtonSound.cs
+Assets/MonoScript/Assembly-CSharp/UIButtonTween.cs
+Assets/MonoScript/Assembly-CSharp/UICamera.cs
+Assets/MonoScript/Assembly-CSharp/UICenterOnChild.cs
+Assets/MonoScript/Assembly-CSharp/UICheckbox.cs
+Assets/MonoScript/Assembly-CSharp/UICheckboxControlledComponent.cs
+Assets/MonoScript/Assembly-CSharp/UICheckboxControlledObject.cs
+Assets/MonoScript/Assembly-CSharp/UIDragCamera.cs
+Assets/MonoScript/Assembly-CSharp/UIDraggableCamera.cs
+Assets/MonoScript/Assembly-CSharp/UIDraggablePanel.cs
+Assets/MonoScript/Assembly-CSharp/UIDragObject.cs
+Assets/MonoScript/Assembly-CSharp/UIDragPanelContents.cs
+Assets/MonoScript/Assembly-CSharp/UIDrawCall.cs
+Assets/MonoScript/Assembly-CSharp/UIEventListener.cs
+Assets/MonoScript/Assembly-CSharp/UIFilledSprite.cs
+Assets/MonoScript/Assembly-CSharp/UIFont.cs
+Assets/MonoScript/Assembly-CSharp/UIForwardEvents.cs
+Assets/MonoScript/Assembly-CSharp/UIGeometry.cs
+Assets/MonoScript/Assembly-CSharp/UIGrid.cs
+Assets/MonoScript/Assembly-CSharp/UIImageButton.cs
+Assets/MonoScript/Assembly-CSharp/UIInput.cs
+Assets/MonoScript/Assembly-CSharp/UIInputSaved.cs
+Assets/MonoScript/Assembly-CSharp/UIInputValidator.cs
+Assets/MonoScript/Assembly-CSharp/UILabel.cs
+Assets/MonoScript/Assembly-CSharp/UILocalize.cs
+Assets/MonoScript/Assembly-CSharp/UIOrthoCamera.cs
+Assets/MonoScript/Assembly-CSharp/UIPanel.cs
+Assets/MonoScript/Assembly-CSharp/UIPopupList.cs
+Assets/MonoScript/Assembly-CSharp/UIRoot.cs
+Assets/MonoScript/Assembly-CSharp/UISavedOption.cs
+Assets/MonoScript/Assembly-CSharp/UIScrollBar.cs
+Assets/MonoScript/Assembly-CSharp/UISlicedSprite.cs
+Assets/MonoScript/Assembly-CSharp/UISlider.cs
+Assets/MonoScript/Assembly-CSharp/UISliderColors.cs
+Assets/MonoScript/Assembly-CSharp/UISoundVolume.cs
+Assets/MonoScript/Assembly-CSharp/UISprite.cs
+Assets/MonoScript/Assembly-CSharp/UISpriteAnimation.cs
+Assets/MonoScript/Assembly-CSharp/UIStretch.cs
+Assets/MonoScript/Assembly-CSharp/UITable.cs
+Assets/MonoScript/Assembly-CSharp/UITextList.cs
+Assets/MonoScript/Assembly-CSharp/UITextListEdit.cs
+Assets/MonoScript/Assembly-CSharp/UITexture.cs
+Assets/MonoScript/Assembly-CSharp/UITiledSprite.cs
+Assets/MonoScript/Assembly-CSharp/UITooltip.cs
+Assets/MonoScript/Assembly-CSharp/UITweener.cs
+Assets/MonoScript/Assembly-CSharp/UIViewport.cs
+Assets/MonoScript/Assembly-CSharp/UIWidget.cs
+Assets/MonoScript/Assembly-CSharp/Utilities.cs
+Assets/MonoScript/Assembly-CSharp/ViborChastiTela.cs
+Assets/MonoScript/Assembly-CSharp/ViborStoroniForRedact.cs
+Assets/MonoScript/Assembly-CSharp/ViewSynchronization.cs
+Assets/MonoScript/Assembly-CSharp/VirtualCurrencyHelper.cs
+Assets/MonoScript/Assembly-CSharp/Weapon.cs
+Assets/MonoScript/Assembly-CSharp/WeaponBonus.cs
+Assets/MonoScript/Assembly-CSharp/WeaponManager.cs
+Assets/MonoScript/Assembly-CSharp/WeaponsComparer.cs
+Assets/MonoScript/Assembly-CSharp/WeaponSounds.cs
+Assets/MonoScript/Assembly-CSharp/WebViewStarter.cs
+Assets/MonoScript/Assembly-CSharp/ZeichenKraftwerk/Rotator.cs
+Assets/MonoScript/Assembly-CSharp/ZombieCreator.cs
+Assets/MonoScript/Assembly-CSharp/ZombiManager.cs
+Assets/MonoScript/Assembly-CSharp/ZombiManagerSynch.cs
+Assets/MonoScript/Assembly-CSharp/ZombiSynchPhoton.cs
+Assets/MonoScript/Assembly-CSharp/ZombiUpravlenie.cs
+Assets/MonoScript/Assembly-UnityScript/Boundary.cs
+Assets/MonoScript/Assembly-UnityScript/CameraRelativeControl.cs
+Assets/MonoScript/Assembly-UnityScript/CastleWaterMovement.cs
+Assets/MonoScript/Assembly-UnityScript/ChangeWater.cs
+Assets/MonoScript/Assembly-UnityScript/ConstraintAxis.cs
+Assets/MonoScript/Assembly-UnityScript/ControlState.cs
+Assets/MonoScript/Assembly-UnityScript/Crosshair.cs
+Assets/MonoScript/Assembly-UnityScript/FirstPersonControl.cs
+Assets/MonoScript/Assembly-UnityScript/FollowTransform.cs
+Assets/MonoScript/Assembly-UnityScript/GameOverControl.cs
+Assets/MonoScript/Assembly-UnityScript/InputDemo.cs
+Assets/MonoScript/Assembly-UnityScript/Instantiate.cs
+Assets/MonoScript/Assembly-UnityScript/Joystick.cs
+Assets/MonoScript/Assembly-UnityScript/LightFade.cs
+Assets/MonoScript/Assembly-UnityScript/MenuControl.cs
+Assets/MonoScript/Assembly-UnityScript/MenuObject.cs
+Assets/MonoScript/Assembly-UnityScript/ObliqueNear.cs
+Assets/MonoScript/Assembly-UnityScript/Player_move.cs
+Assets/MonoScript/Assembly-UnityScript/PlayerRelativeControl.cs
+Assets/MonoScript/Assembly-UnityScript/RollABall.cs
+Assets/MonoScript/Assembly-UnityScript/RotationConstraint.cs
+Assets/MonoScript/Assembly-UnityScript/SidescrollControl.cs
+Assets/MonoScript/Assembly-UnityScript/SmoothFollow.cs
+Assets/MonoScript/Assembly-UnityScript/SmoothFollow2D.cs
+Assets/MonoScript/Assembly-UnityScript/synchManager.cs
+Assets/MonoScript/Assembly-UnityScript/tapcontrol.cs
+Assets/MonoScript/Assembly-UnityScript/WaterMovement.cs
+Assets/MonoScript/Assembly-UnityScript/ZoomCamera.cs
+Assets/MonoScript/OpenDoor.cs
+Assets/UnityFBXExporter/FBXExporter.cs
+Assets/UnityFBXExporter/FBXUnityMaterialGetter.cs
+Assets/UnityFBXExporter/FBXUnityMeshGetter.cs
+-r:"C:\Program Files\Unity\Hub\Editor\2017.4.40f1\Editor\Data\Mono\lib\mono\unity\System.Runtime.Serialization.dll"
+-r:"C:\Program Files\Unity\Hub\Editor\2017.4.40f1\Editor\Data\Mono\lib\mono\unity\System.Xml.Linq.dll"
+-r:"C:\Program Files\Unity\Hub\Editor\2017.4.40f1\Editor\Data\Mono\lib\mono\unity\UnityScript.dll"
+-r:"C:\Program Files\Unity\Hub\Editor\2017.4.40f1\Editor\Data\Mono\lib\mono\unity\UnityScript.Lang.dll"
+-r:"C:\Program Files\Unity\Hub\Editor\2017.4.40f1\Editor\Data\Mono\lib\mono\unity\Boo.Lang.dll"
+-sdk:unity
