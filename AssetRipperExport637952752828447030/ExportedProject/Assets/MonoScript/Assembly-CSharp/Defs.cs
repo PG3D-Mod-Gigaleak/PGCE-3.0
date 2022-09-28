@@ -827,7 +827,8 @@ public sealed class Defs
 		mapNamesForUser.Add("COMZ_unused_hospital", "COMZ unused hospital");
 		mapNamesForUser.Add("COMZ_test", "COMZ test map");
 		mapNamesForUser.Add("COMZ_unused_parkingspace", "COMZ unused parking lot");
-		mapNamesForUser.Add("SandboxSmall", "Endi Tank Sandbox");
+		mapNamesForUser.Add("SandboxSmall", "Endi Tank Small Sandbox");
+		mapNamesForUser.Add("GardenSmall", "Endi Tank Small Garden");
 		mapNamesForUser.Add("noobite_map", "Noobite working on video-");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
@@ -874,6 +875,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("COMZ_unused_parkingspace", 515);
 		levelNumsForMusicInMult.Add("SandboxSmall", 516);
 		levelNumsForMusicInMult.Add("noobite_map", 517);
+		levelNumsForMusicInMult.Add("GardenSmall", 518);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
