@@ -1513,6 +1513,7 @@ MonoBehaviour:
   meleeAttackTimeModifier: 0.57
   isHeal: 0
   healAmount: 0
+  HealArmor: 0
   maxHealItems: 0
 --- !u!1 &298100957
 GameObject:
@@ -1917,6 +1918,7 @@ MonoBehaviour:
   meleeAttackTimeModifier: 0.57
   isHeal: 0
   healAmount: 0
+  HealArmor: 0
   maxHealItems: 0
 --- !u!1 &353813903
 GameObject:
@@ -3161,6 +3163,7 @@ MonoBehaviour:
   meleeAttackTimeModifier: 0.57
   isHeal: 0
   healAmount: 0
+  HealArmor: 0
   maxHealItems: 0
 --- !u!4 &488988551
 Transform:
@@ -3852,6 +3855,7 @@ MonoBehaviour:
   meleeAttackTimeModifier: 0.57
   isHeal: 0
   healAmount: 0
+  HealArmor: 0
   maxHealItems: 0
 --- !u!1 &590071757
 GameObject:
@@ -5302,6 +5306,7 @@ MonoBehaviour:
   meleeAttackTimeModifier: 0.57
   isHeal: 0
   healAmount: 0
+  HealArmor: 0
   maxHealItems: 0
 --- !u!4 &769898029
 Transform:
@@ -11460,6 +11465,7 @@ MonoBehaviour:
   meleeAttackTimeModifier: 0.57
   isHeal: 0
   healAmount: 0
+  HealArmor: 0
   maxHealItems: 0
 --- !u!4 &1112436153
 Transform:
@@ -21370,6 +21376,47 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2087275670}
   m_Mesh: {fileID: 4300000, guid: aaccca61eca7ba848a89ad1fdb23a811, type: 2}
+--- !u!1 &2092580828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2092580830}
+  - component: {fileID: 2092580829}
+  m_Layer: 0
+  m_Name: DeadCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &2092580829
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2092580828}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 500, y: 10, z: 500}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &2092580830
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2092580828}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -239, y: 284.5, z: -233.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 35
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2102849625
 GameObject:
   m_ObjectHideFlags: 0

@@ -330,6 +330,11 @@ public sealed class Initializer : MonoBehaviour
 			position = new Vector3(-20.2f, 10f, -28.4f);
 			rotation = Quaternion.Euler(new Vector3(12.826f, 51.444f, 3.004f));
 		}
+		if (PlayerPrefs.GetString("MapName").Equals("noobite_map"))
+		{
+			position = new Vector3(-20.2f, 10f, -28.4f);
+			rotation = Quaternion.Euler(new Vector3(12.826f, 51.444f, 3.004f));
+		}
 		tc = UnityEngine.Object.Instantiate(tempCam, position, rotation) as GameObject;
 
 		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
