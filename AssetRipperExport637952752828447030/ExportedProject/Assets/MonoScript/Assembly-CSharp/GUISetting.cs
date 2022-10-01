@@ -4,6 +4,8 @@ public sealed class GUISetting : MonoBehaviour
 {
 	public GUIStyle back;
 
+	public GUIStyle resolution;
+
 	public GUIStyle soundOnOff;
 
 	public GUIStyle restore;
@@ -61,6 +63,10 @@ public sealed class GUISetting : MonoBehaviour
 		if (GUI.Button(new Rect((float)Screen.width / 2f - (float)settingPlashka.width * num * 0.5f, (float)Screen.height * 0.9f - (float)back.normal.background.height * 0.5f * num, (float)back.normal.background.width * num, (float)back.normal.background.height * num), string.Empty, back))
 		{
 			Application.LoadLevel(Defs.CurrentMainMenuScene);
+		}
+		if (GUI.Button(Utilities.screenScaleRect(0.075f, 0.5f, 0.12f, 0.12f), string.Empty, resolution))
+		{
+			Application.LoadLevel("ResolutionScene");
 		}
 		GUI.enabled = !StoreKitEventListener.purchaseInProcess;
 		Rect position3 = new Rect((float)Screen.width / 2f + (float)settingPlashka.width * num * 0.5f - (float)restore.normal.background.width * num, (float)Screen.height * 0.9f - (float)restore.normal.background.height * 0.5f * num, (float)restore.normal.background.width * num, (float)restore.normal.background.height * num);
