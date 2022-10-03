@@ -14,7 +14,7 @@ public sealed class Defs
 
 	public static string cat5;
 
-	public static int numOfWeapons = 95;
+	public static int numOfWeapons = 97;
 
 	public enum RuntimeAndroidEdition
 	{
