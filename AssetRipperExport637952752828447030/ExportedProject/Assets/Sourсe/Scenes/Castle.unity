@@ -419,7 +419,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &27
 GameObject:
   m_ObjectHideFlags: 0
@@ -9913,7 +9913,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.18431373, b: 0, a: 1}
   m_Intensity: 4
-  m_Range: 66.5
+  m_Range: 3.9060516
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -10129,7 +10129,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.18431373, b: 0, a: 1}
   m_Intensity: 4
-  m_Range: 114.3
+  m_Range: 10.373215
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -10525,7 +10525,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.18431373, b: 0, a: 1}
   m_Intensity: 6.34
-  m_Range: 228.6
+  m_Range: 5.318817
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -11137,7 +11137,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.18431373, b: 0, a: 1}
   m_Intensity: 4
-  m_Range: 114.3
+  m_Range: 10.856033
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -11229,7 +11229,7 @@ Light:
     m_Bits: 4294967295
   m_Lightmapping: 1
   m_AreaSize: {x: 0, y: 0}
-  m_BounceIntensity: 0
+  m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -11245,7 +11245,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.18431373, b: 0, a: 1}
   m_Intensity: 4
-  m_Range: 143.9
+  m_Range: 29.337502
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -11353,7 +11353,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0, g: 0.36862746, b: 1, a: 1}
   m_Intensity: 0.6
-  m_Range: 300
+  m_Range: 16.237547
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -12577,7 +12577,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.18431373, b: 0, a: 1}
   m_Intensity: 4
-  m_Range: 59.9
+  m_Range: 82.6971
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -12649,7 +12649,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.18431373, b: 0, a: 1}
   m_Intensity: 5.98
-  m_Range: 177.2
+  m_Range: 16.721222
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -12793,7 +12793,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 0.18431373, b: 0, a: 1}
   m_Intensity: 4
-  m_Range: 114.3
+  m_Range: 7.0703964
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -13429,7 +13429,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: 3d7873958483389438b3b7f3866ce8dc,
+    type: 2}
   m_UseShadowmask: 0
 --- !u!196 &700
 NavMeshSettings:
@@ -20351,6 +20352,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 0}
   reload: {fileID: 0}
   empty: {fileID: 8300000, guid: 8abf0874373851d409d07275eed7ced0, type: 2}
@@ -20372,6 +20376,10 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
 --- !u!114 &711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20449,6 +20457,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 8300000, guid: 86981644a2237684da696793f922517d, type: 2}
   reload: {fileID: 0}
   empty: {fileID: 0}
@@ -20470,6 +20481,10 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
 --- !u!114 &716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20481,6 +20496,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 0}
   reload: {fileID: 0}
   empty: {fileID: 8300000, guid: 8abf0874373851d409d07275eed7ced0, type: 2}
@@ -20502,6 +20520,10 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
 --- !u!114 &717
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20549,6 +20571,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 0}
   reload: {fileID: 0}
   empty: {fileID: 8300000, guid: 8abf0874373851d409d07275eed7ced0, type: 2}
@@ -20570,6 +20595,10 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
 --- !u!114 &721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20788,6 +20817,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 8300000, guid: 5673ee27f3d96414e98907577def421c, type: 2}
   reload: {fileID: 8300000, guid: d1cd45ebba312524da22308dcea5ed72, type: 2}
   empty: {fileID: 8300000, guid: 8abf0874373851d409d07275eed7ced0, type: 2}
@@ -20809,6 +20841,10 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
 --- !u!114 &726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20820,6 +20856,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 8300000, guid: 18e5534ae6f36114794344b6e9a0f269, type: 2}
   reload: {fileID: 0}
   empty: {fileID: 8300000, guid: 8abf0874373851d409d07275eed7ced0, type: 2}
@@ -20841,6 +20880,10 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
 --- !u!1 &192691415
 GameObject:
   m_ObjectHideFlags: 0
