@@ -187,18 +187,10 @@ public class FirstPersonControl : MonoBehaviour
 
 	public virtual void Update()
 	{
-				if (!Application.isMobilePlatform)
+		if (!Application.isMobilePlatform)
 		{
 			moveTouchPad.position = updateKeyboardControls();
-			if (Input.GetKeyDown(KeyCode.F9))
-			{
-				PlayerPrefs.DeleteAll();
-			}
-			if (Input.GetKeyDown("v"))
-			{
-				PlayerPrefs.SetInt("Coins", 999);
-			}
-						if (Input.GetKey(KeyCode.Space))
+			if (Input.GetKey(KeyCode.Space))
 			{
 				jumpButton.jumpPressed = true;
 			}

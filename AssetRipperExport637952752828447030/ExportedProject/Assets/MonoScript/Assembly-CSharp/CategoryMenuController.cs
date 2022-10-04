@@ -5,9 +5,22 @@ using UnityEngine;
 
 public class CategoryMenuController : MonoBehaviour {
 
-public string[] weapons;
+[System.Serializable]
+public class WeaponList
+{
+	public string[] weaponNames = new string[10];
 
-public int catSize;
+	public int[] weaponCosts = new int[10];
+
+	public string[] weaponComments = new string[10];
+
+	public string[] weaponStats = new string[10];
+
+	public int index;
+}
+
+[SerializeField]
+public List<CategoryMenuController.WeaponList> WeaponLists = new List<CategoryMenuController.WeaponList>();
 
 public string catType;
 
@@ -25,56 +38,178 @@ public GUIStyle arrow2;
 
 public GUIStyle labelThingy;
 
-public string currentWeapon;
+public Texture[] currentWeaponTextures()
+{
+	string[] weaponthe = WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
+	Texture[] texs = new Texture[weaponsInThisPage()];
+	for (int i = 0; i < weaponsInThisPage(); i++)
+	{
+		texs[i] = Utilities.LoadObject("Weapons/" + weaponthe[i]).GetComponent<WeaponSounds>().preview;
+	}
+	return texs;
+}
 
-public Texture currentWeaponTexture;
+public string[] currentWeaponNames()
+{
+	string[] weaponthe =  WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
+	string[] names = new string[weaponsInThisPage()];
+	for (int i = 0; i < weaponsInThisPage(); i++)
+	{
+		names[i] = Utilities.LoadObject("Weapons/" + weaponthe[i]).tag;
+	}
+	return names;
+}
 
-public string currentWeaponName;
+public int weaponsInThisPage()
+{
+	string[] weaponthe =  WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
+	int amount = 0;
+	foreach (string str in weaponthe)
+	{
+		if (str == null || str == string.Empty)
+		{
+			return amount;
+		}
+		amount++;
+	}
+	return 10;
+}
+
+public int weaponIndex;
 
 private float koofScreen = (float)Screen.height / 768f;
 
 	public void Start()
 	{
-		currentWeapon = weapons[0];
 	}
 
 	public void Update()
 	{
-		currentWeaponTexture = Utilities.LoadObject("Weapons/" + currentWeapon).GetComponent<WeaponSounds>().preview;
-		currentWeaponName = Utilities.LoadObject("Weapons/" + currentWeapon).tag;
+	}
+
+	public Rect FindRects(string type, int index)
+	{
+		if (type == "icon")
+		{
+			switch(index)
+			{
+				case 0:
+				return Utilities.screenScaleRect(0.15f, 0.2f, 0.2f, 0.15f);
+				case 1:
+				return Utilities.screenScaleRect(0.25f, 0.2f, 0.2f, 0.15f);
+				case 2:
+				return Utilities.screenScaleRect(0.35f, 0.2f, 0.2f, 0.15f);
+				case 3:
+				return Utilities.screenScaleRect(0.45f, 0.2f, 0.2f, 0.15f);
+				case 4:
+				return Utilities.screenScaleRect(0.55f, 0.2f, 0.2f, 0.15f);
+				case 5:
+				return Utilities.screenScaleRect(0.15f, 0.55f, 0.2f, 0.15f);
+				case 6:
+				return Utilities.screenScaleRect(0.25f, 0.55f, 0.2f, 0.15f);
+				case 7:
+				return Utilities.screenScaleRect(0.35f, 0.55f, 0.2f, 0.15f);
+				case 8:
+				return Utilities.screenScaleRect(0.45f, 0.55f, 0.2f, 0.15f);
+				case 9:
+				return Utilities.screenScaleRect(0.55f, 0.55f, 0.2f, 0.15f);
+			}
+		}
+		if (type == "set")
+		{
+			switch(index)
+			{
+				case 0:
+				return Utilities.screenScaleRect(0.25f, 0.4f, 0.08f, 0.075f);
+				case 1:
+				return Utilities.screenScaleRect(0.35f, 0.4f, 0.08f, 0.075f);
+				case 2:
+				return Utilities.screenScaleRect(0.45f, 0.4f, 0.08f, 0.075f);
+				case 3:
+				return Utilities.screenScaleRect(0.55f, 0.4f, 0.08f, 0.075f);
+				case 4:
+				return Utilities.screenScaleRect(0.65f, 0.4f, 0.08f, 0.075f);
+				case 5:
+				return Utilities.screenScaleRect(0.25f, 0.75f, 0.08f, 0.075f);
+				case 6:
+				return Utilities.screenScaleRect(0.35f, 0.75f, 0.08f, 0.075f);
+				case 7:
+				return Utilities.screenScaleRect(0.45f, 0.75f, 0.08f, 0.075f);
+				case 8:
+				return Utilities.screenScaleRect(0.55f, 0.75f, 0.08f, 0.075f);
+				case 9:
+				return Utilities.screenScaleRect(0.65f, 0.75f, 0.08f, 0.075f);
+			}
+		}
+		if (type == "labels")
+		{
+			switch(index)
+			{
+				case 0:
+				return Utilities.screenScaleRect(0.25f, 0.15f, 0.2f, 0.15f);
+				case 1:
+				return Utilities.screenScaleRect(0.35f, 0.15f, 0.2f, 0.15f);
+				case 2:
+				return Utilities.screenScaleRect(0.45f, 0.15f, 0.2f, 0.15f);
+				case 3:
+				return Utilities.screenScaleRect(0.55f, 0.15f, 0.2f, 0.15f);
+				case 4:
+				return Utilities.screenScaleRect(0.65f, 0.15f, 0.2f, 0.15f);
+				case 5:
+				return Utilities.screenScaleRect(0.25f, 0.50f, 0.2f, 0.15f);
+				case 6:
+				return Utilities.screenScaleRect(0.35f, 0.50f, 0.2f, 0.15f);
+				case 7:
+				return Utilities.screenScaleRect(0.45f, 0.50f, 0.2f, 0.15f);
+				case 8:
+				return Utilities.screenScaleRect(0.55f, 0.50f, 0.2f, 0.15f);
+				case 9:
+				return Utilities.screenScaleRect(0.65f, 0.50f, 0.2f, 0.15f);
+			}
+		}
+		return Utilities.screenScaleRect(0f, 0f, 0f, 0f);
 	}
 
 	public void OnGUI()
 	{
 		Rect position = new Rect(((float)Screen.width - 2048f * (float)Screen.height / 1154f) / 2f, 0f, 2048f * (float)Screen.height / 1154f, Screen.height);
 		GUI.DrawTexture(position, catFon, ScaleMode.StretchToFill);
-		GUI.DrawTexture(Utilities.screenScaleRect(0.35f, 0.34f, 0.2f, 0.15f), currentWeaponTexture, ScaleMode.StretchToFill);
-		GUI.Label(Utilities.screenScaleRect(0.45f, 0.2f, 0.4f, 0.7f), currentWeaponName, labelThingy);
-		if (GUI.Button(Utilities.screenScaleRect(0.6f, 0.4f, 0.03f, 0.05f), string.Empty, arrow1))
+		for (int i = 0; i < weaponsInThisPage(); i++)
 		{
-			if (weaponIndex() >= weapons.Length - 1)
+			GUI.DrawTexture(FindRects("icon", i), currentWeaponTextures()[i], ScaleMode.StretchToFill);
+		}
+		for (int i = 0; i < weaponsInThisPage(); i++)
+		{
+			GUI.Label(FindRects("labels", i), currentWeaponNames()[i], labelThingy);
+		}
+		if (GUI.Button(Utilities.screenScaleRect(0.515f, 0.05f, 0.03f, 0.05f), string.Empty, arrow1))
+		{
+			if (weaponIndex >= WeaponLists.Count - 1)
 			{
-				currentWeapon = weapons[0];
+				weaponIndex = 0;
 				return;
 			}
-			if (weaponIndex() < weapons.Length - 1)
+			if (weaponIndex < WeaponLists.Count - 1)
 			{
-				currentWeapon = weapons[weaponIndex() + 1];
+				weaponIndex++;
 			}
 		}
-		if (GUI.Button(Utilities.screenScaleRect(0.35f, 0.4f, 0.03f, 0.05f), string.Empty, arrow2))
+		if (GUI.Button(Utilities.screenScaleRect(0.415f, 0.05f, 0.03f, 0.05f), string.Empty, arrow2))
 		{
-			if (weaponIndex() < 1)
+			if (weaponIndex < 1)
 			{
-				currentWeapon = weapons[weapons.Length - 1];
+				weaponIndex = WeaponLists.Count - 1;
 				return;
 			}
-				currentWeapon = weapons[weaponIndex() - 1];
+			weaponIndex--;
 		}
-		if (GUI.Button(Utilities.screenScaleRect(0.43f, 0.55f, 0.12f, 0.1f), string.Empty, setButton))
+		for (int i = 0; i < weaponsInThisPage(); i++)
 		{
-			CategorySet(catType, currentWeaponName);
-			Debug.LogWarning("Sucessfully Set " + catType + " To " + currentWeaponName);
+			if (GUI.Button(FindRects("set", i), string.Empty, setButton))
+			{
+				CategorySet(catType, currentWeaponNames()[i]);
+				Debug.LogWarning("Sucessfully Set " + catType + " To " + currentWeaponNames()[i]);
+			}
 		}
 		if (GUI.Button(Utilities.screenScaleRect(0.1f, 0.8f, 0.12f, 0.1f), string.Empty, back))
 		{
@@ -86,15 +221,15 @@ private float koofScreen = (float)Screen.height / 768f;
 	{
 		PlayerPrefs.SetString(catnumber, weapon);
 	} 
-	public int weaponIndex()
-	{
-		for (int i = 0; i < weapons.Length; i++)
-		{
-			if (currentWeapon == weapons[i])
-			{
-				return i;
-			}
-		}
-		return 0;
-	}
+	//public int weaponIndex()
+	//{
+	//	for (int i = 0; i < weapons.Length; i++)
+	//	{
+	//		if (currentWeapon == weapons[i])
+	//		{
+	//			return i;
+	//		}
+	//	}
+	//	return 0;
+	//}
 }

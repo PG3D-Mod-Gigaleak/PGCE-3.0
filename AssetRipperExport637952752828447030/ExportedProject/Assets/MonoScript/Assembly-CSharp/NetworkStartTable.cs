@@ -343,20 +343,20 @@ public sealed class NetworkStartTable : MonoBehaviour
 			{
 				if (int.Parse(oldCountLilsSpisok[0]) >= minCoin1 && int.Parse(oldCountLilsSpisok[0]) < minCoin2)
 				{
-					addCoins = 1;
+					addCoins = 1 * 10;
 				}
 				if (int.Parse(oldCountLilsSpisok[0]) >= minCoin2 && int.Parse(oldCountLilsSpisok[0]) < minCoin3)
 				{
-					addCoins = 1;
+					addCoins = 1 * 10;
 				}
 				if (int.Parse(oldCountLilsSpisok[0]) >= minCoin3)
 				{
-					addCoins = 1;
+					addCoins = 1 * 10;
 				}
 			}
 			if (PlayerPrefs.GetInt("CustomGame", 0) == 0 && PlayerPrefs.GetInt("COOP", 0) != 1)
 			{
-				addCoins = 1;
+				addCoins = 1 * 10;
 			}
 			if (addCoins > 0)
 			{
@@ -1157,21 +1157,21 @@ public sealed class NetworkStartTable : MonoBehaviour
 				{
 					if (array[j].GetComponent<NetworkStartTable>().score >= (float)minCoin1 && array[j].GetComponent<NetworkStartTable>().score < (float)minCoin2)
 					{
-						addCoins = 1;
+						addCoins = 1 * 10;
 					}
 					if (array[j].GetComponent<NetworkStartTable>().score >= (float)minCoin2 && array[j].GetComponent<NetworkStartTable>().score < (float)minCoin3)
 					{
-						addCoins = 1;
+						addCoins = 1 * 10;
 					}
 					if (array[j].GetComponent<NetworkStartTable>().score >= (float)minCoin3)
 					{
-						addCoins = 1;
+						addCoins = 1 * 10;
 					}
 					FlurryPluginWrapper.LogCoinEarned_COOP();
 				}
 				if (j == 0 && PlayerPrefs.GetInt("CustomGame", 0) == 0 && PlayerPrefs.GetInt("COOP", 0) != 1)
 				{
-					addCoins = 1;
+					addCoins = 1 * 10;
 					FlurryPluginWrapper.LogCoinEarned_Deathmatch();
 				}
 				if (addCoins > 0)

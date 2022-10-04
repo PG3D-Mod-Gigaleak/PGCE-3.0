@@ -56,7 +56,7 @@ public sealed class Switcher : MonoBehaviour
 		int coinsBaseAdding = GlobalGameController.coinsBaseAdding;
 		if (GlobalGameController.totalNumOfCompletedLevels % (GlobalGameController.NumOfLevels - 1) == 0 && GlobalGameController.AllLevelsCompleted > 0)
 		{
-			int val = 15;
+			int val = 45;
 			if (!Storager.hasKey(Defs.EarnedCoins))
 			{
 				Storager.setInt(Defs.EarnedCoins, val, false);
@@ -66,7 +66,7 @@ public sealed class Switcher : MonoBehaviour
 		}
 		else if (GlobalGameController.numOfCompletedLevels >= levelsToGetCoins)
 		{
-			int val2 = 1;
+			int val2 = 3;
 			if (!Storager.hasKey(Defs.EarnedCoins))
 			{
 				Storager.setInt(Defs.EarnedCoins, val2, false);

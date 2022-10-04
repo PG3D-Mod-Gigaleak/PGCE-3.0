@@ -567,7 +567,7 @@ public sealed class MainMenu : MonoBehaviour
 	private void Start()
 	{
 		Application.targetFrameRate = 240;
-		PhotonNetwork.PhotonServerSettings.UseCloud("d5e78dc1-7ab3-465e-babf-3f08e8e3d156", 0);
+		PhotonNetwork.PhotonServerSettings.UseCloud("57aa4ce3-57e7-4092-a71f-416d847507f2", 0);
 		PerformSkinsMakerQueryIfLiteEdition();
 		string @string = PlayerPrefs.GetString(Defs.ShouldReoeatActionSett, string.Empty);
 		if (@string.Equals(Defs.GoToProfileAction))

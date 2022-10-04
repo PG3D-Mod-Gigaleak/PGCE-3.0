@@ -932,19 +932,19 @@ public sealed class Player_move_c : MonoBehaviour
 			RemoveButtonHandelrs();
 			showRanks = true;
 		}
-		GUI.DrawTexture(position, buyStyle.active.background);
+	//	GUI.DrawTexture(position, buyStyle.active.background);
 		if (Application.isEditor || StoreKitEventListener.billingSupported)
 		{
 			GUI.enabled = !isInappWinOpen;
-			if (GUI.Button(position, string.Empty, buyStyle) && !_pauser.paused)
-			{
-				if (CurHealth > 0f)
-				{
-					SetInApp();
-					SetPause();
-				}
-				GUI.enabled = true;
-			}
+			//if (GUI.Button(position, string.Empty, buyStyle) && !_pauser.paused)
+			//{
+			//	if (CurHealth > 0f)
+			//	{
+			//		SetInApp();
+			//		SetPause();
+			//	}
+			//	GUI.enabled = true;
+			//}
 		}
 		else
 		{
@@ -1065,11 +1065,11 @@ public sealed class Player_move_c : MonoBehaviour
 					Application.LoadLevel(Defs.CurrentMainMenuScene);
 				}
 			}
-			if (StoreKitEventListener.billingSupported && GUI.Button(position12, string.Empty, shopFromPauseStyle) && CurHealth > 0f)
-			{
-				SetInApp();
-				inAppOpenedFromPause = true;
-			}
+			//if (StoreKitEventListener.billingSupported && GUI.Button(position12, string.Empty, shopFromPauseStyle) && CurHealth > 0f)
+			//{
+			//	SetInApp();
+			//	inAppOpenedFromPause = true;
+			//}
 			float num21 = 15f;
 			bool @bool = PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true);
 			Rect position13 = new Rect((float)Screen.width * 0.05f, (float)Screen.height * 0.923f - (float)Screen.height * 0.0525f, (float)Screen.height * 0.105f, (float)Screen.height * 0.105f);
@@ -1861,14 +1861,14 @@ public sealed class Player_move_c : MonoBehaviour
 	private void AddButtonHandlers()
 	{
 		PauseTapReceiver.PauseClicked += SwitchPause;
-		ShopTapReceiver.ShopClicked += ShopPressed;
+		//ShopTapReceiver.ShopClicked += ShopPressed;
 		RanksTapReceiver.RanksClicked += RanksPressed;
 	}
 
 	private void RemoveButtonHandelrs()
 	{
 		PauseTapReceiver.PauseClicked -= SwitchPause;
-		ShopTapReceiver.ShopClicked -= ShopPressed;
+		//ShopTapReceiver.ShopClicked -= ShopPressed;
 		RanksTapReceiver.RanksClicked -= RanksPressed;
 	}
 
