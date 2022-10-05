@@ -179,7 +179,7 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			_003C_003Ef__this._rightJoystick.SendMessage("HasAmmo");
 			_003C_003Ef__this.CurHealth = _003C_003Ef__this.MaxHealth;
-			_003C_003Ef__this.curArmor = 0f;
+			_003C_003Ef__this.curArmor = GetArmor();
 			Debug.Log("zoneCreatePlayer " + _003C_003Ef__this.zoneCreatePlayer.Length + " " + UnityEngine.Random.Range(0, _003C_003Ef__this.zoneCreatePlayer.Length));
 			GameObject gameObject = _003C_003Ef__this.zoneCreatePlayer[UnityEngine.Random.Range(0, _003C_003Ef__this.zoneCreatePlayer.Length)];
 			BoxCollider component = gameObject.GetComponent<BoxCollider>();
@@ -1872,6 +1872,22 @@ public sealed class Player_move_c : MonoBehaviour
 		RanksTapReceiver.RanksClicked -= RanksPressed;
 	}
 
+	public static float GetArmor()
+	{
+		Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
+		switch(PlayerPrefs.GetString("gear"))
+		{
+			case "Iron Armor":
+			return 1f;
+			case "Golden Armor":
+			return 2f;
+			case "Diamond Armor":
+			return 3f;
+			default:
+			return 0f;
+		}
+	}
+
 	private void RanksPressed()
 	{
 		RemoveButtonHandelrs();
@@ -2078,12 +2094,13 @@ public sealed class Player_move_c : MonoBehaviour
 		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
 		{
 			CurHealth = PlayerPrefs.GetFloat(Defs.CurrentHealthSett, MaxPlayerHealth);
-			curArmor = PlayerPrefs.GetFloat(Defs.CurrentArmorSett, MaxArmor);
+			//curArmor = PlayerPrefs.GetFloat(Defs.CurrentArmorSett, MaxArmor);
+			curArmor = GetArmor();
 		}
 		else
 		{
 			CurHealth = MaxPlayerHealth;
-			curArmor = 0f;
+			curArmor = GetArmor();
 		}
 		Invoke("SendSpeedModifier", 0.5f);
 		GameObject gameObject3 = (GameObject)UnityEngine.Object.Instantiate(renderAllObjectPrefab, Vector3.zero, Quaternion.identity);

@@ -22,6 +22,14 @@ public class WeaponList
 [SerializeField]
 public List<CategoryMenuController.WeaponList> WeaponLists = new List<CategoryMenuController.WeaponList>();
 
+public bool isGear;
+
+private bool popup;
+
+private string popupWeapon;
+
+private int popupIndex;
+
 public string catType;
 
 public Texture2D catFon;
@@ -38,13 +46,26 @@ public GUIStyle arrow2;
 
 public GUIStyle labelThingy;
 
+public GUIStyle commentLabelThingy;
+
+public GUIStyle closeButton;
+
+public Texture popupBG;
+
 public Texture[] currentWeaponTextures()
 {
 	string[] weaponthe = WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
 	Texture[] texs = new Texture[weaponsInThisPage()];
 	for (int i = 0; i < weaponsInThisPage(); i++)
 	{
-		texs[i] = Utilities.LoadObject("Weapons/" + weaponthe[i]).GetComponent<WeaponSounds>().preview;
+		if (!isGear)
+		{
+			texs[i] = Utilities.LoadObject("Weapons/" + weaponthe[i]).GetComponent<WeaponSounds>().preview;
+		}
+		else
+		{
+			texs[i] = Utilities.LoadObject("Gear/" + weaponthe[i]).GetComponent<GearStats>().preview;
+		}
 	}
 	return texs;
 }
@@ -55,9 +76,21 @@ public string[] currentWeaponNames()
 	string[] names = new string[weaponsInThisPage()];
 	for (int i = 0; i < weaponsInThisPage(); i++)
 	{
-		names[i] = Utilities.LoadObject("Weapons/" + weaponthe[i]).tag;
+		if (!isGear)
+		{
+			names[i] = Utilities.LoadObject("Weapons/" + weaponthe[i]).tag;
+		}
+		else
+		{
+			names[i] = Utilities.LoadObject("Gear/" + weaponthe[i]).GetComponent<GearStats>().name;
+		}
 	}
 	return names;
+}
+
+public string currentWeaponComment()
+{
+	return WeaponLists.Find(x => x.index == weaponIndex).weaponComments[popupIndex];
 }
 
 public int weaponsInThisPage()
@@ -73,6 +106,13 @@ public int weaponsInThisPage()
 		amount++;
 	}
 	return 10;
+}
+
+public void SetPopup(string weapon, int index)
+{
+	popup = true;
+	popupWeapon = weapon;
+	popupIndex = index;
 }
 
 public int weaponIndex;
@@ -174,6 +214,8 @@ private float koofScreen = (float)Screen.height / 768f;
 	{
 		Rect position = new Rect(((float)Screen.width - 2048f * (float)Screen.height / 1154f) / 2f, 0f, 2048f * (float)Screen.height / 1154f, Screen.height);
 		GUI.DrawTexture(position, catFon, ScaleMode.StretchToFill);
+		if (!popup)
+		{
 		for (int i = 0; i < weaponsInThisPage(); i++)
 		{
 			GUI.DrawTexture(FindRects("icon", i), currentWeaponTextures()[i], ScaleMode.StretchToFill);
@@ -207,14 +249,34 @@ private float koofScreen = (float)Screen.height / 768f;
 		{
 			if (GUI.Button(FindRects("set", i), string.Empty, setButton))
 			{
-				CategorySet(catType, currentWeaponNames()[i]);
-				Debug.LogWarning("Sucessfully Set " + catType + " To " + currentWeaponNames()[i]);
+				//CategorySet(catType, currentWeaponNames()[i]);
+				//Debug.LogWarning("Sucessfully Set " + catType + " To " + currentWeaponNames()[i]);
+				SetPopup(currentWeaponNames()[i], i);
 			}
 		}
 		if (GUI.Button(Utilities.screenScaleRect(0.1f, 0.8f, 0.12f, 0.1f), string.Empty, back))
 		{
 			GUIHelper.DrawLoading();
 			Application.LoadLevel("ArmoryScene");
+		}
+		}
+		if (popup)
+		{
+			GUI.DrawTexture(Utilities.screenScaleRect(0.185f, 0.15f, 0.65f, 0.75f), popupBG);
+			if (GUI.Button(Utilities.screenScaleRect(0.625f, 0.72f, 0.15f, 0.125f), string.Empty, setButton))
+			{
+				CategorySet(catType, popupWeapon);
+				Debug.LogWarning("Sucessfully Set " + catType + " To " + popupWeapon);
+				popup = false;
+			}
+			if (GUI.Button(Utilities.screenScaleRect(0.25f, 0.72f, 0.15f, 0.125f), string.Empty, closeButton))
+			{
+				popup = false;
+			}
+			GUI.Label(Utilities.screenScaleRect(0.45f, 0.2f, 0.5f, 0.5f), popupWeapon, commentLabelThingy);
+			GUI.Label(Utilities.screenScaleRect(0.275f, 0.55f, 0.5f, 0.5f), currentWeaponComment(), commentLabelThingy);
+			GUI.DrawTexture(Utilities.screenScaleRect(0.3f, 0.3f, 0.3f, 0.23f), currentWeaponTextures()[popupIndex], ScaleMode.StretchToFill);
+
 		}
 	}
 	public static void CategorySet(string catnumber, string weapon)
