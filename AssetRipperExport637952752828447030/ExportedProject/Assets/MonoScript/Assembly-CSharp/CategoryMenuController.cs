@@ -52,6 +52,8 @@ public GUIStyle closeButton;
 
 public Texture popupBG;
 
+public Texture menuBG;
+
 public Texture[] currentWeaponTextures()
 {
 	string[] weaponthe = WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
@@ -219,6 +221,7 @@ private float koofScreen = (float)Screen.height / 768f;
 	{
 		Rect position = new Rect(((float)Screen.width - 2048f * (float)Screen.height / 1154f) / 2f, 0f, 2048f * (float)Screen.height / 1154f, Screen.height);
 		GUI.DrawTexture(position, catFon, ScaleMode.StretchToFill);
+		GUI.DrawTexture(Utilities.screenScaleRect(0.19f, 0.03f, 0.6f, 0.9f), menuBG);
 		if (!popup)
 		{
 		for (int i = 0; i < weaponsInThisPage(); i++)
