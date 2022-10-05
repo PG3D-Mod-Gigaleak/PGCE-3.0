@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MenuBackgroundMusic : MonoBehaviour
 {
-	private static string[] scenetsToPlayMusicOn = new string[10]
+	private static string[] scenetsToPlayMusicOn = new string[16]
 	{
 		Defs.MainMenuScenes[0],
 		Defs.MainMenuScenes[1],
@@ -14,7 +14,13 @@ public class MenuBackgroundMusic : MonoBehaviour
 		Defs.MainMenuScenes[6],
 		"ConnectScene",
 		"SettingScene",
-		"ArmoryScene"
+		"ArmoryScene",
+		"PrimaryScene",
+		"BackupScene",
+		"MeleeScene",
+		"SpecialScene",
+		"PremiumScene",
+		"GearScene"
 	};
 
 	private void Start()

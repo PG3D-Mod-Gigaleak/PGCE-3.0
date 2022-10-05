@@ -618,6 +618,14 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public Texture minigun_off;
 
+	public GameObject ironArmor;
+
+	public GameObject goldArmor;
+
+	public GameObject diamondArmor;
+
+	public GameObject noVisibleWear;
+
 	public List<MessageChat> messages = new List<MessageChat>();
 
 	[CompilerGenerated]
@@ -1312,6 +1320,7 @@ public sealed class Player_move_c : MonoBehaviour
 	[RPC]
 	private void setMySkin(string str)
 	{
+		GetVisibleWear().SetActive(true);
 		Debug.Log("setMySkin");
 		byte[] data = Convert.FromBase64String(str);
 		Texture2D texture2D = new Texture2D(64, 32);
@@ -1323,6 +1332,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void sendMySkin()
 	{
+		GetVisibleWear().SetActive(true);
 		Debug.Log("sendMySkin");
 		Texture2D texture2D = sendTek as Texture2D;
 		byte[] inArray = texture2D.EncodeToPNG();
@@ -1574,6 +1584,7 @@ public sealed class Player_move_c : MonoBehaviour
 	[RPC]
 	public void setParentWeapon(NetworkViewID idWeapon, NetworkViewID idParent, string _ip, string nameSkin, string _nickName)
 	{
+		GetVisibleWear().SetActive(true);
 		string[] multiplayerWeaponTags = WeaponManager.multiplayerWeaponTags;
 		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
 		string[] array2 = multiplayerWeaponTags;
@@ -1872,6 +1883,22 @@ public sealed class Player_move_c : MonoBehaviour
 		RanksTapReceiver.RanksClicked -= RanksPressed;
 	}
 
+	public GameObject GetVisibleWear()
+	{
+		Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
+		switch(PlayerPrefs.GetString("gear"))
+		{
+			case "Iron Armor":
+			return ironArmor;
+			case "Golden Armor":
+			return goldArmor;
+			case "Diamond Armor":
+			return diamondArmor;
+			default:
+			return noVisibleWear;
+		}
+	}
+
 	public static float GetArmor()
 	{
 		Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
@@ -1885,6 +1912,24 @@ public sealed class Player_move_c : MonoBehaviour
 			return 3f;
 			default:
 			return 0f;
+		}
+	}
+
+	public static float GetSpeedMod()
+	{
+		Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
+		switch(PlayerPrefs.GetString("gear"))
+		{
+			case "Sneakers":
+			return 1.1f;
+			case "Iron Armor":
+			return 0.95f;
+			case "Golden Armor":
+			return 0.9f;
+			case "Diamond Armor":
+			return 0.85f;
+			default:
+			return 1f;
 		}
 	}
 
@@ -1910,6 +1955,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void Start()
 	{
+		GetVisibleWear().SetActive(true);
 		widthPoduct = (float)(healthInApp.normal.background.width * Screen.height) / 768f * (320f / (float)healthInApp.normal.background.height);
 		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
 		{

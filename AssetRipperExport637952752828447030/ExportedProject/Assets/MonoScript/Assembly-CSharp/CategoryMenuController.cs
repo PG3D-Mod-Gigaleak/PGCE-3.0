@@ -93,6 +93,11 @@ public string currentWeaponComment()
 	return WeaponLists.Find(x => x.index == weaponIndex).weaponComments[popupIndex];
 }
 
+public string currentWeaponStats()
+{
+	return WeaponLists.Find(x => x.index == weaponIndex).weaponStats[popupIndex];
+}
+
 public int weaponsInThisPage()
 {
 	string[] weaponthe =  WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
@@ -276,7 +281,10 @@ private float koofScreen = (float)Screen.height / 768f;
 			GUI.Label(Utilities.screenScaleRect(0.45f, 0.2f, 0.5f, 0.5f), popupWeapon, commentLabelThingy);
 			GUI.Label(Utilities.screenScaleRect(0.275f, 0.55f, 0.5f, 0.5f), currentWeaponComment(), commentLabelThingy);
 			GUI.DrawTexture(Utilities.screenScaleRect(0.3f, 0.3f, 0.3f, 0.23f), currentWeaponTextures()[popupIndex], ScaleMode.StretchToFill);
-
+			if (isGear)
+			{
+				GUI.Label(Utilities.screenScaleRect(0.575f, 0.4f, 0.3f, 0.3f), currentWeaponStats(), commentLabelThingy);
+			}
 		}
 	}
 	public static void CategorySet(string catnumber, string weapon)

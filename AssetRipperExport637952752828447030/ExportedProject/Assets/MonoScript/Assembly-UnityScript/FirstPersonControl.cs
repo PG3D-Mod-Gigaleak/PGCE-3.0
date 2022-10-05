@@ -92,15 +92,15 @@ public class FirstPersonControl : MonoBehaviour
 	{
 		if (!(startForwardSpeed <= 0f))
 		{
-			forwardSpeed = startForwardSpeed * speedMod;
+			forwardSpeed = startForwardSpeed * speedMod * Player_move_c.GetSpeedMod();
 		}
 		if (!(startBackwardSpeed <= 0f))
 		{
-			backwardSpeed = startBackwardSpeed * speedMod;
+			backwardSpeed = startBackwardSpeed * speedMod * Player_move_c.GetSpeedMod();
 		}
 		if (!(startSidestepSpeed <= 0f))
 		{
-			sidestepSpeed = startSidestepSpeed * speedMod;
+			sidestepSpeed = startSidestepSpeed * speedMod * Player_move_c.GetSpeedMod();
 		}
 	}
 
