@@ -1953,8 +1953,15 @@ public sealed class Player_move_c : MonoBehaviour
 		myIp = _ip;
 	}
 
+	[RPC]
+	private void setVisibleWear()
+	{
+		GetVisibleWear().SetActive(true);
+	}
+
 	private void Start()
 	{
+		base.GetComponent<NetworkView>().RPC("setVisibleWear", RPCMode.All);
 		GetVisibleWear().SetActive(true);
 		widthPoduct = (float)(healthInApp.normal.background.width * Screen.height) / 768f * (320f / (float)healthInApp.normal.background.height);
 		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
