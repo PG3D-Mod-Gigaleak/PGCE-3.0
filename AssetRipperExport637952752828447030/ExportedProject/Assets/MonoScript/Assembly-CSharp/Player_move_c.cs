@@ -1882,10 +1882,10 @@ public sealed class Player_move_c : MonoBehaviour
 		RanksTapReceiver.RanksClicked -= RanksPressed;
 	}
 
-	public GameObject GetVisibleWear()
+	public GameObject GetVisibleWear(string curgear)
 	{
 		Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
-		switch(curGear)
+		switch(curgear)
 		{
 			case "Iron Armor":
 			return ironArmor;
@@ -1961,7 +1961,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			if (id == gameObject.GetComponent<PhotonView>().viewID)
 			{
-				gameObject.GetComponent<Player_move_c>().GetVisibleWear().SetActive(true);
+				gameObject.GetComponent<Player_move_c>().GetVisibleWear(gameObject.GetComponent<Player_move_c>().curGear).SetActive(true);
 			}
 		}
 	}
