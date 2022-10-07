@@ -1880,28 +1880,6 @@ public sealed class Player_move_c : MonoBehaviour
 		RanksTapReceiver.RanksClicked -= RanksPressed;
 	}
 
-	private List<GameObject> wear = new List<GameObject>();
-
-	private void AddVisibleArmorToList()
-	{
-		wear.Add(ironArmor); wear.Add(goldArmor); wear.Add(diamondArmor); wear.Add(noVisibleWear);
-	}
-	
-	private GameObject[] FindIncorrectWear(GameObject correct)
-	{
-		GameObject[] incorrectObjects = new GameObject[3];
-		int index = 0;
-		foreach (GameObject checkIncorrect in wear)
-		{
-			if (checkIncorrect != correct)
-			{
-				incorrectObjects[index] = checkIncorrect;
-			}
-			index++;
-		}
-		return incorrectObjects;
-	}
-
 	public GameObject GetVisibleWear()
 	{
 		Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
@@ -1982,10 +1960,6 @@ public sealed class Player_move_c : MonoBehaviour
 			if (id == gameObject.GetComponent<PhotonView>().viewID)
 			{
 				gameObject.GetComponent<Player_move_c>().GetVisibleWear().SetActive(true);
-				foreach (GameObject incobj in gameObject.GetComponent<Player_move_c>().FindIncorrectWear(gameObject.GetComponent<Player_move_c>().GetVisibleWear()))
-				{
-					incobj.SetActive(false);
-				}
 			}
 		}
 	}
