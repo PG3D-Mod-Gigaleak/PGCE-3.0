@@ -2145,7 +2145,10 @@ public sealed class Player_move_c : MonoBehaviour
 			if (_weaponManager.currentWeaponSounds != null)
 			{
 				_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("Reload")].layer = 1;
+				if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Shoot"))
+				{
 				_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Stop();
+				}
 			}
 		}
 		_SetGunFlashActive(false);
@@ -3005,23 +3008,19 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		if(_weaponManager.currentWeaponSounds.isSwapIn)
 		{
-		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Stop();
 		isSwappin = true;
 		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play("SwapIn");
 		yield return new WaitForSeconds(_weaponManager.currentWeaponSounds.swapTime);
 		isSwappin = false;
-		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Stop();
 		}
 	}
 
 	public IEnumerator SwapOutRoutine(bool isAlpha1)
 	{
-		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Stop();
 		isSwappin = true;
 		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play("SwapOut");
 		yield return new WaitForSeconds(_weaponManager.currentWeaponSounds.swapTime);
 		isSwappin = false;
-		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Stop();
 		if (!isAlpha1)
 		{
 		_weaponManager.CurrentWeaponIndex++;
