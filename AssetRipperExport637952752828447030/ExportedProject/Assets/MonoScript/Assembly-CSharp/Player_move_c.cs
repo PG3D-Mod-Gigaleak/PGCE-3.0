@@ -1968,7 +1968,7 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 
 	[RPC]
-	private void SetValues()
+	private void SetValues(int id)
 	{
 		this.curGear = PlayerPrefs.GetString("gear");
 	}
