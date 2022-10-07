@@ -1967,10 +1967,14 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	[RPC]
+	private void SetValues()
+	{
+		this.curGear = PlayerPrefs.GetString("gear");
+	}
+
 	private void Start()
 	{
-		curGear = PlayerPrefs.GetString("gear");
-		Debug.LogError(PlayerPrefs.GetString("gear"));
 		widthPoduct = (float)(healthInApp.normal.background.width * Screen.height) / 768f * (320f / (float)healthInApp.normal.background.height);
 		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
 		{
@@ -2187,6 +2191,14 @@ public sealed class Player_move_c : MonoBehaviour
 			base.transform.parent.transform.position = GlobalGameController.posMyPlayer;
 			base.transform.parent.transform.rotation = GlobalGameController.rotMyPlayer;
 			PlayerPrefs.SetInt("StartAfterDisconnect", 0);
+		}
+		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+		{
+			base.GetComponent<NetworkView>().RPC("SetValues", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
+		}
+		else
+		{
+			photonView.RPC("SetValues", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
 		}
 		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
 		{
