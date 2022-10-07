@@ -2206,6 +2206,7 @@ public sealed class Player_move_c : MonoBehaviour
 			base.transform.parent.transform.rotation = GlobalGameController.rotMyPlayer;
 			PlayerPrefs.SetInt("StartAfterDisconnect", 0);
 		}
+		AddVisibleArmorToList();
 		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
 		{
 			base.GetComponent<NetworkView>().RPC("setVisibleWear", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
