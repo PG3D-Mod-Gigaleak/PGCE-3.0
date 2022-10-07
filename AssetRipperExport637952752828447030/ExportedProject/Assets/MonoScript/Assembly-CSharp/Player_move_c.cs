@@ -1320,7 +1320,6 @@ public sealed class Player_move_c : MonoBehaviour
 	[RPC]
 	private void setMySkin(string str)
 	{
-		GetVisibleWear().SetActive(true);
 		Debug.Log("setMySkin");
 		byte[] data = Convert.FromBase64String(str);
 		Texture2D texture2D = new Texture2D(64, 32);
@@ -1332,7 +1331,6 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void sendMySkin()
 	{
-		GetVisibleWear().SetActive(true);
 		Debug.Log("sendMySkin");
 		Texture2D texture2D = sendTek as Texture2D;
 		byte[] inArray = texture2D.EncodeToPNG();
@@ -1584,7 +1582,6 @@ public sealed class Player_move_c : MonoBehaviour
 	[RPC]
 	public void setParentWeapon(NetworkViewID idWeapon, NetworkViewID idParent, string _ip, string nameSkin, string _nickName)
 	{
-		GetVisibleWear().SetActive(true);
 		string[] multiplayerWeaponTags = WeaponManager.multiplayerWeaponTags;
 		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
 		string[] array2 = multiplayerWeaponTags;
@@ -1954,15 +1951,21 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 
 	[RPC]
-	private void setVisibleWear()
+	private void setVisibleWear(int id)
 	{
-		GetVisibleWear().SetActive(true);
+		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
+		GameObject[] array2 = array;
+		foreach (GameObject gameObject in array2)
+		{
+			if (id == gameObject.GetComponent<PhotonView>().viewID)
+			{
+				gameObject.GetComponent<Player_move_c>().GetVisibleWear().SetActive(true);
+			}
+		}
 	}
 
 	private void Start()
 	{
-		base.GetComponent<NetworkView>().RPC("setVisibleWear", RPCMode.All);
-		GetVisibleWear().SetActive(true);
 		widthPoduct = (float)(healthInApp.normal.background.width * Screen.height) / 768f * (320f / (float)healthInApp.normal.background.height);
 		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
 		{
@@ -2176,6 +2179,14 @@ public sealed class Player_move_c : MonoBehaviour
 			base.transform.parent.transform.position = GlobalGameController.posMyPlayer;
 			base.transform.parent.transform.rotation = GlobalGameController.rotMyPlayer;
 			PlayerPrefs.SetInt("StartAfterDisconnect", 0);
+		}
+		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+		{
+			base.GetComponent<NetworkView>().RPC("setVisibleWear", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
+		}
+		else
+		{
+			photonView.RPC("setVisibleWear", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
 		}
 	}
 

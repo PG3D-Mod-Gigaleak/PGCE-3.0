@@ -15,4 +15,39 @@ public static GameObject LoadObject(string str)
 	return Resources.Load(str) as GameObject;
 }
 
+public static GameObject InsGobj(Object original)
+{
+	GameObject gobj = Instantiate(original) as GameObject;
+	gobj.name.Replace("(Clone)", string.Empty);
+	return gobj;
+}
+
+public static GameObject InsGobj(Object original, Transform parent)
+{
+	GameObject gobj = Instantiate(original, parent) as GameObject;
+	gobj.name.Replace("(Clone)", string.Empty);
+	return gobj;
+}
+
+public static GameObject InsGobj(Object original, Transform parent, bool instantiateInWorldSpace)
+{
+	GameObject gobj = Instantiate(original, parent, instantiateInWorldSpace) as GameObject;
+	gobj.name.Replace("(Clone)", string.Empty);
+	return gobj;
+}
+
+public static GameObject InsGobj(Object original, Vector3 position, Quaternion rotation)
+{
+	GameObject gobj = Instantiate(original, position, rotation) as GameObject;
+	gobj.name.Replace("(Clone)", string.Empty);
+	return gobj;
+}
+
+public static GameObject InsGobj(Object original, Vector3 position, Quaternion rotation, Transform parent)
+{
+	GameObject gobj = Instantiate(original, position, rotation, parent) as GameObject;
+	gobj.name.Replace("(Clone)", string.Empty);
+	return gobj;
+}
+
 }
