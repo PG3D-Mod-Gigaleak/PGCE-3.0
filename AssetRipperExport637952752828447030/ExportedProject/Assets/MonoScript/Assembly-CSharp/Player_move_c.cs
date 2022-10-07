@@ -1970,7 +1970,15 @@ public sealed class Player_move_c : MonoBehaviour
 	[RPC]
 	private void SetValues(int id)
 	{
-		this.curGear = PlayerPrefs.GetString("gear");
+		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
+		GameObject[] array2 = array;
+		foreach (GameObject gameObject in array2)
+		{
+			if (id == this.gameObject.GetComponent<PhotonView>().viewID)
+			{
+				gameObject.GetComponent<Player_move_c>().curGear = PlayerPrefs.GetString("gear");
+			}
+		}
 	}
 
 	private void Start()
