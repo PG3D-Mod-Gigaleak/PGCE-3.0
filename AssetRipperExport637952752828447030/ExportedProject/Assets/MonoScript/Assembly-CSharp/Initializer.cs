@@ -340,6 +340,21 @@ public sealed class Initializer : MonoBehaviour
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
+		if (PlayerPrefs.GetString("MapName").Equals("Utopia Castle"))
+		{
+			position = new Vector3(-25.14f, 13.22f, 19.2f);
+			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
+		}
+		if (PlayerPrefs.GetString("MapName").Equals("Hell Utopia"))
+		{
+			position = new Vector3(-25.14f, 13.22f, 19.2f);
+			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
+		}
+		if (PlayerPrefs.GetString("MapName").Equals("wholeblockmaphelpme"))
+		{
+			position = new Vector3(-25.14f, 13.22f, 19.2f);
+			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
+		}
 		tc = UnityEngine.Object.Instantiate(tempCam, position, rotation) as GameObject;
 
 		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))

@@ -830,6 +830,9 @@ public sealed class Defs
 		mapNamesForUser.Add("SandboxSmall", "Endi Tank Small Sandbox");
 		mapNamesForUser.Add("GardenSmall", "Endi Tank Small Garden");
 		mapNamesForUser.Add("noobite_map", "Noobite working on video-");
+		mapNamesForUser.Add("Utopia Castle", "hell castle in utopia");
+		mapNamesForUser.Add("Hell Utopia", "utopia in hell castle");
+		mapNamesForUser.Add("wholeblockworldmaphelpme", "the block world");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -876,6 +879,9 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("SandboxSmall", 516);
 		levelNumsForMusicInMult.Add("noobite_map", 517);
 		levelNumsForMusicInMult.Add("GardenSmall", 518);
+		levelNumsForMusicInMult.Add("Utopia Castle", 519);
+		levelNumsForMusicInMult.Add("Hell Utopia", 520);
+		levelNumsForMusicInMult.Add("wholeblockworldmaphelpme", 521);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
