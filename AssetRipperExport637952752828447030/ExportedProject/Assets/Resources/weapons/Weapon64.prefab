@@ -230,7 +230,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4546875327872492}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.035846233}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5.9081736}
 --- !u!4 &4095063028709502
 Transform:
   m_ObjectHideFlags: 1
@@ -252,14 +252,14 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1576664301020694}
   m_LocalRotation: {x: 0.00000006657903, y: 5.428672e-16, z: 0.000000008153727, w: 1}
-  m_LocalPosition: {x: -2.4080644, y: -0.40894198, z: -6.694019}
+  m_LocalPosition: {x: -15.695868, y: 0.7380191, z: 39.76988}
   m_LocalScale: {x: 1, y: 0.99999994, z: 1}
   m_Children:
   - {fileID: 4261845050084986}
   - {fileID: 4095063028709502}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0.000006726592, y: 1.0969358e-13, z: 0.00000082378483}
+  m_LocalEulerAnglesHint: {x: 0.0000054368747, y: 8.866158e-14, z: 0.0000006658372}
 --- !u!4 &4158426925962480
 Transform:
   m_ObjectHideFlags: 1
@@ -304,7 +304,7 @@ Transform:
   - {fileID: 4789159087861138}
   m_Father: {fileID: 4261845050084986}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 82.06078, y: 128.17857, z: 130.49113}
+  m_LocalEulerAnglesHint: {x: 54.30727, y: 146.50867, z: 146.99821}
 --- !u!4 &4546875327872492
 Transform:
   m_ObjectHideFlags: 1
@@ -319,7 +319,7 @@ Transform:
   - {fileID: 4046147553740522}
   m_Father: {fileID: 4518016864992434}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.032058254, y: 84.916756, z: 7.4444003}
+  m_LocalEulerAnglesHint: {x: 1.3744864, y: -32.5456, z: -24.442194}
 --- !u!4 &4615598431737216
 Transform:
   m_ObjectHideFlags: 1
@@ -386,7 +386,7 @@ Transform:
   - {fileID: 4615598431737216}
   m_Father: {fileID: 4261845050084986}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -5.466655, y: 1.2304889, z: 0.93070674}
+  m_LocalEulerAnglesHint: {x: -52.174416, y: -97.83461, z: 127.51315}
 --- !u!4 &4851200739040036
 Transform:
   m_ObjectHideFlags: 1
@@ -539,9 +539,9 @@ MonoBehaviour:
   empty: {fileID: 8300000, guid: 7a430345fb1626043b19d700b3991f07, type: 3}
   isSerialShooting: 1
   bonusPrefab: {fileID: 1536308185434652}
-  InitialAmmo: 6
-  ammoInClip: 1
-  maxAmmo: 16
+  InitialAmmo: 9
+  ammoInClip: 3
+  maxAmmo: 30
   isMelee: 0
   range: 3
   damage: 450
@@ -557,6 +557,7 @@ MonoBehaviour:
   meleeAttackTimeModifier: 0.57
   isHeal: 0
   healAmount: 0
+  HealArmor: 0
   maxHealItems: 0
 --- !u!114 &114489633021216798
 MonoBehaviour:

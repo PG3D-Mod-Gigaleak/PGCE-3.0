@@ -327,7 +327,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1956817170482406}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.22, y: 3.12, z: 0.1873138}
+  m_LocalPosition: {x: -9.906634, y: 4.223442, z: 19.072216}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4389230270395778}
@@ -727,6 +727,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 8300000, guid: 798d1704bf3730841a0b63a1a3a1e0bd, type: 3}
   reload: {fileID: 8300000, guid: 834f13a0d415f1748a7ce6545f19dede, type: 3}
   empty: {fileID: 8300000, guid: 7a430345fb1626043b19d700b3991f07, type: 3}
@@ -743,11 +746,15 @@ MonoBehaviour:
   Probability: 10
   damageRange: {x: -15, y: 15}
   gunPosition: {x: 0, y: -1.7, z: 0}
-  preview: {fileID: 2800000, guid: 201fc7de06f681346802c5c401553ccc, type: 3}
+  preview: {fileID: 2800000, guid: 66320b4fabdb06645acef9d084cfe610, type: 3}
   inAppExtensionModifier: 10
   meleeAngle: 45
   multiplayerDamage: 0.5
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
 --- !u!114 &114885154593894762
 MonoBehaviour:
   m_ObjectHideFlags: 1
