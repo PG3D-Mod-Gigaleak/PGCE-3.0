@@ -1885,7 +1885,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public GameObject GetVisibleWear(string curgear)
 	{
-		Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
+		//Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
 		switch(curgear)
 		{
 			case "Iron Armor":
@@ -1903,7 +1903,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public static float GetArmor()
 	{
-		Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
+		//Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
 		switch(PlayerPrefs.GetString("gear"))
 		{
 			case "Iron Armor":
@@ -1919,7 +1919,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public static float GetSpeedMod()
 	{
-		Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
+		//Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
 		switch(PlayerPrefs.GetString("gear"))
 		{
 			case "Sneakers":
@@ -1964,9 +1964,16 @@ public sealed class Player_move_c : MonoBehaviour
 			GameObject[] array2 = array;
 			foreach (GameObject gameObject in array2)
 			{
+				if (gameObject.GetComponent<PhotonView>().viewID == photonPlayer.ID)
+				{
 				GameObject GObj = gameObject.GetComponent<Player_move_c>().GetVisibleWear((string)photonPlayer.customProperties["gear"]);
 				Debug.LogError(GObj.name + " " + (string)photonPlayer.customProperties["gear"]);
 				GObj.SetActive(true);
+				}
+				else
+				{
+					Debug.LogError("nop");
+				}
 			}
 		}
 	}
