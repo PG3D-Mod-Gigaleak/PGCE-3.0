@@ -1955,6 +1955,7 @@ public sealed class Player_move_c : MonoBehaviour
 		myIp = _ip;
 	}
 
+	[RPC]
 	private void setVisibleWear()
 	{
 		foreach(PhotonPlayer photonPlayer in PhotonNetwork.playerList)
@@ -2214,7 +2215,14 @@ public sealed class Player_move_c : MonoBehaviour
 		//{
 		//	photonView.RPC("SetValues", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
 		//}
-		setVisibleWear();
+		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+		{
+			base.GetComponent<NetworkView>().RPC("setVisibleWear", RPCMode.Others);
+		}
+		else
+		{
+			photonView.RPC("setVisibleWear", PhotonTargets.Others);
+		}
 	}
 
 	public bool _singleOrMultiMine()
