@@ -290,7 +290,7 @@ public sealed class Initializer : MonoBehaviour
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("glitch_world"))
+		if (PlayerPrefs.GetString("MapName").Equals("rupture_of_time"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));

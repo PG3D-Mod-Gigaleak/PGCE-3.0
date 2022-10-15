@@ -14,7 +14,7 @@ public sealed class Defs
 
 	public static string cat5;
 
-	public static int numOfWeapons = 103;
+	public static int numOfWeapons = 104;
 
 	public enum RuntimeAndroidEdition
 	{
@@ -820,7 +820,7 @@ public sealed class Defs
 		mapNamesForUser.Add("DripDust", "Drip Dust");
 		mapNamesForUser.Add("Slender_but_bad", "256p Slender Forest");
 		mapNamesForUser.Add("Training_11.2.4", "Training from 11.2.4");
-		mapNamesForUser.Add("glitch_world", "Left over geometry data from pg3d");
+		mapNamesForUser.Add("rupture_of_time", "you teleported to 2014 and uh something is wrong here");
 		mapNamesForUser.Add("northpolebut", "North Pole map but");
 		mapNamesForUser.Add("Stupid52", "Area 52 but very unfunny");
 		mapNamesForUser.Add("COMZ_older_village", "COMZ unused village");
@@ -869,7 +869,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("DripDust", 506);
 		levelNumsForMusicInMult.Add("Slender_but_bad", 507);
 		levelNumsForMusicInMult.Add("Training_11.2.4", 508);
-		levelNumsForMusicInMult.Add("glitch_world", 509);
+		levelNumsForMusicInMult.Add("rupture_of_time", 509);
 		levelNumsForMusicInMult.Add("northpolebut", 510);
 		levelNumsForMusicInMult.Add("Stupid52", 511);
 		levelNumsForMusicInMult.Add("COMZ_older_village", 512);

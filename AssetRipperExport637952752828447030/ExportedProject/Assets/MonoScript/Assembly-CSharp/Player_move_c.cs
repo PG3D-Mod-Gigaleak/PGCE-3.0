@@ -7,6 +7,7 @@ using UnityEngine;
 
 public sealed class Player_move_c : MonoBehaviour
 {
+	public GameObject cubaccahelmet;
 	public struct MessageChat
 	{
 		public string text;
@@ -1893,6 +1894,8 @@ public sealed class Player_move_c : MonoBehaviour
 			return goldArmor;
 			case "Diamond Armor":
 			return diamondArmor;
+			case "Cubacca":
+			return cubaccahelmet;
 			default:
 			return noVisibleWear;
 		}
