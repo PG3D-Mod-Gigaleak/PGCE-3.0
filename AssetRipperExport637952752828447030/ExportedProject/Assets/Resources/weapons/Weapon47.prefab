@@ -655,6 +655,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 8300000, guid: 096be1f3e6614894281b4e78cec31639, type: 3}
   reload: {fileID: 8300000, guid: 3d9ce47f18d57bd48991201814320092, type: 3}
   empty: {fileID: 8300000, guid: 7a430345fb1626043b19d700b3991f07, type: 3}
@@ -665,7 +668,7 @@ MonoBehaviour:
   maxAmmo: 48
   isMelee: 0
   range: 3
-  damage: 1000
+  damage: 30
   speedModifier: 0.9
   animationObject: {fileID: 1339988441310994}
   Probability: 0
@@ -674,8 +677,16 @@ MonoBehaviour:
   preview: {fileID: 2800000, guid: 9bf42b1fbbe628548a4f4fc377a7c92c, type: 3}
   inAppExtensionModifier: 10
   meleeAngle: 45
-  multiplayerDamage: 10
+  multiplayerDamage: 0.3
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  randomOne: 0
+  randomTwo: 100
+  isShotgun: 0
+  numOfShots: 35
 --- !u!114 &114622114947259802
 MonoBehaviour:
   m_ObjectHideFlags: 1

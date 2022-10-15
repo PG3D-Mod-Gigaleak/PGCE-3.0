@@ -2378,7 +2378,10 @@ public sealed class Player_move_c : MonoBehaviour
 		if (!_weaponManager.currentWeaponSounds.isHeal || _weaponManager.currentWeaponSounds.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
 		{
 		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play(myCAnim("Shoot"));
+		for (int i = 0; i < _weaponManager.currentWeaponSounds.numOfShots + 1; i++)
+		{
 		shootS();
+		}
 		if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
 		{
 			base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.shoot);
@@ -2822,7 +2825,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		if (!_weaponManager.currentWeaponSounds.isMelee)
 		{
-			Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0f));
+			Ray ray = Camera.main.ScreenPointToRay(getBloom());
 			RaycastHit hitInfo;
 			if (!Physics.Raycast(ray, out hitInfo, 100f, -2053))
 			{
@@ -2930,6 +2933,18 @@ public sealed class Player_move_c : MonoBehaviour
 		if ((bool)gameObject)
 		{
 			StartCoroutine(HitByMelee(gameObject));
+		}
+	}
+
+	public Vector3 getBloom()
+	{
+		if (!_weaponManager.currentWeaponSounds.isShotgun)
+		{
+			return new Vector3(Screen.width / 2, Screen.height / 2, 0f);
+		}
+		else
+		{
+			return new Vector3(Screen.width / 2 + UnityEngine.Random.Range(_weaponManager.currentWeaponSounds.randomOne, _weaponManager.currentWeaponSounds.randomTwo), Screen.height / 2 + UnityEngine.Random.Range(_weaponManager.currentWeaponSounds.randomOne, _weaponManager.currentWeaponSounds.randomTwo), 0f);
 		}
 	}
 
