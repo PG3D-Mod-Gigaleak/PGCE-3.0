@@ -1963,7 +1963,9 @@ public sealed class Player_move_c : MonoBehaviour
 			GameObject[] array2 = array;
 			foreach (GameObject gameObject in array2)
 			{
-				gameObject.GetComponent<Player_move_c>().GetVisibleWear((string)photonPlayer.customProperties["gear"]).SetActive(true);
+				GameObject GObj = gameObject.GetComponent<Player_move_c>().GetVisibleWear((string)photonPlayer.customProperties["gear"]);
+				Debug.LogError(GObj.name + " " + (string)photonPlayer.customProperties["gear"]);
+				GObj.SetActive(true);
 			}
 		}
 	}
