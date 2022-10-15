@@ -1955,17 +1955,15 @@ public sealed class Player_move_c : MonoBehaviour
 		myIp = _ip;
 	}
 
-	[RPC]
-	private void setVisibleWear(int id)
+	private void setVisibleWear()
 	{
-		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
+		foreach(PhotonPlayer photonPlayer in PhotonNetwork.playerList)
 		{
-			if (id == gameObject.GetComponent<PhotonView>().viewID)
+			GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
+			GameObject[] array2 = array;
+			foreach (GameObject gameObject in array2)
 			{
-				gameObject.GetComponent<Player_move_c>().GetVisibleWear(gameObject.GetComponent<Player_move_c>().curGear).SetActive(true);
-				Debug.LogError(gameObject.GetComponent<Player_move_c>().curGear);
+				gameObject.GetComponent<Player_move_c>().GetVisibleWear((string)photonPlayer.customProperties["gear"]).SetActive(true);
 			}
 		}
 	}
@@ -1986,6 +1984,9 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void Start()
 	{
+		ExitGames.Client.Photon.Hashtable hs = new ExitGames.Client.Photon.Hashtable();
+		hs["gear"] = PlayerPrefs.GetString("gear");
+		PhotonNetwork.player.SetCustomProperties(hs);
 		widthPoduct = (float)(healthInApp.normal.background.width * Screen.height) / 768f * (320f / (float)healthInApp.normal.background.height);
 		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
 		{
@@ -2211,14 +2212,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			photonView.RPC("SetValues", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
 		}
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
-		{
-			base.GetComponent<NetworkView>().RPC("setVisibleWear", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
-		}
-		else
-		{
-			photonView.RPC("setVisibleWear", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
-		}
+		setVisibleWear();
 	}
 
 	public bool _singleOrMultiMine()
