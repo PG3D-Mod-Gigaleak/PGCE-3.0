@@ -629,6 +629,11 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public string curGear;
 
+	public int playerID()
+	{
+		return PhotonNetwork.player.ID;
+	}
+
 	public List<MessageChat> messages = new List<MessageChat>();
 
 	[CompilerGenerated]
@@ -1964,7 +1969,7 @@ public sealed class Player_move_c : MonoBehaviour
 			GameObject[] array2 = array;
 			foreach (GameObject gameObject in array2)
 			{
-				if (gameObject.GetComponent<PhotonView>().viewID == photonPlayer.ID)
+				if (gameObject.GetComponent<Player_move_c>().playerID() == photonPlayer.ID)
 				{
 				GameObject GObj = gameObject.GetComponent<Player_move_c>().GetVisibleWear((string)photonPlayer.customProperties["gear"]);
 				Debug.LogError(GObj.name + " " + (string)photonPlayer.customProperties["gear"]);
