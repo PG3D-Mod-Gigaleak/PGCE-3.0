@@ -2204,14 +2204,14 @@ public sealed class Player_move_c : MonoBehaviour
 			base.transform.parent.transform.rotation = GlobalGameController.rotMyPlayer;
 			PlayerPrefs.SetInt("StartAfterDisconnect", 0);
 		}
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
-		{
-			base.GetComponent<NetworkView>().RPC("SetValues", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
-		}
-		else
-		{
-			photonView.RPC("SetValues", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
-		}
+		//if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+		//{
+		//	base.GetComponent<NetworkView>().RPC("SetValues", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
+		//}
+		//else
+		//{
+		//	photonView.RPC("SetValues", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
+		//}
 		setVisibleWear();
 	}
 
