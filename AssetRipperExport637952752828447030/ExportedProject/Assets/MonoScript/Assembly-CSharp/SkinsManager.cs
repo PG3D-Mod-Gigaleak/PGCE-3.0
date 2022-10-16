@@ -8,7 +8,7 @@ public class SkinsManager
 	{
 		get
 		{
-			return Application.persistentDataPath;
+			return Application.streamingAssetsPath;
 		}
 	}
 

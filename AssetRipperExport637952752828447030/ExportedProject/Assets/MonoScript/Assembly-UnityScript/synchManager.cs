@@ -12,7 +12,5 @@ public class synchManager : MonoBehaviour
 	{
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

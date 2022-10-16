@@ -368,7 +368,5 @@ public class tapcontrol : MonoBehaviour
 		Vector3 vector2 = (cameraPivot.eulerAngles = eulerAngles);
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

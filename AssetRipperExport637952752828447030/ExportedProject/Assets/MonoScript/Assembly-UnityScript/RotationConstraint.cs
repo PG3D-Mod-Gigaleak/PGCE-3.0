@@ -67,7 +67,5 @@ public class RotationConstraint : MonoBehaviour
 		playerGun.transform.rotation = thisTransform.rotation;
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

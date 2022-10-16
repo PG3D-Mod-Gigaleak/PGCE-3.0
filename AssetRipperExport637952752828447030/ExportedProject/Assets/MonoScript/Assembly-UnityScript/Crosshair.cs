@@ -18,7 +18,5 @@ public class Crosshair : MonoBehaviour
 		GUI.DrawTexture(position, crosshairTexture);
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

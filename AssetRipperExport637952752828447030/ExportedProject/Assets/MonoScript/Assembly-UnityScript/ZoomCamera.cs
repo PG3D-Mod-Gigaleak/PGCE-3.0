@@ -70,7 +70,5 @@ public class ZoomCamera : MonoBehaviour
 		thisTransform.localPosition = position2;
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

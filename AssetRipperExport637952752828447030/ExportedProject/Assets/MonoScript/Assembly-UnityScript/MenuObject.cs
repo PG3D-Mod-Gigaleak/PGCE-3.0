@@ -126,7 +126,5 @@ public class MenuObject : MonoBehaviour
 		return new _0024OnMouseDown_0024105(this).GetEnumerator();
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

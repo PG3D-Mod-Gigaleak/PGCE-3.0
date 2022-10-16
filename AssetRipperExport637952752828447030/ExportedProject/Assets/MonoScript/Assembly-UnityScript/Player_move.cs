@@ -43,7 +43,5 @@ public class Player_move : MonoBehaviour
 		}
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

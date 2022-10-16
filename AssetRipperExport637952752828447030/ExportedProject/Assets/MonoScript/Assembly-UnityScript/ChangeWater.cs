@@ -30,7 +30,5 @@ public class ChangeWater : MonoBehaviour
 		}
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

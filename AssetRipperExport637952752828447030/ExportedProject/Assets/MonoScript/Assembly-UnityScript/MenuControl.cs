@@ -44,7 +44,5 @@ public class MenuControl : MonoBehaviour
 		}
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

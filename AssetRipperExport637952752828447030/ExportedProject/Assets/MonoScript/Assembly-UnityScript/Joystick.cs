@@ -286,7 +286,7 @@ public class Joystick : MonoBehaviour
 			}
 			if (Input.GetMouseButton(0))
 			{
-				_playerGun.SendMessage("ShotPressed");
+				_playerGun.SendMessage("ShotPressed", false);
 			}
 		}
 		if (!enumeratedJoysticks)
@@ -344,7 +344,7 @@ public class Joystick : MonoBehaviour
 				{
 					if ((bool)fireTexture && touchZone.Contains(touch.position) && touchBeginsOnFireZone && !blink)
 					{
-						_playerGun.SendMessage("ShotPressed");
+						_playerGun.SendMessage("ShotPressed", false);
 					}
 					else
 					{
@@ -380,7 +380,7 @@ public class Joystick : MonoBehaviour
 					}
 					if ((bool)fireTexture && fireZone.Contains(touch.position) && !isSerialShooting)
 					{
-						_playerGun.SendMessage("ShotPressed");
+						_playerGun.SendMessage("ShotPressed", false);
 						continue;
 					}
 					if ((bool)jumpTexture && jumpTexturePixelInset.Contains(touch.position))
@@ -474,7 +474,5 @@ public class Joystick : MonoBehaviour
 		isSerialShooting = isSeriya;
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

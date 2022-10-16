@@ -29,7 +29,5 @@ public class ObliqueNear : MonoBehaviour
 		GetComponent<Camera>().projectionMatrix = CalculateObliqueMatrix(projectionMatrix, clipPlane);
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

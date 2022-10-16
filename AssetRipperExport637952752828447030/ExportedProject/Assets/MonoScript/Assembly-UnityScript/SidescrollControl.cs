@@ -90,7 +90,5 @@ public class SidescrollControl : MonoBehaviour
 		}
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

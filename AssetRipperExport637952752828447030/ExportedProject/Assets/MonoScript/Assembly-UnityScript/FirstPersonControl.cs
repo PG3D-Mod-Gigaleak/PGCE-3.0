@@ -310,7 +310,5 @@ public class FirstPersonControl : MonoBehaviour
 		cameraPivot.Rotate(0f - vector2.y, 0f, 0f);
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

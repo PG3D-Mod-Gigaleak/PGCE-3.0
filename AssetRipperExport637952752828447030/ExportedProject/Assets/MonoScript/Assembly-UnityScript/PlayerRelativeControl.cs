@@ -121,7 +121,5 @@ public class PlayerRelativeControl : MonoBehaviour
 		}
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

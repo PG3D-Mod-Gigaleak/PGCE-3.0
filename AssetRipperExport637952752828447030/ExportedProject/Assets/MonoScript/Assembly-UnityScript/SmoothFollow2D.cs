@@ -34,7 +34,5 @@ public class SmoothFollow2D : MonoBehaviour
 		Vector3 vector4 = (thisTransform.position = position2);
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

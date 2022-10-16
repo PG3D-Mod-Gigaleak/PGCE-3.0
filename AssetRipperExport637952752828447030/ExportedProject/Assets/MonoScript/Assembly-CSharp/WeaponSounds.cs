@@ -58,13 +58,17 @@ public class WeaponSounds : MonoBehaviour
 
 	public int maxHealItems;
 
-	public float randomOne;
+	public float bloomLow;
 
-	public float randomTwo;
+	public float bloomHigh;
 
 	public bool isShotgun;
 
-	public int numOfShots;
+	public int numOfPellets;
+
+	public bool hasAlternateShot;
+
+	public WeaponSounds alternateShot;
 
 	public int MaxAmmoWithRespectToInApp
 	{

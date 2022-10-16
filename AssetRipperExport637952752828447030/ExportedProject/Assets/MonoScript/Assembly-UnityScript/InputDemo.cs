@@ -181,7 +181,5 @@ public class InputDemo : MonoBehaviour
 		FlyingText.UpdateObject(textObject, enteredText + cursorChar);
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

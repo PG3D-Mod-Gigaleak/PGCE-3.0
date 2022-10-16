@@ -12,7 +12,5 @@ public class SmoothFollow : MonoBehaviour
 	{
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

@@ -24,7 +24,5 @@ public class FollowTransform : MonoBehaviour
 		}
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

@@ -260,7 +260,5 @@ public class GameOverControl : MonoBehaviour
 		return new _0024CameraShake_002480(cam, this).GetEnumerator();
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

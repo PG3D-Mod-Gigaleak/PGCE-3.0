@@ -109,7 +109,5 @@ public class CameraRelativeControl : MonoBehaviour
 		cameraPivot.Rotate(position.y, 0f, 0f);
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

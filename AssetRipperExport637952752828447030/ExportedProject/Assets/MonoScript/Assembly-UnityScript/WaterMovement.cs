@@ -29,7 +29,5 @@ public class WaterMovement : MonoBehaviour
 		gameObject.GetComponent<Renderer>().material.mainTextureScale = new Vector2(waveScale, waveScale);
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

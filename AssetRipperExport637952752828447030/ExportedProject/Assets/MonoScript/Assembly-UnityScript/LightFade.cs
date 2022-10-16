@@ -20,7 +20,5 @@ public class LightFade : MonoBehaviour
 		GetComponent<Light>().intensity = lightIntensity;
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }

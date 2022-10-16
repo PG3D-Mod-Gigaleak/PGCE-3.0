@@ -39,7 +39,5 @@ public class RollABall : MonoBehaviour
 		previousPosition = transform.position;
 	}
 
-	public virtual void Main()
-	{
-	}
+
 }
