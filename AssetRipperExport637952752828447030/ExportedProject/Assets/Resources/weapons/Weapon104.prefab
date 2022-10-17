@@ -373,7 +373,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1077781587470120}
   m_LocalRotation: {x: 0.00000006657903, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.8207417, y: 1.9387933, z: -3.44232}
+  m_LocalPosition: {x: 84.53639, y: 4.6888213, z: -3.846004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4411433687537678}
@@ -781,10 +781,14 @@ MonoBehaviour:
   healAmount: 0
   HealArmor: 0
   maxHealItems: 0
-  randomOne: -32
-  randomTwo: 32
+  bloomLow: -25
+  bloomHigh: 25
   isShotgun: 1
-  numOfShots: 20
+  numOfPellets: 11
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
 --- !u!137 &137058652712894966
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

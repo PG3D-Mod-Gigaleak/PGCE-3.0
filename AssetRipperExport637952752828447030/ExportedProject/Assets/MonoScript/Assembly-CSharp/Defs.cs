@@ -14,7 +14,7 @@ public sealed class Defs
 
 	public static string cat5;
 
-	public static int numOfWeapons = 106;
+	public static int numOfWeapons = 107;
 
 	public enum RuntimeAndroidEdition
 	{
@@ -698,7 +698,7 @@ public sealed class Defs
 		}
 	}
 
-	public static string[] MainMenuScenes = new string[] { "Menu_Utopia", "Menu_Maze", "Menu_Islands", "Menu_City", "Menu_Slender", "Menu_Hills", "Menu_Unused_ParkingSpace" };
+	public static string[] MainMenuScenes = new string[] { "Menu_Utopia", "Menu_Maze", "Menu_Islands", "Menu_City", "Menu_Slender", "Menu_Hills", "Menu_Unused_ParkingSpace", "Menu_CNR" };
 
 	public static string CurrentMainMenuScene;
 
@@ -833,6 +833,7 @@ public sealed class Defs
 		mapNamesForUser.Add("Utopia Castle", "hell castle in utopia");
 		mapNamesForUser.Add("Hell Utopia", "utopia in hell castle");
 		mapNamesForUser.Add("wholeblockworldmaphelpme", "the block world");
+		mapNamesForUser.Add("CRScene2", "a christmas prison wowowo");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -882,6 +883,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("Utopia Castle", 519);
 		levelNumsForMusicInMult.Add("Hell Utopia", 520);
 		levelNumsForMusicInMult.Add("wholeblockworldmaphelpme", 521);
+		levelNumsForMusicInMult.Add("CRScene2", 522);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
