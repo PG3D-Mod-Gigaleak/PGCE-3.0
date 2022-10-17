@@ -3202,6 +3202,10 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void Update()
 	{
+		if (Camera.main.transform.parent != recoilObject.transform)
+		{
+			Camera.main.transform.parent = recoilObject.transform;
+		}
 		if (!Application.isMobilePlatform)
 		{
 			if (Input.GetKeyDown("e") && _weaponManager.currentWeaponSounds.hasAlternateShot)
