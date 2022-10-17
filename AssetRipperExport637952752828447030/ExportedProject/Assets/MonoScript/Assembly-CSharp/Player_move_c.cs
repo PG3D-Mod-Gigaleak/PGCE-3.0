@@ -627,6 +627,8 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public GameObject noVisibleWear;
 
+	public GameObject recoilObject;
+
 	public string curGear;
 
 	public int playerID()
@@ -692,6 +694,30 @@ public sealed class Player_move_c : MonoBehaviour
 		set
 		{
 			___weaponManager = value;
+		}
+	}
+
+	private bool unRecoiling;
+
+	private int stackedUnRecoils;
+
+	public IEnumerator recoilStuff()
+	{
+		unRecoiling = true;
+		yield return new WaitForSeconds(0.5f);
+		unRecoiling = false;
+		while (stackedUnRecoils > 0)
+		{
+			if (unRecoiling)
+			{
+				yield break;
+			}
+			yield return new WaitForSeconds(0.1f);
+			if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Shoot"))
+			{
+			recoilObject.transform.Rotate(recoilObject.transform.rotation.x + _weaponManager.currentWeaponSounds.recoil, 0f, 0f);
+			stackedUnRecoils--;
+			}
 		}
 	}
 
@@ -2418,6 +2444,13 @@ public sealed class Player_move_c : MonoBehaviour
 		else
 		{
 			WS.animationObject.GetComponent<Animation>().Play(myCAnim("AltShoot"));
+		}
+		if (WS.hasRecoil)
+		{
+			unRecoiling = true;
+			recoilObject.transform.Rotate(recoilObject.transform.rotation.x - WS.recoil, 0f, 0f);
+			stackedUnRecoils++;
+			StartCoroutine(recoilStuff());
 		}
 		if (WS.isShotgun)
 		{

@@ -70,6 +70,10 @@ public class WeaponSounds : MonoBehaviour
 
 	public WeaponSounds alternateShot;
 
+	public bool hasRecoil;
+
+	public float recoil;
+
 	public int MaxAmmoWithRespectToInApp
 	{
 		get
