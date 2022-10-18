@@ -7,7 +7,7 @@ using UnityEngine;
 
 public sealed class Player_move_c : MonoBehaviour
 {
-	public GameObject cubaccahelmet;
+	public GameObject stalkerhelmet;
 	public struct MessageChat
 	{
 		public string text;
@@ -1925,8 +1925,8 @@ public sealed class Player_move_c : MonoBehaviour
 			return goldArmor;
 			case "Diamond Armor":
 			return diamondArmor;
-			case "Cubacca":
-			return cubaccahelmet;
+			case "Stalker":
+			return stalkerhelmet;
 			default:
 			return noVisibleWear;
 		}
