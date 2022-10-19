@@ -74,6 +74,14 @@ public class WeaponSounds : MonoBehaviour
 
 	public float recoil;
 
+	public bool hasUpgrades;
+
+	public bool isChargeUp;
+
+	public AudioClip chargeUp;
+
+	public AudioClip chargeDown;
+
 	public int MaxAmmoWithRespectToInApp
 	{
 		get

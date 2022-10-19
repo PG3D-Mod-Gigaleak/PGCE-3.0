@@ -284,7 +284,7 @@ public class Joystick : MonoBehaviour
 			{
 				_playerGun.SendMessage("ReloadPressed");
 			}
-			if (Input.GetMouseButton(0))
+			if (Input.GetMouseButton(0) && !_playerGun.GetComponent<Player_move_c>().isChargingUp)
 			{
 				_playerGun.SendMessage("ShotPressed", false);
 			}
@@ -342,7 +342,7 @@ public class Joystick : MonoBehaviour
 				}
 				if (isSerialShooting && touchPad && flag)
 				{
-					if ((bool)fireTexture && touchZone.Contains(touch.position) && touchBeginsOnFireZone && !blink)
+					if ((bool)fireTexture && touchZone.Contains(touch.position) && touchBeginsOnFireZone && !blink && !_playerGun.GetComponent<Player_move_c>().isChargingUp)
 					{
 						_playerGun.SendMessage("ShotPressed", false);
 					}
@@ -378,7 +378,7 @@ public class Joystick : MonoBehaviour
 							array[j].LatchedFinger(touch.fingerId);
 						}
 					}
-					if ((bool)fireTexture && fireZone.Contains(touch.position) && !isSerialShooting)
+					if ((bool)fireTexture && fireZone.Contains(touch.position) && !isSerialShooting && !_playerGun.GetComponent<Player_move_c>().isChargingUp)
 					{
 						_playerGun.SendMessage("ShotPressed", false);
 						continue;

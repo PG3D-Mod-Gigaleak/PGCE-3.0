@@ -3,16 +3,8 @@ using UnityEngine;
 
 public class MenuBackgroundMusic : MonoBehaviour
 {
-	private static string[] scenetsToPlayMusicOn = new string[17]
+	private static string[] scenetsToPlayMusicOn = new string[]
 	{
-		Defs.MainMenuScenes[0],
-		Defs.MainMenuScenes[1],
-		Defs.MainMenuScenes[2],
-		Defs.MainMenuScenes[3],
-		Defs.MainMenuScenes[4],
-		Defs.MainMenuScenes[5],
-		Defs.MainMenuScenes[6],
-		Defs.MainMenuScenes[7],
 		"ConnectScene",
 		"SettingScene",
 		"ArmoryScene",
@@ -31,7 +23,7 @@ public class MenuBackgroundMusic : MonoBehaviour
 
 	private void OnLevelWasLoaded(int idx)
 	{
-		if (Array.IndexOf(scenetsToPlayMusicOn, Application.loadedLevelName) >= 0)
+		if (Array.IndexOf(scenetsToPlayMusicOn, Application.loadedLevelName) >= 0 || Application.loadedLevelName.StartsWith("Menu_"))
 		{
 			if (!base.GetComponent<AudioSource>().isPlaying && (Array.IndexOf(Defs.MainMenuScenes, Application.loadedLevelName) >= 0))
 			{

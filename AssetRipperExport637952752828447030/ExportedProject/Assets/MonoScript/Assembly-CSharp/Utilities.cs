@@ -15,6 +15,18 @@ public static GameObject LoadObject(string str)
 	return Resources.Load(str) as GameObject;
 }
 
+public static AnimationState GetAnimState(Animation anim, string str)
+{
+	foreach (AnimationState AS in anim)
+	{
+		if (AS.name == str)
+		{
+			return AS;
+		}
+	}
+	return null;
+}
+
 public static GameObject InsGobj(Object original)
 {
 	GameObject gobj = Instantiate(original) as GameObject;

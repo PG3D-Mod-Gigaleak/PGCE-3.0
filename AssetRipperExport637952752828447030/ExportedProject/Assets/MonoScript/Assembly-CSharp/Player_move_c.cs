@@ -2383,8 +2383,14 @@ public sealed class Player_move_c : MonoBehaviour
 		_rightJoystick.SendMessage("HasAmmo");
 	}
 
+	public bool isChargingUp;
+
 	private void ShotPressed(bool alt)
 	{
+		if (isChargingUp)
+		{
+			return;
+		}
 		WeaponSounds WS = null;
 		if (alt)
 		{
@@ -2394,7 +2400,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			WS = _weaponManager.currentWeaponSounds;
 		}
-		if ((PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")))
+		if ((PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("ChargeDown")))
 		{
 			return;
 		}
@@ -2405,10 +2411,18 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		else if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
 		{
+			if (!WS.isChargeUp)
+			{
 			((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
+			}
 			if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == 0)
 			{
 				Invoke("ReloadPressed", 0.2f);
+			}
+			if (WS.isChargeUp)
+			{
+				StartCoroutine(checkCharging(WS, alt));
+				return;
 			}
 			_Shot(alt);
 			_SetGunFlashActive(true);
@@ -2422,6 +2436,45 @@ public sealed class Player_move_c : MonoBehaviour
 				base.GetComponent<AudioSource>().PlayOneShot(WS.empty);
 			}
 		}
+	}
+
+	private IEnumerator checkCharging(WeaponSounds WS, bool alt)
+	{
+		if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip <= 0)
+		{
+			yield break;
+		}
+		if (WS.animationObject.GetComponent<Animation>().IsPlaying("ChargeDown"))
+		{
+			yield break;
+		}
+		isChargingUp = true;
+		WS.animationObject.GetComponent<Animation>().Play("ChargeUp");
+		base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.chargeUp);
+		while(Input.GetMouseButton(0))
+		{
+			yield return new WaitForSeconds(0.01f);
+			if (!WS.animationObject.GetComponent<Animation>().IsPlaying("ChargeUp"))
+			{
+				if (!WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")))
+				{
+					if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip <= 0)
+					{
+						WS.animationObject.GetComponent<Animation>().Play("ChargeDown");
+						base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.chargeDown);
+						isChargingUp = false;
+						yield break;
+					}
+					((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
+					_Shot(alt);
+					_SetGunFlashActive(true);
+					GunFlashLifetime = WS.gameObject.GetComponent<FlashFire>().timeFireAction;
+				}
+			}
+		}
+		WS.animationObject.GetComponent<Animation>().Play("ChargeDown");
+		base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.chargeDown);
+		isChargingUp = false;
 	}
 
 	private void _Shot(bool alt)

@@ -26,7 +26,7 @@ public bool isGear;
 
 private bool popup;
 
-private string popupWeapon;
+public string popupWeapon;
 
 private int popupIndex;
 
@@ -50,6 +50,8 @@ public GUIStyle commentLabelThingy;
 
 public GUIStyle closeButton;
 
+public GUIStyle next;
+
 public Texture popupBG;
 
 public Texture menuBG;
@@ -72,6 +74,36 @@ public Texture[] currentWeaponTextures()
 	return texs;
 }
 
+public Texture textureToDraw()
+{
+	if (!currentWeaponHasUpgrades())
+	{
+		return currentWeaponTextures()[popupIndex];
+	}
+	else
+	{
+		return Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[currentUpgradeIndex()]).GetComponent<WeaponSounds>().preview;
+	}
+}
+
+public bool currentWeaponHasUpgrades()
+{
+	Debug.LogError(WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]);
+	return Utilities.LoadObject("Weapons/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<WeaponSounds>().hasUpgrades;
+}
+
+public int currentUpgradeIndex()
+{
+	for (int i = 0; i < Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames.Length; i++)
+	{
+		if(Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[i]).tag == popupWeapon)
+		{
+			return i;
+		}
+	}
+	return 0;
+}
+
 public string[] currentWeaponNames()
 {
 	string[] weaponthe =  WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
@@ -92,13 +124,29 @@ public string[] currentWeaponNames()
 
 public string currentWeaponComment()
 {
+	if (!currentWeaponHasUpgrades())
+	{
 	return WeaponLists.Find(x => x.index == weaponIndex).weaponComments[popupIndex];
+	}
+	else
+	{
+		return Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponComments[currentUpgradeIndex()];
+	}
 }
 
 public string currentWeaponStats()
-{
-	return WeaponLists.Find(x => x.index == weaponIndex).weaponStats[popupIndex];
+{	
+	if (!currentWeaponHasUpgrades())
+	{
+	return WeaponLists.Find(x => x.index == weaponIndex).weaponComments[popupIndex];
+	}
+	else
+	{
+		return Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponStats[currentUpgradeIndex()];
+	}
 }
+
+
 
 public int weaponsInThisPage()
 {
@@ -283,10 +331,25 @@ private float koofScreen = (float)Screen.height / 768f;
 			}
 			GUI.Label(Utilities.screenScaleRect(0.45f, 0.2f, 0.5f, 0.5f), popupWeapon, commentLabelThingy);
 			GUI.Label(Utilities.screenScaleRect(0.275f, 0.55f, 0.5f, 0.5f), currentWeaponComment(), commentLabelThingy);
-			GUI.DrawTexture(Utilities.screenScaleRect(0.3f, 0.3f, 0.3f, 0.23f), currentWeaponTextures()[popupIndex], ScaleMode.StretchToFill);
+			GUI.DrawTexture(Utilities.screenScaleRect(0.3f, 0.3f, 0.3f, 0.23f), textureToDraw(), ScaleMode.StretchToFill);
 			if (isGear)
 			{
 				GUI.Label(Utilities.screenScaleRect(0.575f, 0.4f, 0.3f, 0.3f), currentWeaponStats(), commentLabelThingy);
+			}
+			if (currentWeaponHasUpgrades())
+			{
+				if (GUI.Button(Utilities.screenScaleRect(0.46f, 0.25f, 0.075f, 0.075f), string.Empty, next))
+				{
+					if (currentUpgradeIndex() >= Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames.Length - 1)
+					{
+						popupWeapon =  Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[0]).tag;
+						return;
+					}
+					if (currentUpgradeIndex() < WeaponLists.Count - 1)
+					{
+						popupWeapon =  Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[currentUpgradeIndex() + 1]).tag;
+					}	
+				}
 			}
 		}
 	}
