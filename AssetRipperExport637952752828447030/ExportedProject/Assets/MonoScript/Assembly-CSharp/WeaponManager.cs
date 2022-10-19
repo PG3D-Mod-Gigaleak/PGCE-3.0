@@ -443,7 +443,7 @@ public sealed class WeaponManager : MonoBehaviour
 			"Chainsaw2", "WaterMace", "HammerTroll", "ShinySword", "happy_mace", "weird pickaxe", "mega tom", "wide gun", "kryptonite blaster beta", "ghost hands", "pirate saber", "plant arm", "sky islands as a weapon", "monster wand", "dragon bazooka", "bruhmomer",
 			"mech suit", "TigerPistol", "mp5", "Trophy", "buntu", "fishgun", "tibhategun", "sniper rifle", "drip hammer", "Hammer (3.6)", "unknown box", "sodamachine", "disability", "martian ray gun", "4jfyHJ6X93jtr", "piramid", "comzp90", "comzmp5", "comzak47", "comzaug",
 			"comzxm", "comzremington", "comzshotgun", "enditank", "zombie", "SVD", "chicken", "toast cube", "spaceship", "oxbadcode but normal", "abominationAK", "monstrosity", "helicopter", "spark shark", "killer bean's pistol", "batman's glove", "Mr. commit pixelman",
-			"fn20000", "pirate blunderbuss", "mp5andknife", "rust ak47", "Christmas bow from CNRPG1", "swfminigun1", "swfminigun2"
+			"fn20000", "pirate blunderbuss", "mp5andknife", "rust ak47", "Christmas bow from CNRPG1", "swfminigun1", "swfminigun2", "crappy chainsaw"
 		};
 		_initialMultiplayerWeaponTags = new string[]
 		{
