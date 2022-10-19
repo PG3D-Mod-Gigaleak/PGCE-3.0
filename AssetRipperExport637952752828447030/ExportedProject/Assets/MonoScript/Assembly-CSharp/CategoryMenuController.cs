@@ -88,7 +88,10 @@ public Texture textureToDraw()
 
 public bool currentWeaponHasUpgrades()
 {
-	Debug.LogError(WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]);
+	if (isGear)
+	{
+		return false;
+	}
 	return Utilities.LoadObject("Weapons/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<WeaponSounds>().hasUpgrades;
 }
 
@@ -138,7 +141,7 @@ public string currentWeaponStats()
 {	
 	if (!currentWeaponHasUpgrades())
 	{
-	return WeaponLists.Find(x => x.index == weaponIndex).weaponComments[popupIndex];
+	return WeaponLists.Find(x => x.index == weaponIndex).weaponStats[popupIndex];
 	}
 	else
 	{
