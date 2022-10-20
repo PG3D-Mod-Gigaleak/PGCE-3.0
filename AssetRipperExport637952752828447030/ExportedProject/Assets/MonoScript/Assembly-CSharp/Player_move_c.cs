@@ -2357,6 +2357,65 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 		}
 	}
+	 	[RPC]
+	private void ChargeUpGun(NetworkViewID id)
+	{
+		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
+		GameObject[] array2 = array;
+		foreach (GameObject gameObject in array2)
+		{
+			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
+			{
+				gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("ChargeUp"));
+				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().chargeUp);
+			}
+		}
+	}
+
+	[RPC]
+	private void ChargeUpGunPhoton(int id)
+	{
+		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
+		GameObject[] array2 = array;
+		foreach (GameObject gameObject in array2)
+		{
+			if (id == gameObject.GetComponent<PhotonView>().viewID)
+			{
+				gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("ChargeUp"));
+				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().chargeUp);
+			}
+		}
+	}
+
+	[RPC]
+	private void ChargeDownGun(NetworkViewID id)
+	{
+		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
+		GameObject[] array2 = array;
+		foreach (GameObject gameObject in array2)
+		{
+			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
+			{
+				gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("ChargeDown"));
+				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().chargeDown);
+			}
+		}
+	}
+
+	[RPC]
+	private void ChargeDownGunPhoton(int id)
+	{
+		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
+		GameObject[] array2 = array;
+		foreach (GameObject gameObject in array2)
+		{
+			if (id == gameObject.GetComponent<PhotonView>().viewID)
+			{
+				gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("ChargeDown"));
+				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().chargeDown);
+			}
+		}
+	}
 
 	private void ReloadPressed()
 	{
@@ -2450,7 +2509,21 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		isChargingUp = true;
 		WS.animationObject.GetComponent<Animation>().Play("ChargeUp");
-		base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.chargeUp);
+		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		{
+			if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+			{
+				base.GetComponent<NetworkView>().RPC("ChargeUpGun", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
+			}
+			else
+			{
+				photonView.RPC("ChargeUpGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
+			}
+		}
+		if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
+		{
+			base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.chargeUp);
+		}
 		while(Input.GetMouseButton(0))
 		{
 			yield return new WaitForSeconds(0.01f);
@@ -2461,7 +2534,21 @@ public sealed class Player_move_c : MonoBehaviour
 					if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip <= 0)
 					{
 						WS.animationObject.GetComponent<Animation>().Play("ChargeDown");
-						base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.chargeDown);
+						if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+						{
+							if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+							{
+								base.GetComponent<NetworkView>().RPC("ChargeDownGun", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
+							}
+							else
+							{
+								photonView.RPC("ChargeDownGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
+							}
+						}
+						if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
+						{
+							base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.chargeDown);
+						}
 						isChargingUp = false;
 						yield break;
 					}
