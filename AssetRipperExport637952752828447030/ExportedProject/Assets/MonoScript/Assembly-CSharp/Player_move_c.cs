@@ -697,6 +697,17 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	[HideInInspector]
+	public int doubleShotIndex;
+
+	public bool Shooting
+	{
+		get
+		{
+			return _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Shoot") || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Shoot" + doubleShotIndex) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("AltShoot");
+		}
+	}
+
 	private bool unRecoiling;
 
 	private int stackedUnRecoils;
@@ -713,12 +724,22 @@ public sealed class Player_move_c : MonoBehaviour
 				yield break;
 			}
 			yield return new WaitForSeconds(0.1f);
-			if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Shoot"))
+			if (!Shooting)
 			{
 			recoilObject.transform.Rotate(recoilObject.transform.rotation.x + _weaponManager.currentWeaponSounds.recoil, 0f, 0f);
 			stackedUnRecoils--;
 			}
 		}
+	}
+
+	public void DoDoubleShot()
+	{
+		if (doubleShotIndex == 0)
+		{
+			doubleShotIndex = 1;
+			return;
+		}
+		doubleShotIndex = 0;
 	}
 
 	private void OnGUI()
@@ -1848,6 +1869,15 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("Reload")].layer = 1;
 		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("Shoot")].layer = 1;
+		if (_weaponManager.currentWeaponSounds.isDouble)
+		{
+			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("Shoot0")].layer = 1;
+			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("Shoot1")].layer = 1;
+		}
+		if (_weaponManager.currentWeaponSounds.hasAlternateShot)
+		{
+			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("AltShoot")].layer = 1;
+		}
 		if (!_weaponManager.currentWeaponSounds.isMelee)
 		{
 			foreach (Transform item in _weaponManager.currentWeaponSounds.gameObject.transform)
@@ -2205,7 +2235,7 @@ public sealed class Player_move_c : MonoBehaviour
 			if (_weaponManager.currentWeaponSounds != null)
 			{
 				_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("Reload")].layer = 1;
-				if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Shoot"))
+				if (!Shooting)
 				{
 				_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Stop();
 				}
@@ -2459,7 +2489,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			WS = _weaponManager.currentWeaponSounds;
 		}
-		if ((PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("ChargeDown")))
+		if ((PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("ChargeDown")))
 		{
 			return;
 		}
@@ -2529,7 +2559,7 @@ public sealed class Player_move_c : MonoBehaviour
 			yield return new WaitForSeconds(0.01f);
 			if (!WS.animationObject.GetComponent<Animation>().IsPlaying("ChargeUp"))
 			{
-				if (!WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")))
+				if (!WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")))
 				{
 					if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip <= 0)
 					{
@@ -2579,7 +2609,19 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 		if (!alt)
 		{
-			WS.animationObject.GetComponent<Animation>().Play(myCAnim("Shoot"));
+			if (!WS.isDouble)
+			{
+				WS.animationObject.GetComponent<Animation>().Play(myCAnim("Shoot"));
+			}
+			else
+			{
+				if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")))
+				{
+					gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
+					gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("Shoot" + doubleShotIndex));
+					DoDoubleShot();
+				}
+			}
 		}
 		else
 		{
@@ -2979,7 +3021,19 @@ public sealed class Player_move_c : MonoBehaviour
 				{
 					gameObject.transform.GetChild(0).GetComponent<FlashFire>().fire();
 				}
-				gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("Shoot"));
+				if (!gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().isDouble)
+				{
+					gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("Shoot"));
+				}
+				else
+				{
+					if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")))
+					{
+						gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
+						gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("Shoot" + doubleShotIndex));
+						DoDoubleShot();
+					}
+				}
 				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().shoot);
 			}
 		}
@@ -2998,7 +3052,19 @@ public sealed class Player_move_c : MonoBehaviour
 				{
 					gameObject.transform.GetChild(0).GetComponent<FlashFire>().fire();
 				}
-				gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("Shoot"));
+				if (!gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().isDouble)
+				{
+					gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("Shoot"));
+				}
+				else
+				{
+					if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")))
+					{
+						gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
+						gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("Shoot" + doubleShotIndex));
+						DoDoubleShot();
+					}
+				}
 				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().shoot);
 			}
 		}
@@ -3014,6 +3080,14 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		UnityEngine.Object.Instantiate(hole, _pos, _rot);
 		UnityEngine.Object.Instantiate(wallParticle, _pos, _rot);
+	}
+
+	public IEnumerator doSpeedBoost(WeaponSounds WS)
+	{
+		float original = WS.speedModifier;
+		WS.speedModifier += WS.speedBoostAmount;
+		yield return new WaitForSeconds(WS.speedBoostDuration);
+		WS.speedModifier = original;
 	}
 
 	public void shootS(bool alt)
@@ -3039,6 +3113,12 @@ public sealed class Player_move_c : MonoBehaviour
 				curArmor = 9f;
 			}
 			}
+			((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
+			return;
+			}
+			if (WS.SpeedBoost)
+			{
+			StartCoroutine(doSpeedBoost(WS));
 			((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
 			return;
 			}
@@ -3352,7 +3432,7 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				ShotPressed(true);
 			}
-			if (Input.GetKeyDown(KeyCode.Alpha2) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
+			if (Input.GetKeyDown(KeyCode.Alpha2) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
        		{
        			if ((((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1) || PlayerPrefs.GetInt("MultyPlayer") != 1)
 				{
@@ -3374,7 +3454,7 @@ public sealed class Player_move_c : MonoBehaviour
 				StartCoroutine(SetCanReceiveSwipes());
 				slideMagnitudeX = 0f;
 			}
-                if (Input.GetKeyDown(KeyCode.Alpha1) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
+                if (Input.GetKeyDown(KeyCode.Alpha1) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
         		{
 					if ((((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1) || PlayerPrefs.GetInt("MultyPlayer") != 1)
 					{

@@ -82,6 +82,14 @@ public class WeaponSounds : MonoBehaviour
 
 	public AudioClip chargeDown;
 
+	public bool SpeedBoost;
+
+	public float speedBoostAmount;
+
+	public float speedBoostDuration;
+
+	public bool isDouble;
+
 	public int MaxAmmoWithRespectToInApp
 	{
 		get
