@@ -496,7 +496,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4642115501100750}
-  - component: {fileID: 111380120261549466}
   m_Layer: 28
   m_Name: ZombieBone1
   m_TagString: donotchange
@@ -646,7 +645,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4519598326909086}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0.000006830189, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -48.914, y: 0, z: 0}
 --- !u!4 &4309129591116798
 Transform:
   m_ObjectHideFlags: 1
@@ -793,7 +792,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1689661649453598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.095575, y: -1.6585293, z: -3.4379668}
+  m_LocalPosition: {x: 31.488342, y: 7.2851753, z: 31.572104}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4617278880050608}
@@ -827,7 +826,7 @@ Transform:
   - {fileID: 4519598326909086}
   m_Father: {fileID: 4559703686714272}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 1.0561771, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 25.39701, y: 0, z: 0}
 --- !u!4 &4629498893255840
 Transform:
   m_ObjectHideFlags: 1
@@ -985,7 +984,7 @@ Transform:
   - {fileID: 4642115501100750}
   m_Father: {fileID: 4519598326909086}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 83.99997, y: 180, z: 180}
+  m_LocalEulerAnglesHint: {x: 55.484, y: 180.00002, z: 180.00002}
 --- !u!4 &4867811273552016
 Transform:
   m_ObjectHideFlags: 1
@@ -1209,42 +1208,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!111 &111380120261549466
-Animation:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1820333088990046}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &114296180358632776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1302,7 +1265,20 @@ MonoBehaviour:
   meleeAttackTimeModifier: 0.57
   isHeal: 0
   healAmount: 0
+  HealArmor: 0
   maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
 --- !u!137 &137690928410731752
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
