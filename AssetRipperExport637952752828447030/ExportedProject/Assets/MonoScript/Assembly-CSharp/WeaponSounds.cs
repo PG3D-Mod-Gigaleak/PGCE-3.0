@@ -90,6 +90,8 @@ public class WeaponSounds : MonoBehaviour
 
 	public bool isDouble;
 
+	public int price;
+
 	public int MaxAmmoWithRespectToInApp
 	{
 		get

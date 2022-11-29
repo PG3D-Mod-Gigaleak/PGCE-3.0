@@ -5,180 +5,244 @@ using UnityEngine;
 
 public class CategoryMenuController : MonoBehaviour {
 
-[System.Serializable]
-public class WeaponList
-{
-	public string[] weaponNames = new string[10];
-
-	public int[] weaponCosts = new int[10];
-
-	public string[] weaponComments = new string[10];
-
-	public string[] weaponStats = new string[10];
-
-	public int index;
-}
-
-[SerializeField]
-public List<CategoryMenuController.WeaponList> WeaponLists = new List<CategoryMenuController.WeaponList>();
-
-public bool isGear;
-
-private bool popup;
-
-public string popupWeapon;
-
-private int popupIndex;
-
-public string catType;
-
-public Texture2D catFon;
-
-public GUIStyle back;
-
-public GUIStyle nameStyle;
-
-public GUIStyle setButton;
-
-public GUIStyle arrow1;
-
-public GUIStyle arrow2;
-
-public GUIStyle labelThingy;
-
-public GUIStyle commentLabelThingy;
-
-public GUIStyle closeButton;
-
-public GUIStyle next;
-
-public Texture popupBG;
-
-public Texture menuBG;
-
-public Texture[] currentWeaponTextures()
-{
-	string[] weaponthe = WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
-	Texture[] texs = new Texture[weaponsInThisPage()];
-	for (int i = 0; i < weaponsInThisPage(); i++)
+	[System.Serializable]
+	public class WeaponList
 	{
-		if (!isGear)
+		public string[] weaponNames = new string[10];
+
+		public int[] weaponCosts = new int[10];
+
+		public string[] weaponComments = new string[10];
+
+		public string[] weaponStats = new string[10];
+
+		public int index;
+	}
+
+	[SerializeField]
+	public List<CategoryMenuController.WeaponList> WeaponLists = new List<CategoryMenuController.WeaponList>();
+
+	public bool isGear;
+
+	private bool popup;
+
+	public string popupWeapon;
+
+	private int popupIndex;
+
+	public string catType;
+
+	public Texture2D catFon;
+
+	public GUIStyle back;
+
+	public GUIStyle nameStyle;
+
+	public GUIStyle setButton;
+
+	public GUIStyle arrow1;
+
+	public GUIStyle arrow2;
+
+	public GUIStyle labelThingy;
+
+	public GUIStyle commentLabelThingy;
+
+	public GUIStyle closeButton;
+
+	public GUIStyle next;
+
+	public Texture popupBG;
+
+	public Texture menuBG;
+
+	public Texture coinsLabel;
+
+	public GUIStyle biggerLabelThingy;
+
+	public GUIStyle evenBiggerLabelThingy;
+
+	public Texture coin;
+
+	public GUIStyle blankButton;
+
+	public void BS()
+	{
+		GetComponent<AudioSource>().Play();
+	}
+
+	public void Buy(int price, string key)
+	{
+		if (Defs.CoinsAmount >= price)
 		{
-			texs[i] = Utilities.LoadObject("Weapons/" + weaponthe[i]).GetComponent<WeaponSounds>().preview;
+			Defs.CoinsAmount -= price;
+			Storager.setInt(key + "shopbuy", 1, false);
+		}
+	}
+
+	public bool Bought(string key)
+	{
+		return Storager.getInt(key + "shopbuy", false) == 1;
+	}
+
+	public Texture[] currentWeaponTextures()
+	{
+		string[] weaponthe = WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
+		Texture[] texs = new Texture[weaponsInThisPage()];
+		for (int i = 0; i < weaponsInThisPage(); i++)
+		{
+			if (!isGear)
+			{
+				texs[i] = Utilities.LoadObject("Weapons/" + weaponthe[i]).GetComponent<WeaponSounds>().preview;
+			}
+			else
+			{
+				texs[i] = Utilities.LoadObject("Gear/" + weaponthe[i]).GetComponent<GearStats>().preview;
+			}
+		}
+		return texs;
+	}
+
+	public Texture textureToDraw()
+	{
+		if (!currentWeaponHasUpgrades())
+		{
+			return currentWeaponTextures()[popupIndex];
 		}
 		else
 		{
-			texs[i] = Utilities.LoadObject("Gear/" + weaponthe[i]).GetComponent<GearStats>().preview;
+			return Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[currentUpgradeIndex()]).GetComponent<WeaponSounds>().preview;
 		}
 	}
-	return texs;
-}
 
-public Texture textureToDraw()
-{
-	if (!currentWeaponHasUpgrades())
+	public bool currentWeaponHasUpgrades()
 	{
-		return currentWeaponTextures()[popupIndex];
-	}
-	else
-	{
-		return Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[currentUpgradeIndex()]).GetComponent<WeaponSounds>().preview;
-	}
-}
-
-public bool currentWeaponHasUpgrades()
-{
-	if (isGear)
-	{
-		return false;
-	}
-	return Utilities.LoadObject("Weapons/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<WeaponSounds>().hasUpgrades;
-}
-
-public int currentUpgradeIndex()
-{
-	for (int i = 0; i < Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames.Length; i++)
-	{
-		if(Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[i]).tag == popupWeapon)
+		if (isGear)
 		{
-			return i;
+			return false;
+		}
+		return Utilities.LoadObject("Weapons/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<WeaponSounds>().hasUpgrades;
+	}
+
+	public int currentWeaponPrice
+	{
+		get
+		{
+			if (isGear)
+			{
+				return Utilities.LoadObject("gear/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<GearStats>().price;
+			}
+			if (!currentWeaponHasUpgrades())
+			{
+				return Utilities.LoadObject("Weapons/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<WeaponSounds>().price;
+			}
+			return Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[currentUpgradeIndex()]).GetComponent<WeaponSounds>().price;
 		}
 	}
-	return 0;
-}
 
-public string[] currentWeaponNames()
-{
-	string[] weaponthe =  WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
-	string[] names = new string[weaponsInThisPage()];
-	for (int i = 0; i < weaponsInThisPage(); i++)
+	public bool currentWeaponNeedsBuy
 	{
-		if (!isGear)
+		get
 		{
-			names[i] = Utilities.LoadObject("Weapons/" + weaponthe[i]).tag;
+			return currentWeaponPrice != 0;
+		}
+	}
+
+	public int currentUpgradeIndex()
+	{
+		for (int i = 0; i < Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames.Length; i++)
+		{
+			if(Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[i]).tag == popupWeapon)
+			{
+				return i;
+			}
+		}
+		return 0;
+	}
+
+	public string[] currentWeaponNames()
+	{
+		string[] weaponthe =  WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
+		string[] names = new string[weaponsInThisPage()];
+		for (int i = 0; i < weaponsInThisPage(); i++)
+		{
+			if (!isGear)
+			{
+				names[i] = Utilities.LoadObject("Weapons/" + weaponthe[i]).tag;
+			}
+			else
+			{
+				names[i] = Utilities.LoadObject("Gear/" + weaponthe[i]).GetComponent<GearStats>().name;
+			}
+		}
+		return names;
+	}
+
+	public string currentWeaponComment()
+	{
+		if (!currentWeaponHasUpgrades())
+		{
+		return WeaponLists.Find(x => x.index == weaponIndex).weaponComments[popupIndex];
 		}
 		else
 		{
-			names[i] = Utilities.LoadObject("Gear/" + weaponthe[i]).GetComponent<GearStats>().name;
+			return Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponComments[currentUpgradeIndex()];
 		}
 	}
-	return names;
-}
 
-public string currentWeaponComment()
-{
-	if (!currentWeaponHasUpgrades())
-	{
-	return WeaponLists.Find(x => x.index == weaponIndex).weaponComments[popupIndex];
-	}
-	else
-	{
-		return Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponComments[currentUpgradeIndex()];
-	}
-}
-
-public string currentWeaponStats()
-{	
-	if (!currentWeaponHasUpgrades())
-	{
-	return WeaponLists.Find(x => x.index == weaponIndex).weaponStats[popupIndex];
-	}
-	else
-	{
-		return Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponStats[currentUpgradeIndex()];
-	}
-}
-
-
-
-public int weaponsInThisPage()
-{
-	string[] weaponthe =  WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
-	int amount = 0;
-	foreach (string str in weaponthe)
-	{
-		if (str == null || str == string.Empty)
+	public string currentWeaponStats()
+	{	
+		if (!currentWeaponHasUpgrades())
 		{
-			return amount;
+		return WeaponLists.Find(x => x.index == weaponIndex).weaponStats[popupIndex];
 		}
-		amount++;
+		else
+		{
+			return Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponStats[currentUpgradeIndex()];
+		}
 	}
-	return 10;
-}
 
-public void SetPopup(string weapon, int index)
-{
-	popup = true;
-	popupWeapon = weapon;
-	popupIndex = index;
-}
 
-public int weaponIndex;
 
-private float koofScreen = (float)Screen.height / 768f;
+	public int weaponsInThisPage()
+	{
+		string[] weaponthe =  WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
+		int amount = 0;
+		foreach (string str in weaponthe)
+		{
+			if (str == null || str == string.Empty)
+			{
+				return amount;
+			}
+			amount++;
+		}
+		return 10;
+	}
+
+	public void SetPopup(string weapon, int index)
+	{
+		popup = true;
+		popupWeapon = weapon;
+		popupIndex = index;
+	}
+
+	public int weaponIndex;
+
+	private float koofScreen = (float)Screen.height / 768f;
+
+	public int theMomer
+	{
+		get
+		{
+			return Screen.width + Screen.height;
+		}
+	}
 
 	public void Start()
 	{
+		biggerLabelThingy.fontSize = theMomer / 125;
+		evenBiggerLabelThingy.fontSize = theMomer / 75;
+		labelThingy.fontSize = theMomer / 200;
 	}
 
 	public void Update()
@@ -273,67 +337,97 @@ private float koofScreen = (float)Screen.height / 768f;
 		Rect position = new Rect(((float)Screen.width - 2048f * (float)Screen.height / 1154f) / 2f, 0f, 2048f * (float)Screen.height / 1154f, Screen.height);
 		GUI.DrawTexture(position, catFon, ScaleMode.StretchToFill);
 		GUI.DrawTexture(Utilities.screenScaleRect(0.19f, 0.03f, 0.6f, 0.9f), menuBG);
+		GUI.DrawTexture(Utilities.screenScaleRect(0.1f, 0.035f, 0.1f, 0.075f), coinsLabel);
+		GUI.Label(Utilities.screenScaleRect(0.1475f, 0.06f, 0.2f, 0.15f), "" + Defs.CoinsAmount, biggerLabelThingy);
+		#if UNITY_EDITOR
+		if (GUI.Button(Utilities.screenScaleRect(0.8f, 0.8f, 0.12f, 0.1f), string.Empty, blankButton))
+		{
+			Defs.CoinsAmount += 10000;
+		}
+		#endif
 		if (!popup)
 		{
-		for (int i = 0; i < weaponsInThisPage(); i++)
-		{
-			GUI.DrawTexture(FindRects("icon", i), currentWeaponTextures()[i], ScaleMode.StretchToFill);
-		}
-		for (int i = 0; i < weaponsInThisPage(); i++)
-		{
-			GUI.Label(FindRects("labels", i), currentWeaponNames()[i], labelThingy);
-		}
-		if (GUI.Button(Utilities.screenScaleRect(0.515f, 0.05f, 0.03f, 0.05f), string.Empty, arrow1))
-		{
-			if (weaponIndex >= WeaponLists.Count - 1)
+			for (int i = 0; i < weaponsInThisPage(); i++)
 			{
-				weaponIndex = 0;
-				return;
+				GUI.DrawTexture(FindRects("icon", i), currentWeaponTextures()[i], ScaleMode.StretchToFill);
 			}
-			if (weaponIndex < WeaponLists.Count - 1)
+			for (int i = 0; i < weaponsInThisPage(); i++)
 			{
-				weaponIndex++;
+				GUI.Label(FindRects("labels", i), currentWeaponNames()[i], labelThingy);
 			}
-		}
-		if (GUI.Button(Utilities.screenScaleRect(0.415f, 0.05f, 0.03f, 0.05f), string.Empty, arrow2))
-		{
-			if (weaponIndex < 1)
+			if (GUI.Button(Utilities.screenScaleRect(0.515f, 0.05f, 0.03f, 0.05f), string.Empty, arrow1))
 			{
-				weaponIndex = WeaponLists.Count - 1;
-				return;
+				BS();
+				if (weaponIndex >= WeaponLists.Count - 1)
+				{
+					weaponIndex = 0;
+					return;
+				}
+				if (weaponIndex < WeaponLists.Count - 1)
+				{
+					weaponIndex++;
+				}
 			}
-			weaponIndex--;
-		}
-		for (int i = 0; i < weaponsInThisPage(); i++)
-		{
-			if (GUI.Button(FindRects("set", i), string.Empty, setButton))
+			if (GUI.Button(Utilities.screenScaleRect(0.415f, 0.05f, 0.03f, 0.05f), string.Empty, arrow2))
 			{
-				//CategorySet(catType, currentWeaponNames()[i]);
-				//Debug.LogWarning("Sucessfully Set " + catType + " To " + currentWeaponNames()[i]);
-				SetPopup(currentWeaponNames()[i], i);
+				BS();
+				if (weaponIndex < 1)
+				{
+					weaponIndex = WeaponLists.Count - 1;
+					return;
+				}
+				weaponIndex--;
 			}
-		}
-		if (GUI.Button(Utilities.screenScaleRect(0.1f, 0.8f, 0.12f, 0.1f), string.Empty, back))
-		{
-			GUIHelper.DrawLoading();
-			Application.LoadLevel("ArmoryScene");
-		}
+			for (int i = 0; i < weaponsInThisPage(); i++)
+			{
+				if (GUI.Button(FindRects("set", i), string.Empty, setButton))
+				{
+					BS();
+					//CategorySet(catType, currentWeaponNames()[i]);
+					//Debug.LogWarning("Sucessfully Set " + catType + " To " + currentWeaponNames()[i]);
+					SetPopup(currentWeaponNames()[i], i);
+				}
+			}
+			if (GUI.Button(Utilities.screenScaleRect(0.1f, 0.8f, 0.12f, 0.1f), string.Empty, back))
+			{
+				BS();
+				GUIHelper.DrawLoading();
+				Application.LoadLevel("ArmoryScene");
+			}
 		}
 		if (popup)
 		{
 			GUI.DrawTexture(Utilities.screenScaleRect(0.185f, 0.15f, 0.65f, 0.75f), popupBG);
-			if (GUI.Button(Utilities.screenScaleRect(0.625f, 0.72f, 0.15f, 0.125f), string.Empty, setButton))
+			if (!currentWeaponNeedsBuy || Bought(popupWeapon))
 			{
-				CategorySet(catType, popupWeapon);
-				Debug.LogWarning("Sucessfully Set " + catType + " To " + popupWeapon);
-				popup = false;
+				if (GUI.Button(Utilities.screenScaleRect(0.625f, 0.72f, 0.15f, 0.125f), string.Empty, setButton))
+				{
+					BS();
+					CategorySet(catType, popupWeapon);
+					Debug.LogWarning("Sucessfully Set " + catType + " To " + popupWeapon);
+					popup = false;
+				}
+			}
+			else
+			{
+				if (GUI.Button(Utilities.screenScaleRect(0.625f, 0.72f, 0.15f, 0.125f), string.Empty, blankButton))
+				{
+					BS();
+					Buy(currentWeaponPrice, popupWeapon);
+				}
 			}
 			if (GUI.Button(Utilities.screenScaleRect(0.25f, 0.72f, 0.15f, 0.125f), string.Empty, closeButton))
 			{
+				BS();
 				popup = false;
 			}
 			GUI.Label(Utilities.screenScaleRect(0.45f, 0.2f, 0.5f, 0.5f), popupWeapon, commentLabelThingy);
 			GUI.Label(Utilities.screenScaleRect(0.275f, 0.55f, 0.5f, 0.5f), currentWeaponComment(), commentLabelThingy);
+			if (currentWeaponNeedsBuy && !Bought(popupWeapon))
+			{
+				GUI.Label(Utilities.screenScaleRect(0.7f, 0.7545f, 0.5f, 0.5f), "" + currentWeaponPrice, evenBiggerLabelThingy);
+				GUI.DrawTexture(Utilities.screenScaleRect(0.658f, 0.7535f, 0.03f, 0.05f), coin);
+			}
 			GUI.DrawTexture(Utilities.screenScaleRect(0.3f, 0.3f, 0.3f, 0.23f), textureToDraw(), ScaleMode.StretchToFill);
 			if (isGear)
 			{
@@ -343,6 +437,7 @@ private float koofScreen = (float)Screen.height / 768f;
 			{
 				if (GUI.Button(Utilities.screenScaleRect(0.46f, 0.25f, 0.075f, 0.075f), string.Empty, next))
 				{
+					BS();
 					if (currentUpgradeIndex() >= Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames.Length - 1)
 					{
 						popupWeapon =  Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[0]).tag;

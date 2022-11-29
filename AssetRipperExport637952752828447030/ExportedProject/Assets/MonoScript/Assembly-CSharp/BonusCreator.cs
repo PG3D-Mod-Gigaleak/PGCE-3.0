@@ -106,6 +106,18 @@ public class BonusCreator : MonoBehaviour
 		return null;
 	}
 
+	public static GameObject[] GetAllWeapons()
+	{
+		GameObject[] array = new GameObject[Defs.numOfWeapons];
+		for (int i = 0; i < Defs.numOfWeapons; i++)
+		{
+			int i2 = i + 1;
+			array[i] = Resources.Load<GameObject>("Weapons/Weapon" + i2);
+		}
+		array[Defs.numOfWeapons - 1] = Resources.Load<GameObject>("Weapons/Weapon" + Defs.numOfWeapons);
+		return array;
+	}
+
 	private IEnumerator AddBonus()
 	{
 		while (true)

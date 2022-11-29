@@ -482,6 +482,18 @@ public sealed class Defs
 		}
 	}
 
+	public static int CoinsAmount
+	{
+		get
+		{
+			return Storager.getInt(Coins, false);
+		}
+		set
+		{
+			Storager.setInt(Coins, value, false);
+		}
+	}
+
 	public static string FirstLaunch
 	{
 		get

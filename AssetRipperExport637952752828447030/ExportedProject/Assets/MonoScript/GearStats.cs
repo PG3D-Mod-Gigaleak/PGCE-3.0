@@ -9,4 +9,6 @@ public class GearStats : MonoBehaviour
 
 	public string name;
 
+	public int price;
+
 }
