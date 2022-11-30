@@ -489,23 +489,24 @@ public sealed class ConnectGUI : MonoBehaviour
 
 	private void Update()
 	{
-		float scroll = Input.GetAxis("Mouse ScrollWheel");
-		if (selectMapIndex > masMap.Length - 1)
+		if (Input.GetAxis("Mouse ScrollWheel") > 0f)
 		{
-			selectMapIndex = 0;
+			if (selectMapIndex < 1)
+			{
+				selectMapIndex = masMap.Length - 1;
+				return;
+			}
+			selectMapIndex--;
 		}
-		if (selectMapIndex < 0)
+		else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
 		{
-			selectMapIndex = masMap.Length - 1;
+			if (selectMapIndex > masMap.Length - 2)
+			{
+				selectMapIndex = 0;
+				return;
+			}
+			selectMapIndex++;
 		}
-			if (scroll > 0f)
-			{
-				selectMapIndex--;
-			}
-			else if (scroll < 0f)
-			{
-				selectMapIndex++;
-			}
 		slideScroll();
 		if (typeConnect == 1 && PhotonNetwork.connectionState == ConnectionState.Disconnected)
 		{
