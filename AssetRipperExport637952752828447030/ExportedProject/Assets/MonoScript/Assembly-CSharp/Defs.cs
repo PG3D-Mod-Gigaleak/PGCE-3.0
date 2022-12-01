@@ -16,6 +16,51 @@ public sealed class Defs
 
 	public static int numOfWeapons = 114;
 
+	public static SurvivalConfig survivalConfig;
+
+	public static int numOfLevels = 10;
+
+	public static int[] randomScenesThisLoad = new int[numOfLevels];
+
+	public static SurvivalConfig m_SurvivalConfig
+	{
+		get
+		{
+			if (survivalConfig == null)
+			{
+				survivalConfig = Utilities.GetClass<SurvivalConfig>("SurvivalConfig");
+			}
+			return survivalConfig;
+		}
+	}
+
+	public static string GetSceneNameFromRandomByIndex(int index)
+	{
+		return m_SurvivalConfig.levels.levels[index].PossibleLevels[randomScenesThisLoad[index]].mySceneName;
+	}
+
+	public static string GetLoadingNameFromRandomByIndex(int index)
+	{
+		int offset = (GlobalGameController.previousLevel == 0) ? -1 : 0;
+		Debug.LogError(index + offset);
+		return m_SurvivalConfig.levels.levels[index + offset].PossibleLevels[randomScenesThisLoad[index]].myLoading;
+	}
+
+	public static string[] GetEnemiesFromRandomByIndex(int index)
+	{
+		return m_SurvivalConfig.levels.levels[index].PossibleLevels[randomScenesThisLoad[index]].myEnemies;
+	}
+
+	public static int GetBGMNumberFromRandomByIndex(int index)
+	{
+		return m_SurvivalConfig.levels.levels[index].PossibleLevels[randomScenesThisLoad[index]].myMusicLevel;
+	}
+
+	public static int GetBossFromRandomByIndex(int index)
+	{
+		return m_SurvivalConfig.levels.levels[index - 1].PossibleLevels[randomScenesThisLoad[index]].myBoss;
+	}
+
 	public enum RuntimeAndroidEdition
 	{
 		None = 0,

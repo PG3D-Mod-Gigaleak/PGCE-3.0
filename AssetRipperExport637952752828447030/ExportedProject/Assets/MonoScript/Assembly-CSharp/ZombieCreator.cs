@@ -90,17 +90,21 @@ public class ZombieCreator : MonoBehaviour
 	{
 		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
 		{
-			_enemies.Add(new string[6] { "1", "2", "1", "11", "12", "13" });
-			_enemies.Add(new string[5] { "1", "2", "3", "10", "14" });
-			_enemies.Add(new string[8] { "1", "2", "3", "9", "10", "12", "14", "15" });
-			_enemies.Add(new string[6] { "1", "2", "4", "11", "9", "16" });
-			_enemies.Add(new string[7] { "1", "2", "4", "9", "11", "10", "12" });
-			_enemies.Add(new string[5] { "1", "2", "3", "9", "17" });
-			_enemies.Add(new string[3] { "6", "7", "7" });
-			_enemies.Add(new string[6] { "1", "2", "8", "10", "11", "12" });
-			_enemies.Add(new string[3] { "18", "19", "20" });
-			_enemies.Add(new string[5] { "21", "22", "23", "24", "25" });
-			_enemies.Add(new string[3] { "18", "19", "20" });
+			//_enemies.Add(new string[6] { "1", "2", "1", "11", "12", "13" });
+			//_enemies.Add(new string[5] { "1", "2", "3", "10", "14" });
+			//_enemies.Add(new string[8] { "1", "2", "3", "9", "10", "12", "14", "15" });
+			//_enemies.Add(new string[6] { "1", "2", "4", "11", "9", "16" });
+			//_enemies.Add(new string[7] { "1", "2", "4", "9", "11", "10", "12" });
+			//_enemies.Add(new string[5] { "1", "2", "3", "9", "17" });
+			//_enemies.Add(new string[5] { "6", "7", "7", "1", "2" });
+			//_enemies.Add(new string[6] { "1", "2", "8", "10", "11", "12" });
+			//_enemies.Add(new string[3] { "18", "19", "20" });
+			//_enemies.Add(new string[5] { "21", "22", "23", "24", "25" });
+			//_enemies.Add(new string[3] { "18", "19", "20" });
+			for (int i = 0; i < Defs.numOfLevels; i++)
+			{
+				_enemies.Add(Defs.GetEnemiesFromRandomByIndex(i));
+			}
 			string[] array = null;
 			array = ((GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]) ? _enemies[GlobalGameController.previousLevel] : new string[1] { "1" });
 			string[] array2 = array;
@@ -203,7 +207,7 @@ public class ZombieCreator : MonoBehaviour
 			gameObject = _enemyCreationZones[0];
 		}
 		Vector3 position = _createPos(gameObject);
-		string path = "Boss" + ((GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]) ? (GlobalGameController.previousLevel + 1) : 0);
+		string path = "Boss" + Defs.GetBossFromRandomByIndex(((GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]) ? (GlobalGameController.previousLevel + 1) : 0));
 		GameObject original = Resources.Load(Path.Combine("Bosses", path)) as GameObject;
 		Object.Instantiate(original, position, Quaternion.identity);
 		bossShowm = true;

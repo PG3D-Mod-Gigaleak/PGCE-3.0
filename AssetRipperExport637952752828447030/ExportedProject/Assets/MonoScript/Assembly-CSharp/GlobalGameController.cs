@@ -111,7 +111,7 @@ public class GlobalGameController
 
 	static GlobalGameController()
 	{
-		NumOfLevels = 11;
+		NumOfLevels = Defs.numOfLevels + 1;
 		_currentLevel = -1;
 		_allLevelsCompleted = 0;
 		score = 0;

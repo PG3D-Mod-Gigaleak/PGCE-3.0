@@ -62,4 +62,9 @@ public static GameObject InsGobj(Object original, Vector3 position, Quaternion r
 	return gobj;
 }
 
+public static T GetClass<T>(string path) where T: MonoBehaviour
+{
+	return (T)Resources.Load<GameObject>(path).GetComponent<T>();
+}
+
 }

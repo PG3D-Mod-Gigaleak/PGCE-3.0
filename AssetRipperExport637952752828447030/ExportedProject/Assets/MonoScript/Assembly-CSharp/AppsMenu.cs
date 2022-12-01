@@ -37,8 +37,21 @@ public sealed class AppsMenu : MonoBehaviour
 		}
 	}
 
+	public void SetRandomLevels()
+	{
+		int[] the = new int[Defs.numOfLevels];
+		int index = 0;
+		foreach (SurvivalConfig.BaseLevel baseLevel in Defs.m_SurvivalConfig.levels.levels)
+		{
+			the[index] = UnityEngine.Random.Range(0, baseLevel.PossibleLevels.Length);
+			index++;
+		}
+		Defs.randomScenesThisLoad = the;
+	}
+
 	private void Start()
 	{
+		SetRandomLevels();
 		StartCoroutine(loadLevel());
 	}
 

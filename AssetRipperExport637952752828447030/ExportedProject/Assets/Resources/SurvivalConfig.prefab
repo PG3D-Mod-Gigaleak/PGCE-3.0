@@ -1,0 +1,171 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1323915333433322}
+  m_IsPrefabParent: 1
+--- !u!1 &1323915333433322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4593958428546786}
+  - component: {fileID: 114374427076732458}
+  m_Layer: 0
+  m_Name: SurvivalConfig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4593958428546786
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1323915333433322}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.44213486, y: -6.598194, z: 13.123991}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114374427076732458
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1323915333433322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86a3db9696c0d664290fa39309c996ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+    levels:
+    - PossibleLevels:
+      - mySceneName: Cementery
+        myEnemies:
+        - 1
+        - 2
+        - 1
+        - 11
+        - 12
+        - 13
+        myMusicLevel: 1
+        myLoading: Loading_Cementery
+        myBoss: 1
+    - PossibleLevels:
+      - mySceneName: Maze
+        myEnemies:
+        - 1
+        - 2
+        - 3
+        - 10
+        - 14
+        myMusicLevel: 2
+        myLoading: Loading_Maze
+        myBoss: 2
+    - PossibleLevels:
+      - mySceneName: City
+        myEnemies:
+        - 1
+        - 2
+        - 3
+        - 9
+        - 10
+        - 12
+        - 14
+        - 15
+        myMusicLevel: 3
+        myLoading: Loading_City
+        myBoss: 3
+    - PossibleLevels:
+      - mySceneName: Hospital
+        myEnemies:
+        - 1
+        - 2
+        - 4
+        - 11
+        - 9
+        - 16
+        myMusicLevel: 4
+        myLoading: Loading_Hospital
+        myBoss: 4
+    - PossibleLevels:
+      - mySceneName: Jail
+        myEnemies:
+        - 1
+        - 2
+        - 4
+        - 9
+        - 11
+        - 10
+        - 12
+        myMusicLevel: 5
+        myLoading: Loading_Jail
+        myBoss: 5
+    - PossibleLevels:
+      - mySceneName: Gluk
+        myEnemies:
+        - 1
+        - 2
+        - 3
+        - 9
+        - 17
+        myMusicLevel: 6
+        myLoading: Loading_Gluk
+        myBoss: 6
+    - PossibleLevels:
+      - mySceneName: Arena
+        myEnemies:
+        - 6
+        - 7
+        - 7
+        - 1
+        - 2
+        myMusicLevel: 7
+        myLoading: Loading_Arena
+        myBoss: 7
+    - PossibleLevels:
+      - mySceneName: Area52
+        myEnemies:
+        - 1
+        - 2
+        - 8
+        - 10
+        - 11
+        - 12
+        myMusicLevel: 8
+        myLoading: Loading_Area52
+        myBoss: 8
+    - PossibleLevels:
+      - mySceneName: Slender
+        myEnemies:
+        - 18
+        - 19
+        - 20
+        myMusicLevel: 9
+        myLoading: Loading_Slender
+        myBoss: 9
+    - PossibleLevels:
+      - mySceneName: Castle
+        myEnemies:
+        - 21
+        - 22
+        - 23
+        - 24
+        - 25
+        myMusicLevel: 10
+        myLoading: Loading_Hell
+        myBoss: 10

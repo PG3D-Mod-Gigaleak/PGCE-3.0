@@ -64,7 +64,7 @@ public sealed class Initializer : MonoBehaviour
 		GameObject gameObject = null;
 		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
 		{
-			gameObject = ((GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]) ? (Resources.Load("BackgroundMusic/BackgroundMusic_Level" + (GlobalGameController.previousLevel + 1)) as GameObject) : (Resources.Load("BackgroundMusic/BackgroundMusic_Level0") as GameObject));
+			gameObject = ((GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]) ? (Resources.Load("BackgroundMusic/BackgroundMusic_Level" + (Defs.GetBGMNumberFromRandomByIndex(GlobalGameController.previousLevel))) as GameObject) : (Resources.Load("BackgroundMusic/BackgroundMusic_Level0") as GameObject));
 		}
 		else
 		{

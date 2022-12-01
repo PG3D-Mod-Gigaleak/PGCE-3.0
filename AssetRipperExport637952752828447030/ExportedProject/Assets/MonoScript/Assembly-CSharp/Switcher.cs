@@ -92,7 +92,7 @@ public sealed class Switcher : MonoBehaviour
 		{
 			if (GlobalGameController.currentLevel == GlobalGameController.levelMapping[0])
 			{
-				fonToDraw = Resources.Load(Path.Combine(LoadingInResourcesPath, (GlobalGameController.AllLevelsCompleted != 0) ? "NextLoopFon" : loadingNames[GlobalGameController.levelMapping[0] + 1])) as Texture;
+				fonToDraw = Resources.Load(Path.Combine(LoadingInResourcesPath, (GlobalGameController.AllLevelsCompleted != 0) ? "NextLoopFon" : Defs.GetLoadingNameFromRandomByIndex(GlobalGameController.levelMapping[0]))) as Texture;
 			}
 			else if (GlobalGameController.currentLevel == -1)
 			{
@@ -104,12 +104,12 @@ public sealed class Switcher : MonoBehaviour
 			}
 			else
 			{
-				fonToDraw = Resources.Load(Path.Combine(LoadingInResourcesPath, loadingNames[GlobalGameController.levelMapping[GlobalGameController._currentIndexInMapping] + 1])) as Texture;
+				fonToDraw = Resources.Load(Path.Combine(LoadingInResourcesPath, Defs.GetLoadingNameFromRandomByIndex(GlobalGameController.levelMapping[GlobalGameController._currentIndexInMapping]))) as Texture;
 			}
 		}
 		else
 		{
-			fonToDraw = Resources.Load(Path.Combine(LoadingInResourcesPath, loadingNames[(GlobalGameController.currentLevel == GlobalGameController.levelMapping[0]) ? (GlobalGameController.levelMapping[0] + 1) : 0])) as Texture;
+			fonToDraw = Resources.Load(Path.Combine(LoadingInResourcesPath, Defs.GetLoadingNameFromRandomByIndex((GlobalGameController.currentLevel == GlobalGameController.levelMapping[0]) ? (GlobalGameController.levelMapping[0] + 1) : 0))) as Texture;
 		}
 		Debug.Log("2 GlobalGameController.currentLevel " + GlobalGameController.currentLevel);
 		if (NoWait)
@@ -381,37 +381,37 @@ public sealed class Switcher : MonoBehaviour
 			text = Defs.CurrentMainMenuScene;
 			break;
 		case 0:
-			text = "Cementery";
+			text = Defs.GetSceneNameFromRandomByIndex(0);
 			break;
 		case 1:
-			text = "Maze";
+			text = Defs.GetSceneNameFromRandomByIndex(1);
 			break;
 		case 2:
-			text = "City";
+			text = Defs.GetSceneNameFromRandomByIndex(2);
 			break;
 		case 3:
-			text = "Hospital";
+			text = Defs.GetSceneNameFromRandomByIndex(3);
 			break;
 		case 4:
-			text = "Jail";
+			text = Defs.GetSceneNameFromRandomByIndex(4);
 			break;
 		case 5:
-			text = "Gluk";
+			text = Defs.GetSceneNameFromRandomByIndex(5);
 			break;
 		case 6:
-			text = "Arena";
+			text = Defs.GetSceneNameFromRandomByIndex(6);
 			break;
 		case 7:
-			text = "Area52";
+			text = Defs.GetSceneNameFromRandomByIndex(7);
 			break;
 		case 101:
 			text = "Training";
 			break;
 		case 8:
-			text = "Slender";
+			text = Defs.GetSceneNameFromRandomByIndex(8);
 			break;
 		case 9:
-			text = "Castle";
+			text = Defs.GetSceneNameFromRandomByIndex(9);
 			break;
 		default:
 			text = Defs.CurrentMainMenuScene;

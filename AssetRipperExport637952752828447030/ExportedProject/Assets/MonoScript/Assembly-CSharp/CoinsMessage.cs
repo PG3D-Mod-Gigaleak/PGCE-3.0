@@ -45,7 +45,7 @@ public sealed class CoinsMessage : MonoBehaviour
 		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
 		coinsToShow = Storager.getInt(Defs.EarnedCoins, false);
 		Storager.setInt(Defs.EarnedCoins, 0, false);
-		if (coinsToShow > 1)
+		if (coinsToShow > 3)
 		{
 			plashka = Resources.Load(Path.Combine("CoinsIndicationSystem", "got_prize")) as Texture;
 		}
