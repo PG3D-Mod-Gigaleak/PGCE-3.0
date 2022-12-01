@@ -77,6 +77,7 @@ MonoBehaviour:
         timeSpawn: 75
       - bossName: 9
         timeSpawn: 90
+      difficulty: 0
     - MyName: COMZ_Arena
       myEnemies:
       - 27
@@ -93,6 +94,7 @@ MonoBehaviour:
       MaxTime: 300
       ZombieSpawnMultiplier: 1
       bossSpawns: []
+      difficulty: 2
     - MyName: Castle
       myEnemies:
       - 21
@@ -105,7 +107,7 @@ MonoBehaviour:
       - 6
       - 7
       - 26
-      myPath: enemyskins/coop/castle/
+      myPath: enemyskins/coopcastle/
       MaxTime: 500
       ZombieSpawnMultiplier: 5
       bossSpawns:
@@ -123,12 +125,51 @@ MonoBehaviour:
         timeSpawn: 95
       - bossName: 11
         timeSpawn: 99
+      difficulty: 1
+    - MyName: Arena
+      myEnemies:
+      - 1
+      - 2
+      - 26
+      - 6
+      - 7
+      - 24
+      - 23
+      - 17
+      - 10
+      - 19
+      myPath: enemyskins/cooparena/
+      MaxTime: 750
+      ZombieSpawnMultiplier: 8
+      bossSpawns:
+      - bossName: 1
+        timeSpawn: 10
+      - bossName: 2
+        timeSpawn: 20
+      - bossName: 3
+        timeSpawn: 30
+      - bossName: 4
+        timeSpawn: 40
+      - bossName: 5
+        timeSpawn: 50
+      - bossName: 6
+        timeSpawn: 60
+      - bossName: 7
+        timeSpawn: 70
+      - bossName: 8
+        timeSpawn: 80
+      - bossName: 9
+        timeSpawn: 90
+      - bossName: 10
+        timeSpawn: 95
+      - bossName: 12
+        timeSpawn: 97
+      difficulty: 2
   coopMaps:
   - Winter
   - Utopia
   - Sky_Islands
   - Dust
-  - Arena
   - Bridge
   - Assault
   - Farm

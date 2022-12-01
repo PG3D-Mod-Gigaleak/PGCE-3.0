@@ -501,7 +501,7 @@ public sealed class ConnectGUI : MonoBehaviour
 		else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
 		{
 			int the = (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap.Length - 1 : masMapCOOP.Length - 1;
-			if (selectMapIndex > the - 2)
+			if (selectMapIndex > the - 1)
 			{
 				selectMapIndex = 0;
 				return;
@@ -989,6 +989,12 @@ public sealed class ConnectGUI : MonoBehaviour
 		GUI.DrawTexture(new Rect(pointMap.x - sizeMap.x * (1.5f + num3) * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap[num] : masMapCOOP[num]);
 		GUI.DrawTexture(new Rect(pointMap.x - sizeMap.x * 0.5f * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap[selectMapIndex] : masMapCOOP[selectMapIndex]);
 		GUI.DrawTexture(new Rect(pointMap.x + sizeMap.x * (0.5f + num3) * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap[num2] : masMapCOOP[num2]);
+		if (PlayerPrefs.GetInt("COOP") == 1)
+		{
+			GUI.DrawTexture(new Rect(pointMap.x - sizeMap.x * (1.5f + num3) * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), Defs.GetDiffcultyTextureForThisLevel(masMapNameCOOP[num]));
+			GUI.DrawTexture(new Rect(pointMap.x - sizeMap.x * 0.5f * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), Defs.GetDiffcultyTextureForThisLevel(masMapNameCOOP[selectMapIndex]));
+			GUI.DrawTexture(new Rect(pointMap.x + sizeMap.x * (0.5f + num3) * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), Defs.GetDiffcultyTextureForThisLevel(masMapNameCOOP[num2]));
+		}
 		if (typeGame == 3)
 		{
 			GUI.DrawTexture(new Rect(pointMap.x - sizeMap.x * 0.43f * koofScreen, pointMap.y - sizeMap.y * 0.35f * koofScreen, (float)popularTextures[ratingSelectMap].width * koofScreen, (float)popularTextures[ratingSelectMap].height * koofScreen), popularTextures[ratingSelectMap]);

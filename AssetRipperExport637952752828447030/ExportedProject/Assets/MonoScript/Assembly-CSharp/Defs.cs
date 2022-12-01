@@ -87,6 +87,44 @@ public sealed class Defs
 		return m_TimeSurvivalConfig.maps.mapSettings[0].myEnemies;
 	}
 
+	public static Texture GetDiffcultyTextureForThisLevel(string scene)
+	{
+		foreach (TimeSurvivalConfig.MapSettings mapSettings in m_TimeSurvivalConfig.maps.mapSettings)
+		{
+			if (mapSettings.MyName == scene)
+			{
+				return GetDifficultyTexture(mapSettings.difficulty);
+			}
+		}
+		return GetDifficultyTexture(m_TimeSurvivalConfig.maps.mapSettings[0].difficulty);
+	}
+
+	public static Texture GetDifficultyTexture(TimeSurvivalConfig.MapSettings.Difficulty difficulty)
+	{
+		string path = "DifficultyOverlay/";
+		switch (difficulty)
+		{
+			case TimeSurvivalConfig.MapSettings.Difficulty.easy:
+			return Resources.Load<Texture>(path + "easydiff");
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.normal:
+			return Resources.Load<Texture>(path + "normaldiff");
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.hard:
+			return Resources.Load<Texture>(path + "harddiff");
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.veryHard:
+			return Resources.Load<Texture>(path + "veryharddiff");
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.extreme:
+			return Resources.Load<Texture>(path + "extremediff");
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.insane:
+			return Resources.Load<Texture>(path + "insanediff");
+		}
+		return null;
+	}
+
 	public static bool IsDefaultCoopSettings
 	{
 		get

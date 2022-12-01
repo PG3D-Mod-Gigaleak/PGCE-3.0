@@ -25,6 +25,23 @@ public class TimeSurvivalConfig : MonoBehaviour
 		public float ZombieSpawnMultiplier = 1f;
 
 		public BossSpawn[] bossSpawns;
+
+		public enum Difficulty
+		{
+			easy = 0,
+
+			normal = 1,
+
+			hard = 2,
+
+			veryHard = 3,
+
+			extreme = 4,
+
+			insane = 5
+		};
+
+		public Difficulty difficulty;
 	}
 
 	[Serializable]
