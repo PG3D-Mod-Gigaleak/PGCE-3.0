@@ -493,14 +493,15 @@ public sealed class ConnectGUI : MonoBehaviour
 		{
 			if (selectMapIndex < 1)
 			{
-				selectMapIndex = masMap.Length - 1;
+				selectMapIndex = (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap.Length - 1 : masMapCOOP.Length - 1;
 				return;
 			}
 			selectMapIndex--;
 		}
 		else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
 		{
-			if (selectMapIndex > masMap.Length - 2)
+			int the = (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap.Length - 1 : masMapCOOP.Length - 1;
+			if (selectMapIndex > the - 2)
 			{
 				selectMapIndex = 0;
 				return;

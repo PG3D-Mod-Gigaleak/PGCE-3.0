@@ -18,6 +18,8 @@ public sealed class Defs
 
 	public static SurvivalConfig survivalConfig;
 
+	public static TimeSurvivalConfig timeSurvivalConfig;
+
 	public static int numOfLevels = 10;
 
 	public static int[] randomScenesThisLoad = new int[numOfLevels];
@@ -34,6 +36,18 @@ public sealed class Defs
 		}
 	}
 
+	public static TimeSurvivalConfig m_TimeSurvivalConfig
+	{
+		get
+		{
+			if (timeSurvivalConfig == null)
+			{
+				timeSurvivalConfig = Utilities.GetClass<TimeSurvivalConfig>("TimeSurvivalConfig");
+			}
+			return timeSurvivalConfig;
+		}
+	}
+
 	public static string GetSceneNameFromRandomByIndex(int index)
 	{
 		return m_SurvivalConfig.levels.levels[index].PossibleLevels[randomScenesThisLoad[index]].mySceneName;
@@ -41,7 +55,7 @@ public sealed class Defs
 
 	public static string GetLoadingNameFromRandomByIndex(int index)
 	{
-		int offset = (GlobalGameController.previousLevel == 0) ? -1 : 0;
+		int offset = (GlobalGameController.previousLevel == 0) ? -1 : 1;
 		Debug.LogError(index + offset);
 		return m_SurvivalConfig.levels.levels[index + offset].PossibleLevels[randomScenesThisLoad[index]].myLoading;
 	}
@@ -59,6 +73,103 @@ public sealed class Defs
 	public static int GetBossFromRandomByIndex(int index)
 	{
 		return m_SurvivalConfig.levels.levels[index - 1].PossibleLevels[randomScenesThisLoad[index]].myBoss;
+	}
+
+	public static string[] GetEnemiesFromThisCoopLevel(string scene)
+	{
+		foreach (TimeSurvivalConfig.MapSettings mapSettings in m_TimeSurvivalConfig.maps.mapSettings)
+		{
+			if (mapSettings.MyName == scene)
+			{
+				return mapSettings.myEnemies;
+			}
+		}
+		return m_TimeSurvivalConfig.maps.mapSettings[0].myEnemies;
+	}
+
+	public static bool IsDefaultCoopSettings
+	{
+		get
+		{
+			foreach (TimeSurvivalConfig.MapSettings mapSettings in m_TimeSurvivalConfig.maps.mapSettings)
+			{
+				if (mapSettings.MyName == Application.loadedLevelName)
+				{
+					return false;
+				}
+			}
+			return true;
+		}
+	}
+
+	public static string GetThisCoopPath(string path)
+	{
+		foreach (TimeSurvivalConfig.MapSettings mapSettings in m_TimeSurvivalConfig.maps.mapSettings)
+		{
+			if (mapSettings.MyName == path)
+			{
+				return mapSettings.myPath;
+			}
+		}
+		return m_TimeSurvivalConfig.maps.mapSettings[0].myPath;
+	}
+
+	public static bool InCoopScene
+	{
+		get
+		{
+			foreach (TimeSurvivalConfig.MapSettings mapSettings in m_TimeSurvivalConfig.maps.mapSettings)
+			{
+				if (mapSettings.MyName == Application.loadedLevelName)
+				{
+					return true;
+				}
+			}
+			foreach (string str in m_TimeSurvivalConfig.coopMaps)
+			{
+				if (str == Application.loadedLevelName)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+	}
+
+	public static float GetThisCoopMaxTime(string str)
+	{
+		foreach (TimeSurvivalConfig.MapSettings mapSettings in m_TimeSurvivalConfig.maps.mapSettings)
+		{
+			if (mapSettings.MyName == str)
+			{
+				return mapSettings.MaxTime;
+			}
+		}
+		return m_TimeSurvivalConfig.maps.mapSettings[0].MaxTime;
+	}
+
+	public static float GetThisCoopZombieSpawnMult(string str)
+	{
+		foreach (TimeSurvivalConfig.MapSettings mapSettings in m_TimeSurvivalConfig.maps.mapSettings)
+		{
+			if (mapSettings.MyName == str)
+			{
+				return mapSettings.ZombieSpawnMultiplier;
+			}
+		}
+		return m_TimeSurvivalConfig.maps.mapSettings[0].ZombieSpawnMultiplier;
+	}
+
+	public static TimeSurvivalConfig.BossSpawn[] GetThisCoopBossSpawns(string str)
+	{
+		foreach (TimeSurvivalConfig.MapSettings mapSettings in m_TimeSurvivalConfig.maps.mapSettings)
+		{
+			if (mapSettings.MyName == str)
+			{
+				return mapSettings.bossSpawns;
+			}
+		}
+		return m_TimeSurvivalConfig.maps.mapSettings[0].bossSpawns;
 	}
 
 	public enum RuntimeAndroidEdition

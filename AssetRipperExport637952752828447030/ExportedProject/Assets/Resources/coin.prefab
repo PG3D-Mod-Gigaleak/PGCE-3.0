@@ -2,8 +2,8 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1001 &100100000
 Prefab:
-  serializedVersion: 2
   m_ObjectHideFlags: 0
+  serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
@@ -11,19 +11,18 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1934761661208122}
   m_IsPrefabParent: 1
-  m_IsExploded: 0
 --- !u!1 &1934761661208122
 GameObject:
-  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4453273590367493}
-  - 33: {fileID: 33679136913877115}
-  - 23: {fileID: 23460372351433570}
-  - 111: {fileID: 111844898307363756}
-  - 114: {fileID: 114582981745216661}
+  - component: {fileID: 4453273590367493}
+  - component: {fileID: 33679136913877115}
+  - component: {fileID: 23460372351433570}
+  - component: {fileID: 111844898307363756}
+  - component: {fileID: 114582981745216661}
   m_Layer: 0
   m_Name: coin
   m_TagString: CoinBonus
@@ -42,13 +41,8 @@ Transform:
   m_LocalScale: {x: 0.04157181, y: 0.07036604, z: 0.04157181}
   m_Children: []
   m_Father: {fileID: 0}
---- !u!33 &33679136913877115
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1934761661208122}
-  m_Mesh: {fileID: 4300000, guid: 83585e0aef5935b4f934456cdd0808a8, type: 2}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23460372351433570
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -58,23 +52,46 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: aea52aa5da46e164f8dac62a44fe604c, type: 2}
-  m_SubsetIndices: []
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_LightProbeAnchor: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &33679136913877115
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1934761661208122}
+  m_Mesh: {fileID: 4300000, guid: 83585e0aef5935b4f934456cdd0808a8, type: 2}
 --- !u!111 &111844898307363756
 Animation:
-  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1934761661208122}
   m_Enabled: 1
+  serializedVersion: 3
   m_Animation: {fileID: 7400000, guid: 29b4bd0585e85d14e8b6a54d9bab4936, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: 29b4bd0585e85d14e8b6a54d9bab4936, type: 2}
@@ -82,9 +99,6 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
-  m_UserAABB:
-    m_Center: {x: 0, y: 0, z: 6.0031915}
-    m_Extent: {x: 8.506274, y: 5.0254526, z: 6.0000033}
 --- !u!114 &114582981745216661
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +108,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 024d74d2a32a5b346bccc2cdde1d6639, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  CoinItemUpAudioClip: {fileID: 8300000, guid: e10e8a1b32f0dd74f8357485ac3d8519, type: 2}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CoinItemUpAudioClip: {fileID: 8300000, guid: 08872bab09191e74dbe3bb5723bf4548, type: 3}

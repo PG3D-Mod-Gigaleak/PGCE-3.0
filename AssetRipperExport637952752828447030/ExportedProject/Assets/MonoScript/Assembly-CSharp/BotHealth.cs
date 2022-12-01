@@ -71,7 +71,8 @@ public class BotHealth : MonoBehaviour
 		}
 		Texture texture = null;
 		string text = SkinNameForObj(go.name);
-		if (!(texture = _skinsManager.skins[text] as Texture))
+		string the = (PlayerPrefs.GetInt("COOP", 0) != 1 || Defs.IsDefaultCoopSettings) ? "" : Application.loadedLevelName;
+		if (!(texture = _skinsManager.skins[text + the] as Texture))
 		{
 			Debug.Log("No skin: " + text);
 		}

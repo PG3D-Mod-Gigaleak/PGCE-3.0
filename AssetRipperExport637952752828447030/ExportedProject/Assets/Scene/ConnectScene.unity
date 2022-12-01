@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 13}
   - component: {fileID: 14}
   - component: {fileID: 10}
+  - component: {fileID: 9}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -131,6 +132,26 @@ Behaviour:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1}
   m_Enabled: 1
+--- !u!114 &9
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25ae6de24cfdc3469b586d164d376d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subId: 0
+  ownerId: 0
+  group: 0
+  prefixBackup: -1
+  observed: {fileID: 0}
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  instantiationId: 0
 --- !u!148 &10
 NetworkView:
   m_ObjectHideFlags: 0
@@ -2701,6 +2722,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: e0efaeebbc8bd284d9a1572b03385867, type: 3}
   - {fileID: 2800000, guid: c8c40243d1ebb3248a678524e12afacd, type: 3}
   - {fileID: 2800000, guid: a00bec35a7aefe04482fba41b33a6d5e, type: 3}
+  - {fileID: 2800000, guid: f2b1a2023788eb84f82356830ab208e0, type: 3}
   masLoadingCOOP:
   - {fileID: 2800000, guid: 55107690e842b854f8b73b2fa4ecafca, type: 3}
   - {fileID: 2800000, guid: e3de014aedbcb79478b1236667b59460, type: 3}
@@ -2710,6 +2732,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: 172dd8166b8c75345a3105e4a90307f3, type: 3}
   - {fileID: 2800000, guid: 8126fca71e0d45b4a93d95a26192df81, type: 3}
   - {fileID: 2800000, guid: 7156d19680a9a0c45a98ace266af2e99, type: 3}
+  - {fileID: 2800000, guid: 9aa5c4d8b12fbab42a7a0929dcdc199c, type: 3}
   masMapNameCOOP:
   - Winter
   - Utopia
@@ -2719,6 +2742,7 @@ MonoBehaviour:
   - Bridge
   - Assault
   - Farm
+  - Castle
   isFirstFrame: 1
   selectMapIndex: 0
   worldwideTx: {fileID: 2800000, guid: b5179b2580c333a4fa454d6c7172a78a, type: 3}
@@ -2805,3 +2829,95 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616aa6256ab6b944089b2c2538bbe835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &966160844
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4109838723694336, guid: 5722e821f96c33f4485cde44f338972d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.13663244
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109838723694336, guid: 5722e821f96c33f4485cde44f338972d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.61865115
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109838723694336, guid: 5722e821f96c33f4485cde44f338972d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.2834965
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109838723694336, guid: 5722e821f96c33f4485cde44f338972d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109838723694336, guid: 5722e821f96c33f4485cde44f338972d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109838723694336, guid: 5722e821f96c33f4485cde44f338972d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109838723694336, guid: 5722e821f96c33f4485cde44f338972d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109838723694336, guid: 5722e821f96c33f4485cde44f338972d, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114508043617348922, guid: 5722e821f96c33f4485cde44f338972d,
+        type: 2}
+      propertyPath: maps.mapSettings.Array.data[2].myEnemies.Array.data[0]
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 114508043617348922, guid: 5722e821f96c33f4485cde44f338972d,
+        type: 2}
+      propertyPath: maps.mapSettings.Array.data[2].myEnemies.Array.data[1]
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 114508043617348922, guid: 5722e821f96c33f4485cde44f338972d,
+        type: 2}
+      propertyPath: maps.mapSettings.Array.data[2].myEnemies.Array.data[2]
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 114508043617348922, guid: 5722e821f96c33f4485cde44f338972d,
+        type: 2}
+      propertyPath: maps.mapSettings.Array.data[2].myEnemies.Array.data[3]
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 114508043617348922, guid: 5722e821f96c33f4485cde44f338972d,
+        type: 2}
+      propertyPath: maps.mapSettings.Array.data[2].myEnemies.Array.data[4]
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114508043617348922, guid: 5722e821f96c33f4485cde44f338972d,
+        type: 2}
+      propertyPath: maps.mapSettings.Array.data[2].myEnemies.Array.data[5]
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114508043617348922, guid: 5722e821f96c33f4485cde44f338972d,
+        type: 2}
+      propertyPath: maps.mapSettings.Array.data[2].myEnemies.Array.data[6]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114508043617348922, guid: 5722e821f96c33f4485cde44f338972d,
+        type: 2}
+      propertyPath: maps.mapSettings.Array.data[2].myEnemies.Array.data[7]
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114508043617348922, guid: 5722e821f96c33f4485cde44f338972d,
+        type: 2}
+      propertyPath: maps.mapSettings.Array.data[2].myEnemies.Array.data[8]
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114508043617348922, guid: 5722e821f96c33f4485cde44f338972d,
+        type: 2}
+      propertyPath: maps.mapSettings.Array.data[2].myEnemies.Array.data[9]
+      value: 26
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 5722e821f96c33f4485cde44f338972d, type: 2}
+  m_IsPrefabParent: 0

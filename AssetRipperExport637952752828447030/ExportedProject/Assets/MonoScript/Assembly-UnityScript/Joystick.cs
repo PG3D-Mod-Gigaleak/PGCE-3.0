@@ -313,6 +313,7 @@ public class Joystick : MonoBehaviour
 			{
 				Touch touch = Input.GetTouch(i);
 				Vector2 vector = touch.position - guiTouchOffset;
+				_playerGun.GetComponent<Player_move_c>().mobileHoldingDown = (bool)fireTexture && touchZone.Contains(touch.position) && touchBeginsOnFireZone && !blink;
 				bool flag = false;
 				if (touchPad)
 				{

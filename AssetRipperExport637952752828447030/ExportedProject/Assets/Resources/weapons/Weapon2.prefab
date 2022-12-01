@@ -658,6 +658,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunFlashObj: {fileID: 1860922611714134}
+  gunFlashObj2: {fileID: 0}
   timeFireAction: 0.1
 --- !u!114 &114159239338776001
 MonoBehaviour:
@@ -686,7 +687,7 @@ MonoBehaviour:
   damage: 50
   speedModifier: 1
   animationObject: {fileID: 1464833381397151}
-  Probability: 25
+  Probability: 1
   damageRange: {x: -15, y: 15}
   gunPosition: {x: 0, y: -1.7, z: 0}
   preview: {fileID: 2800000, guid: a3ac280abade15a48a80d0ca90620480, type: 3}
@@ -704,6 +705,17 @@ MonoBehaviour:
   numOfPellets: 7
   hasAlternateShot: 0
   alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 0
 --- !u!114 &114390881864389390
 MonoBehaviour:
   m_ObjectHideFlags: 1

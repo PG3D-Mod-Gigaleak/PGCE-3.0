@@ -17,14 +17,22 @@ public class ZombiManager : MonoBehaviour
 
 	public bool startGame;
 
-	public float maxTimeGame = 300f;
+	private float timeSinceLastBossSpawn;
+
+	public float maxTimeGame
+	{
+		get
+		{
+			return Defs.GetThisCoopMaxTime(Application.loadedLevelName);
+		}
+	}
 
 	public PhotonView photonView;
 
 	private void Awake()
 	{
 		string[] array = null;
-		array = new string[10] { "1", "15", "14", "2", "3", "9", "11", "12", "10", "16" };
+		array = Defs.GetEnemiesFromThisCoopLevel(Application.loadedLevelName);
 		string[] array2 = array;
 		foreach (string text in array2)
 		{
@@ -35,7 +43,7 @@ public class ZombiManager : MonoBehaviour
 
 	private void Start()
 	{
-		nextAddZombi = 5f;
+		nextAddZombi = 5f / Defs.GetThisCoopZombieSpawnMult(Application.loadedLevelName);
 		_enemyCreationZones = GameObject.FindGameObjectsWithTag("EnemyCreationZone");
 		photonView = PhotonView.Get(this);
 	}
@@ -48,6 +56,19 @@ public class ZombiManager : MonoBehaviour
 
 	private void Update()
 	{
+		if (timeSinceLastBossSpawn > 0)
+		{
+			timeSinceLastBossSpawn -= Time.deltaTime;
+		}
+		float theMomer = timeGame / maxTimeGame * 100f;
+		foreach (TimeSurvivalConfig.BossSpawn bossSpawn in Defs.GetThisCoopBossSpawns(Application.loadedLevelName))
+		{
+			if (theMomer >= bossSpawn.timeSpawn && theMomer < bossSpawn.timeSpawn + 0.1f && timeSinceLastBossSpawn <= 0f)
+			{
+				addBoss(bossSpawn.bossName);
+				timeSinceLastBossSpawn = 1f;
+			}
+		}
 		if (!startGame && GameObject.FindGameObjectsWithTag("Player").Length > 0)
 		{
 			startGame = true;
@@ -95,14 +116,14 @@ public class ZombiManager : MonoBehaviour
 		}
 		if (timeGame > nextAddZombi && photonView.isMine && GameObject.FindGameObjectsWithTag("Enemy").Length < 15)
 		{
-			float num2 = 4f;
+			float num2 = 4f / Defs.GetThisCoopZombieSpawnMult(Application.loadedLevelName);
 			if (timeGame > maxTimeGame * 0.4f)
 			{
-				num2 = 3f;
+				num2 = 3f / Defs.GetThisCoopZombieSpawnMult(Application.loadedLevelName);
 			}
 			if (timeGame > maxTimeGame * 0.8f)
 			{
-				num2 = 2f;
+				num2 = 2f / Defs.GetThisCoopZombieSpawnMult(Application.loadedLevelName);
 			}
 			nextAddZombi += num2;
 			addZombi();
@@ -149,6 +170,25 @@ public class ZombiManager : MonoBehaviour
 			num = Random.Range(5, 10);
 		}
 		photonView.RPC("addZombiRPC", PhotonTargets.All, num, vector2, PhotonNetwork.AllocateViewID());
+	}
+
+	private void addBoss(int boss)
+	{
+		GameObject gameObject = GameObject.FindGameObjectWithTag("BossSpawner");
+		BoxCollider component = gameObject.GetComponent<BoxCollider>();
+		Vector2 vector = new Vector2(component.size.x * gameObject.transform.localScale.x, component.size.z * gameObject.transform.localScale.z);
+		Rect rect = new Rect(gameObject.transform.position.x - vector.x / 2f, gameObject.transform.position.z - vector.y / 2f, vector.x, vector.y);
+		Vector3 vector2 = new Vector3(rect.x + Random.Range(0f, rect.width), (!Defs.levelsWithVarY.Contains(GlobalGameController.currentLevel)) ? 0f : gameObject.transform.position.y, rect.y + Random.Range(0f, rect.height));
+		photonView.RPC("addBossRPC", PhotonTargets.All, boss, vector2, PhotonNetwork.AllocateViewID());
+	}
+
+	[RPC]
+	private void addBossRPC(int boss, Vector3 pos, int _id)
+	{
+		GameObject gameObject = (GameObject)Object.Instantiate(Resources.Load<GameObject>("bosses/boss" + boss), pos, Quaternion.identity);
+		gameObject.GetComponent<ZombiUpravlenie>().typeZombInMas = 8055 + boss;
+		PhotonView component = gameObject.GetComponent<PhotonView>();
+		component.viewID = _id;
 	}
 
 	[RPC]

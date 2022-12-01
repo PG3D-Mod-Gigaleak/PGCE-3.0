@@ -13,13 +13,24 @@ public class SkinsManagerPixlGun : MonoBehaviour
 			skins.Clear();
 			Debug.Log("Clear");
 		}
-		string path = ((PlayerPrefs.GetInt("COOP", 0) != 0) ? "EnemySkins/COOP/" : ("EnemySkins/Level" + ((GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]) ? (GlobalGameController.previousLevel + 1) : 0)));
+		string path = ((PlayerPrefs.GetInt("COOP", 0) != 0) ? Defs.GetThisCoopPath(Application.loadedLevelName) : ("EnemySkins/Level" + ((GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]) ? (GlobalGameController.previousLevel + 1) : 0)));
 		Object[] array = Resources.LoadAll(path);
 		Object[] array2 = array;
 		for (int i = 0; i < array2.Length; i++)
 		{
+			string the = "";
+			if (Defs.InCoopScene && PlayerPrefs.GetInt("COOP", 0) == 1 && !Defs.IsDefaultCoopSettings)
+			{
+				the = Application.loadedLevelName;
+			}
 			Texture texture = array2[i] as Texture;
-			skins.Add(texture.name, texture);
+			if (texture.name.Contains("_Level") || Defs.InCoopScene && PlayerPrefs.GetInt("COOP", 0) == 1)
+			{
+				if (!skins.ContainsKey(texture.name + the))
+				{
+					skins.Add(texture.name + the, texture);
+				}
+			}
 		}
 	}
 

@@ -172,7 +172,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 	private void Awake()
 	{
 		string[] array = null;
-		array = new string[10] { "1", "15", "14", "2", "3", "9", "11", "12", "10", "16" };
+		array = Defs.GetEnemiesFromThisCoopLevel(Application.loadedLevelName);
 		string[] array2 = array;
 		foreach (string text in array2)
 		{
@@ -603,18 +603,35 @@ public sealed class NetworkStartTable : MonoBehaviour
 		{
 			return;
 		}
-		GameObject[] array = GameObject.FindGameObjectsWithTag("Enemy");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
+		if (typeOfZomb < 8055)
+		{
+			GameObject[] array = GameObject.FindGameObjectsWithTag("Enemy");
+			GameObject[] array2 = array;
+			foreach (GameObject gameObject in array2)
+			{
+				if (gameObject.GetComponent<PhotonView>().viewID == _id)
+				{
+					return;
+				}
+			}
+			GameObject gameObject2 = (GameObject)UnityEngine.Object.Instantiate(zombiePrefabs[typeOfZomb], pos, Quaternion.identity);
+			PhotonView component = gameObject2.GetComponent<PhotonView>();
+			component.viewID = _id;
+			return;
+		}
+		GameObject[] array3 = GameObject.FindGameObjectsWithTag("Enemy");
+		GameObject[] array4 = array3;
+		foreach (GameObject gameObject in array4)
 		{
 			if (gameObject.GetComponent<PhotonView>().viewID == _id)
 			{
 				return;
 			}
 		}
-		GameObject gameObject2 = (GameObject)UnityEngine.Object.Instantiate(zombiePrefabs[typeOfZomb], pos, Quaternion.identity);
-		PhotonView component = gameObject2.GetComponent<PhotonView>();
-		component.viewID = _id;
+		int the = typeOfZomb - 8055;
+		GameObject gameObject3 = (GameObject)UnityEngine.Object.Instantiate(Resources.Load<GameObject>("bosses/boss" + the), pos, Quaternion.identity);
+		PhotonView component2 = gameObject3.GetComponent<PhotonView>();
+		component2.viewID = _id;
 	}
 
 	public void synchState()

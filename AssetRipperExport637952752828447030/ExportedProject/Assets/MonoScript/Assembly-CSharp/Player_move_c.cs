@@ -629,6 +629,8 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public GameObject recoilObject;
 
+	public bool mobileHoldingDown;
+
 	public string curGear;
 
 	public int playerID()
@@ -2616,7 +2618,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.chargeUp);
 		}
-		while(Input.GetMouseButton(0))
+		while(Input.GetMouseButton(0) || Application.isMobilePlatform && mobileHoldingDown)
 		{
 			yield return new WaitForSeconds(0.01f);
 			if (!WS.animationObject.GetComponent<Animation>().IsPlaying("ChargeUp"))
