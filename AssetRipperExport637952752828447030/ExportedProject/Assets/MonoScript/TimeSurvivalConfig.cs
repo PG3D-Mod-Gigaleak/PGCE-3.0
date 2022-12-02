@@ -38,8 +38,14 @@ public class TimeSurvivalConfig : MonoBehaviour
 
 			extreme = 4,
 
-			insane = 5
+			insane = 5,
+
+			impossible = 6,
+
+			masochist = 7
 		};
+
+		public int MaxZombies = 15;
 
 		public Difficulty difficulty;
 	}

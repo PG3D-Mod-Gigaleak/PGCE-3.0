@@ -339,19 +339,21 @@ public sealed class NetworkStartTable : MonoBehaviour
 			GUILayout.EndScrollView();
 			GUILayout.EndHorizontal();
 			addCoins = 0;
-			if (PlayerPrefs.GetInt("CustomGame", 0) == 0 && PlayerPrefs.GetInt("COOP", 0) == 1)
+			if (PlayerPrefs.GetInt("COOP", 0) == 1)
 			{
-				if (int.Parse(oldCountLilsSpisok[0]) >= minCoin1 && int.Parse(oldCountLilsSpisok[0]) < minCoin2)
+				int[] mincoins = Defs.GetDifficultyMinCoins(Defs.GetDifficultyForThisLevel(Application.loadedLevelName));
+				int reward = Defs.GetDifficultyReward(Defs.GetDifficultyForThisLevel(Application.loadedLevelName));
+				if (int.Parse(oldCountLilsSpisok[0]) >= mincoins[0] && int.Parse(oldCountLilsSpisok[0]) < mincoins[1])
 				{
-					addCoins = 1 * 10;
+					addCoins = reward / 3;
 				}
-				if (int.Parse(oldCountLilsSpisok[0]) >= minCoin2 && int.Parse(oldCountLilsSpisok[0]) < minCoin3)
+				if (int.Parse(oldCountLilsSpisok[0]) >= mincoins[1] && int.Parse(oldCountLilsSpisok[0]) < mincoins[2])
 				{
-					addCoins = 1 * 10;
+					addCoins = reward / 2;
 				}
-				if (int.Parse(oldCountLilsSpisok[0]) >= minCoin3)
+				if (int.Parse(oldCountLilsSpisok[0]) >= mincoins[2])
 				{
-					addCoins = 1 * 10;
+					addCoins = reward;
 				}
 			}
 			if (PlayerPrefs.GetInt("CustomGame", 0) == 0 && PlayerPrefs.GetInt("COOP", 0) != 1)

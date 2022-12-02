@@ -56,6 +56,10 @@ public sealed class Defs
 	public static string GetLoadingNameFromRandomByIndex(int index)
 	{
 		int offset = (GlobalGameController.previousLevel == 0) ? -1 : 1;
+		if (PlayerPrefs.GetInt(Defs.TrainingComplSett) == 0)
+		{
+			offset = 0;
+		}
 		Debug.LogError(index + offset);
 		return m_SurvivalConfig.levels.levels[index + offset].PossibleLevels[randomScenesThisLoad[index]].myLoading;
 	}
@@ -87,6 +91,18 @@ public sealed class Defs
 		return m_TimeSurvivalConfig.maps.mapSettings[0].myEnemies;
 	}
 
+	public static int GetMaxEnemiesFromThisCoopLevel(string scene)
+	{
+		foreach (TimeSurvivalConfig.MapSettings mapSettings in m_TimeSurvivalConfig.maps.mapSettings)
+		{
+			if (mapSettings.MyName == scene)
+			{
+				return mapSettings.MaxZombies;
+			}
+		}
+		return m_TimeSurvivalConfig.maps.mapSettings[0].MaxZombies;
+	}
+
 	public static Texture GetDiffcultyTextureForThisLevel(string scene)
 	{
 		foreach (TimeSurvivalConfig.MapSettings mapSettings in m_TimeSurvivalConfig.maps.mapSettings)
@@ -97,6 +113,18 @@ public sealed class Defs
 			}
 		}
 		return GetDifficultyTexture(m_TimeSurvivalConfig.maps.mapSettings[0].difficulty);
+	}
+
+	public static TimeSurvivalConfig.MapSettings.Difficulty GetDifficultyForThisLevel(string scene)
+	{
+		foreach (TimeSurvivalConfig.MapSettings mapSettings in m_TimeSurvivalConfig.maps.mapSettings)
+		{
+			if (mapSettings.MyName == scene)
+			{
+				return mapSettings.difficulty;
+			}
+		}
+		return m_TimeSurvivalConfig.maps.mapSettings[0].difficulty;
 	}
 
 	public static Texture GetDifficultyTexture(TimeSurvivalConfig.MapSettings.Difficulty difficulty)
@@ -121,8 +149,76 @@ public sealed class Defs
 
 			case TimeSurvivalConfig.MapSettings.Difficulty.insane:
 			return Resources.Load<Texture>(path + "insanediff");
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.impossible:
+			return Resources.Load<Texture>(path + "impossiblediff");
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.masochist:
+			return Resources.Load<Texture>(path + "masochistdiff");
 		}
 		return null;
+	}
+
+	public static int GetDifficultyReward(TimeSurvivalConfig.MapSettings.Difficulty difficulty)
+	{
+		switch (difficulty)
+		{
+			case TimeSurvivalConfig.MapSettings.Difficulty.easy:
+			return 5;
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.normal:
+			return 10;
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.hard:
+			return 20;
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.veryHard:
+			return 35;
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.extreme:
+			return 50;
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.insane:
+			return 75;
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.impossible:
+			return 90;
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.masochist:
+			return 125;
+		}
+		return 0;
+	}
+
+	public static int[] GetDifficultyMinCoins(TimeSurvivalConfig.MapSettings.Difficulty difficulty)
+	{
+		switch (difficulty)
+		{
+			case TimeSurvivalConfig.MapSettings.Difficulty.easy:
+			return new int[3]{3000, 7500, 12000};
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.normal:
+			return new int[3]{10000, 20000, 30000};
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.hard:
+			return new int[3]{50000, 70000, 95000};
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.veryHard:
+			return new int[3]{80000, 125000, 175000};
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.extreme:
+			return new int[3]{120000, 180000, 250000};
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.insane:
+			return new int[3]{200000, 300000, 400000};
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.impossible:
+			return new int[3]{350000, 500000, 650000};
+
+			case TimeSurvivalConfig.MapSettings.Difficulty.masochist:
+			return new int[3]{500000, 750000, 1000000};
+		}
+		return new int[3]{3000, 7500, 12000};
 	}
 
 	public static bool IsDefaultCoopSettings

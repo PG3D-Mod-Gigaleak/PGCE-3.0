@@ -114,7 +114,7 @@ public class ZombiManager : MonoBehaviour
 			}
 			photonView.RPC("win", PhotonTargets.All, text);
 		}
-		if (timeGame > nextAddZombi && photonView.isMine && GameObject.FindGameObjectsWithTag("Enemy").Length < 15)
+		if (timeGame > nextAddZombi && photonView.isMine && GameObject.FindGameObjectsWithTag("Enemy").Length < Defs.GetMaxEnemiesFromThisCoopLevel(Application.loadedLevelName))
 		{
 			float num2 = 4f / Defs.GetThisCoopZombieSpawnMult(Application.loadedLevelName);
 			if (timeGame > maxTimeGame * 0.4f)

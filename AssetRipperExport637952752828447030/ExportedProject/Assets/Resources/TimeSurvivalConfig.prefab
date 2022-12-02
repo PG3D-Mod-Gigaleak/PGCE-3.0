@@ -77,6 +77,7 @@ MonoBehaviour:
         timeSpawn: 75
       - bossName: 9
         timeSpawn: 90
+      MaxZombies: 15
       difficulty: 0
     - MyName: COMZ_Arena
       myEnemies:
@@ -94,6 +95,7 @@ MonoBehaviour:
       MaxTime: 300
       ZombieSpawnMultiplier: 1
       bossSpawns: []
+      MaxZombies: 15
       difficulty: 2
     - MyName: Castle
       myEnemies:
@@ -109,7 +111,7 @@ MonoBehaviour:
       - 26
       myPath: enemyskins/coopcastle/
       MaxTime: 500
-      ZombieSpawnMultiplier: 5
+      ZombieSpawnMultiplier: 3.5
       bossSpawns:
       - bossName: 11
         timeSpawn: 25
@@ -125,6 +127,7 @@ MonoBehaviour:
         timeSpawn: 95
       - bossName: 11
         timeSpawn: 99
+      MaxZombies: 50
       difficulty: 1
     - MyName: Arena
       myEnemies:
@@ -137,10 +140,10 @@ MonoBehaviour:
       - 23
       - 17
       - 10
-      - 19
+      - 29
       myPath: enemyskins/cooparena/
       MaxTime: 750
-      ZombieSpawnMultiplier: 8
+      ZombieSpawnMultiplier: 6
       bossSpawns:
       - bossName: 1
         timeSpawn: 10
@@ -164,7 +167,32 @@ MonoBehaviour:
         timeSpawn: 95
       - bossName: 12
         timeSpawn: 97
+      MaxZombies: 90
       difficulty: 2
+    - MyName: Hospital
+      myEnemies:
+      - 1
+      - 2
+      - 16
+      - 30
+      - 31
+      - 32
+      - 33
+      - 34
+      - 35
+      - 36
+      myPath: enemyskins/coophospital/
+      MaxTime: 400
+      ZombieSpawnMultiplier: 7
+      bossSpawns:
+      - bossName: 14
+        timeSpawn: 35
+      - bossName: 13
+        timeSpawn: 65
+      - bossName: 13
+        timeSpawn: 85
+      MaxZombies: 60
+      difficulty: 3
   coopMaps:
   - Winter
   - Utopia

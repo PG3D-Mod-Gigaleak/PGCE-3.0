@@ -143,13 +143,19 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 						}
 						else
 						{
-							material.mainTexture = txt;
+							if (item.tag != "donotchange")
+							{
+								material.mainTexture = txt;
+							}
 						}
 					}
 				}
 				else
 				{
-					item.gameObject.GetComponent<Renderer>().material.mainTexture = txt;
+					if (item.tag != "donotchange")
+					{
+						item.gameObject.GetComponent<Renderer>().material.mainTexture = txt;
+					}
 				}
 			}
 			SetTextureRecursivelyFrom(item.gameObject, txt);
