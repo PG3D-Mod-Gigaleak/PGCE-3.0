@@ -1880,6 +1880,11 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("AltShoot")].layer = 1;
 		}
+		if (_weaponManager.currentWeaponSounds.chargeUp)
+		{
+			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("ChargeUp")].layer = 1;
+			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("ChargeDown")].layer = 1;
+		}
 		if (!_weaponManager.currentWeaponSounds.isMelee)
 		{
 			foreach (Transform item in _weaponManager.currentWeaponSounds.gameObject.transform)

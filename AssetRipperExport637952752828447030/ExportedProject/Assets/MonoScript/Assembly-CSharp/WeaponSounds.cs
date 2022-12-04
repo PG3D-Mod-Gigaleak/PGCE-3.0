@@ -92,6 +92,8 @@ public class WeaponSounds : MonoBehaviour
 
 	public int price;
 
+	public string weaponName;
+
 	public int MaxAmmoWithRespectToInApp
 	{
 		get

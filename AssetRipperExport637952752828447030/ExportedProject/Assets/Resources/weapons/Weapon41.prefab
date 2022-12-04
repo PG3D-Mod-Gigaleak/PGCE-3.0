@@ -918,7 +918,7 @@ MonoBehaviour:
   maxAmmo: 60
   isMelee: 0
   range: 3
-  damage: 300
+  damage: 55
   speedModifier: 0.9
   animationObject: {fileID: 1371130082640718}
   Probability: 1
@@ -927,16 +927,16 @@ MonoBehaviour:
   preview: {fileID: 2800000, guid: a6b5cc64e42686c418a8a48389765bb4, type: 3}
   inAppExtensionModifier: 10
   meleeAngle: 45
-  multiplayerDamage: 4
+  multiplayerDamage: 0.8888888
   meleeAttackTimeModifier: 0.57
   isHeal: 0
   healAmount: 0
   HealArmor: 0
   maxHealItems: 0
-  bloomLow: 0
-  bloomHigh: 0
-  isShotgun: 0
-  numOfPellets: 0
+  bloomLow: -10
+  bloomHigh: 10
+  isShotgun: 1
+  numOfPellets: 10
   hasAlternateShot: 0
   alternateShot: {fileID: 0}
   hasRecoil: 0
@@ -950,6 +950,7 @@ MonoBehaviour:
   speedBoostDuration: 0
   isDouble: 0
   price: 500
+  weaponName: Evil Shotgun
 --- !u!148 &148749744977355030
 NetworkView:
   m_ObjectHideFlags: 1
