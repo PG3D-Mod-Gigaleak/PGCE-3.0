@@ -721,6 +721,7 @@ public sealed class Player_move_c : MonoBehaviour
 		unRecoiling = false;
 		while (stackedUnRecoils > 0)
 		{
+			Camera.main.GetComponent<MouseControls>().enabled = false;
 			if (unRecoiling)
 			{
 				yield break;
@@ -728,10 +729,11 @@ public sealed class Player_move_c : MonoBehaviour
 			yield return new WaitForSeconds(0.1f);
 			if (!Shooting)
 			{
-			recoilObject.transform.Rotate(recoilObject.transform.rotation.x + _weaponManager.currentWeaponSounds.recoil, 0f, 0f);
+			Camera.main.transform.Rotate(Camera.main.transform.rotation.x + _weaponManager.currentWeaponSounds.recoil, 0f, 0f);
 			stackedUnRecoils--;
 			}
 		}
+		Camera.main.GetComponent<MouseControls>().enabled = true;
 	}
 
 	public void DoDoubleShot()
@@ -2687,7 +2689,8 @@ public sealed class Player_move_c : MonoBehaviour
 				if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")))
 				{
 					gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
-					gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("Shoot" + doubleShotIndex));
+					Debug.LogError(doubleShotIndex);
+					gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play("Shoot" + doubleShotIndex);
 					DoDoubleShot();
 				}
 			}
@@ -2698,10 +2701,12 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		if (WS.hasRecoil)
 		{
+			Camera.main.GetComponent<MouseControls>().enabled = false;
 			unRecoiling = true;
-			recoilObject.transform.Rotate(recoilObject.transform.rotation.x - WS.recoil, 0f, 0f);
+			Camera.main.transform.Rotate(Camera.main.transform.rotation.x - WS.recoil, 0f, 0f);
 			stackedUnRecoils++;
 			StartCoroutine(recoilStuff());
+			Camera.main.GetComponent<MouseControls>().enabled = true;
 		}
 		if (WS.isShotgun)
 		{
@@ -3527,10 +3532,6 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void Update()
 	{
-		//if (Camera.main.transform.parent != recoilObject.transform)
-		//{
-		//	Camera.main.transform.parent = recoilObject.transform;
-		//}
 		if (!Application.isMobilePlatform)
 		{
 			if (Input.GetKeyDown("e") && _weaponManager.currentWeaponSounds.hasAlternateShot)

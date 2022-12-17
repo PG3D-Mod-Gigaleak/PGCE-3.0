@@ -242,22 +242,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!1 &1385956263969762
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4483308802442172}
-  - component: {fileID: 114476812692306182}
-  m_Layer: 0
-  m_Name: RecoilHolder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1421785824589234
 GameObject:
   m_ObjectHideFlags: 1
@@ -603,7 +587,7 @@ GameObject:
   m_IsActive: 0
 --- !u!1 &1913185723651063
 GameObject:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -974,12 +958,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1913185723651063}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4526882849423039}
-  m_Father: {fileID: 4483308802442172}
-  m_RootOrder: 0
+  m_Father: {fileID: 4737582749078637}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4475319828226494
 Transform:
@@ -994,20 +978,6 @@ Transform:
   - {fileID: 4125843949186763}
   m_Father: {fileID: 4149503094874562}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4483308802442172
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1385956263969762}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4448818636494347}
-  m_Father: {fileID: 4737582749078637}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4506031288684446
 Transform:
@@ -1121,7 +1091,7 @@ Transform:
   - {fileID: 4149503094874562}
   - {fileID: 4654447773668956}
   - {fileID: 4093751302280973}
-  - {fileID: 4483308802442172}
+  - {fileID: 4448818636494347}
   - {fileID: 4788035877677535}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -2581,19 +2551,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f039baf54a85546860ad6afb0afdaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114476812692306182
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1385956263969762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76a32b6e831017949a2940946af3d1ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  min: -65
-  max: 80
 --- !u!114 &114729653384877173
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7031,8 +6988,11 @@ MonoBehaviour:
   goldArmor: {fileID: 1917078299756408}
   diamondArmor: {fileID: 1572814101007634}
   noVisibleWear: {fileID: 1938882502694506}
-  recoilObject: {fileID: 1385956263969762}
+  recoilObject: {fileID: 0}
+  mobileHoldingDown: 0
   curGear: 
+  doubleShotIndex: 0
+  isChargingUp: 0
   isSwappin: 0
 --- !u!114 &114807105497875067
 MonoBehaviour:
