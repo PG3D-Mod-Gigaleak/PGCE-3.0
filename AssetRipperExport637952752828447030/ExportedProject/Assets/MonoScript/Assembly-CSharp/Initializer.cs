@@ -310,11 +310,6 @@ public sealed class Initializer : MonoBehaviour
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("COMZ_unused_church"))
-		{
-			position = new Vector3(-26.1f, 10.7f, 36f);
-			rotation = Quaternion.Euler(new Vector3(16.286f, 129.54f, -0.033f));
-		}
 		if (PlayerPrefs.GetString("MapName").Equals("COMZ_unused_hospital"))
 		{
 			position = new Vector3(11.2f, 2.71f, 9.9f);
@@ -366,6 +361,16 @@ public sealed class Initializer : MonoBehaviour
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
 		if (PlayerPrefs.GetString("MapName").Equals("SWF_Level17"))
+		{
+			position = new Vector3(-25.14f, 13.22f, 19.2f);
+			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
+		}
+		if (PlayerPrefs.GetString("MapName").Equals("COMZ_unused_church"))
+		{
+			position = new Vector3(-26.1f, 10.7f, 36f);
+			rotation = Quaternion.Euler(new Vector3(16.286f, 129.54f, -0.033f));
+		}
+		if (PlayerPrefs.GetString("MapName").Equals("the truth"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));

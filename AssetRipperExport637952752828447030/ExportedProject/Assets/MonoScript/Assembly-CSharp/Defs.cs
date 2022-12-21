@@ -1138,6 +1138,8 @@ public sealed class Defs
 		mapNamesForUser.Add("wholeblockworldmaphelpme", "the block world");
 		mapNamesForUser.Add("CRScene2", "a christmas prison wowowo");
 		mapNamesForUser.Add("SWF_Level17", "Star Warfare Warehouse");
+		mapNamesForUser.Add("COMZ_unused_church", "cool church");
+		mapNamesForUser.Add("the truth", "find out the truth about pg3d");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -1190,6 +1192,8 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("wholeblockworldmaphelpme", 521);
 		levelNumsForMusicInMult.Add("CRScene2", 522);
 		levelNumsForMusicInMult.Add("SWF_Level17", 4012);
+		levelNumsForMusicInMult.Add("COMZ_unused_church", 4013);
+		levelNumsForMusicInMult.Add("the truth", 523);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
