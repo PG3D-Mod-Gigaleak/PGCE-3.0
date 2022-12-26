@@ -14,7 +14,7 @@ public sealed class Defs
 
 	public static string cat5;
 
-	public static int numOfWeapons = 118;
+	public static int numOfWeapons = 119;
 
 	public static SurvivalConfig survivalConfig;
 
@@ -1140,6 +1140,7 @@ public sealed class Defs
 		mapNamesForUser.Add("SWF_Level17", "Star Warfare Warehouse");
 		mapNamesForUser.Add("COMZ_unused_church", "cool church");
 		mapNamesForUser.Add("the truth", "find out the truth about pg3d");
+		mapNamesForUser.Add("Zombie3D_Desert3", "the pixelated");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -1194,6 +1195,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("SWF_Level17", 4012);
 		levelNumsForMusicInMult.Add("COMZ_unused_church", 4013);
 		levelNumsForMusicInMult.Add("the truth", 523);
+		levelNumsForMusicInMult.Add("Zombie3D_Desert3", 524);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
