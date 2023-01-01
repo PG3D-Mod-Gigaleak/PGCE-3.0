@@ -199,20 +199,20 @@ public sealed class MainMenu : MonoBehaviour
 	private static string ReadPrefsFileToString()
 	{
 		//Discarded unreachable code: IL_0023, IL_0035
-		if (Application.platform == RuntimePlatform.Android)
-		{
-			try
-			{
-				using (StreamReader streamReader = File.OpenText("/data/data/com.P3D.Pixlgun/shared_prefs/com.P3D.Pixlgun.xml"))
-				{
-					return streamReader.ReadToEnd();
-				}
-			}
-			catch (Exception exception)
-			{
-				Debug.LogException(exception);
-			}
-		}
+		//if (Application.platform == RuntimePlatform.Android)
+		//{
+		//	try
+		//	{
+		//		using (StreamReader streamReader = File.OpenText("/data/data/com.P3D.Pixlgun/shared_prefs/com.P3D.Pixlgun.xml"))
+		//		{
+		//			return streamReader.ReadToEnd();
+		//		}
+		//	}
+		//	catch (Exception exception)
+		//	{
+		//		Debug.LogException(exception);
+		//	}
+		//}
 		return string.Empty;
 	}
 
@@ -712,7 +712,8 @@ public sealed class MainMenu : MonoBehaviour
 
 	private bool FacebookSupported()
 	{
-		return (Application.platform != RuntimePlatform.IPhonePlayer) ? (Application.platform == RuntimePlatform.Android) : (iOSVersion > 5f);
+		//return (Application.platform != RuntimePlatform.IPhonePlayer) ? (Application.platform == RuntimePlatform.Android) : (iOSVersion > 5f);
+		return false;
 	}
 
 	private void InitFacebook()
@@ -771,11 +772,11 @@ public sealed class MainMenu : MonoBehaviour
 		Debug.Log("poluchau permissions");
 		string[] permissions = new string[2] { "publish_actions", "publish_stream" };
 		ServiceLocator.FacebookFacade.ReauthorizeWithPublishPermissions(permissions, FacebookSessionDefaultAudience.Everyone);
-		if (Application.platform == RuntimePlatform.Android)
-		{
-			_hasPublishPermission = true;
-			_hasPublishActions = true;
-		}
+		//if (Application.platform == RuntimePlatform.Android)
+		//{
+		//	_hasPublishPermission = true;
+		//	_hasPublishActions = true;
+		//}
 	}
 
 	private void OnEventFacebookLoginFailed(P31Error error)

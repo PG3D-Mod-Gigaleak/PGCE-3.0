@@ -7,47 +7,47 @@ public class TwitterAndroid
 
 	static TwitterAndroid()
 	{
-		if (Application.platform != RuntimePlatform.Android)
-		{
+		//if (Application.platform != RuntimePlatform.Android)
+		//{
 			return;
-		}
-		using (AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.prime31.TwitterPlugin"))
-		{
-			_plugin = androidJavaClass.CallStatic<AndroidJavaObject>("instance", new object[0]);
-		}
+		//}
+		//using (AndroidJavaClass androidJavaClass = new AndroidJavaClass("com.prime31.TwitterPlugin"))
+		//{
+		//	_plugin = androidJavaClass.CallStatic<AndroidJavaObject>("instance", new object[0]);
+		//}
 	}
 
 	public static void init(string consumerKey, string consumerSecret)
 	{
-		if (Application.platform == RuntimePlatform.Android)
-		{
-			_plugin.Call("init", consumerKey, consumerSecret);
-		}
+		//if (Application.platform == RuntimePlatform.Android)
+		//{
+		//	_plugin.Call("init", consumerKey, consumerSecret);
+		//}
 	}
 
 	public static bool isLoggedIn()
 	{
-		if (Application.platform != RuntimePlatform.Android)
-		{
+		//if (Application.platform != RuntimePlatform.Android)
+		//{
 			return false;
-		}
-		return _plugin.Call<bool>("isLoggedIn", new object[0]);
+		//}
+		//return _plugin.Call<bool>("isLoggedIn", new object[0]);
 	}
 
 	public static void showLoginDialog()
 	{
-		if (Application.platform == RuntimePlatform.Android)
-		{
-			_plugin.Call("showLoginDialog");
-		}
+		//if (Application.platform == RuntimePlatform.Android)
+		//{
+		//	_plugin.Call("showLoginDialog");
+		//}
 	}
 
 	public static void logout()
 	{
-		if (Application.platform == RuntimePlatform.Android)
-		{
-			_plugin.Call("logout");
-		}
+		//if (Application.platform == RuntimePlatform.Android)
+		//{
+		//	_plugin.Call("logout");
+		//}
 	}
 
 	public static void postStatusUpdate(string status)
@@ -60,10 +60,10 @@ public class TwitterAndroid
 
 	public static void postStatusUpdate(string update, byte[] image)
 	{
-		if (Application.platform == RuntimePlatform.Android)
-		{
-			_plugin.Call("postUpdateWithImage", update, image);
-		}
+		//if (Application.platform == RuntimePlatform.Android)
+		//{
+		//	_plugin.Call("postUpdateWithImage", update, image);
+		//}
 	}
 
 	public static void getHomeTimeline()
@@ -78,10 +78,10 @@ public class TwitterAndroid
 
 	public static void performRequest(string methodType, string path, Dictionary<string, string> parameters)
 	{
-		if (Application.platform == RuntimePlatform.Android)
-		{
-			string text = ((parameters == null) ? string.Empty : parameters.toJson());
-			_plugin.Call("performRequest", methodType, path, text);
-		}
+		//if (Application.platform == RuntimePlatform.Android)
+		//{
+		//	string text = ((parameters == null) ? string.Empty : parameters.toJson());
+		//	_plugin.Call("performRequest", methodType, path, text);
+		//}
 	}
 }

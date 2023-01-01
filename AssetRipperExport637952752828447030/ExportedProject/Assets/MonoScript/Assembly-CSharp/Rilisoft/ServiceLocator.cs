@@ -31,11 +31,11 @@ namespace Rilisoft
 				_facebookFacade = new IosFacebookFacade();
 				_twitterFacade = new IosTwitterFacade();
 			}
-			else if (Application.platform == RuntimePlatform.Android)
-			{
-				_facebookFacade = new AndroidFacebookFacade();
-				_twitterFacade = new AndroidTwitterFacade();
-			}
+			//else if (Application.platform == RuntimePlatform.Android)
+			//{
+			//	_facebookFacade = new AndroidFacebookFacade();
+			//	_twitterFacade = new AndroidTwitterFacade();
+			//}
 			else
 			{
 				_facebookFacade = new DummyFacebookFacade();

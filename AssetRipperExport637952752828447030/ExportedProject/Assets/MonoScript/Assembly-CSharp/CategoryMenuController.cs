@@ -360,12 +360,13 @@ public class CategoryMenuController : MonoBehaviour {
 		GUI.DrawTexture(Utilities.screenScaleRect(0.19f, 0.03f, 0.6f, 0.9f), menuBG);
 		GUI.DrawTexture(Utilities.screenScaleRect(0.1f, 0.035f, 0.1f, 0.075f), coinsLabel);
 		GUI.Label(Utilities.screenScaleRect(0.1475f, 0.06f, 0.2f, 0.15f), "" + Defs.CoinsAmount, biggerLabelThingy);
-		#if UNITY_EDITOR
-		if (GUI.Button(Utilities.screenScaleRect(0.8f, 0.8f, 0.12f, 0.1f), string.Empty, blankButton))
+		if (Debug.isDebugBuild || Application.platform == RuntimePlatform.WindowsEditor)
 		{
-			Defs.CoinsAmount += 10000;
+			if (GUI.Button(Utilities.screenScaleRect(0.8f, 0.8f, 0.12f, 0.1f), string.Empty, blankButton))
+			{
+				Defs.CoinsAmount += 10000;
+			}
 		}
-		#endif
 		if (!popup)
 		{
 			for (int i = 0; i < weaponsInThisPage(); i++)

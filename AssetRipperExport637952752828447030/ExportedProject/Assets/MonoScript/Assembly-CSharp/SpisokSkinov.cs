@@ -904,11 +904,11 @@ public sealed class SpisokSkinov : MonoBehaviour
 		Debug.Log("poluchau permissions");
 		string[] permissions = new string[2] { "publish_actions", "publish_stream" };
 		ServiceLocator.FacebookFacade.ReauthorizeWithPublishPermissions(permissions, FacebookSessionDefaultAudience.Everyone);
-		if (Application.platform == RuntimePlatform.Android)
-		{
-			_hasPublishPermission = true;
-			_hasPublishActions = true;
-		}
+		//if (Application.platform == RuntimePlatform.Android)
+		//{
+		//	_hasPublishPermission = true;
+		//	_hasPublishActions = true;
+		//}
 	}
 
 	private void facebookGraphReqCompl(object result)

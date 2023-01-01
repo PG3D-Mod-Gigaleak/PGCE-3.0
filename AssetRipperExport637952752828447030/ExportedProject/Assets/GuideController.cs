@@ -35,4 +35,15 @@ public class GuideController : MonoBehaviour
 	{
 		
 	}
+
+	public void ButtonPress(string str)
+	{
+		switch(str)
+		{
+			case"testbutton":
+			Debug.LogError("the");
+			break;
+		}
+	}
+	
 }
