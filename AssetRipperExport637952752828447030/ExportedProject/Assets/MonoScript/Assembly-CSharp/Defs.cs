@@ -14,7 +14,7 @@ public sealed class Defs
 
 	public static string cat5;
 
-	public static int numOfWeapons = 121;
+	public static int numOfWeapons = 122;
 
 	public static SurvivalConfig survivalConfig;
 
