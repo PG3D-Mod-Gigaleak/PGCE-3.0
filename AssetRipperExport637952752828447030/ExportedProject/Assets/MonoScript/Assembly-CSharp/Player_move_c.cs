@@ -3311,6 +3311,24 @@ public sealed class Player_move_c : MonoBehaviour
 				photonView.RPC("fireFlashPhoton", PhotonTargets.Others, base.gameObject.transform.GetComponent<PhotonView>().viewID, false, 0f, Quaternion.identity);
 			}
 		}
+		StartCoroutine(CheckHitByMelee(alt));
+	}
+
+	private IEnumerator CheckHitByMelee(bool alt)
+	{
+		WeaponSounds WS = null;
+		if (alt)
+		{
+			WS = _weaponManager.currentWeaponSounds.alternateShot;
+		}
+		else
+		{
+			WS = _weaponManager.currentWeaponSounds;
+		}
+		if (!WS.oldMeleeSystem)
+		{
+			yield return new WaitForSeconds(WS.animationObject.GetComponent<Animation>()[myCAnim("Shoot")].length * WS.meleeAttackTimeModifier);
+		}
 		GameObject[] array = ((PlayerPrefs.GetInt("MultyPlayer") != 1 || PlayerPrefs.GetInt("COOP", 0) == 1) ? GameObject.FindGameObjectsWithTag("Enemy") : GameObject.FindGameObjectsWithTag("Player"));
 		GameObject gameObject = null;
 		float num = float.PositiveInfinity;
@@ -3348,7 +3366,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private IEnumerator HitByMelee(GameObject enemyToHit, bool alt)
 	{
-				WeaponSounds WS = null;
+		WeaponSounds WS = null;
 		if (alt)
 		{
 			WS = _weaponManager.currentWeaponSounds.alternateShot;
@@ -3357,7 +3375,10 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			WS = _weaponManager.currentWeaponSounds;
 		}
-		yield return new WaitForSeconds(WS.animationObject.GetComponent<Animation>()[myCAnim("Shoot")].length * WS.meleeAttackTimeModifier);
+		if (WS.oldMeleeSystem)
+		{
+			yield return new WaitForSeconds(WS.animationObject.GetComponent<Animation>()[myCAnim("Shoot")].length * WS.meleeAttackTimeModifier);
+		}
 		if (!(enemyToHit != null))
 		{
 			yield break;

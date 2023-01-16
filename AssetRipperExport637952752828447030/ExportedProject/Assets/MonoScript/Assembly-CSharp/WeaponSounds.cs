@@ -94,6 +94,8 @@ public class WeaponSounds : MonoBehaviour
 
 	public string weaponName;
 
+	public bool oldMeleeSystem;
+
 	public int MaxAmmoWithRespectToInApp
 	{
 		get
