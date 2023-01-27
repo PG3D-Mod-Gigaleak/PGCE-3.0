@@ -30,36 +30,44 @@ public static AnimationState GetAnimState(Animation anim, string str)
 public static GameObject InsGobj(Object original)
 {
 	GameObject gobj = Instantiate(original) as GameObject;
-	gobj.name.Replace("(Clone)", string.Empty);
+	gobj.name = gobj.name.Replace("(Clone)", string.Empty);
 	return gobj;
 }
 
 public static GameObject InsGobj(Object original, Transform parent)
 {
 	GameObject gobj = Instantiate(original, parent) as GameObject;
-	gobj.name.Replace("(Clone)", string.Empty);
+	gobj.name = gobj.name.Replace("(Clone)", string.Empty);
 	return gobj;
 }
 
 public static GameObject InsGobj(Object original, Transform parent, bool instantiateInWorldSpace)
 {
 	GameObject gobj = Instantiate(original, parent, instantiateInWorldSpace) as GameObject;
-	gobj.name.Replace("(Clone)", string.Empty);
+	gobj.name = gobj.name.Replace("(Clone)", string.Empty);
 	return gobj;
 }
 
 public static GameObject InsGobj(Object original, Vector3 position, Quaternion rotation)
 {
 	GameObject gobj = Instantiate(original, position, rotation) as GameObject;
-	gobj.name.Replace("(Clone)", string.Empty);
+	gobj.name = gobj.name.Replace("(Clone)", string.Empty);
 	return gobj;
 }
 
 public static GameObject InsGobj(Object original, Vector3 position, Quaternion rotation, Transform parent)
 {
 	GameObject gobj = Instantiate(original, position, rotation, parent) as GameObject;
-	gobj.name.Replace("(Clone)", string.Empty);
+	gobj.name = gobj.name.Replace("(Clone)", string.Empty);
 	return gobj;
+}
+
+public static Texture2D CropTexture(Texture2D texture, Vector2 coords)
+{
+    Texture2D croppedTexture = new Texture2D((int)coords.x, (int)coords.y);
+    croppedTexture.SetPixels(texture.GetPixels((int)coords.x, (int)coords.y, (int)coords.x, (int)coords.y));
+    croppedTexture.Apply();
+    return croppedTexture;
 }
 
 public static T GetClass<T>(string path) where T: MonoBehaviour

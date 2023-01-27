@@ -25,7 +25,7 @@ public class ThreeDButton : MonoBehaviour
 
 	IEnumerator click()
 	{
-		GameObject.Find("AudioPlayer").GetComponent<AudioSource>().PlayOneShot(pressSound);
+		GameObject.Find("3DUI").GetComponent<AudioSource>().PlayOneShot(pressSound);
 		Material mat = GetComponent<MeshRenderer>().material;
 		GetComponent<MeshRenderer>().material = pressedMat;
 		while (Input.GetMouseButton(0))
@@ -33,14 +33,28 @@ public class ThreeDButton : MonoBehaviour
 			yield return new WaitForEndOfFrame();
 			if (repeatButton)
 			{
-				GameObject.Find(ObjectToSendMessageTo).SendMessage("ButtonPress", this.name);
+				try
+				{
+					GameObject.Find(ObjectToSendMessageTo).SendMessage("ButtonPress", this.name);
+				}
+				catch
+				{
+					Debug.LogError(ObjectToSendMessageTo + " could not receive " + this.name + ". please make sure your objecttosendmessageto isn't a child of any other gameobjects and has any sort of method by THIS gameobject's name");
+				}
 			}
 		}
 		if (!repeatButton)
 		{
 			shouldChangeMat = true;
 		}
-		GameObject.Find(ObjectToSendMessageTo).SendMessage("ButtonPress", this.name);
+		try
+		{
+			GameObject.Find(ObjectToSendMessageTo).SendMessage("ButtonPress", this.name);
+		}
+		catch
+		{
+			Debug.LogError(ObjectToSendMessageTo + " could not receive " + this.name + ". please make sure your objecttosendmessageto isn't a child of any other gameobjects and has any sort of method by THIS gameobject's name");
+		}
 	}
 
 	void Start()

@@ -1127,6 +1127,7 @@ public sealed class Defs
 		mapNamesForUser.Add("Stupid52", "Area 52 but very unfunny");
 		mapNamesForUser.Add("COMZ_older_village", "COMZ unused village");
 		mapNamesForUser.Add("COMZ_unused_cemetery", "COMZ unused church");
+		mapNamesForUser.Add("UniBuilder_Map2", "UniVoxelBuilder Map 2");
 		mapNamesForUser.Add("COMZ_unused_hospital", "COMZ unused hospital");
 		mapNamesForUser.Add("COMZ_test", "COMZ test map");
 		mapNamesForUser.Add("COMZ_unused_parkingspace", "COMZ unused parking lot");
@@ -1182,6 +1183,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("Stupid52", 511);
 		levelNumsForMusicInMult.Add("COMZ_older_village", 512);
 		levelNumsForMusicInMult.Add("COMZ_unused_cemetery", 4013);
+		levelNumsForMusicInMult.Add("UniBuilder_Map2", 4015);
 		levelNumsForMusicInMult.Add("COMZ_unused_hospital", 513);
 		levelNumsForMusicInMult.Add("COMZ_test", 514);
 		levelNumsForMusicInMult.Add("COMZ_unused_parkingspace", 515);
