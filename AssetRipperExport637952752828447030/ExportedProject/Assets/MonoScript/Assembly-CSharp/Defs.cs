@@ -14,8 +14,6 @@ public sealed class Defs
 
 	public static string cat5;
 
-	public static int numOfWeapons = 123;
-
 	public static SurvivalConfig survivalConfig;
 
 	public static TimeSurvivalConfig timeSurvivalConfig;
@@ -1000,7 +998,18 @@ public sealed class Defs
 		}
 	}
 
-	public static string[] MainMenuScenes = new string[] { "Menu_Utopia", "Menu_Maze", "Menu_Islands", "Menu_City", "Menu_Slender", "Menu_Hills", "Menu_Unused_ParkingSpace", "Menu_CNR", "Menu_StarWarfare" };
+	public static string[] MainMenuScenes
+	{
+		get
+		{
+			List<string> scenes = new List<string>();
+			foreach (MenuSettings.Menu menu in Resources.Load<GameObject>("MenuSettings").GetComponent<MenuSettings>().menuInfos)
+			{
+				scenes.Add(menu.sceneName);
+			}
+			return scenes.ToArray();
+		}
+	}
 
 	public static string CurrentMainMenuScene;
 

@@ -12,7 +12,7 @@ public sealed class LoadConnectScene : MonoBehaviour
 	{
 		if (loading == null)
 		{
-			loading = Resources.Load("MenuResources/Loadings/MenuLoading_" + Defs.CurrentMainMenuScene) as Texture;
+			loading = MenuSettings.GetCurrentMenu.loading;
 		}
 		Invoke("_loadConnectScene", 2.5f);
 		aInd = StoreKitEventListener.purchaseActivityInd;

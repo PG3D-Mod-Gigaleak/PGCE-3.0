@@ -15,51 +15,15 @@ public class PersConfigurator : MonoBehaviour
 
 	private void Start()
 	{
-		//PlayerPrefs.SetInt("MultyPlayer", 1);
-		//WeaponManager component = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
-		//component.Reset();
-		//int num = 0;
-		//GameObject original = null;
-		//List<UnityEngine.Object> list = new List<UnityEngine.Object>();
-		//for (int i = 0; i < Defs.numOfWeapons; i++)
-		//{
-		//	int i2 = i + 1;
-		//	Object obj = Resources.Load("Weapons/Weapon" + i2);
-		//	list.Add(obj);
-		//}
-		//Object obj2 = Resources.Load("Weapons/Weapon" + Defs.numOfWeapons);
-		//list.Add(obj2);
-		//List<Weapon> list = new List<Weapon>();
-		//foreach (Weapon playerWeapon in component.playerWeapons)
-		//{
-		//	if (WeaponManager.tagToStoreIDMapping.ContainsKey(playerWeapon.weaponPrefab.tag))
-		//	{
-		//		list.Add(playerWeapon);
-		//	}
-		//}
-		//if (list.Count == 0)
-		//{
-		//	foreach (Weapon playerWeapon2 in component.playerWeapons)
-		//	{
-		//		if (playerWeapon2.weaponPrefab.tag.Equals(WeaponManager._initialWeaponName))
-		//		{
-		//			original = playerWeapon2.weaponPrefab;
-		//			break;
-		//		}
-		//	}
-		//}
-		//else
-		//{
-			List<GameObject> list = new List<GameObject>();
-			foreach (GameObject obj in BonusCreator.GetAllWeapons())
+		List<GameObject> list = new List<GameObject>();
+		foreach (GameObject obj in BonusCreator.GetAllWeapons())
+		{
+			if (obj.tag == PlayerPrefs.GetString("cat1") || obj.tag == PlayerPrefs.GetString("cat2") || obj.tag == PlayerPrefs.GetString("cat3") || obj.tag == PlayerPrefs.GetString("cat4") || obj.tag == PlayerPrefs.GetString("cat5"))
 			{
-				if (obj.tag == PlayerPrefs.GetString("cat1") || obj.tag == PlayerPrefs.GetString("cat2") || obj.tag == PlayerPrefs.GetString("cat3") || obj.tag == PlayerPrefs.GetString("cat4") || obj.tag == PlayerPrefs.GetString("cat5"))
-				{
-					list.Add(obj);
-				}
+				list.Add(obj);
 			}
-			GameObject original = list[Random.Range(0, list.Count)] as GameObject;
-		//}
+		}
+		GameObject original = list[Random.Range(0, list.Count)] as GameObject;
 		GameObject gameObject = Object.Instantiate(original) as GameObject;
 		gameObject.transform.parent = body.transform;
 		weapon = gameObject;

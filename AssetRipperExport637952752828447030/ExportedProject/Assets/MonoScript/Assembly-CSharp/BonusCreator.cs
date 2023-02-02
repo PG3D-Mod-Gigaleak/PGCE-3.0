@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BonusCreator : MonoBehaviour
@@ -50,13 +51,7 @@ public class BonusCreator : MonoBehaviour
 		if (!_isMultiplayer)
 		{
 			weaponPrefabs = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().weaponsInGame;
-			UnityEngine.Object[] array = new UnityEngine.Object[Defs.numOfWeapons];
-			for (int i = 0; i < Defs.numOfWeapons; i++)
-			{
-			int i2 = i + 1;
-			array[i] = Resources.Load("Weapons/Weapon" + i2);
-			}
-			array[Defs.numOfWeapons - 1] = Resources.Load("Weapons/Weapon" + Defs.numOfWeapons);
+			UnityEngine.Object[] array = WeaponManager.WeaponPrefabs.ToArray();
 			for (int i = 0; i < array.Length; i++)
 			{
 				GameObject gameObject = array[i] as GameObject;
@@ -88,13 +83,7 @@ public class BonusCreator : MonoBehaviour
 
 	public GameObject GetPrefabWithTag(string tagName)
 	{
-		UnityEngine.Object[] array = new UnityEngine.Object[Defs.numOfWeapons];
-		for (int i = 0; i < Defs.numOfWeapons; i++)
-		{
-			int i2 = i + 1;
-			array[i] = Resources.Load("Weapons/Weapon" + i2);
-		}
-		array[Defs.numOfWeapons - 1] = Resources.Load("Weapons/Weapon" + Defs.numOfWeapons);
+		UnityEngine.Object[] array = WeaponManager.WeaponPrefabs.ToArray();
 		for (int i = 0; i < array.Length; i++)
 		{
 			GameObject gameObject = array[i] as GameObject;
@@ -108,14 +97,13 @@ public class BonusCreator : MonoBehaviour
 
 	public static GameObject[] GetAllWeapons()
 	{
-		GameObject[] array = new GameObject[Defs.numOfWeapons];
-		for (int i = 0; i < Defs.numOfWeapons; i++)
+		UnityEngine.Object[] array = WeaponManager.WeaponPrefabs.ToArray();
+		List<GameObject> convertedObjects = new List<GameObject>();
+		foreach (UnityEngine.Object obj in array)
 		{
-			int i2 = i + 1;
-			array[i] = Resources.Load<GameObject>("Weapons/Weapon" + i2);
+			convertedObjects.Add(obj as GameObject);
 		}
-		array[Defs.numOfWeapons - 1] = Resources.Load<GameObject>("Weapons/Weapon" + Defs.numOfWeapons);
-		return array;
+		return convertedObjects.ToArray();
 	}
 
 	private IEnumerator AddBonus()

@@ -96,7 +96,7 @@ public sealed class Switcher : MonoBehaviour
 			}
 			else if (GlobalGameController.currentLevel == -1)
 			{
-			fonToDraw = Resources.Load("MenuResources/Loadings/MenuLoading_" + Defs.CurrentMainMenuScene) as Texture;
+			fonToDraw = MenuSettings.GetCurrentMenu.loading;
 			}
 			else if (GlobalGameController.currentLevel == 101)
 			{
