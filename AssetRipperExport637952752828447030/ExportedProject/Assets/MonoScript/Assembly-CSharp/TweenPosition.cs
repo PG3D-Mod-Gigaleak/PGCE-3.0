@@ -1,53 +1,110 @@
+//-------------------------------------------------
+//            NGUI: Next-Gen UI kit
+// Copyright © 2011-2017 Tasharen Entertainment Inc
+//-------------------------------------------------
+
 using UnityEngine;
 
-[AddComponentMenu("NGUI/Tween/Position")]
+/// <summary>
+/// Tween the object's position.
+/// </summary>
+
+[AddComponentMenu("NGUI/Tween/Tween Position")]
 public class TweenPosition : UITweener
 {
 	public Vector3 from;
-
 	public Vector3 to;
 
-	private Transform mTrans;
+	[HideInInspector]
+	public bool worldSpace = false;
 
-	public Transform cachedTransform
+	Transform mTrans;
+	UIRect mRect;
+
+	public Transform cachedTransform { get { if (mTrans == null) mTrans = transform; return mTrans; } }
+
+	[System.Obsolete("Use 'value' instead")]
+	public Vector3 position { get { return this.value; } set { this.value = value; } }
+
+	/// <summary>
+	/// Tween's current value.
+	/// </summary>
+
+	public Vector3 value
 	{
 		get
 		{
-			if (mTrans == null)
-			{
-				mTrans = base.transform;
-			}
-			return mTrans;
-		}
-	}
-
-	public Vector3 position
-	{
-		get
-		{
-			return cachedTransform.localPosition;
+			return worldSpace ? cachedTransform.position : cachedTransform.localPosition;
 		}
 		set
 		{
-			cachedTransform.localPosition = value;
+			if (mRect == null || !mRect.isAnchored || worldSpace)
+			{
+				if (worldSpace) cachedTransform.position = value;
+				else cachedTransform.localPosition = value;
+			}
+			else
+			{
+				value -= cachedTransform.localPosition;
+				NGUIMath.MoveRect(mRect, value.x, value.y);
+			}
 		}
 	}
 
-	protected override void OnUpdate(float factor, bool isFinished)
-	{
-		cachedTransform.localPosition = from * (1f - factor) + to * factor;
-	}
+	void Awake () { mRect = GetComponent<UIRect>(); }
 
-	public static TweenPosition Begin(GameObject go, float duration, Vector3 pos)
+	/// <summary>
+	/// Tween the value.
+	/// </summary>
+
+	protected override void OnUpdate (float factor, bool isFinished) { value = from * (1f - factor) + to * factor; }
+
+	/// <summary>
+	/// Start the tweening operation.
+	/// </summary>
+
+	static public TweenPosition Begin (GameObject go, float duration, Vector3 pos)
 	{
-		TweenPosition tweenPosition = UITweener.Begin<TweenPosition>(go, duration);
-		tweenPosition.from = tweenPosition.position;
-		tweenPosition.to = pos;
+		TweenPosition comp = UITweener.Begin<TweenPosition>(go, duration);
+		comp.from = comp.value;
+		comp.to = pos;
+
 		if (duration <= 0f)
 		{
-			tweenPosition.Sample(1f, true);
-			tweenPosition.enabled = false;
+			comp.Sample(1f, true);
+			comp.enabled = false;
 		}
-		return tweenPosition;
+		return comp;
 	}
+
+	/// <summary>
+	/// Start the tweening operation.
+	/// </summary>
+
+	static public TweenPosition Begin (GameObject go, float duration, Vector3 pos, bool worldSpace)
+	{
+		TweenPosition comp = UITweener.Begin<TweenPosition>(go, duration);
+		comp.worldSpace = worldSpace;
+		comp.from = comp.value;
+		comp.to = pos;
+
+		if (duration <= 0f)
+		{
+			comp.Sample(1f, true);
+			comp.enabled = false;
+		}
+		return comp;
+	}
+
+	[ContextMenu("Set 'From' to current value")]
+	public override void SetStartToCurrentValue () { from = value; }
+
+	[ContextMenu("Set 'To' to current value")]
+	public override void SetEndToCurrentValue () { to = value; }
+
+	[ContextMenu("Assume value of 'From'")]
+	void SetCurrentValueToStart () { value = from; }
+
+	[ContextMenu("Assume value of 'To'")]
+	void SetCurrentValueToEnd () { value = to; }
 }

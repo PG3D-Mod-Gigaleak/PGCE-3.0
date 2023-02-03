@@ -1,108 +1,191 @@
-using System;
-using AnimationOrTween;
-using UnityEngine;
+//-------------------------------------------------
+//            NGUI: Next-Gen UI kit
+// Copyright © 2011-2017 Tasharen Entertainment Inc
+//-------------------------------------------------
 
-public abstract class UITweener : IgnoreTimeScale
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+
+/// <summary>
+/// Base class for all tweening operations.
+/// </summary>
+
+public abstract class UITweener : MonoBehaviour
 {
+	/// <summary>
+	/// Current tween that triggered the callback function.
+	/// </summary>
+
+	static public UITweener current;
+
 	public enum Method
 	{
-		Linear = 0,
-		EaseIn = 1,
-		EaseOut = 2,
-		EaseInOut = 3,
-		BounceIn = 4,
-		BounceOut = 5
+		Linear,
+		EaseIn,
+		EaseOut,
+		EaseInOut,
+		BounceIn,
+		BounceOut,
 	}
 
 	public enum Style
 	{
-		Once = 0,
-		Loop = 1,
-		PingPong = 2
+		Once,
+		Loop,
+		PingPong,
 	}
 
-	public delegate void OnFinished(UITweener tween);
+	/// <summary>
+	/// Tweening method used.
+	/// </summary>
 
-	public OnFinished onFinished;
+	[HideInInspector]
+	public Method method = Method.Linear;
 
-	public Method method;
+	/// <summary>
+	/// Does it play once? Does it loop?
+	/// </summary>
 
-	public Style style;
+	[HideInInspector]
+	public Style style = Style.Once;
 
+	/// <summary>
+	/// Optional curve to apply to the tween's time factor value.
+	/// </summary>
+
+	[HideInInspector]
 	public AnimationCurve animationCurve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
 
+	/// <summary>
+	/// Whether the tween will ignore the timescale, making it work while the game is paused.
+	/// </summary>
+	
+	[HideInInspector]
 	public bool ignoreTimeScale = true;
 
-	public float delay;
+	/// <summary>
+	/// How long will the tweener wait before starting the tween?
+	/// </summary>
 
+	[HideInInspector]
+	public float delay = 0f;
+
+	/// <summary>
+	/// How long is the duration of the tween?
+	/// </summary>
+
+	[HideInInspector]
 	public float duration = 1f;
 
-	public bool steeperCurves;
+	/// <summary>
+	/// Whether the tweener will use steeper curves for ease in / out style interpolation.
+	/// </summary>
 
-	public int tweenGroup;
+	[HideInInspector]
+	public bool steeperCurves = false;
 
-	public GameObject eventReceiver;
+	/// <summary>
+	/// Used by buttons and tween sequences. Group of '0' means not in a sequence.
+	/// </summary>
 
-	public string callWhenFinished;
+	[HideInInspector]
+	public int tweenGroup = 0;
 
-	private bool mStarted;
+	[Tooltip("By default, Update() will be used for tweening. Setting this to 'true' will make the tween happen in FixedUpdate() insted.")]
+	public bool useFixedUpdate = false;
 
-	private float mStartTime;
+	/// <summary>
+	/// Event delegates called when the animation finishes.
+	/// </summary>
 
-	private float mDuration;
+	[HideInInspector]
+	public List<EventDelegate> onFinished = new List<EventDelegate>();
 
-	private float mAmountPerDelta = 1f;
+	// Deprecated functionality, kept for backwards compatibility
+	[HideInInspector] public GameObject eventReceiver;
+	[HideInInspector] public string callWhenFinished;
 
-	private float mFactor;
+	bool mStarted = false;
+	float mStartTime = 0f;
+	float mDuration = 0f;
+	float mAmountPerDelta = 1000f;
+	float mFactor = 0f;
+
+	/// <summary>
+	/// Amount advanced per delta time.
+	/// </summary>
 
 	public float amountPerDelta
 	{
 		get
 		{
+			if (duration == 0f) return 1000f;
+
 			if (mDuration != duration)
 			{
 				mDuration = duration;
-				mAmountPerDelta = Mathf.Abs((!(duration > 0f)) ? 1000f : (1f / duration));
+				mAmountPerDelta = Mathf.Abs(1f / duration) * Mathf.Sign(mAmountPerDelta);
 			}
 			return mAmountPerDelta;
 		}
 	}
 
-	public float tweenFactor
-	{
-		get
-		{
-			return mFactor;
-		}
-	}
+	/// <summary>
+	/// Tween factor, 0-1 range.
+	/// </summary>
 
-	public Direction direction
-	{
-		get
-		{
-			return (!(mAmountPerDelta < 0f)) ? Direction.Forward : Direction.Reverse;
-		}
-	}
+	public float tweenFactor { get { return mFactor; } set { mFactor = Mathf.Clamp01(value); } }
 
-	private void Start()
-	{
-		Update();
-	}
+	/// <summary>
+	/// Direction that the tween is currently playing in.
+	/// </summary>
 
-	private void Update()
+	public AnimationOrTween.Direction direction { get { return amountPerDelta < 0f ? AnimationOrTween.Direction.Reverse : AnimationOrTween.Direction.Forward; } }
+
+	/// <summary>
+	/// This function is called by Unity when you add a component. Automatically set the starting values for convenience.
+	/// </summary>
+
+	void Reset ()
 	{
-		float num = ((!ignoreTimeScale) ? Time.deltaTime : UpdateRealTimeDelta());
-		float num2 = ((!ignoreTimeScale) ? Time.time : base.realTime);
 		if (!mStarted)
 		{
-			mStarted = true;
-			mStartTime = num2 + delay;
+			SetStartToCurrentValue();
+			SetEndToCurrentValue();
 		}
-		if (num2 < mStartTime)
+	}
+
+	/// <summary>
+	/// Update as soon as it's started so that there is no delay.
+	/// </summary>
+
+	protected virtual void Start () { DoUpdate(); }
+	protected void Update () { if (!useFixedUpdate) DoUpdate(); }
+	protected void FixedUpdate () { if (useFixedUpdate) DoUpdate(); }
+
+	/// <summary>
+	/// Update the tweening factor and call the virtual update function.
+	/// </summary>
+
+	protected void DoUpdate ()
+	{
+		float delta = ignoreTimeScale && !useFixedUpdate ? Time.unscaledDeltaTime : Time.deltaTime;
+		float time = ignoreTimeScale && !useFixedUpdate ? Time.unscaledTime : Time.time;
+
+		if (!mStarted)
 		{
-			return;
+			delta = 0;
+			mStarted = true;
+			mStartTime = time + delay;
 		}
-		mFactor += amountPerDelta * num;
+
+		if (time < mStartTime) return;
+
+		// Advance the sampling factor
+		mFactor += (duration == 0f) ? 1f : amountPerDelta * delta;
+
+		// Loop style simply resets the play factor after it exceeds 1.
 		if (style == Style.Loop)
 		{
 			if (mFactor > 1f)
@@ -112,145 +195,309 @@ public abstract class UITweener : IgnoreTimeScale
 		}
 		else if (style == Style.PingPong)
 		{
+			// Ping-pong style reverses the direction
 			if (mFactor > 1f)
 			{
 				mFactor = 1f - (mFactor - Mathf.Floor(mFactor));
-				mAmountPerDelta = 0f - mAmountPerDelta;
+				mAmountPerDelta = -mAmountPerDelta;
 			}
 			else if (mFactor < 0f)
 			{
-				mFactor = 0f - mFactor;
+				mFactor = -mFactor;
 				mFactor -= Mathf.Floor(mFactor);
-				mAmountPerDelta = 0f - mAmountPerDelta;
+				mAmountPerDelta = -mAmountPerDelta;
 			}
 		}
-		if (style == Style.Once && (mFactor > 1f || mFactor < 0f))
+
+		// If the factor goes out of range and this is a one-time tweening operation, disable the script
+		if ((style == Style.Once) && (duration == 0f || mFactor > 1f || mFactor < 0f))
 		{
 			mFactor = Mathf.Clamp01(mFactor);
 			Sample(mFactor, true);
-			if (onFinished != null)
+			enabled = false;
+
+			if (current != this)
 			{
-				onFinished(this);
-			}
-			if (eventReceiver != null && !string.IsNullOrEmpty(callWhenFinished))
-			{
-				eventReceiver.SendMessage(callWhenFinished, this, SendMessageOptions.DontRequireReceiver);
-			}
-			if ((mFactor == 1f && mAmountPerDelta > 0f) || (mFactor == 0f && mAmountPerDelta < 0f))
-			{
-				base.enabled = false;
+				UITweener before = current;
+				current = this;
+
+				if (onFinished != null)
+				{
+					mTemp = onFinished;
+					onFinished = new List<EventDelegate>();
+
+					// Notify the listener delegates
+					EventDelegate.Execute(mTemp);
+
+					// Re-add the previous persistent delegates
+					for (int i = 0; i < mTemp.Count; ++i)
+					{
+						EventDelegate ed = mTemp[i];
+						if (ed != null && !ed.oneShot) EventDelegate.Add(onFinished, ed, ed.oneShot);
+					}
+					mTemp = null;
+				}
+
+				// Deprecated legacy functionality support
+				if (eventReceiver != null && !string.IsNullOrEmpty(callWhenFinished))
+					eventReceiver.SendMessage(callWhenFinished, this, SendMessageOptions.DontRequireReceiver);
+
+				current = before;
 			}
 		}
-		else
-		{
-			Sample(mFactor, false);
-		}
+		else Sample(mFactor, false);
 	}
 
-	private void OnDisable()
+	List<EventDelegate> mTemp = null;
+
+	/// <summary>
+	/// Convenience function -- set a new OnFinished event delegate (here for to be consistent with RemoveOnFinished).
+	/// </summary>
+
+	public void SetOnFinished (EventDelegate.Callback del) { EventDelegate.Set(onFinished, del); }
+
+	/// <summary>
+	/// Convenience function -- set a new OnFinished event delegate (here for to be consistent with RemoveOnFinished).
+	/// </summary>
+
+	public void SetOnFinished (EventDelegate del) { EventDelegate.Set(onFinished, del); }
+
+	/// <summary>
+	/// Convenience function -- add a new OnFinished event delegate (here for to be consistent with RemoveOnFinished).
+	/// </summary>
+
+	public void AddOnFinished (EventDelegate.Callback del) { EventDelegate.Add(onFinished, del); }
+
+	/// <summary>
+	/// Convenience function -- add a new OnFinished event delegate (here for to be consistent with RemoveOnFinished).
+	/// </summary>
+
+	public void AddOnFinished (EventDelegate del) { EventDelegate.Add(onFinished, del); }
+
+	/// <summary>
+	/// Remove an OnFinished delegate. Will work even while iterating through the list when the tweener has finished its operation.
+	/// </summary>
+
+	public void RemoveOnFinished (EventDelegate del)
 	{
-		mStarted = false;
+		if (onFinished != null) onFinished.Remove(del);
+		if (mTemp != null) mTemp.Remove(del);
 	}
 
-	public void Sample(float factor, bool isFinished)
+	/// <summary>
+	/// Mark as not started when finished to enable delay on next play.
+	/// </summary>
+
+	void OnDisable () { mStarted = false; }
+
+	/// <summary>
+	/// Sample the tween at the specified factor.
+	/// </summary>
+
+	public void Sample (float factor, bool isFinished)
 	{
-		float num = Mathf.Clamp01(factor);
+		// Calculate the sampling value
+		float val = Mathf.Clamp01(factor);
+
 		if (method == Method.EaseIn)
 		{
-			num = 1f - Mathf.Sin((float)Math.PI / 2f * (1f - num));
-			if (steeperCurves)
-			{
-				num *= num;
-			}
+			val = 1f - Mathf.Sin(0.5f * Mathf.PI * (1f - val));
+			if (steeperCurves) val *= val;
 		}
 		else if (method == Method.EaseOut)
 		{
-			num = Mathf.Sin((float)Math.PI / 2f * num);
+			val = Mathf.Sin(0.5f * Mathf.PI * val);
+
 			if (steeperCurves)
 			{
-				num = 1f - num;
-				num = 1f - num * num;
+				val = 1f - val;
+				val = 1f - val * val;
 			}
 		}
 		else if (method == Method.EaseInOut)
 		{
-			num -= Mathf.Sin(num * ((float)Math.PI * 2f)) / ((float)Math.PI * 2f);
+			const float pi2 = Mathf.PI * 2f;
+			val = val - Mathf.Sin(val * pi2) / pi2;
+
 			if (steeperCurves)
 			{
-				num = num * 2f - 1f;
-				float num2 = Mathf.Sign(num);
-				num = 1f - Mathf.Abs(num);
-				num = 1f - num * num;
-				num = num2 * num * 0.5f + 0.5f;
+				val = val * 2f - 1f;
+				float sign = Mathf.Sign(val);
+				val = 1f - Mathf.Abs(val);
+				val = 1f - val * val;
+				val = sign * val * 0.5f + 0.5f;
 			}
 		}
 		else if (method == Method.BounceIn)
 		{
-			num = BounceLogic(num);
+			val = BounceLogic(val);
 		}
 		else if (method == Method.BounceOut)
 		{
-			num = 1f - BounceLogic(1f - num);
+			val = 1f - BounceLogic(1f - val);
 		}
-		OnUpdate((animationCurve == null) ? num : animationCurve.Evaluate(num), isFinished);
+
+		// Call the virtual update
+		OnUpdate((animationCurve != null) ? animationCurve.Evaluate(val) : val, isFinished);
 	}
 
-	private float BounceLogic(float val)
+	/// <summary>
+	/// Main Bounce logic to simplify the Sample function
+	/// </summary>
+	
+	float BounceLogic (float val)
 	{
-		val = ((val < 0.363636f) ? (7.5685f * val * val) : ((val < 0.727272f) ? (7.5625f * (val -= 0.545454f) * val + 0.75f) : ((!(val < 0.90909f)) ? (7.5625f * (val -= 0.9545454f) * val + 63f / 64f) : (7.5625f * (val -= 0.818181f) * val + 0.9375f))));
+		if (val < 0.363636f) // 0.363636 = (1/ 2.75)
+		{
+			val = 7.5685f * val * val;
+		}
+		else if (val < 0.727272f) // 0.727272 = (2 / 2.75)
+		{
+			val = 7.5625f * (val -= 0.545454f) * val + 0.75f; // 0.545454f = (1.5 / 2.75) 
+		}
+		else if (val < 0.909090f) // 0.909090 = (2.5 / 2.75) 
+		{
+			val = 7.5625f * (val -= 0.818181f) * val + 0.9375f; // 0.818181 = (2.25 / 2.75) 
+		}
+		else
+		{
+			val = 7.5625f * (val -= 0.9545454f) * val + 0.984375f; // 0.9545454 = (2.625 / 2.75) 
+		}
 		return val;
 	}
 
-	public void Play(bool forward)
+	/// <summary>
+	/// Play the tween.
+	/// </summary>
+
+	[System.Obsolete("Use PlayForward() instead")]
+	public void Play () { Play(true); }
+
+	/// <summary>
+	/// Play the tween forward.
+	/// </summary>
+
+	public void PlayForward () { Play(true); }
+
+	/// <summary>
+	/// Play the tween in reverse.
+	/// </summary>
+	
+	public void PlayReverse () { Play(false); }
+
+	/// <summary>
+	/// Manually activate the tweening process, reversing it if necessary.
+	/// </summary>
+
+	public virtual void Play (bool forward)
 	{
 		mAmountPerDelta = Mathf.Abs(amountPerDelta);
-		if (!forward)
+		if (!forward) mAmountPerDelta = -mAmountPerDelta;
+
+		if (!enabled)
 		{
-			mAmountPerDelta = 0f - mAmountPerDelta;
+			enabled = true;
+			mStarted = false;
 		}
-		base.enabled = true;
-		Update();
+
+		DoUpdate();
 	}
 
-	public void Reset()
+	/// <summary>
+	/// Manually reset the tweener's state to the beginning.
+	/// If the tween is playing forward, this means the tween's start.
+	/// If the tween is playing in reverse, this means the tween's end.
+	/// </summary>
+
+	public void ResetToBeginning ()
 	{
 		mStarted = false;
-		mFactor = ((!(mAmountPerDelta < 0f)) ? 0f : 1f);
+		mFactor = (amountPerDelta < 0f) ? 1f : 0f;
 		Sample(mFactor, false);
 	}
 
-	public void Toggle()
+	/// <summary>
+	/// Manually start the tweening process, reversing its direction.
+	/// </summary>
+
+	public void Toggle ()
 	{
 		if (mFactor > 0f)
 		{
-			mAmountPerDelta = 0f - amountPerDelta;
+			mAmountPerDelta = -amountPerDelta;
 		}
 		else
 		{
 			mAmountPerDelta = Mathf.Abs(amountPerDelta);
 		}
-		base.enabled = true;
+		enabled = true;
 	}
 
-	protected abstract void OnUpdate(float factor, bool isFinished);
+	/// <summary>
+	/// Actual tweening logic should go here.
+	/// </summary>
 
-	public static T Begin<T>(GameObject go, float duration) where T : UITweener
+	abstract protected void OnUpdate (float factor, bool isFinished);
+
+	/// <summary>
+	/// Starts the tweening operation.
+	/// </summary>
+
+	static public T Begin<T> (GameObject go, float duration, float delay = 0f) where T : UITweener
 	{
-		T val = go.GetComponent<T>();
-		if ((UnityEngine.Object)val == (UnityEngine.Object)null)
+		T comp = go.GetComponent<T>();
+#if UNITY_FLASH
+		if ((object)comp == null) comp = (T)go.AddComponent<T>();
+#else
+		// Find the tween with an unset group ID (group ID of 0).
+		if (comp != null && comp.tweenGroup != 0)
 		{
-			val = go.AddComponent<T>();
+			comp = null;
+			T[] comps = go.GetComponents<T>();
+			for (int i = 0, imax = comps.Length; i < imax; ++i)
+			{
+				comp = comps[i];
+				if (comp != null && comp.tweenGroup == 0) break;
+				comp = null;
+			}
 		}
-		val.mStarted = false;
-		val.duration = duration;
-		val.mFactor = 0f;
-		val.mAmountPerDelta = Mathf.Abs(val.mAmountPerDelta);
-		val.style = Style.Once;
-		val.animationCurve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
-		val.eventReceiver = null;
-		val.callWhenFinished = null;
-		val.onFinished = null;
-		val.enabled = true;
-		return val;
+
+		if (comp == null)
+		{
+			comp = go.AddComponent<T>();
+
+			if (comp == null)
+			{
+				Debug.LogError("Unable to add " + typeof(T) + " to " + NGUITools.GetHierarchy(go), go);
+				return null;
+			}
+		}
+#endif
+		comp.mStarted = false;
+		comp.mFactor = 0f;
+		comp.duration = duration;
+		comp.mDuration = duration;
+		comp.delay = delay;
+		comp.mAmountPerDelta = duration > 0f ? Mathf.Abs(1f / duration) : 1000f;
+		comp.style = Style.Once;
+		comp.animationCurve = new AnimationCurve(new Keyframe(0f, 0f, 0f, 1f), new Keyframe(1f, 1f, 1f, 0f));
+		comp.eventReceiver = null;
+		comp.callWhenFinished = null;
+		comp.onFinished.Clear();
+		if (comp.mTemp != null) comp.mTemp.Clear();
+		comp.enabled = true;
+		return comp;
 	}
+
+	/// <summary>
+	/// Set the 'from' value to the current one.
+	/// </summary>
+
+	public virtual void SetStartToCurrentValue () { }
+
+	/// <summary>
+	/// Set the 'to' value to the current one.
+	/// </summary>
+
+	public virtual void SetEndToCurrentValue () { }
 }

@@ -1,82 +1,122 @@
+//-------------------------------------------------
+//            NGUI: Next-Gen UI kit
+// Copyright © 2011-2017 Tasharen Entertainment Inc
+//-------------------------------------------------
+
 using UnityEngine;
 
-[AddComponentMenu("NGUI/Tween/Color")]
+/// <summary>
+/// Tween the object's color.
+/// </summary>
+
+[AddComponentMenu("NGUI/Tween/Tween Color")]
 public class TweenColor : UITweener
 {
 	public Color from = Color.white;
-
 	public Color to = Color.white;
 
-	private Transform mTrans;
+	bool mCached = false;
+	UIWidget mWidget;
+	Material mMat;
+	Light mLight;
+	SpriteRenderer mSr;
 
-	private UIWidget mWidget;
+	void Cache ()
+	{
+		mCached = true;
+		mWidget = GetComponent<UIWidget>();
+		if (mWidget != null) return;
 
-	private Material mMat;
+		mSr = GetComponent<SpriteRenderer>();
+		if (mSr != null) return;
 
-	private Light mLight;
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
+		Renderer ren = renderer;
+#else
+		Renderer ren = GetComponent<Renderer>();
+#endif
+		if (ren != null)
+		{
+			mMat = ren.material;
+			return;
+		}
 
-	public Color color
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
+		mLight = light;
+#else
+		mLight = GetComponent<Light>();
+#endif
+		if (mLight == null) mWidget = GetComponentInChildren<UIWidget>();
+	}
+
+	[System.Obsolete("Use 'value' instead")]
+	public Color color { get { return this.value; } set { this.value = value; } }
+
+	/// <summary>
+	/// Tween's current value.
+	/// </summary>
+
+	public Color value
 	{
 		get
 		{
-			if (mWidget != null)
-			{
-				return mWidget.color;
-			}
-			if (mLight != null)
-			{
-				return mLight.color;
-			}
-			if (mMat != null)
-			{
-				return mMat.color;
-			}
+			if (!mCached) Cache();
+			if (mWidget != null) return mWidget.color;
+			if (mMat != null) return mMat.color;
+			if (mSr != null) return mSr.color;
+			if (mLight != null) return mLight.color;
 			return Color.black;
 		}
 		set
 		{
-			if (mWidget != null)
-			{
-				mWidget.color = value;
-			}
-			if (mMat != null)
-			{
-				mMat.color = value;
-			}
-			if (mLight != null)
+			if (!mCached) Cache();
+			if (mWidget != null) mWidget.color = value;
+			else if (mMat != null) mMat.color = value;
+			else if (mSr != null) mSr.color = value;
+			else if (mLight != null)
 			{
 				mLight.color = value;
-				mLight.enabled = value.r + value.g + value.b > 0.01f;
+				mLight.enabled = (value.r + value.g + value.b) > 0.01f;
 			}
 		}
 	}
 
-	private void Awake()
-	{
-		mWidget = GetComponentInChildren<UIWidget>();
-		Renderer renderer = base.GetComponent<Renderer>();
-		if (renderer != null)
-		{
-			mMat = renderer.material;
-		}
-		mLight = base.GetComponent<Light>();
-	}
+	/// <summary>
+	/// Tween the value.
+	/// </summary>
 
-	protected override void OnUpdate(float factor, bool isFinished)
-	{
-		color = Color.Lerp(from, to, factor);
-	}
+	protected override void OnUpdate (float factor, bool isFinished) { value = Color.Lerp(from, to, factor); }
 
-	public static TweenColor Begin(GameObject go, float duration, Color color)
+	/// <summary>
+	/// Start the tweening operation.
+	/// </summary>
+
+	static public TweenColor Begin (GameObject go, float duration, Color color)
 	{
-		TweenColor tweenColor = UITweener.Begin<TweenColor>(go, duration);
-		tweenColor.from = tweenColor.color;
-		tweenColor.to = color;
+#if UNITY_EDITOR
+		if (!Application.isPlaying) return null;
+#endif
+		TweenColor comp = UITweener.Begin<TweenColor>(go, duration);
+		comp.from = comp.value;
+		comp.to = color;
+
 		if (duration <= 0f)
 		{
-			tweenColor.Sample(1f, true);
-			tweenColor.enabled = false;
+			comp.Sample(1f, true);
+			comp.enabled = false;
 		}
-		return tweenColor;
+		return comp;
 	}
+
+	[ContextMenu("Set 'From' to current value")]
+	public override void SetStartToCurrentValue () { from = value; }
+
+	[ContextMenu("Set 'To' to current value")]
+	public override void SetEndToCurrentValue () { to = value; }
+
+	[ContextMenu("Assume value of 'From'")]
+	void SetCurrentValueToStart () { value = from; }
+
+	[ContextMenu("Assume value of 'To'")]
+	void SetCurrentValueToEnd () { value = to; }
 }

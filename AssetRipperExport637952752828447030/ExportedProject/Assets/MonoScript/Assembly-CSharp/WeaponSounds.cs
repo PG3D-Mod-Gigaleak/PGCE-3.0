@@ -102,6 +102,20 @@ public class WeaponSounds : MonoBehaviour
 
 	[Header("imported stuff")]
 
+	public Vector2 startZone = new Vector2(3f, 3f);
+
+	public float tekKoof = 3f;
+
+	public float upKoofFire = 0.4f;
+
+	public float maxKoof = 5f;
+
+	public float downKoofFirst = 0.2f;
+
+	public float downKoof = 0.3f;
+
+	public float timeBeforeDownKoof = 0.5f;
+
 	public bool railgun;
 
 	public bool flamethrower;
@@ -119,6 +133,62 @@ public class WeaponSounds : MonoBehaviour
 	public float bazookaSpeed = 2f;
 
 	public bool grenadeLauncher;
+
+	private float animLength;
+
+	private float timeFromFire;
+
+	private void Start()
+	{
+		if (animationObject != null && animationObject.GetComponent<Animation>()["Shoot"] != null)
+		{
+			animLength = animationObject.GetComponent<Animation>()["Shoot"].length;
+		}
+	}
+
+	private void Update()
+	{
+		if (timeFromFire > 0f)
+		{
+			timeFromFire -= 1f * Time.deltaTime;
+			tekKoof -= downKoofFirst * Time.deltaTime;
+		}
+		else
+		{
+			if (timeFromFire < animLength)
+			{
+				if (tekKoof > 1f)
+				{
+					tekKoof -= downKoofFirst * Time.deltaTime * 12;// / animLength;
+				}
+				if (tekKoof < 1f)
+				{
+					tekKoof = 1f;
+				}
+			}
+			else
+			{
+				if (tekKoof > 1f)
+				{
+					tekKoof -= downKoof * Time.deltaTime * 12;// / animLength;
+				}
+				if (tekKoof < 1f)
+				{
+					tekKoof = 1f;
+				}
+			}
+		}
+	}
+
+	public void fire()
+	{
+		timeFromFire = timeBeforeDownKoof;
+		tekKoof += upKoofFire + downKoofFirst;
+		if (tekKoof > maxKoof + downKoofFirst)
+		{
+			tekKoof = maxKoof + downKoofFirst;
+		}
+	}
 
 	public int MaxAmmoWithRespectToInApp
 	{

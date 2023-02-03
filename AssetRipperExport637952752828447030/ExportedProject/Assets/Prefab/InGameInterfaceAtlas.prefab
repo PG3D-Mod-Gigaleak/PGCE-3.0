@@ -2,8 +2,8 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1001 &100100000
 Prefab:
-  serializedVersion: 2
   m_ObjectHideFlags: 0
+  serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
@@ -11,16 +11,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1756337710978224}
   m_IsPrefabParent: 1
-  m_IsExploded: 0
 --- !u!1 &1756337710978224
 GameObject:
-  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4078315168752128}
-  - 114: {fileID: 114098283773537615}
+  - component: {fileID: 4078315168752128}
+  - component: {fileID: 114098283773537615}
   m_Layer: 0
   m_Name: InGameInterfaceAtlas
   m_TagString: Untagged
@@ -39,6 +38,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114098283773537615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,622 +49,505 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a02258da8a3b9549a41e6088448b04c, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: b22927b7a2b81374ba4f6f0b4aab5f6c, type: 2}
-  sprites:
-  - name: heart
-    outer:
-      serializedVersion: 2
-      x: 381
-      y: 344
-      width: 52
-      height: 49
-    inner:
-      serializedVersion: 2
-      x: 381
-      y: 344
-      width: 52
-      height: 49
-    rotated: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: ammo_icon
-    outer:
-      serializedVersion: 2
-      x: 381
-      y: 32
-      width: 40
-      height: 28
-    inner:
-      serializedVersion: 2
-      x: 381
-      y: 32
-      width: 40
-      height: 28
-    rotated: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: S_off
-    outer:
-      serializedVersion: 2
-      x: 0
-      y: 66
-      width: 182
-      height: 63
-    inner:
-      serializedVersion: 2
-      x: 0
-      y: 66
-      width: 182
-      height: 63
-    rotated: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: crosshair
-    outer:
-      serializedVersion: 2
-      x: 381
-      y: 279
-      width: 50
-      height: 50
-    inner:
-      serializedVersion: 2
-      x: 381
-      y: 279
-      width: 50
-      height: 50
-    rotated: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: pause
-    outer:
-      serializedVersion: 2
-      x: 435
-      y: 61
-      width: 69
-      height: 63
-    inner:
-      serializedVersion: 2
-      x: 435
-      y: 61
-      width: 69
-      height: 63
-    rotated: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: pause_n
-    outer:
-      serializedVersion: 2
-      x: 530
-      y: 390
-      width: 69
-      height: 63
-    inner:
-      serializedVersion: 2
-      x: 530
-      y: 390
-      width: 69
-      height: 63
-    rotated: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: elixir
-    outer:
-      serializedVersion: 2
-      x: 183
-      y: 68
-      width: 67
-      height: 61
-    inner:
-      serializedVersion: 2
-      x: 183
-      y: 68
-      width: 67
-      height: 61
-    rotated: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: S_0
-    outer:
-      serializedVersion: 2
-      x: 252
-      y: 449
-      width: 182
-      height: 63
-    inner:
-      serializedVersion: 2
-      x: 252
-      y: 449
-      width: 182
-      height: 63
-    rotated: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: S_n
-    outer:
-      serializedVersion: 2
-      x: 0
-      y: 2
-      width: 182
-      height: 63
-    inner:
-      serializedVersion: 2
-      x: 0
-      y: 2
-      width: 182
-      height: 63
-    rotated: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: pixlgun
-    outer:
-      serializedVersion: 2
-      x: 183
-      y: 15
-      width: 62
-      height: 52
-    inner:
-      serializedVersion: 2
-      x: 183
-      y: 15
-      width: 62
-      height: 52
-    rotated: 0
-    paddingLeft: 2.3064516
-    paddingRight: 0.9516129
-    paddingTop: 0.5769231
-    paddingBottom: 0.25
-  - name: remington870
-    outer:
-      serializedVersion: 2
-      x: 843
-      y: 470
-      width: 101
-      height: 42
-    inner:
-      serializedVersion: 2
-      x: 843
-      y: 470
-      width: 101
-      height: 42
-    rotated: 0
-    paddingLeft: 1.2475247
-    paddingRight: 0.36633664
-    paddingTop: 0.88095236
-    paddingBottom: 0.3809524
-  - name: colt45
-    outer:
-      serializedVersion: 2
-      x: 739
-      y: 464
-      width: 103
-      height: 48
-    inner:
-      serializedVersion: 2
-      x: 739
-      y: 464
-      width: 103
-      height: 48
-    rotated: 0
-    paddingLeft: 1.2330097
-    paddingRight: 0.33009708
-    paddingTop: 0.6666667
-    paddingBottom: 0.3125
-  - name: MP5
-    outer:
-      serializedVersion: 2
-      x: 252
-      y: 61
-      width: 136
-      height: 54
-    inner:
-      serializedVersion: 2
-      x: 252
-      y: 61
-      width: 136
-      height: 54
-    rotated: 0
-    paddingLeft: 0.7867647
-    paddingRight: 0.15441176
-    paddingTop: 0.6111111
-    paddingBottom: 0.14814815
-  - name: m249
-    outer:
-      serializedVersion: 2
-      x: 252
-      y: 394
-      width: 159
-      height: 54
-    inner:
-      serializedVersion: 2
-      x: 252
-      y: 394
-      width: 159
-      height: 54
-    rotated: 0
-    paddingLeft: 0.5534591
-    paddingRight: 0.10691824
-    paddingTop: 0.6296296
-    paddingBottom: 0.12962963
-  - name: pick
-    outer:
-      serializedVersion: 2
-      x: 435
-      y: 125
-      width: 77
-      height: 66
-    inner:
-      serializedVersion: 2
-      x: 435
-      y: 125
-      width: 77
-      height: 66
-    rotated: 0
-    paddingLeft: 1.8571428
-    paddingRight: 0.5714286
-    paddingTop: 0.34848484
-    paddingBottom: 0.09090909
-  - name: sword
-    outer:
-      serializedVersion: 2
-      x: 435
-      y: 451
-      width: 94
-      height: 61
-    inner:
-      serializedVersion: 2
-      x: 435
-      y: 451
-      width: 94
-      height: 61
-    rotated: 0
-    paddingLeft: 1.3510638
-    paddingRight: 0.4574468
-    paddingTop: 0.37704918
-    paddingBottom: 0.18032786
+  mSprites:
   - name: AK-47
-    outer:
-      serializedVersion: 2
-      x: 252
-      y: 216
-      width: 162
-      height: 49
-    inner:
-      serializedVersion: 2
-      x: 252
-      y: 216
-      width: 162
-      height: 49
-    rotated: 0
-    paddingLeft: 0.537037
-    paddingRight: 0.09259259
-    paddingTop: 0.75510204
-    paddingBottom: 0.18367347
-  - name: knife
-    outer:
-      serializedVersion: 2
-      x: 945
-      y: 463
-      width: 73
-      height: 49
-    inner:
-      serializedVersion: 2
-      x: 945
-      y: 463
-      width: 73
-      height: 49
-    rotated: 0
-    paddingLeft: 1.9315069
-    paddingRight: 0.6849315
-    paddingTop: 0.63265306
-    paddingBottom: 0.30612245
-  - name: M16
-    outer:
-      serializedVersion: 2
-      x: 252
-      y: 168
-      width: 168
-      height: 47
-    inner:
-      serializedVersion: 2
-      x: 252
-      y: 168
-      width: 168
-      height: 47
-    rotated: 0
-    paddingLeft: 0.4642857
-    paddingRight: 0.10714286
-    paddingTop: 0.78723407
-    paddingBottom: 0.23404256
-  - name: Desert_Eagle_G
-    outer:
-      serializedVersion: 2
-      x: 435
-      y: 13
-      width: 80
-      height: 47
-    inner:
-      serializedVersion: 2
-      x: 435
-      y: 13
-      width: 80
-      height: 47
-    rotated: 0
-    paddingLeft: 1.6625
-    paddingRight: 0.6375
-    paddingTop: 0.7446808
-    paddingBottom: 0.27659574
-  - name: bow
-    outer:
-      serializedVersion: 2
-      x: 389
-      y: 65
-      width: 43
-      height: 50
-    inner:
-      serializedVersion: 2
-      x: 389
-      y: 65
-      width: 43
-      height: 50
-    rotated: 0
-    paddingLeft: 3.5813954
-    paddingRight: 1.5581396
-    paddingTop: 0.66
-    paddingBottom: 0.24
-  - name: SPAS
-    outer:
-      serializedVersion: 2
-      x: 252
-      y: 116
-      width: 144
-      height: 51
-    inner:
-      serializedVersion: 2
-      x: 252
-      y: 116
-      width: 144
-      height: 51
-    rotated: 0
-    paddingLeft: 0.6875
-    paddingRight: 0.14583333
-    paddingTop: 0.6666667
-    paddingBottom: 0.19607843
-  - name: ranks_n
-    outer:
-      serializedVersion: 2
-      x: 435
-      y: 322
-      width: 88
-      height: 63
-    inner:
-      serializedVersion: 2
-      x: 435
-      y: 322
-      width: 88
-      height: 63
-    rotated: 0
+    x: 160
+    y: 74
+    width: 162
+    height: 49
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 87
+    paddingRight: 15
+    paddingTop: 37
+    paddingBottom: 9
+  - name: ammo_icon
+    x: 183
+    y: 133
+    width: 40
+    height: 28
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: ranks
-    outer:
-      serializedVersion: 2
-      x: 435
-      y: 258
-      width: 88
-      height: 63
-    inner:
-      serializedVersion: 2
-      x: 435
-      y: 258
-      width: 88
-      height: 63
-    rotated: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: golden_axe
-    outer:
-      serializedVersion: 2
-      x: 530
-      y: 454
-      width: 96
-      height: 58
-    inner:
-      serializedVersion: 2
-      x: 530
-      y: 454
-      width: 96
-      height: 58
-    rotated: 0
-    paddingLeft: 1.2291666
-    paddingRight: 0.5208333
-    paddingTop: 0.44827586
-    paddingBottom: 0.18965517
-  - name: chainsaw
-    outer:
-      serializedVersion: 2
-      x: 627
-      y: 466
-      width: 111
-      height: 46
-    inner:
-      serializedVersion: 2
-      x: 627
-      y: 466
-      width: 111
-      height: 46
-    rotated: 0
-    paddingLeft: 1.045045
-    paddingRight: 0.33333334
-    paddingTop: 0.7173913
-    paddingBottom: 0.3478261
-  - name: FAMAS
-    outer:
-      serializedVersion: 2
-      x: 252
-      y: 14
-      width: 128
-      height: 46
-    inner:
-      serializedVersion: 2
-      x: 252
-      y: 14
-      width: 128
-      height: 46
-    rotated: 0
-    paddingLeft: 0.828125
-    paddingRight: 0.234375
-    paddingTop: 0.7826087
-    paddingBottom: 0.2826087
-  - name: Glock_17
-    outer:
-      serializedVersion: 2
-      x: 600
-      y: 411
-      width: 70
-      height: 42
-    inner:
-      serializedVersion: 2
-      x: 600
-      y: 411
-      width: 70
-      height: 42
-    rotated: 0
-    paddingLeft: 1.9857143
-    paddingRight: 0.78571427
-    paddingTop: 0.85714287
-    paddingBottom: 0.4047619
-  - name: lopata
-    outer:
-      serializedVersion: 2
-      x: 435
-      y: 192
-      width: 84
-      height: 65
-    inner:
-      serializedVersion: 2
-      x: 435
-      y: 192
-      width: 84
-      height: 65
-    rotated: 0
-    paddingLeft: 1.5595238
-    paddingRight: 0.5833333
-    paddingTop: 0.32307693
-    paddingBottom: 0.13846155
-  - name: kosa
-    outer:
-      serializedVersion: 2
-      x: 435
-      y: 386
-      width: 89
-      height: 64
-    inner:
-      serializedVersion: 2
-      x: 435
-      y: 386
-      width: 89
-      height: 64
-    rotated: 0
-    paddingLeft: 1.3820225
-    paddingRight: 0.58426964
-    paddingTop: 0.296875
-    paddingBottom: 0.1875
   - name: armor
-    outer:
-      serializedVersion: 2
-      x: 397
-      y: 137
-      width: 33
-      height: 30
-    inner:
-      serializedVersion: 2
-      x: 397
-      y: 137
-      width: 33
-      height: 30
-    rotated: 0
-    paddingLeft: 0.030303031
-    paddingRight: 0.030303031
-    paddingTop: 0.033333335
-    paddingBottom: 0.033333335
-  - name: Ponderosa
-    outer:
-      serializedVersion: 2
-      x: 0
-      y: 130
-      width: 251
-      height: 382
-    inner:
-      serializedVersion: 2
-      x: 0
-      y: 130
-      width: 251
-      height: 382
-    rotated: 0
-    paddingLeft: 0.007968128
-    paddingRight: 0.011952192
-    paddingTop: 0.005235602
-    paddingBottom: 0.33507854
+    x: 224
+    y: 131
+    width: 33
+    height: 30
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 1
+    paddingTop: 1
+    paddingBottom: 1
+  - name: bow
+    x: 483
+    y: 266
+    width: 43
+    height: 50
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 154
+    paddingRight: 67
+    paddingTop: 33
+    paddingBottom: 12
+  - name: chainsaw
+    x: 320
+    y: 213
+    width: 111
+    height: 46
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 116
+    paddingRight: 37
+    paddingTop: 33
+    paddingBottom: 16
+  - name: chat
+    x: 500
+    y: 33
+    width: 72
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: chat_n
+    x: 427
+    y: 33
+    width: 72
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: coin_frame
-    outer:
-      serializedVersion: 2
-      x: 252
-      y: 266
-      width: 128
-      height: 63
-    inner:
-      serializedVersion: 2
-      x: 252
-      y: 266
-      width: 128
-      height: 63
-    rotated: 0
+    x: 129
+    y: 5
+    width: 128
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
   - name: coin_frame_ON
-    outer:
-      serializedVersion: 2
-      x: 252
-      y: 330
-      width: 128
-      height: 63
-    inner:
-      serializedVersion: 2
-      x: 252
-      y: 330
-      width: 128
-      height: 63
-    rotated: 0
+    x: 0
+    y: 5
+    width: 128
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
     paddingLeft: 0
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  mCoordinates: 0
+  - name: colt45
+    x: 413
+    y: 97
+    width: 103
+    height: 48
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 127
+    paddingRight: 34
+    paddingTop: 32
+    paddingBottom: 15
+  - name: crosshair
+    x: 432
+    y: 216
+    width: 50
+    height: 50
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: crosshair_x
+    x: 413
+    y: 75
+    width: 12
+    height: 8
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: crosshair_y
+    x: 413
+    y: 84
+    width: 8
+    height: 12
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: Desert_Eagle_G
+    x: 413
+    y: 360
+    width: 80
+    height: 47
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 133
+    paddingRight: 51
+    paddingTop: 35
+    paddingBottom: 13
+  - name: elixir
+    x: 413
+    y: 408
+    width: 67
+    height: 61
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: FAMAS
+    x: 183
+    y: 162
+    width: 128
+    height: 46
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 106
+    paddingRight: 30
+    paddingTop: 36
+    paddingBottom: 13
+  - name: Glock_17
+    x: 413
+    y: 317
+    width: 70
+    height: 42
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 139
+    paddingRight: 55
+    paddingTop: 36
+    paddingBottom: 17
+  - name: golden_axe
+    x: 254
+    y: 454
+    width: 96
+    height: 58
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 118
+    paddingRight: 50
+    paddingTop: 26
+    paddingBottom: 11
+  - name: heart
+    x: 413
+    y: 267
+    width: 52
+    height: 49
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: knife
+    x: 481
+    y: 463
+    width: 73
+    height: 49
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 141
+    paddingRight: 50
+    paddingTop: 31
+    paddingBottom: 15
+  - name: kosa
+    x: 323
+    y: 82
+    width: 89
+    height: 64
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 123
+    paddingRight: 52
+    paddingTop: 19
+    paddingBottom: 12
+  - name: lopata
+    x: 328
+    y: 260
+    width: 84
+    height: 65
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 131
+    paddingRight: 49
+    paddingTop: 21
+    paddingBottom: 9
+  - name: M16
+    x: 258
+    y: 26
+    width: 168
+    height: 47
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 78
+    paddingRight: 18
+    paddingTop: 37
+    paddingBottom: 11
+  - name: m249
+    x: 0
+    y: 69
+    width: 159
+    height: 54
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 88
+    paddingRight: 17
+    paddingTop: 34
+    paddingBottom: 7
+  - name: MP5
+    x: 183
+    y: 209
+    width: 136
+    height: 54
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 107
+    paddingRight: 21
+    paddingTop: 33
+    paddingBottom: 8
+  - name: pause
+    x: 343
+    y: 326
+    width: 69
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: pause_n
+    x: 343
+    y: 390
+    width: 69
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: pick
+    x: 413
+    y: 146
+    width: 77
+    height: 66
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 143
+    paddingRight: 44
+    paddingTop: 23
+    paddingBottom: 6
+  - name: pixlgun
+    x: 481
+    y: 410
+    width: 62
+    height: 52
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 143
+    paddingRight: 59
+    paddingTop: 30
+    paddingBottom: 13
+  - name: PonderosaFixed_0
+    x: 0
+    y: 316
+    width: 253
+    height: 196
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 1
+    paddingRight: 2
+    paddingTop: 0
+    paddingBottom: 60
+  - name: ranks
+    x: 254
+    y: 326
+    width: 88
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: ranks_n
+    x: 254
+    y: 390
+    width: 88
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: remington870
+    x: 351
+    y: 470
+    width: 101
+    height: 42
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 126
+    paddingRight: 37
+    paddingTop: 37
+    paddingBottom: 16
+  - name: S_0
+    x: 0
+    y: 124
+    width: 182
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: S_n
+    x: 0
+    y: 188
+    width: 182
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: S_off
+    x: 0
+    y: 252
+    width: 182
+    height: 63
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: SPAS
+    x: 183
+    y: 264
+    width: 144
+    height: 51
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 99
+    paddingRight: 21
+    paddingTop: 34
+    paddingBottom: 10
+  - name: sword
+    x: 312
+    y: 147
+    width: 94
+    height: 61
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 127
+    paddingRight: 43
+    paddingTop: 23
+    paddingBottom: 11
   mPixelSize: 1
   mReplacement: {fileID: 0}
+  mCoordinates: 0
+  sprites: []

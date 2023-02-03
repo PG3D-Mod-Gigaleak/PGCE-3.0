@@ -1,43 +1,42 @@
+//-------------------------------------------------
+//            NGUI: Next-Gen UI kit
+// Copyright © 2011-2017 Tasharen Entertainment Inc
+//-------------------------------------------------
+
 using UnityEngine;
 
-[AddComponentMenu("NGUI/Interaction/Language Selection")]
+/// <summary>
+/// Turns the popup list it's attached to into a language selection list.
+/// </summary>
+
 [RequireComponent(typeof(UIPopupList))]
+[AddComponentMenu("NGUI/Interaction/Language Selection")]
 public class LanguageSelection : MonoBehaviour
 {
-	private UIPopupList mList;
+	UIPopupList mList;
 
-	private void Start()
+	void Awake ()
 	{
 		mList = GetComponent<UIPopupList>();
-		UpdateList();
-		mList.eventReceiver = base.gameObject;
-		mList.functionName = "OnLanguageSelection";
+		Refresh();
 	}
 
-	private void UpdateList()
-	{
-		if (!(Localization.instance != null) || Localization.instance.languages == null || Localization.instance.languages.Length <= 0)
-		{
-			return;
-		}
-		mList.items.Clear();
-		int i = 0;
-		for (int num = Localization.instance.languages.Length; i < num; i++)
-		{
-			TextAsset textAsset = Localization.instance.languages[i];
-			if (textAsset != null)
-			{
-				mList.items.Add(textAsset.name);
-			}
-		}
-		mList.selection = Localization.instance.currentLanguage;
-	}
+	void Start () { EventDelegate.Add(mList.onChange, delegate() { Localization.language = UIPopupList.current.value; }); }
 
-	private void OnLanguageSelection(string language)
+	/// <summary>
+	/// Immediately refresh the list of known languages.
+	/// </summary>
+
+	public void Refresh ()
 	{
-		if (Localization.instance != null)
+		if (mList != null && Localization.knownLanguages != null)
 		{
-			Localization.instance.currentLanguage = language;
+			mList.Clear();
+
+			for (int i = 0, imax = Localization.knownLanguages.Length; i < imax; ++i)
+				mList.items.Add(Localization.knownLanguages[i]);
+
+			mList.value = Localization.language;
 		}
 	}
 }

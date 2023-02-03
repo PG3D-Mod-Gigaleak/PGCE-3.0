@@ -1,105 +1,116 @@
-using System;
+//-------------------------------------------------
+//            NGUI: Next-Gen UI kit
+// Copyright © 2011-2017 Tasharen Entertainment Inc
+//-------------------------------------------------
+
 using UnityEngine;
+
+/// <summary>
+/// Attach this script to a popup list, the parent of a group of toggles, or to a toggle itself to save its state.
+/// </summary>
 
 [AddComponentMenu("NGUI/Interaction/Saved Option")]
 public class UISavedOption : MonoBehaviour
 {
+	/// <summary>
+	/// PlayerPrefs-stored key for this option.
+	/// </summary>
+
 	public string keyName;
 
-	private UIPopupList mList;
+	string key { get { return (string.IsNullOrEmpty(keyName)) ? "NGUI State: " + name : keyName; } }
 
-	private UICheckbox mCheck;
+	UIPopupList mList;
+	UIToggle mCheck;
+	UIProgressBar mSlider;
 
-	private string key
-	{
-		get
-		{
-			return (!string.IsNullOrEmpty(keyName)) ? keyName : ("NGUI State: " + base.name);
-		}
-	}
+	/// <summary>
+	/// Cache the components and register a listener callback.
+	/// </summary>
 
-	private void Awake()
+	void Awake ()
 	{
 		mList = GetComponent<UIPopupList>();
-		mCheck = GetComponent<UICheckbox>();
-		if (mList != null)
-		{
-			UIPopupList uIPopupList = mList;
-			uIPopupList.onSelectionChange = (UIPopupList.OnSelectionChange)Delegate.Combine(uIPopupList.onSelectionChange, new UIPopupList.OnSelectionChange(SaveSelection));
-		}
-		if (mCheck != null)
-		{
-			UICheckbox uICheckbox = mCheck;
-			uICheckbox.onStateChange = (UICheckbox.OnStateChange)Delegate.Combine(uICheckbox.onStateChange, new UICheckbox.OnStateChange(SaveState));
-		}
+		mCheck = GetComponent<UIToggle>();
+		mSlider = GetComponent<UIProgressBar>();
 	}
 
-	private void OnDestroy()
-	{
-		if (mCheck != null)
-		{
-			UICheckbox uICheckbox = mCheck;
-			uICheckbox.onStateChange = (UICheckbox.OnStateChange)Delegate.Remove(uICheckbox.onStateChange, new UICheckbox.OnStateChange(SaveState));
-		}
-		if (mList != null)
-		{
-			UIPopupList uIPopupList = mList;
-			uIPopupList.onSelectionChange = (UIPopupList.OnSelectionChange)Delegate.Remove(uIPopupList.onSelectionChange, new UIPopupList.OnSelectionChange(SaveSelection));
-		}
-	}
+	/// <summary>
+	/// Load and set the state of the toggles.
+	/// </summary>
 
-	private void OnEnable()
+	void OnEnable ()
 	{
 		if (mList != null)
 		{
-			string @string = PlayerPrefs.GetString(key);
-			if (!string.IsNullOrEmpty(@string))
+			EventDelegate.Add(mList.onChange, SaveSelection);
+			string s = PlayerPrefs.GetString(key);
+			if (!string.IsNullOrEmpty(s)) mList.value = s;
+		}
+		else if (mCheck != null)
+		{
+			EventDelegate.Add(mCheck.onChange, SaveState);
+			mCheck.value = (PlayerPrefs.GetInt(key, mCheck.startsActive ? 1 : 0) != 0);
+		}
+		else if (mSlider != null)
+		{
+			EventDelegate.Add(mSlider.onChange, SaveProgress);
+			mSlider.value = PlayerPrefs.GetFloat(key, mSlider.value);
+		}
+		else
+		{
+			string s = PlayerPrefs.GetString(key);
+			UIToggle[] toggles = GetComponentsInChildren<UIToggle>(true);
+
+			for (int i = 0, imax = toggles.Length; i < imax; ++i)
 			{
-				mList.selection = @string;
-			}
-			return;
-		}
-		if (mCheck != null)
-		{
-			mCheck.isChecked = PlayerPrefs.GetInt(key, 1) != 0;
-			return;
-		}
-		string string2 = PlayerPrefs.GetString(key);
-		UICheckbox[] componentsInChildren = GetComponentsInChildren<UICheckbox>(true);
-		int i = 0;
-		for (int num = componentsInChildren.Length; i < num; i++)
-		{
-			UICheckbox uICheckbox = componentsInChildren[i];
-			uICheckbox.isChecked = uICheckbox.name == string2;
-		}
-	}
-
-	private void OnDisable()
-	{
-		if (!(mCheck == null) || !(mList == null))
-		{
-			return;
-		}
-		UICheckbox[] componentsInChildren = GetComponentsInChildren<UICheckbox>(true);
-		int i = 0;
-		for (int num = componentsInChildren.Length; i < num; i++)
-		{
-			UICheckbox uICheckbox = componentsInChildren[i];
-			if (uICheckbox.isChecked)
-			{
-				SaveSelection(uICheckbox.name);
-				break;
+				UIToggle ch = toggles[i];
+				ch.value = (ch.name == s);
 			}
 		}
 	}
 
-	private void SaveSelection(string selection)
+	/// <summary>
+	/// Save the state on destroy.
+	/// </summary>
+
+	void OnDisable ()
 	{
-		PlayerPrefs.SetString(key, selection);
+		if (mCheck != null) EventDelegate.Remove(mCheck.onChange, SaveState);
+		else if (mList != null) EventDelegate.Remove(mList.onChange, SaveSelection);
+		else if (mSlider != null) EventDelegate.Remove(mSlider.onChange, SaveProgress);
+		else
+		{
+			UIToggle[] toggles = GetComponentsInChildren<UIToggle>(true);
+
+			for (int i = 0, imax = toggles.Length; i < imax; ++i)
+			{
+				UIToggle ch = toggles[i];
+
+				if (ch.value)
+				{
+					PlayerPrefs.SetString(key, ch.name);
+					break;
+				}
+			}
+		}
 	}
 
-	private void SaveState(bool state)
-	{
-		PlayerPrefs.SetInt(key, state ? 1 : 0);
-	}
+	/// <summary>
+	/// Save the selection.
+	/// </summary>
+
+	public void SaveSelection () { PlayerPrefs.SetString(key, UIPopupList.current.value); }
+
+	/// <summary>
+	/// Save the state.
+	/// </summary>
+
+	public void SaveState () { PlayerPrefs.SetInt(key, UIToggle.current.value ? 1 : 0); }
+
+	/// <summary>
+	/// Save the current progress.
+	/// </summary>
+
+	public void SaveProgress () { PlayerPrefs.SetFloat(key, UIProgressBar.current.value); }
 }

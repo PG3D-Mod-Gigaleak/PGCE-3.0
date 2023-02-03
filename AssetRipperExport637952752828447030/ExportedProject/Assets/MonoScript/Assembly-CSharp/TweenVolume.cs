@@ -1,13 +1,26 @@
+//-------------------------------------------------
+//            NGUI: Next-Gen UI kit
+// Copyright © 2011-2017 Tasharen Entertainment Inc
+//-------------------------------------------------
+
 using UnityEngine;
 
-[AddComponentMenu("NGUI/Tween/Volume")]
+/// <summary>
+/// Tween the audio source's volume.
+/// </summary>
+
+[RequireComponent(typeof(AudioSource))]
+[AddComponentMenu("NGUI/Tween/Tween Volume")]
 public class TweenVolume : UITweener
 {
-	public float from;
+	[Range(0f, 1f)] public float from = 1f;
+	[Range(0f, 1f)] public float to = 1f;
 
-	public float to = 1f;
+	AudioSource mSource;
 
-	private AudioSource mSource;
+	/// <summary>
+	/// Cached version of 'audio', as it's always faster to cache.
+	/// </summary>
 
 	public AudioSource audioSource
 	{
@@ -15,14 +28,16 @@ public class TweenVolume : UITweener
 		{
 			if (mSource == null)
 			{
-				mSource = base.GetComponent<AudioSource>();
+				mSource = GetComponent<AudioSource>();
+				
 				if (mSource == null)
 				{
-					mSource = GetComponentInChildren<AudioSource>();
+					mSource = GetComponent<AudioSource>();
+
 					if (mSource == null)
 					{
 						Debug.LogError("TweenVolume needs an AudioSource to work with", this);
-						base.enabled = false;
+						enabled = false;
 					}
 				}
 			}
@@ -30,34 +45,50 @@ public class TweenVolume : UITweener
 		}
 	}
 
-	public float volume
+	[System.Obsolete("Use 'value' instead")]
+	public float volume { get { return this.value; } set { this.value = value; } }
+
+	/// <summary>
+	/// Audio source's current volume.
+	/// </summary>
+
+	public float value
 	{
 		get
 		{
-			return audioSource.volume;
+			return audioSource != null ? mSource.volume : 0f;
 		}
 		set
 		{
-			audioSource.volume = value;
+			if (audioSource != null) mSource.volume = value;
 		}
 	}
 
-	protected override void OnUpdate(float factor, bool isFinished)
+	protected override void OnUpdate (float factor, bool isFinished)
 	{
-		volume = from * (1f - factor) + to * factor;
-		mSource.enabled = mSource.volume > 0.01f;
+		value = from * (1f - factor) + to * factor;
+		mSource.enabled = (mSource.volume > 0.01f);
 	}
 
-	public static TweenVolume Begin(GameObject go, float duration, float targetVolume)
+	/// <summary>
+	/// Start the tweening operation.
+	/// </summary>
+
+	static public TweenVolume Begin (GameObject go, float duration, float targetVolume)
 	{
-		TweenVolume tweenVolume = UITweener.Begin<TweenVolume>(go, duration);
-		tweenVolume.from = tweenVolume.volume;
-		tweenVolume.to = targetVolume;
-		if (duration <= 0f)
+		TweenVolume comp = UITweener.Begin<TweenVolume>(go, duration);
+		comp.from = comp.value;
+		comp.to = targetVolume;
+
+		if (targetVolume > 0f)
 		{
-			tweenVolume.Sample(1f, true);
-			tweenVolume.enabled = false;
+			var s = comp.audioSource;
+			s.enabled = true;
+			s.Play();
 		}
-		return tweenVolume;
+		return comp;
 	}
+
+	public override void SetStartToCurrentValue () { from = value; }
+	public override void SetEndToCurrentValue () { to = value; }
 }

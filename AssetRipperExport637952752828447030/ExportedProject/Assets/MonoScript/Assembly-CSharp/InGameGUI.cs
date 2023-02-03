@@ -28,6 +28,10 @@ public class InGameGUI : MonoBehaviour
 
 	public GameObject killsLabel;
 
+	[HideInInspector] public Player_move_c playerMoveC;
+
+	public GameObject[] aimSprites;
+
 	private void Start()
 	{
 		if (PlayerPrefs.GetInt("AddCoins", 0) == 1)
@@ -37,6 +41,11 @@ public class InGameGUI : MonoBehaviour
 		}
 	}
 
+	public void OpenChat()
+	{
+		playerMoveC.OpenChat();
+	}
+
 	private void GenerateMiganie()
 	{
 		CoinsMessage.FireCoinsAddedEvent();
@@ -44,6 +53,10 @@ public class InGameGUI : MonoBehaviour
 
 	private void Update()
 	{
+		aimSprites[0].transform.localPosition = new Vector3(0f, 8f + WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f);
+		aimSprites[1].transform.localPosition = new Vector3(0f, -8f - WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f);
+		aimSprites[3].transform.localPosition = new Vector3(8f + WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f, 0f);
+		aimSprites[2].transform.localPosition = new Vector3(-8f - WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f, 0f);
 		for (int i = 0; i < Player_move_c.MaxPlayerHealth; i++)
 		{
 			hearts[i].SetActive((float)i < health());

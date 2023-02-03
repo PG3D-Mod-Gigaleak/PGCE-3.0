@@ -1,187 +1,39 @@
-using System;
+//-------------------------------------------------
+//            NGUI: Next-Gen UI kit
+// Copyright © 2011-2017 Tasharen Entertainment Inc
+//-------------------------------------------------
+
 using UnityEngine;
+using System.Collections.Generic;
+
+/// <summary>
+/// Scroll bar functionality.
+/// </summary>
 
 [ExecuteInEditMode]
-[AddComponentMenu("NGUI/Interaction/Scroll Bar")]
-public class UIScrollBar : MonoBehaviour
+[AddComponentMenu("NGUI/Interaction/NGUI Scroll Bar")]
+public class UIScrollBar : UISlider
 {
-	public enum Direction
+	enum Direction
 	{
-		Horizontal = 0,
-		Vertical = 1
+		Horizontal,
+		Vertical,
+		Upgraded,
 	}
 
-	public delegate void OnScrollBarChange(UIScrollBar sb);
+	// Size of the scroll bar
+	[HideInInspector][SerializeField] protected float mSize = 1f;
 
-	public delegate void OnDragFinished();
+	// Deprecated functionality
+	[HideInInspector][SerializeField] float mScroll = 0f;
+	[HideInInspector][SerializeField] Direction mDir = Direction.Upgraded;
 
-	[SerializeField]
-	[HideInInspector]
-	private UISprite mBG;
+	[System.Obsolete("Use 'value' instead")]
+	public float scrollValue { get { return this.value; } set { this.value = value; } }
 
-	[HideInInspector]
-	[SerializeField]
-	private UISprite mFG;
-
-	[HideInInspector]
-	[SerializeField]
-	private Direction mDir;
-
-	[SerializeField]
-	[HideInInspector]
-	private bool mInverted;
-
-	[SerializeField]
-	[HideInInspector]
-	private float mScroll;
-
-	[SerializeField]
-	[HideInInspector]
-	private float mSize = 1f;
-
-	private Transform mTrans;
-
-	private bool mIsDirty;
-
-	private Camera mCam;
-
-	private Vector2 mScreenPos = Vector2.zero;
-
-	public OnScrollBarChange onChange;
-
-	public OnDragFinished onDragFinished;
-
-	public Transform cachedTransform
-	{
-		get
-		{
-			if (mTrans == null)
-			{
-				mTrans = base.transform;
-			}
-			return mTrans;
-		}
-	}
-
-	public Camera cachedCamera
-	{
-		get
-		{
-			if (mCam == null)
-			{
-				mCam = NGUITools.FindCameraForLayer(base.gameObject.layer);
-			}
-			return mCam;
-		}
-	}
-
-	public UISprite background
-	{
-		get
-		{
-			return mBG;
-		}
-		set
-		{
-			if (mBG != value)
-			{
-				mBG = value;
-				mIsDirty = true;
-			}
-		}
-	}
-
-	public UISprite foreground
-	{
-		get
-		{
-			return mFG;
-		}
-		set
-		{
-			if (mFG != value)
-			{
-				mFG = value;
-				mIsDirty = true;
-			}
-		}
-	}
-
-	public Direction direction
-	{
-		get
-		{
-			return mDir;
-		}
-		set
-		{
-			if (mDir == value)
-			{
-				return;
-			}
-			mDir = value;
-			mIsDirty = true;
-			if (!(mBG != null))
-			{
-				return;
-			}
-			Transform transform = mBG.cachedTransform;
-			Vector3 localScale = transform.localScale;
-			if ((mDir == Direction.Vertical && localScale.x > localScale.y) || (mDir == Direction.Horizontal && localScale.x < localScale.y))
-			{
-				float x = localScale.x;
-				localScale.x = localScale.y;
-				localScale.y = x;
-				transform.localScale = localScale;
-				ForceUpdate();
-				if (mBG.GetComponent<Collider>() != null)
-				{
-					NGUITools.AddWidgetCollider(mBG.gameObject);
-				}
-				if (mFG.GetComponent<Collider>() != null)
-				{
-					NGUITools.AddWidgetCollider(mFG.gameObject);
-				}
-			}
-		}
-	}
-
-	public bool inverted
-	{
-		get
-		{
-			return mInverted;
-		}
-		set
-		{
-			if (mInverted != value)
-			{
-				mInverted = value;
-				mIsDirty = true;
-			}
-		}
-	}
-
-	public float scrollValue
-	{
-		get
-		{
-			return mScroll;
-		}
-		set
-		{
-			float num = Mathf.Clamp01(value);
-			if (mScroll != num)
-			{
-				mScroll = num;
-				mIsDirty = true;
-				if (onChange != null)
-				{
-					onChange(this);
-				}
-			}
-		}
-	}
+	/// <summary>
+	/// The size of the foreground bar in percent (0-1 range).
+	/// </summary>
 
 	public float barSize
 	{
@@ -191,184 +43,156 @@ public class UIScrollBar : MonoBehaviour
 		}
 		set
 		{
-			float num = Mathf.Clamp01(value);
-			if (mSize != num)
+			float val = Mathf.Clamp01(value);
+
+			if (mSize != val)
 			{
-				mSize = num;
+				mSize = val;
 				mIsDirty = true;
-				if (onChange != null)
+
+				if (NGUITools.GetActive(this))
 				{
-					onChange(this);
+					if (current == null && onChange != null)
+					{
+						current = this;
+						EventDelegate.Execute(onChange);
+						current = null;
+					}
+					ForceUpdate();
+#if UNITY_EDITOR
+					if (!Application.isPlaying)
+						NGUITools.SetDirty(this);
+#endif
 				}
 			}
 		}
 	}
 
-	public float alpha
-	{
-		get
-		{
-			if (mFG != null)
-			{
-				return mFG.alpha;
-			}
-			if (mBG != null)
-			{
-				return mBG.alpha;
-			}
-			return 0f;
-		}
-		set
-		{
-			if (mFG != null)
-			{
-				mFG.alpha = value;
-				NGUITools.SetActiveSelf(mFG.gameObject, mFG.alpha > 0.001f);
-			}
-			if (mBG != null)
-			{
-				mBG.alpha = value;
-				NGUITools.SetActiveSelf(mBG.gameObject, mBG.alpha > 0.001f);
-			}
-		}
-	}
+	/// <summary>
+	/// Upgrade from legacy functionality.
+	/// </summary>
 
-	private void CenterOnPos(Vector2 localPos)
+	protected override void Upgrade ()
 	{
-		if (!(mBG == null) && !(mFG == null))
+		if (mDir != Direction.Upgraded)
 		{
-			Bounds bounds = NGUIMath.CalculateRelativeInnerBounds(cachedTransform, mBG);
-			Bounds bounds2 = NGUIMath.CalculateRelativeInnerBounds(cachedTransform, mFG);
+			mValue = mScroll;
+
 			if (mDir == Direction.Horizontal)
 			{
-				float num = bounds.size.x - bounds2.size.x;
-				float num2 = num * 0.5f;
-				float num3 = bounds.center.x - num2;
-				float num4 = ((!(num > 0f)) ? 0f : ((localPos.x - num3) / num));
-				scrollValue = ((!mInverted) ? num4 : (1f - num4));
+				mFill = mInverted ? FillDirection.RightToLeft : FillDirection.LeftToRight;
 			}
 			else
 			{
-				float num5 = bounds.size.y - bounds2.size.y;
-				float num6 = num5 * 0.5f;
-				float num7 = bounds.center.y - num6;
-				float num8 = ((!(num5 > 0f)) ? 0f : (1f - (localPos.y - num7) / num5));
-				scrollValue = ((!mInverted) ? num8 : (1f - num8));
+				mFill = mInverted ? FillDirection.BottomToTop : FillDirection.TopToBottom;
 			}
+			mDir = Direction.Upgraded;
+#if UNITY_EDITOR
+			NGUITools.SetDirty(this);
+#endif
 		}
 	}
 
-	private void Reposition(Vector2 screenPos)
+	/// <summary>
+	/// Make the scroll bar's foreground react to press events.
+	/// </summary>
+
+	protected override void OnStart ()
 	{
-		Transform transform = cachedTransform;
-		Plane plane = new Plane(transform.rotation * Vector3.back, transform.position);
-		Ray ray = cachedCamera.ScreenPointToRay(screenPos);
-		float enter;
-		if (plane.Raycast(ray, out enter))
+		base.OnStart();
+
+		if (mFG != null && mFG.gameObject != gameObject)
 		{
-			CenterOnPos(transform.InverseTransformPoint(ray.GetPoint(enter)));
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
+			bool hasCollider = (mFG.collider != null) || (mFG.GetComponent<Collider2D>() != null);
+#else
+			bool hasCollider = (mFG.GetComponent<Collider>() != null) || (mFG.GetComponent<Collider2D>() != null);
+#endif
+			if (!hasCollider) return;
+
+			UIEventListener fgl = UIEventListener.Get(mFG.gameObject);
+			fgl.onPress += OnPressForeground;
+			fgl.onDrag += OnDragForeground;
+			mFG.autoResizeBoxCollider = true;
 		}
 	}
 
-	private void OnPressBackground(GameObject go, bool isPressed)
-	{
-		mCam = UICamera.currentCamera;
-		Reposition(UICamera.lastTouchPosition);
-		if (!isPressed && onDragFinished != null)
-		{
-			onDragFinished();
-		}
-	}
+	/// <summary>
+	/// Move the scroll bar to be centered on the specified position.
+	/// </summary>
 
-	private void OnDragBackground(GameObject go, Vector2 delta)
+	protected override float LocalToValue (Vector2 localPos)
 	{
-		mCam = UICamera.currentCamera;
-		Reposition(UICamera.lastTouchPosition);
-	}
+		if (mFG != null)
+		{
+			float halfSize = Mathf.Clamp01(mSize) * 0.5f;
+			float val0 = halfSize;
+			float val1 = 1f - halfSize;
+			Vector3[] corners = mFG.localCorners;
 
-	private void OnPressForeground(GameObject go, bool isPressed)
-	{
-		if (isPressed)
-		{
-			mCam = UICamera.currentCamera;
-			Bounds bounds = NGUIMath.CalculateAbsoluteWidgetBounds(mFG.cachedTransform);
-			mScreenPos = mCam.WorldToScreenPoint(bounds.center);
-		}
-		else if (onDragFinished != null)
-		{
-			onDragFinished();
-		}
-	}
-
-	private void OnDragForeground(GameObject go, Vector2 delta)
-	{
-		mCam = UICamera.currentCamera;
-		Reposition(mScreenPos + UICamera.currentTouch.totalDelta);
-	}
-
-	private void Start()
-	{
-		if (background != null && background.GetComponent<Collider>() != null)
-		{
-			UIEventListener uIEventListener = UIEventListener.Get(background.gameObject);
-			uIEventListener.onPress = (UIEventListener.BoolDelegate)Delegate.Combine(uIEventListener.onPress, new UIEventListener.BoolDelegate(OnPressBackground));
-			uIEventListener.onDrag = (UIEventListener.VectorDelegate)Delegate.Combine(uIEventListener.onDrag, new UIEventListener.VectorDelegate(OnDragBackground));
-		}
-		if (foreground != null && foreground.GetComponent<Collider>() != null)
-		{
-			UIEventListener uIEventListener2 = UIEventListener.Get(foreground.gameObject);
-			uIEventListener2.onPress = (UIEventListener.BoolDelegate)Delegate.Combine(uIEventListener2.onPress, new UIEventListener.BoolDelegate(OnPressForeground));
-			uIEventListener2.onDrag = (UIEventListener.VectorDelegate)Delegate.Combine(uIEventListener2.onDrag, new UIEventListener.VectorDelegate(OnDragForeground));
-		}
-		ForceUpdate();
-	}
-
-	private void Update()
-	{
-		if (mIsDirty)
-		{
-			ForceUpdate();
-		}
-	}
-
-	public void ForceUpdate()
-	{
-		mIsDirty = false;
-		if (!(mBG != null) || !(mFG != null))
-		{
-			return;
-		}
-		mSize = Mathf.Clamp01(mSize);
-		mScroll = Mathf.Clamp01(mScroll);
-		Vector4 border = mBG.border;
-		Vector4 border2 = mFG.border;
-		Vector2 vector = new Vector2(Mathf.Max(0f, mBG.cachedTransform.localScale.x - border.x - border.z), Mathf.Max(0f, mBG.cachedTransform.localScale.y - border.y - border.w));
-		float num = ((!mInverted) ? mScroll : (1f - mScroll));
-		if (mDir == Direction.Horizontal)
-		{
-			Vector2 vector2 = new Vector2(vector.x * mSize, vector.y);
-			mFG.pivot = UIWidget.Pivot.Left;
-			mBG.pivot = UIWidget.Pivot.Left;
-			mBG.cachedTransform.localPosition = Vector3.zero;
-			mFG.cachedTransform.localPosition = new Vector3(border.x - border2.x + (vector.x - vector2.x) * num, 0f, 0f);
-			mFG.cachedTransform.localScale = new Vector3(vector2.x + border2.x + border2.z, vector2.y + border2.y + border2.w, 1f);
-			if (num < 0.999f && num > 0.001f)
+			if (isHorizontal)
 			{
-				mFG.MakePixelPerfect();
+				val0 = Mathf.Lerp(corners[0].x, corners[2].x, val0);
+				val1 = Mathf.Lerp(corners[0].x, corners[2].x, val1);
+				float diff = (val1 - val0);
+				if (diff == 0f) return value;
+
+				return isInverted ?
+					(val1 - localPos.x) / diff :
+					(localPos.x - val0) / diff;
 			}
-		}
-		else
-		{
-			Vector2 vector3 = new Vector2(vector.x, vector.y * mSize);
-			mFG.pivot = UIWidget.Pivot.Top;
-			mBG.pivot = UIWidget.Pivot.Top;
-			mBG.cachedTransform.localPosition = Vector3.zero;
-			mFG.cachedTransform.localPosition = new Vector3(0f, 0f - border.y + border2.y - (vector.y - vector3.y) * num, 0f);
-			mFG.cachedTransform.localScale = new Vector3(vector3.x + border2.x + border2.z, vector3.y + border2.y + border2.w, 1f);
-			if (num < 0.999f && num > 0.001f)
+			else
 			{
-				mFG.MakePixelPerfect();
+				val0 = Mathf.Lerp(corners[0].y, corners[1].y, val0);
+				val1 = Mathf.Lerp(corners[3].y, corners[2].y, val1);
+				float diff = (val1 - val0);
+				if (diff == 0f) return value;
+
+				return isInverted ?
+					(val1 - localPos.y) / diff :
+					(localPos.y - val0) / diff;
 			}
 		}
+		return base.LocalToValue(localPos);
+	}
+
+	/// <summary>
+	/// Update the value of the scroll bar.
+	/// </summary>
+
+	public override void ForceUpdate ()
+	{
+		if (mFG != null)
+		{
+			mIsDirty = false;
+
+			float halfSize = Mathf.Clamp01(mSize) * 0.5f;
+			float pos = Mathf.Lerp(halfSize, 1f - halfSize, value);
+			float val0 = pos - halfSize;
+			float val1 = pos + halfSize;
+
+			if (isHorizontal)
+			{
+				mFG.drawRegion = isInverted ?
+					new Vector4(1f - val1, 0f, 1f - val0, 1f) :
+					new Vector4(val0, 0f, val1, 1f);
+			}
+			else
+			{
+				mFG.drawRegion = isInverted ?
+					new Vector4(0f, 1f - val1, 1f, 1f - val0) :
+					new Vector4(0f, val0, 1f, val1);
+			}
+
+			if (thumb != null)
+			{
+				Vector4 dr = mFG.drawingDimensions;
+				Vector3 v = new Vector3(
+					Mathf.Lerp(dr.x, dr.z, 0.5f),
+					Mathf.Lerp(dr.y, dr.w, 0.5f));
+				SetThumbPosition(mFG.cachedTransform.TransformPoint(v));
+			}
+		}
+		else base.ForceUpdate();
 	}
 }

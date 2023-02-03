@@ -1,54 +1,67 @@
+//-------------------------------------------------
+//            NGUI: Next-Gen UI kit
+// Copyright © 2011-2017 Tasharen Entertainment Inc
+//-------------------------------------------------
+
 using UnityEngine;
 
-[AddComponentMenu("NGUI/Interaction/Drag Camera")]
+/// <summary>
+/// Allows dragging of the camera object and restricts camera's movement to be within bounds of the area created by the rootForBounds colliders.
+/// </summary>
+
 [ExecuteInEditMode]
-public class UIDragCamera : IgnoreTimeScale
+[AddComponentMenu("NGUI/Interaction/Drag Camera")]
+public class UIDragCamera : MonoBehaviour
 {
+	/// <summary>
+	/// Target object that will be dragged.
+	/// </summary>
+
 	public UIDraggableCamera draggableCamera;
 
-	[HideInInspector]
-	[SerializeField]
-	private Component target;
+	/// <summary>
+	/// Automatically find the draggable camera if possible.
+	/// </summary>
 
-	private void Awake()
+	void Awake ()
 	{
-		if (target != null)
+		if (draggableCamera == null)
 		{
-			if (draggableCamera == null)
-			{
-				draggableCamera = target.GetComponent<UIDraggableCamera>();
-				if (draggableCamera == null)
-				{
-					draggableCamera = target.gameObject.AddComponent<UIDraggableCamera>();
-				}
-			}
-			target = null;
-		}
-		else if (draggableCamera == null)
-		{
-			draggableCamera = NGUITools.FindInParents<UIDraggableCamera>(base.gameObject);
+			draggableCamera = NGUITools.FindInParents<UIDraggableCamera>(gameObject);
 		}
 	}
 
-	private void OnPress(bool isPressed)
+	/// <summary>
+	/// Forward the press event to the draggable camera.
+	/// </summary>
+
+	void OnPress (bool isPressed)
 	{
-		if (base.enabled && NGUITools.GetActive(base.gameObject) && draggableCamera != null)
+		if (enabled && NGUITools.GetActive(gameObject) && draggableCamera != null)
 		{
 			draggableCamera.Press(isPressed);
 		}
 	}
 
-	private void OnDrag(Vector2 delta)
+	/// <summary>
+	/// Forward the drag event to the draggable camera.
+	/// </summary>
+
+	void OnDrag (Vector2 delta)
 	{
-		if (base.enabled && NGUITools.GetActive(base.gameObject) && draggableCamera != null)
+		if (enabled && NGUITools.GetActive(gameObject) && draggableCamera != null)
 		{
 			draggableCamera.Drag(delta);
 		}
 	}
 
-	private void OnScroll(float delta)
+	/// <summary>
+	/// Forward the scroll event to the draggable camera.
+	/// </summary>
+
+	void OnScroll (float delta)
 	{
-		if (base.enabled && NGUITools.GetActive(base.gameObject) && draggableCamera != null)
+		if (enabled && NGUITools.GetActive(gameObject) && draggableCamera != null)
 		{
 			draggableCamera.Scroll(delta);
 		}

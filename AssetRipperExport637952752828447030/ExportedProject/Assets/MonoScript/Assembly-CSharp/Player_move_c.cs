@@ -844,7 +844,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		GUI.depth = 2;
 		GUI.skin = MySkin;
-		GUI.DrawTexture(new Rect((float)(Screen.width / 2) - (float)Screen.height * 0.023f, (float)(Screen.height / 2) - (float)Screen.height * 0.023f, (float)Screen.height * 0.046f, (float)Screen.height * 0.046f), AimTexture);
+		//GUI.DrawTexture(new Rect((float)(Screen.width / 2) - (float)Screen.height * 0.023f, (float)(Screen.height / 2) - (float)Screen.height * 0.023f, (float)Screen.height * 0.046f, (float)Screen.height * 0.046f), AimTexture);
 		Rect rect = new Rect((float)Screen.width - (float)Screen.width * 0.208f, 0f, (float)Screen.width * 0.208f, (float)Screen.height * 0.078f);
 		float num4 = (float)Screen.height * 0.08203125f;
 		float num5 = num4 * ((float)buyStyle.normal.background.width / (float)buyStyle.normal.background.height);
@@ -854,13 +854,6 @@ public sealed class Player_move_c : MonoBehaviour
 		Rect position2 = new Rect(position.x - num7, 0f, num7, num4);
 		float num8 = num6 * ((float)chatStyle.normal.background.width / (float)chatStyle.normal.background.height);
 		Rect position3 = new Rect(position2.x - num8, 0f, num8, num4);
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1 && !_pauser.paused && PlayerPrefs.GetInt("ChatOn", 1) == 1 && GUI.Button(position3, string.Empty, chatStyle))
-		{
-			showChat = true;
-			_weaponManager.currentWeaponSounds.gameObject.SetActive(false);
-			GameObject gameObject3 = (GameObject)UnityEngine.Object.Instantiate(chatViewer);
-			gameObject3.GetComponent<ChatViewrController>().PlayerObject = base.gameObject;
-		}
 		Rect rect2 = new Rect(0f, 0f, 73f * (float)Screen.width / 1024f, 73f * (float)Screen.width / 1024f);
 		AmmoBox.fontSize = Mathf.RoundToInt(18f * (float)Screen.width / 1024f);
 		Rect position4 = new Rect((float)Screen.width - 264f * (float)Screen.width / 1024f, 94f * (float)Screen.width / 1024f, 264f * (float)Screen.width / 1024f, 95f * (float)Screen.width / 1024f);
@@ -996,11 +989,11 @@ public sealed class Player_move_c : MonoBehaviour
 				GUI.Box(new Rect(left, height + (float)(enemiesLeftStyle.fontSize * 2), width, height), text, enemiesLeftStyle);
 			}
 		}
-		else if (GUI.Button(position2, string.Empty, ranksStyle) && !_pauser.paused)
-		{
-			RemoveButtonHandelrs();
-			showRanks = true;
-		}
+		//else if (GUI.Button(position2, string.Empty, ranksStyle) && !_pauser.paused)
+		//{
+		//	RemoveButtonHandelrs();
+		//	showRanks = true;
+		//}
 	//	GUI.DrawTexture(position, buyStyle.active.background);
 		if (Application.isEditor || StoreKitEventListener.billingSupported)
 		{
@@ -2279,6 +2272,7 @@ public sealed class Player_move_c : MonoBehaviour
 		if (_singleOrMultiMine())
 		{
 			GameObject original2 = Resources.Load("InGameGUI") as GameObject;
+			original2.GetComponent<InGameGUI>().playerMoveC = this;
 			inGameGUI = (UnityEngine.Object.Instantiate(original2) as GameObject).GetComponent<InGameGUI>();
 			inGameGUI.health = _003CStart_003Em__29;
 			inGameGUI.armor = _003CStart_003Em__2A;
@@ -2562,6 +2556,17 @@ public sealed class Player_move_c : MonoBehaviour
 			base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.reload);
 		}
 		_rightJoystick.SendMessage("HasAmmo");
+	}
+
+	public void OpenChat()
+	{
+		if (PlayerPrefs.GetInt("MultyPlayer") == 1 && !_pauser.paused && PlayerPrefs.GetInt("ChatOn", 1) == 1)
+		{
+			showChat = true;
+			_weaponManager.currentWeaponSounds.gameObject.SetActive(false);
+			GameObject gameObject3 = (GameObject)UnityEngine.Object.Instantiate(chatViewer);
+			gameObject3.GetComponent<ChatViewrController>().PlayerObject = base.gameObject;
+		}
 	}
 	
 	private void SwapInGun(NetworkViewID id)
@@ -3278,6 +3283,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		if (WS.bazooka)
 		{
+			_weaponManager.currentWeaponSounds.fire();
 			GameObject gameObject2 = Resources.Load("Rocket") as GameObject;
 			GameObject gameObject3 = null;
 			Vector3 forward = base.gameObject.transform.forward;
@@ -3350,7 +3356,8 @@ public sealed class Player_move_c : MonoBehaviour
 				_HitEnemies(list);
 				return;
 			}
-			Ray ray = Camera.main.ScreenPointToRay(getBloom(alt));
+			Ray ray = Camera.main.ScreenPointToRay(new Vector3((float)Screen.width * 0.5f - _weaponManager.currentWeaponSounds.startZone.x * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef * 0.5f + (float)UnityEngine.Random.Range(0, Mathf.RoundToInt(_weaponManager.currentWeaponSounds.startZone.x * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef)), (float)Screen.height * 0.5f - _weaponManager.currentWeaponSounds.startZone.y * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef * 0.5f + (float)UnityEngine.Random.Range(0, Mathf.RoundToInt(_weaponManager.currentWeaponSounds.startZone.y * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef)), 0f));
+			_weaponManager.currentWeaponSounds.fire();
 			RaycastHit hitInfo;
 			if (!Physics.Raycast(ray, out hitInfo, 100f, -2053))
 			{

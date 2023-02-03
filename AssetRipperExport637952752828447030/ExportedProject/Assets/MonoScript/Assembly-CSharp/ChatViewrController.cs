@@ -116,19 +116,19 @@ public class ChatViewrController : MonoBehaviour
 		}
 		if (mKeyboard.done && !mKeyboard.wasCanceled)
 		{
-			Debug.Log("pressDone " + mText);
-			if (isHold)
-			{
-				mKeyboard.active = true;
-			}
-			else
-			{
-				closeChat();
-			}
-			if (!mText.Equals(string.Empty))
-			{
-				postChat(mText);
-			}
+			//Debug.Log("pressDone " + mText);
+			//if (isHold)
+			//{
+			//	mKeyboard.active = true;
+			//}
+			//else
+			//{
+			//	closeChat();
+			//}
+			//if (!mText.Equals(string.Empty))
+			//{
+			//	postChat(mText);
+			//}
 		}
 		else if (mKeyboard.wasCanceled)
 		{

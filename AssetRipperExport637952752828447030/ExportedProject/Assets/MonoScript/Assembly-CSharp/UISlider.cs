@@ -1,300 +1,165 @@
-using System;
+//-------------------------------------------------
+//            NGUI: Next-Gen UI kit
+// Copyright © 2011-2017 Tasharen Entertainment Inc
+//-------------------------------------------------
+
 using UnityEngine;
+using System.Collections.Generic;
 
-[AddComponentMenu("NGUI/Interaction/Slider")]
-public class UISlider : IgnoreTimeScale
+/// <summary>
+/// Extended progress bar that has backwards compatibility logic and adds interaction support.
+/// </summary>
+
+[ExecuteInEditMode]
+[AddComponentMenu("NGUI/Interaction/NGUI Slider")]
+public class UISlider : UIProgressBar
 {
-	public enum Direction
+	enum Direction
 	{
-		Horizontal = 0,
-		Vertical = 1
+		Horizontal,
+		Vertical,
+		Upgraded,
 	}
 
-	public delegate void OnValueChange(float val);
+	// Deprecated functionality. Use 'foregroundWidget' instead.
+	[HideInInspector][SerializeField] Transform foreground = null;
 
-	public static UISlider current;
+	// Deprecated functionality
+	[HideInInspector][SerializeField] float rawValue = 1f; // Use 'value'
+	[HideInInspector][SerializeField] Direction direction = Direction.Upgraded; // Use 'fillDirection'
+	[HideInInspector][SerializeField] protected bool mInverted = false;
 
-	public Transform foreground;
+	/// <summary>
+	/// Whether the collider is enabled and the widget can be interacted with.
+	/// </summary>
 
-	public Transform thumb;
-
-	public Direction direction;
-
-	public GameObject eventReceiver;
-
-	public string functionName = "OnSliderChange";
-
-	public OnValueChange onValueChange;
-
-	public int numberOfSteps;
-
-	[SerializeField]
-	[HideInInspector]
-	private float rawValue = 1f;
-
-	private BoxCollider mCol;
-
-	private Transform mTrans;
-
-	private Transform mFGTrans;
-
-	private UIWidget mFGWidget;
-
-	private UISprite mFGFilled;
-
-	private bool mInitDone;
-
-	private Vector2 mSize = Vector2.zero;
-
-	private Vector2 mCenter = Vector3.zero;
-
-	public float sliderValue
+	public bool isColliderEnabled
 	{
 		get
 		{
-			float num = rawValue;
-			if (numberOfSteps > 1)
-			{
-				num = Mathf.Round(num * (float)(numberOfSteps - 1)) / (float)(numberOfSteps - 1);
-			}
-			return num;
-		}
-		set
-		{
-			Set(value, false);
+			Collider c = GetComponent<Collider>();
+			if (c != null) return c.enabled;
+			Collider2D b = GetComponent<Collider2D>();
+			return (b != null && b.enabled);
 		}
 	}
 
-	public Vector2 fullSize
-	{
-		get
-		{
-			return mSize;
-		}
-		set
-		{
-			if (mSize != value)
-			{
-				mSize = value;
-				ForceUpdate();
-			}
-		}
-	}
+	[System.Obsolete("Use 'value' instead")]
+	public float sliderValue { get { return this.value; } set { this.value = value; } }
 
-	private void Init()
-	{
-		mInitDone = true;
-		if (foreground != null)
-		{
-			mFGWidget = foreground.GetComponent<UIWidget>();
-			mFGFilled = ((!(mFGWidget != null)) ? null : (mFGWidget as UISprite));
-			mFGTrans = foreground.transform;
-			if (mSize == Vector2.zero)
-			{
-				mSize = foreground.localScale;
-			}
-			if (mCenter == Vector2.zero)
-			{
-				mCenter = foreground.localPosition + foreground.localScale * 0.5f;
-			}
-		}
-		else if (mCol != null)
-		{
-			if (mSize == Vector2.zero)
-			{
-				mSize = mCol.size;
-			}
-			if (mCenter == Vector2.zero)
-			{
-				mCenter = mCol.center;
-			}
-		}
-		else
-		{
-			Debug.LogWarning("UISlider expected to find a foreground object or a box collider to work with", this);
-		}
-	}
+	[System.Obsolete("Use 'fillDirection' instead")]
+	public bool inverted { get { return isInverted; } set { } }
 
-	private void Awake()
-	{
-		mTrans = base.transform;
-		mCol = base.GetComponent<Collider>() as BoxCollider;
-	}
+	/// <summary>
+	/// Upgrade from legacy functionality.
+	/// </summary>
 
-	private void Start()
+	protected override void Upgrade ()
 	{
-		Init();
-		if (Application.isPlaying && thumb != null && thumb.GetComponent<Collider>() != null)
+		if (direction != Direction.Upgraded)
 		{
-			UIEventListener uIEventListener = UIEventListener.Get(thumb.gameObject);
-			uIEventListener.onPress = (UIEventListener.BoolDelegate)Delegate.Combine(uIEventListener.onPress, new UIEventListener.BoolDelegate(OnPressThumb));
-			uIEventListener.onDrag = (UIEventListener.VectorDelegate)Delegate.Combine(uIEventListener.onDrag, new UIEventListener.VectorDelegate(OnDragThumb));
-		}
-		Set(rawValue, true);
-	}
+			mValue = rawValue;
 
-	private void OnPress(bool pressed)
-	{
-		if (pressed && UICamera.currentTouchID != -100)
-		{
-			UpdateDrag();
-		}
-	}
+			if (foreground != null)
+				mFG = foreground.GetComponent<UIWidget>();
 
-	private void OnDrag(Vector2 delta)
-	{
-		UpdateDrag();
-	}
-
-	private void OnPressThumb(GameObject go, bool pressed)
-	{
-		if (pressed)
-		{
-			UpdateDrag();
-		}
-	}
-
-	private void OnDragThumb(GameObject go, Vector2 delta)
-	{
-		UpdateDrag();
-	}
-
-	private void OnKey(KeyCode key)
-	{
-		float num = ((!((float)numberOfSteps > 1f)) ? 0.125f : (1f / (float)(numberOfSteps - 1)));
-		if (direction == Direction.Horizontal)
-		{
-			switch (key)
+			if (direction == Direction.Horizontal)
 			{
-			case KeyCode.LeftArrow:
-				Set(rawValue - num, false);
-				break;
-			case KeyCode.RightArrow:
-				Set(rawValue + num, false);
-				break;
-			}
-		}
-		else
-		{
-			switch (key)
-			{
-			case KeyCode.DownArrow:
-				Set(rawValue - num, false);
-				break;
-			case KeyCode.UpArrow:
-				Set(rawValue + num, false);
-				break;
-			}
-		}
-	}
-
-	private void UpdateDrag()
-	{
-		if (!(mCol == null) && !(UICamera.currentCamera == null) && UICamera.currentTouch != null)
-		{
-			UICamera.currentTouch.clickNotification = UICamera.ClickNotification.None;
-			Ray ray = UICamera.currentCamera.ScreenPointToRay(UICamera.currentTouch.pos);
-			float enter;
-			if (new Plane(mTrans.rotation * Vector3.back, mTrans.position).Raycast(ray, out enter))
-			{
-				Vector3 vector = mTrans.localPosition + (Vector3)(mCenter - mSize * 0.5f);
-				Vector3 vector2 = mTrans.localPosition - vector;
-				Vector3 vector3 = mTrans.InverseTransformPoint(ray.GetPoint(enter));
-				Vector3 vector4 = vector3 + vector2;
-				Set((direction != 0) ? (vector4.y / mSize.y) : (vector4.x / mSize.x), false);
-			}
-		}
-	}
-
-	private void Set(float input, bool force)
-	{
-		if (!mInitDone)
-		{
-			Init();
-		}
-		float num = Mathf.Clamp01(input);
-		if (num < 0.001f)
-		{
-			num = 0f;
-		}
-		float num2 = sliderValue;
-		rawValue = num;
-		float num3 = sliderValue;
-		if (!force && num2 == num3)
-		{
-			return;
-		}
-		Vector3 localScale = mSize;
-		if (direction == Direction.Horizontal)
-		{
-			localScale.x *= num3;
-		}
-		else
-		{
-			localScale.y *= num3;
-		}
-		if (mFGFilled != null && mFGFilled.type == UISprite.Type.Filled)
-		{
-			mFGFilled.fillAmount = num3;
-		}
-		else if (foreground != null)
-		{
-			mFGTrans.localScale = localScale;
-			if (mFGWidget != null)
-			{
-				if (num3 > 0.001f)
-				{
-					mFGWidget.enabled = true;
-					mFGWidget.MarkAsChanged();
-				}
-				else
-				{
-					mFGWidget.enabled = false;
-				}
-			}
-		}
-		if (thumb != null)
-		{
-			Vector3 localPosition = thumb.localPosition;
-			if (mFGFilled != null && mFGFilled.type == UISprite.Type.Filled)
-			{
-				if (mFGFilled.fillDirection == UISprite.FillDirection.Horizontal)
-				{
-					localPosition.x = ((!mFGFilled.invert) ? localScale.x : (mSize.x - localScale.x));
-				}
-				else if (mFGFilled.fillDirection == UISprite.FillDirection.Vertical)
-				{
-					localPosition.y = ((!mFGFilled.invert) ? localScale.y : (mSize.y - localScale.y));
-				}
-				else
-				{
-					Debug.LogWarning("Slider thumb is only supported with Horizontal or Vertical fill direction", this);
-				}
-			}
-			else if (direction == Direction.Horizontal)
-			{
-				localPosition.x = localScale.x;
+				mFill = mInverted ? FillDirection.RightToLeft : FillDirection.LeftToRight;
 			}
 			else
 			{
-				localPosition.y = localScale.y;
+				mFill = mInverted ? FillDirection.TopToBottom : FillDirection.BottomToTop;
 			}
-			thumb.localPosition = localPosition;
+			direction = Direction.Upgraded;
+#if UNITY_EDITOR
+			NGUITools.SetDirty(this);
+#endif
 		}
-		current = this;
-		if (eventReceiver != null && !string.IsNullOrEmpty(functionName) && Application.isPlaying)
-		{
-			eventReceiver.SendMessage(functionName, num3, SendMessageOptions.DontRequireReceiver);
-		}
-		if (onValueChange != null)
-		{
-			onValueChange(num3);
-		}
-		current = null;
 	}
 
-	public void ForceUpdate()
+	/// <summary>
+	/// Register an event listener.
+	/// </summary>
+
+	protected override void OnStart ()
 	{
-		Set(rawValue, true);
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
+				GameObject bg = (mBG != null && (mBG.collider != null || mBG.GetComponent<Collider2D>() != null)) ? mBG.gameObject : gameObject;
+		UIEventListener bgl = UIEventListener.Get(bg);
+		bgl.onPress += OnPressBackground;
+		bgl.onDrag += OnDragBackground;
+
+		if (thumb != null && (thumb.collider != null || thumb.GetComponent<Collider2D>() != null) && (mFG == null || thumb != mFG.cachedTransform))
+#else
+		GameObject bg = (mBG != null && (mBG.GetComponent<Collider>() != null || mBG.GetComponent<Collider2D>() != null)) ? mBG.gameObject : gameObject;
+		UIEventListener bgl = UIEventListener.Get(bg);
+		bgl.onPress += OnPressBackground;
+		bgl.onDrag += OnDragBackground;
+
+		if (thumb != null && (thumb.GetComponent<Collider>() != null || thumb.GetComponent<Collider2D>() != null) && (mFG == null || thumb != mFG.cachedTransform))
+#endif
+		{
+			UIEventListener fgl = UIEventListener.Get(thumb.gameObject);
+			fgl.onPress += OnPressForeground;
+			fgl.onDrag += OnDragForeground;
+		}
 	}
+
+	/// <summary>
+	/// Position the scroll bar to be under the current touch.
+	/// </summary>
+
+	protected void OnPressBackground (GameObject go, bool isPressed)
+	{
+		if (UICamera.currentScheme == UICamera.ControlScheme.Controller) return;
+		mCam = UICamera.currentCamera;
+		value = ScreenToValue(UICamera.lastEventPosition);
+		if (!isPressed && onDragFinished != null) onDragFinished();
+	}
+
+	/// <summary>
+	/// Position the scroll bar to be under the current touch.
+	/// </summary>
+
+	protected void OnDragBackground (GameObject go, Vector2 delta)
+	{
+		if (UICamera.currentScheme == UICamera.ControlScheme.Controller) return;
+		mCam = UICamera.currentCamera;
+		value = ScreenToValue(UICamera.lastEventPosition);
+	}
+
+	/// <summary>
+	/// Save the position of the foreground on press.
+	/// </summary>
+
+	protected void OnPressForeground (GameObject go, bool isPressed)
+	{
+		if (UICamera.currentScheme == UICamera.ControlScheme.Controller) return;
+		mCam = UICamera.currentCamera;
+
+		if (isPressed)
+		{
+			mOffset = (mFG == null) ? 0f :
+				value - ScreenToValue(UICamera.lastEventPosition);
+		}
+		else if (onDragFinished != null) onDragFinished();
+	}
+
+	/// <summary>
+	/// Drag the scroll bar in the specified direction.
+	/// </summary>
+
+	protected void OnDragForeground (GameObject go, Vector2 delta)
+	{
+		if (UICamera.currentScheme == UICamera.ControlScheme.Controller) return;
+		mCam = UICamera.currentCamera;
+		value = mOffset + ScreenToValue(UICamera.lastEventPosition);
+	}
+
+	/// <summary>
+	/// Watch for key events and adjust the value accordingly.
+	/// </summary>
+
+	public override void OnPan (Vector2 delta) { if (enabled && isColliderEnabled) base.OnPan(delta); }
 }

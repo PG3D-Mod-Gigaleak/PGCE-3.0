@@ -1,113 +1,65 @@
+//-------------------------------------------------
+//            NGUI: Next-Gen UI kit
+// Copyright © 2011-2017 Tasharen Entertainment Inc
+//-------------------------------------------------
+
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-[AddComponentMenu("NGUI/Interaction/Button Keys")]
-public class UIButtonKeys : MonoBehaviour
+/// <summary>
+/// Deprecated component. Use UIKeyNavigation instead.
+/// </summary>
+
+[ExecuteInEditMode]
+[AddComponentMenu("NGUI/Interaction/Button Keys (Legacy)")]
+public class UIButtonKeys : UIKeyNavigation
 {
-	public bool startsSelected;
-
 	public UIButtonKeys selectOnClick;
-
 	public UIButtonKeys selectOnUp;
-
 	public UIButtonKeys selectOnDown;
-
 	public UIButtonKeys selectOnLeft;
-
 	public UIButtonKeys selectOnRight;
 
-	private void OnEnable()
+	protected override void OnEnable ()
 	{
-		if (startsSelected && UICamera.selectedObject == null)
-		{
-			if (!NGUITools.GetActive(UICamera.selectedObject))
-			{
-				UICamera.selectedObject = base.gameObject;
-			}
-			else
-			{
-				UICamera.Notify(base.gameObject, "OnHover", true);
-			}
-		}
+		Upgrade();
+		base.OnEnable();
 	}
 
-	private void OnKey(KeyCode key)
+	public void Upgrade ()
 	{
-		if (!base.enabled || !NGUITools.GetActive(base.gameObject))
+		if (onClick == null && selectOnClick != null)
 		{
-			return;
+			onClick = selectOnClick.gameObject;
+			selectOnClick = null;
+			NGUITools.SetDirty(this);
 		}
-		switch (key)
-		{
-		case KeyCode.LeftArrow:
-			if (selectOnLeft != null)
-			{
-				UICamera.selectedObject = selectOnLeft.gameObject;
-			}
-			break;
-		case KeyCode.RightArrow:
-			if (selectOnRight != null)
-			{
-				UICamera.selectedObject = selectOnRight.gameObject;
-			}
-			break;
-		case KeyCode.UpArrow:
-			if (selectOnUp != null)
-			{
-				UICamera.selectedObject = selectOnUp.gameObject;
-			}
-			break;
-		case KeyCode.DownArrow:
-			if (selectOnDown != null)
-			{
-				UICamera.selectedObject = selectOnDown.gameObject;
-			}
-			break;
-		case KeyCode.Tab:
-			if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-			{
-				if (selectOnLeft != null)
-				{
-					UICamera.selectedObject = selectOnLeft.gameObject;
-				}
-				else if (selectOnUp != null)
-				{
-					UICamera.selectedObject = selectOnUp.gameObject;
-				}
-				else if (selectOnDown != null)
-				{
-					UICamera.selectedObject = selectOnDown.gameObject;
-				}
-				else if (selectOnRight != null)
-				{
-					UICamera.selectedObject = selectOnRight.gameObject;
-				}
-			}
-			else if (selectOnRight != null)
-			{
-				UICamera.selectedObject = selectOnRight.gameObject;
-			}
-			else if (selectOnDown != null)
-			{
-				UICamera.selectedObject = selectOnDown.gameObject;
-			}
-			else if (selectOnUp != null)
-			{
-				UICamera.selectedObject = selectOnUp.gameObject;
-			}
-			else if (selectOnLeft != null)
-			{
-				UICamera.selectedObject = selectOnLeft.gameObject;
-			}
-			break;
-		}
-	}
 
-	private void OnClick()
-	{
-		if (base.enabled && selectOnClick != null)
+		if (onLeft == null && selectOnLeft != null)
 		{
-			UICamera.selectedObject = selectOnClick.gameObject;
+			onLeft = selectOnLeft.gameObject;
+			selectOnLeft = null;
+			NGUITools.SetDirty(this);
+		}
+
+		if (onRight == null && selectOnRight != null)
+		{
+			onRight = selectOnRight.gameObject;
+			selectOnRight = null;
+			NGUITools.SetDirty(this);
+		}
+
+		if (onUp == null && selectOnUp != null)
+		{
+			onUp = selectOnUp.gameObject;
+			selectOnUp = null;
+			NGUITools.SetDirty(this);
+		}
+
+		if (onDown == null && selectOnDown != null)
+		{
+			onDown = selectOnDown.gameObject;
+			selectOnDown = null;
+			NGUITools.SetDirty(this);
 		}
 	}
 }

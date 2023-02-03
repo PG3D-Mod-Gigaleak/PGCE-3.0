@@ -1,85 +1,94 @@
+//-------------------------------------------------
+//            NGUI: Next-Gen UI kit
+// Copyright © 2011-2017 Tasharen Entertainment Inc
+//-------------------------------------------------
+
 using UnityEngine;
 
-[ExecuteInEditMode]
+/// <summary>
+/// Sample script showing how easy it is to implement a standard button that swaps sprites.
+/// </summary>
+
 [AddComponentMenu("NGUI/UI/Image Button")]
 public class UIImageButton : MonoBehaviour
 {
 	public UISprite target;
-
 	public string normalSprite;
-
 	public string hoverSprite;
-
 	public string pressedSprite;
-
 	public string disabledSprite;
+	public bool pixelSnap = true;
 
 	public bool isEnabled
 	{
 		get
 		{
-			Collider collider = base.GetComponent<Collider>();
-			return (bool)collider && collider.enabled;
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
+			Collider col = collider;
+#else
+			Collider col = gameObject.GetComponent<Collider>();
+#endif
+			return col && col.enabled;
 		}
 		set
 		{
-			Collider collider = base.GetComponent<Collider>();
-			if ((bool)collider && collider.enabled != value)
+#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
+			Collider col = collider;
+#else
+			Collider col = gameObject.GetComponent<Collider>();
+#endif
+			if (!col) return;
+
+			if (col.enabled != value)
 			{
-				collider.enabled = value;
+				col.enabled = value;
 				UpdateImage();
 			}
 		}
 	}
 
-	private void Awake()
+	void OnEnable ()
 	{
-		if (target == null)
-		{
-			target = GetComponentInChildren<UISprite>();
-		}
-	}
-
-	private void OnEnable()
-	{
+		if (target == null) target = GetComponentInChildren<UISprite>();
 		UpdateImage();
 	}
 
-	private void UpdateImage()
+	void OnValidate ()
 	{
 		if (target != null)
 		{
-			if (isEnabled)
-			{
-				target.spriteName = ((!UICamera.IsHighlighted(base.gameObject)) ? normalSprite : hoverSprite);
-			}
-			else
-			{
-				target.spriteName = disabledSprite;
-			}
-			target.MakePixelPerfect();
+			if (string.IsNullOrEmpty(normalSprite)) normalSprite = target.spriteName;
+			if (string.IsNullOrEmpty(hoverSprite)) hoverSprite = target.spriteName;
+			if (string.IsNullOrEmpty(pressedSprite)) pressedSprite = target.spriteName;
+			if (string.IsNullOrEmpty(disabledSprite)) disabledSprite = target.spriteName;
 		}
 	}
 
-	private void OnHover(bool isOver)
+	void UpdateImage()
+	{
+		if (target != null)
+		{
+			if (isEnabled) SetSprite(UICamera.IsHighlighted(gameObject) ? hoverSprite : normalSprite);
+			else SetSprite(disabledSprite);
+		}
+	}
+
+	void OnHover (bool isOver)
 	{
 		if (isEnabled && target != null)
-		{
-			target.spriteName = ((!isOver) ? normalSprite : hoverSprite);
-			target.MakePixelPerfect();
-		}
+			SetSprite(isOver ? hoverSprite : normalSprite);
 	}
 
-	private void OnPress(bool pressed)
+	void OnPress (bool pressed)
 	{
-		if (pressed)
-		{
-			target.spriteName = pressedSprite;
-			target.MakePixelPerfect();
-		}
-		else
-		{
-			UpdateImage();
-		}
+		if (pressed) SetSprite(pressedSprite);
+		else UpdateImage();
+	}
+
+	void SetSprite (string sprite)
+	{
+		if (target.atlas == null || target.atlas.GetSprite(sprite) == null) return;
+		target.spriteName = sprite;
+		if (pixelSnap) target.MakePixelPerfect();
 	}
 }

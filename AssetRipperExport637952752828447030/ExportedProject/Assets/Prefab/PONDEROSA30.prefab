@@ -2,8 +2,8 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!1001 &100100000
 Prefab:
-  serializedVersion: 2
   m_ObjectHideFlags: 0
+  serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications: []
@@ -11,16 +11,15 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1244719935122588}
   m_IsPrefabParent: 1
-  m_IsExploded: 0
 --- !u!1 &1244719935122588
 GameObject:
-  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4196097419749409}
-  - 114: {fileID: 114568443242562173}
+  - component: {fileID: 4196097419749409}
+  - component: {fileID: 114568443242562173}
   m_Layer: 0
   m_Name: PONDEROSA30
   m_TagString: Untagged
@@ -39,6 +38,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114568443242562173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,8 +49,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f051cc1b0c6f01448d1035128b58918, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   mMat: {fileID: 0}
   mUVRect:
     serializedVersion: 2
@@ -62,15 +63,11 @@ MonoBehaviour:
     mBase: 0
     mWidth: 0
     mHeight: 0
-    mSpriteName:
+    mSpriteName: 
     mSaved: []
-  mSpacingX: 0
-  mSpacingY: 0
   mAtlas: {fileID: 0}
   mReplacement: {fileID: 0}
-  mPixelSize: 1
   mSymbols: []
-  mDynamicFont: {fileID: 12800000, guid: 14399d8154c5fcb48b9f6e488984dcbe, type: 3}
+  mDynamicFont: {fileID: 12800000, guid: ea7889ada85d31b43bdc0055d85cd24a, type: 3}
   mDynamicFontSize: 22
   mDynamicFontStyle: 0
-  mDynamicFontOffset: 7.2
