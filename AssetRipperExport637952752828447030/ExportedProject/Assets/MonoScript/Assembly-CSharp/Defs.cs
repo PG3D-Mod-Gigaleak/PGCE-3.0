@@ -58,7 +58,6 @@ public sealed class Defs
 		{
 			offset = 0;
 		}
-		Debug.LogError(index + offset);
 		return m_SurvivalConfig.levels.levels[index + offset].PossibleLevels[randomScenesThisLoad[index]].myLoading;
 	}
 
@@ -998,12 +997,26 @@ public sealed class Defs
 		}
 	}
 
+	public static MenuSettings _menuSettings;
+
+	public static MenuSettings menuSettings
+	{
+		get
+		{
+			if (_menuSettings == null)
+			{
+				_menuSettings = Utilities.GetClass<MenuSettings>("MenuSettings");
+			}
+			return _menuSettings;
+		}
+	}
+
 	public static string[] MainMenuScenes
 	{
 		get
 		{
 			List<string> scenes = new List<string>();
-			foreach (MenuSettings.Menu menu in Resources.Load<GameObject>("MenuSettings").GetComponent<MenuSettings>().menuInfos)
+			foreach (MenuSettings.Menu menu in menuSettings.menuInfos)
 			{
 				scenes.Add(menu.sceneName);
 			}

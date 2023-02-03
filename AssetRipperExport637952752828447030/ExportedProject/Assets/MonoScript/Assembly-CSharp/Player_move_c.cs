@@ -23,6 +23,8 @@ public sealed class Player_move_c : MonoBehaviour
         return Defs.CAnim(_weaponManager.currentWeaponSounds.animationObject, a);
     }
 
+	private GameObject rocketToLaunch;
+
 	[CompilerGenerated]
 	private sealed class _003CshowCategory_003Ec__AnonStorey24
 	{
@@ -2678,51 +2680,51 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		if (!WS.isHeal || WS.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
 		{
-		if (!alt)
-		{
-			if (!WS.isDouble)
+			if (!alt)
 			{
-				WS.animationObject.GetComponent<Animation>().Play(myCAnim("Shoot"));
+				if (!WS.isDouble)
+				{
+					WS.animationObject.GetComponent<Animation>().Play(myCAnim("Shoot"));
+				}
+				else
+				{
+					if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")))
+					{
+						gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
+						Debug.LogError(doubleShotIndex);
+						gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play("Shoot" + doubleShotIndex);
+						DoDoubleShot();
+					}
+				}
 			}
 			else
 			{
-				if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")))
+				WS.animationObject.GetComponent<Animation>().Play(myCAnim("AltShoot"));
+			}
+			if (WS.hasRecoil)
+			{
+				Camera.main.GetComponent<MouseControls>().enabled = false;
+				unRecoiling = true;
+				Camera.main.transform.Rotate(Camera.main.transform.rotation.x - WS.recoil, 0f, 0f);
+				stackedUnRecoils++;
+				StartCoroutine(recoilStuff());
+				Camera.main.GetComponent<MouseControls>().enabled = true;
+			}
+			if (WS.isShotgun)
+			{
+				for (int i = 0; i < WS.numOfPellets + 1; i++)
 				{
-					gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
-					Debug.LogError(doubleShotIndex);
-					gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play("Shoot" + doubleShotIndex);
-					DoDoubleShot();
+					shootS(alt);
 				}
 			}
-		}
-		else
-		{
-			WS.animationObject.GetComponent<Animation>().Play(myCAnim("AltShoot"));
-		}
-		if (WS.hasRecoil)
-		{
-			Camera.main.GetComponent<MouseControls>().enabled = false;
-			unRecoiling = true;
-			Camera.main.transform.Rotate(Camera.main.transform.rotation.x - WS.recoil, 0f, 0f);
-			stackedUnRecoils++;
-			StartCoroutine(recoilStuff());
-			Camera.main.GetComponent<MouseControls>().enabled = true;
-		}
-		if (WS.isShotgun)
-		{
-			for (int i = 0; i < WS.numOfPellets + 1; i++)
+			else
 			{
-				shootS(alt);
+				shootS(alt); 
 			}
-		}
-		else
-		{
-			shootS(alt); 
-		}
-		if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
-		{
-			base.GetComponent<AudioSource>().PlayOneShot(WS.shoot);
-		}
+			if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
+			{
+				base.GetComponent<AudioSource>().PlayOneShot(WS.shoot);
+			}
 		}
 	}
 
@@ -3053,7 +3055,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	private IEnumerator Flash(GameObject _obj)
+	public IEnumerator Flash(GameObject _obj)
 	{
 		_flashing = true;
 		GameObject _gunWiapon = null;
@@ -3080,6 +3082,18 @@ public sealed class Player_move_c : MonoBehaviour
 			SetTextureRecursivelyFrom(_obj, _obj.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>()._skin, stopObjs2);
 		}
 		_flashing = false;
+	}
+
+	private float extraSpeed;
+
+	void FixedUpdate()
+	{
+		if (rocketToLaunch != null)
+		{
+			rocketToLaunch.GetComponent<Rigidbody>().AddForce(83.75f * rocketToLaunch.transform.forward * extraSpeed);
+			extraSpeed = 1f;
+			rocketToLaunch = null;
+		}
 	}
 
 	[RPC]
@@ -3188,6 +3202,26 @@ public sealed class Player_move_c : MonoBehaviour
 		else
 		{
 			WS = _weaponManager.currentWeaponSounds;
+		}
+		if (WS.bazooka)
+		{
+			GameObject gameObject2 = Resources.Load("Rocket") as GameObject;
+			GameObject gameObject3 = null;
+			Vector3 forward = base.gameObject.transform.forward;
+			float num = 0.2f;
+			gameObject3 = ((PlayerPrefs.GetInt("MultyPlayer") == 0) ? (UnityEngine.Object.Instantiate(gameObject2, base.transform.position + base.transform.forward * num, base.transform.rotation) as GameObject) : (!PlayerPrefs.GetString("TypeConnect").Equals("local") ? PhotonNetwork.Instantiate("Rocket", base.transform.position + base.transform.forward * num, base.transform.rotation, 0) : ((GameObject)Network.Instantiate(gameObject2, base.transform.position + base.transform.forward * num, base.transform.rotation, 0))));
+			gameObject3.GetComponent<Rocket>().rocketNum = WS.rocketNum;
+			gameObject3.GetComponent<Rocket>().weaponName = WS.gameObject.name.Replace("(Clone)", string.Empty);
+			gameObject3.GetComponent<Rocket>().damage = WS.damage;
+			gameObject3.GetComponent<Rocket>().radiusDamage = WS.bazookaExplosionRadius;
+			gameObject3.GetComponent<Rocket>().radiusDamageSelf = WS.bazookaExplosionRadiusSelf;
+			gameObject3.GetComponent<Rocket>().radiusImpulse = WS.bazookaImpulseRadius;
+			gameObject3.GetComponent<Rocket>().damageRange = WS.damageRange;
+			gameObject3.GetComponent<Rocket>().multiplayerDamage = WS.multiplayerDamage;
+			gameObject3.GetComponent<Rigidbody>().useGravity = WS.grenadeLauncher;
+			extraSpeed = WS.bazookaSpeed;
+			rocketToLaunch = gameObject3;
+			return;
 		}
 		if (WS.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
 		{
@@ -3312,6 +3346,18 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 		}
 		StartCoroutine(CheckHitByMelee(alt));
+	}
+
+	public void MinusLive(int viewID, float damage)
+	{
+		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+		{
+			base.GetComponent<NetworkView>().RPC("minusLive", RPCMode.All, viewID, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, damage);
+		}
+		else
+		{
+			photonView.RPC("minusLivePhoton", PhotonTargets.All, viewID, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, damage);
+		}
 	}
 
 	private IEnumerator CheckHitByMelee(bool alt)

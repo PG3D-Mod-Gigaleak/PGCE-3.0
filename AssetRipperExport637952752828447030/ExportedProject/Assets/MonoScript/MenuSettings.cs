@@ -11,13 +11,13 @@ public class MenuSettings : MonoBehaviour
 	{
 		get
 		{
-			return Resources.Load<GameObject>("MenuSettings").GetComponent<MenuSettings>().menuInfos.Find(x => x.sceneName == Defs.CurrentMainMenuScene);
+			return Defs.menuSettings.menuInfos.Find(x => x.sceneName == Defs.CurrentMainMenuScene);
 		}
 	}
 
 	public static Menu GetMenu(string menu)
 	{
-		return Resources.Load<GameObject>("MenuSettings").GetComponent<MenuSettings>().menuInfos.Find(x => x.sceneName == menu);
+		return Defs.menuSettings.menuInfos.Find(x => x.sceneName == menu);
 	}
 
 	[Serializable]

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class WeaponSounds : MonoBehaviour
 {
+	[Header("normal stuff")]
+
 	public float swapTime = 1f;
 
 	public bool isSwapIn = false;
@@ -50,6 +52,8 @@ public class WeaponSounds : MonoBehaviour
 
 	public float meleeAttackTimeModifier = 0.57f;
 
+	[Header("cursed edition stuff")]
+
 	public bool isHeal;
 
 	public float healAmount;
@@ -95,6 +99,22 @@ public class WeaponSounds : MonoBehaviour
 	public string weaponName;
 
 	public bool oldMeleeSystem;
+
+	[Header("imported stuff")]
+
+	public bool bazooka;
+
+	public int rocketNum;
+
+	public float bazookaExplosionRadius = 5f;
+
+	public float bazookaExplosionRadiusSelf = 2.5f;
+
+	public float bazookaImpulseRadius = 6f;
+
+	public float bazookaSpeed = 2f;
+
+	public bool grenadeLauncher;
 
 	public int MaxAmmoWithRespectToInApp
 	{

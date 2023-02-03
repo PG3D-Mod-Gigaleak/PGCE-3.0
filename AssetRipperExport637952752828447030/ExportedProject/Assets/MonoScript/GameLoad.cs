@@ -12,7 +12,7 @@ public class GameLoad : MonoBehaviour
 			UnityEngine.Object obj = Resources.Load("Weapons/Weapon" + i);
 			if (obj == null)
 			{
-				Debug.LogError("broke at " + i);
+				Debug.Log("broke at " + i);
 				break;
 			}
 			WeaponManager.WeaponPrefabs.Add(obj);

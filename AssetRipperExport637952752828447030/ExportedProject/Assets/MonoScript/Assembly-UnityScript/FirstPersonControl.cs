@@ -272,10 +272,10 @@ public class FirstPersonControl : MonoBehaviour
 		{
 			velocity = Vector3.zero;
 		}
-		if (!character.isGrounded)
-		{
-			return;
-		}
+		//if (!character.isGrounded)
+		//{
+		//	return;
+		//}
 		Vector2 vector2 = Vector2.zero;
 		if ((bool)rotateTouchPad)
 		{

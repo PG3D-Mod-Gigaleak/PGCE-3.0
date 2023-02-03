@@ -18,6 +18,14 @@ public class SkinName : MonoBehaviour
 
 	public WeaponManager _weaponManager;
 
+	public Player_move_c playerMoveC
+	{
+		get
+		{
+			return playerGameObject.GetComponent<Player_move_c>();
+		}
+	}
+
 	[RPC]
 	private void setAnim(NetworkViewID id, int _typeAnim)
 	{

@@ -939,6 +939,14 @@ public sealed class WeaponManager : MonoBehaviour
 		}
 	}
 
+	public static WeaponManager sharedManager
+	{
+		get
+		{
+			return GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
+		}
+	}
+
 	private void Start()
 	{
 		_purchaseActinos.Add("MinerWeapon", AddMinerWeaponToInventoryAndSaveInApp);

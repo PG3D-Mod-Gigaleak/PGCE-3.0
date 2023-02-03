@@ -561,6 +561,7 @@ GameObject:
   - component: {fileID: 114978025709227741}
   - component: {fileID: 114990101264577244}
   - component: {fileID: 114434232942659664}
+  - component: {fileID: 114852820614766764}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -7024,6 +7025,17 @@ MonoBehaviour:
   reloadTextureNoAmmo: {fileID: 2800000, guid: b2a02d3b7a6f6534596320d3ef87ffd6, type: 3}
   _playerGun: {fileID: 1765654026552147}
   pos: {x: 0, y: 0, z: 0}
+--- !u!114 &114852820614766764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1883612637678753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc032f6ebbe4ee24ba56455a0d05969e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114887579147676349
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7136,8 +7148,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2.02
+  m_Radius: 0.4
+  m_Height: 1.95
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &143509637998587970
@@ -7150,10 +7162,10 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 2
+  m_Height: 1.95
   m_Radius: 0.4
-  m_SlopeLimit: 45
-  m_StepOffset: 0.4
+  m_SlopeLimit: 80
+  m_StepOffset: 0.7
   m_SkinWidth: 0.05
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
