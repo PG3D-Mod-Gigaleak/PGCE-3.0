@@ -277,7 +277,14 @@ public class Rocket : MonoBehaviour
 							}
 						}
 					}
-					_weaponManager.myPlayer.GetComponent<SkinName>().playerMoveC.MinusLive(gameObject4.GetComponent<PhotonView>().viewID, multiplayerDamage);
+					else if (!isInet)
+					{
+						gameObject4.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().MinusLive(_weaponManager.myPlayer.GetComponent<NetworkView>().viewID, multiplayerDamage * num, false);
+					}
+					else
+					{
+						gameObject4.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().MinusLive(_weaponManager.myPlayer.GetComponent<PhotonView>().viewID, multiplayerDamage * num, false);
+					}
 				}
 			}
 		}

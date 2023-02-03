@@ -1361,6 +1361,16 @@ public sealed class Player_move_c : MonoBehaviour
 		GUI.enabled = true && !disable;
 	}
 
+	public void MinusLive(int idKiller, float minus, bool _isHeadShot)
+	{
+		photonView.RPC("MinusLiveRPCPhoton", PhotonTargets.All, idKiller, minus, _isHeadShot);
+	}
+
+	public void MinusLive(NetworkViewID idKiller, float minus, bool _isHeadShot)
+	{
+		base.GetComponent<NetworkView>().RPC("MinusLiveRPC", RPCMode.All, idKiller, minus, _isHeadShot);
+	}
+
 	public void hit(float dam)
 	{
 		if (curArmor >= dam)
@@ -2466,6 +2476,69 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	public void _HitEnemies(List<GameObject> hittedEnemies)
+	{
+		foreach (GameObject hittedEnemy in hittedEnemies)
+		{
+			switch (hittedEnemy.tag)
+			{
+			case "Enemy":
+				_HitZombie(hittedEnemy.transform.GetChild(0).gameObject);
+				break;
+			case "Player":
+				_HitPlayer(hittedEnemy);
+				break;
+			}
+		}
+	}
+
+	private void _HitZombie(GameObject zmb)
+	{
+		if (PlayerPrefs.GetInt("MultyPlayer") == 0)
+		{
+			BotHealth component = zmb.transform.parent.GetComponent<BotHealth>();
+			component.adjustHealth(((float)(-_weaponManager.currentWeaponSounds.damage) + UnityEngine.Random.Range(_weaponManager.currentWeaponSounds.damageRange.x, _weaponManager.currentWeaponSounds.damageRange.y)), Camera.main.transform);
+		}
+		else
+		{
+			if (PlayerPrefs.GetInt("COOP") == 0)
+			{
+				return;
+			}
+			float health = zmb.transform.parent.GetComponent<ZombiUpravlenie>().health;
+			if (health > 0f)
+			{
+				health -= ((float)_weaponManager.currentWeaponSounds.damage + UnityEngine.Random.Range(_weaponManager.currentWeaponSounds.damageRange.x, _weaponManager.currentWeaponSounds.damageRange.y));
+				zmb.transform.parent.GetComponent<ZombiUpravlenie>().setHealth(health, true);
+				GlobalGameController.Score += 5;
+				if (health <= 0f)
+				{
+					GlobalGameController.Score += zmb.GetComponent<Sounds>().scorePerKill;
+				}
+				_weaponManager.myTable.GetComponent<NetworkStartTable>().score = GlobalGameController.Score;
+				_weaponManager.myTable.GetComponent<NetworkStartTable>().synchState();
+			}
+		}
+	}
+
+	private void _HitPlayer(GameObject plr)
+	{
+		GameObject label = plr.GetComponent<SkinName>().playerMoveC._label;
+		float num = 1f;
+		bool flag = false;
+		if (Defs.isMulti && !Defs.isCOOP)
+		{
+			if (true)
+			{
+				plr.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().MinusLive(base.transform.parent.gameObject.GetComponent<NetworkView>().viewID, _weaponManager.currentWeaponSounds.multiplayerDamage * num, flag);
+			}
+			else
+			{
+				plr.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().MinusLive(base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, _weaponManager.currentWeaponSounds.multiplayerDamage * num, flag);
+			}
+		}
+	}
+
 	private void ReloadPressed()
 	{
 		if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.isHeal ||  _weaponManager.CurrentWeaponIndex < 0 || _weaponManager.CurrentWeaponIndex >= _weaponManager.playerWeapons.Count || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack <= 0 || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == _weaponManager.currentWeaponSounds.ammoInClip || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
@@ -3257,6 +3330,26 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		if (!WS.isMelee)
 		{
+			if (WS.flamethrower)
+			{
+				GameObject[] array = ((!Defs.isMulti || Defs.isCOOP) ? GameObject.FindGameObjectsWithTag("Enemy") : GameObject.FindGameObjectsWithTag("Player"));
+				List<GameObject> list = new List<GameObject>();
+				GameObject[] array4 = array;
+				foreach (GameObject gameObject in array4)
+				{
+					if (!gameObject.transform.position.Equals(_player.transform.position))
+					{
+						Vector3 to = gameObject.transform.position - _player.transform.position;
+						float magnitude = to.magnitude;
+						if (magnitude < WS.range && ((Vector3.Angle(base.gameObject.transform.forward, to) < WS.meleeAngle) ? true : false))
+						{
+							list.Add(gameObject);
+						}
+					}
+				}
+				_HitEnemies(list);
+				return;
+			}
 			Ray ray = Camera.main.ScreenPointToRay(getBloom(alt));
 			RaycastHit hitInfo;
 			if (!Physics.Raycast(ray, out hitInfo, 100f, -2053))
@@ -3264,26 +3357,29 @@ public sealed class Player_move_c : MonoBehaviour
 				return;
 			}
 			bool flag;
-			if ((hitInfo.collider.gameObject.transform.parent == null && !hitInfo.collider.gameObject.transform.CompareTag("Player")) || (hitInfo.collider.gameObject.transform.parent != null && !hitInfo.collider.gameObject.transform.parent.CompareTag("Enemy") && !hitInfo.collider.gameObject.transform.parent.CompareTag("Player")))
+			if (!WS.flamethrower)
 			{
-				UnityEngine.Object.Instantiate(hole, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
-				UnityEngine.Object.Instantiate(wallParticle, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
-				flag = false;
-			}
-			else
-			{
-				UnityEngine.Object.Instantiate(bloodParticle, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
-				flag = true;
-			}
-			if (PlayerPrefs.GetInt("MultyPlayer") == 1)
-			{
-				if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+				if ((hitInfo.collider.gameObject.transform.parent == null && !hitInfo.collider.gameObject.transform.CompareTag("Player")) || (hitInfo.collider.gameObject.transform.parent != null && !hitInfo.collider.gameObject.transform.parent.CompareTag("Enemy") && !hitInfo.collider.gameObject.transform.parent.CompareTag("Player")))
 				{
-					base.GetComponent<NetworkView>().RPC("HoleRPC", RPCMode.Others, flag, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
+					UnityEngine.Object.Instantiate(hole, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
+					UnityEngine.Object.Instantiate(wallParticle, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
+					flag = false;
 				}
 				else
 				{
-					photonView.RPC("HoleRPC", PhotonTargets.Others, flag, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
+					UnityEngine.Object.Instantiate(bloodParticle, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
+					flag = true;
+				}
+				if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+				{
+					if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+					{
+						base.GetComponent<NetworkView>().RPC("HoleRPC", RPCMode.Others, flag, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
+					}
+					else
+					{
+						photonView.RPC("HoleRPC", PhotonTargets.Others, flag, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
+					}
 				}
 			}
 			if ((bool)hitInfo.collider.gameObject.transform.parent && hitInfo.collider.gameObject.transform.parent.CompareTag("Enemy"))

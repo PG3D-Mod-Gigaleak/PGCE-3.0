@@ -997,6 +997,22 @@ public sealed class Defs
 		}
 	}
 
+	public static bool isMulti
+	{
+		get
+		{
+			return PlayerPrefs.GetInt("MultyPlayer") == 1;
+		}
+	}
+
+	public static bool isCOOP
+	{
+		get
+		{
+			return PlayerPrefs.GetInt("COOP") == 1;
+		}
+	}
+
 	public static MenuSettings _menuSettings;
 
 	public static MenuSettings menuSettings

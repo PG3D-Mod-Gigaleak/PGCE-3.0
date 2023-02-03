@@ -102,6 +102,10 @@ public class WeaponSounds : MonoBehaviour
 
 	[Header("imported stuff")]
 
+	public bool railgun;
+
+	public bool flamethrower;
+
 	public bool bazooka;
 
 	public int rocketNum;
