@@ -6,8 +6,16 @@ public class LoseScreen : MonoBehaviour
 {
 	public void Quit()
 	{
-		LoadConnectScene.loading = null;
-		LoadConnectScene.sceneToLoad = "ConnectScene";
-		Application.LoadLevel("PromScene");
+		GameObject.FindGameObjectWithTag("GameController").GetComponent<Initializer>().isCancelReConnect = true;
+		if (PhotonNetwork.connected)
+		{
+			ConnectGUI.Local();
+		}
+		else
+		{
+			LoadConnectScene.loading = null;
+			LoadConnectScene.sceneToLoad = "ConnectScene";
+			Application.LoadLevel("PromScene");
+		}
 	}
 }
