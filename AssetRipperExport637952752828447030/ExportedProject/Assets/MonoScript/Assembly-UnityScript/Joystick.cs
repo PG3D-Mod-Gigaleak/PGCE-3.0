@@ -313,7 +313,6 @@ public class Joystick : MonoBehaviour
 			{
 				Touch touch = Input.GetTouch(i);
 				Vector2 vector = touch.position - guiTouchOffset;
-				_playerGun.GetComponent<Player_move_c>().mobileHoldingDown = (bool)fireTexture && touchZone.Contains(touch.position) && touchBeginsOnFireZone && !blink;
 				bool flag = false;
 				if (touchPad)
 				{
@@ -341,17 +340,17 @@ public class Joystick : MonoBehaviour
 				{
 					touchBeginsOnFireZone = fireZone.Contains(touch.position);
 				}
-				if (isSerialShooting && touchPad && flag)
-				{
-					if ((bool)fireTexture && touchZone.Contains(touch.position) && touchBeginsOnFireZone && !blink && !_playerGun.GetComponent<Player_move_c>().isChargingUp)
-					{
-						_playerGun.SendMessage("ShotPressed", false);
-					}
-					else
-					{
-						touchBeginsOnFireZone = false;
-					}
-				}
+				//if (isSerialShooting && touchPad && flag)
+				//{
+				//	if ((bool)fireTexture && touchZone.Contains(touch.position) && touchBeginsOnFireZone && !blink && !_playerGun.GetComponent<Player_move_c>().isChargingUp)
+				//	{
+				//		_playerGun.SendMessage("ShotPressed", false);
+				//	}
+				//	else
+				//	{
+				//		touchBeginsOnFireZone = false;
+				//	}
+				//}
 				if (flag2)
 				{
 					if (touchPad)
@@ -379,19 +378,19 @@ public class Joystick : MonoBehaviour
 							array[j].LatchedFinger(touch.fingerId);
 						}
 					}
-					if ((bool)fireTexture && fireZone.Contains(touch.position) && !isSerialShooting && !_playerGun.GetComponent<Player_move_c>().isChargingUp)
-					{
-						_playerGun.SendMessage("ShotPressed", false);
-						continue;
-					}
+					//if ((bool)fireTexture && fireZone.Contains(touch.position) && !isSerialShooting && !_playerGun.GetComponent<Player_move_c>().isChargingUp)
+					//{
+					//	_playerGun.SendMessage("ShotPressed", false);
+					//	continue;
+					//}
 					if ((bool)jumpTexture && jumpTexturePixelInset.Contains(touch.position))
 					{
 						jumpPressed = true;
 					}
-					if (touchPad && reloadZone.Contains(touch.position))
-					{
-						_playerGun.SendMessage("ReloadPressed");
-					}
+					//if (touchPad && reloadZone.Contains(touch.position))
+					//{
+					//	_playerGun.SendMessage("ReloadPressed");
+					//}
 					if (touchPad)
 					{
 						_lastFingerPosition = touch.position;
@@ -453,21 +452,21 @@ public class Joystick : MonoBehaviour
 
 	public virtual void OnGUI()
 	{
-		Color color = GUI.color;
-		GUI.color = new Color(color.r, color.g, color.b, 38f);
-		if ((bool)fireTexture)
-		{
-			GUI.DrawTexture(new Rect(fireZone.x, (float)Screen.height - fireZone.height - fireZone.y, fireZone.width, fireZone.height), fireTexture);
-		}
-		if ((bool)reloadTexture)
-		{
-			GUI.DrawTexture(new Rect(reloadZone.x, (float)Screen.height - reloadZone.height - reloadZone.y, reloadZone.height, reloadZone.height), NormalReloadMode ? reloadTexture : ((!blink) ? reloadTexture : reloadTextureNoAmmo));
-		}
-		if ((bool)gui)
-		{
-			GUI.DrawTexture(new Rect(guiPixelInset.x, (float)Screen.height - guiPixelInset.height - guiPixelInset.y, guiPixelInset.width, guiPixelInset.height), gui);
-		}
-		GUI.color = color;
+		//Color color = GUI.color;
+		//GUI.color = new Color(color.r, color.g, color.b, 38f);
+		//if ((bool)fireTexture)
+		//{
+		//	GUI.DrawTexture(new Rect(fireZone.x, (float)Screen.height - fireZone.height - fireZone.y, fireZone.width, fireZone.height), fireTexture);
+		//}
+		//if ((bool)reloadTexture)
+		//{
+		//	GUI.DrawTexture(new Rect(reloadZone.x, (float)Screen.height - reloadZone.height - reloadZone.y, reloadZone.height, reloadZone.height), NormalReloadMode ? reloadTexture : ((!blink) ? reloadTexture : reloadTextureNoAmmo));
+		//}
+		//if ((bool)gui)
+		//{
+		//	GUI.DrawTexture(new Rect(guiPixelInset.x, (float)Screen.height - guiPixelInset.height - guiPixelInset.y, guiPixelInset.width, guiPixelInset.height), gui);
+		//}
+		//GUI.color = color;
 	}
 
 	public virtual void setSeriya(bool isSeriya)

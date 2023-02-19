@@ -631,8 +631,6 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public GameObject recoilObject;
 
-	public bool mobileHoldingDown;
-
 	public string curGear;
 
 	public int playerID()
@@ -1909,6 +1907,10 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			base.gameObject.GetComponent<AudioSource>().PlayOneShot(ChangeWeaponClip);
 		}
+		if (Application.isMobilePlatform)
+		{
+			inGameGUI.altShot.SetActive(_weaponManager.currentWeaponSounds.hasAlternateShot);
+		}
 	}
 
 	private void SendSpeedModifier()
@@ -2625,7 +2627,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public bool isChargingUp;
 
-	private void ShotPressed(bool alt)
+	private void ShotPressed(bool alt = false)
 	{
 		if (isChargingUp)
 		{
@@ -2678,6 +2680,14 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	private bool holdingShoot
+	{
+		get
+		{
+			return (Application.isMobilePlatform ? inGameGUI.shooting : Input.GetMouseButton(0));
+		}
+	}
+
 	private IEnumerator checkCharging(WeaponSounds WS, bool alt)
 	{
 		if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip <= 0)
@@ -2705,7 +2715,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.chargeUp);
 		}
-		while(Input.GetMouseButton(0) || Application.isMobilePlatform && mobileHoldingDown)
+		while (holdingShoot)
 		{
 			yield return new WaitForSeconds(0.01f);
 			if (!WS.animationObject.GetComponent<Animation>().IsPlaying("ChargeUp"))
@@ -3704,7 +3714,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		if (!Application.isMobilePlatform)
 		{
-			if (Input.GetKeyDown("e") && _weaponManager.currentWeaponSounds.hasAlternateShot)
+			if (Input.GetKey("e") && _weaponManager.currentWeaponSounds.hasAlternateShot)
 			{
 				ShotPressed(true);
 			}
@@ -3878,7 +3888,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
 			{
-				base.GetComponent<NetworkView>().RPC("ImKilled", RPCMode.Others);
+				base.GetComponent<NetworkView>().RPC("ImKilled", RPCMode.All);
 			}
 			else
 			{
@@ -3887,6 +3897,8 @@ public sealed class Player_move_c : MonoBehaviour
 			base.gameObject.GetComponent<AudioSource>().PlayOneShot(deadPlayerSound);
 			if (PlayerPrefs.GetInt("COOP", 0) == 1)
 			{
+				Instantiate(Resources.Load<GameObject>("spectator"), base.transform.position, Quaternion.identity).transform.Find("spectatorcamera").transform.rotation = transform.rotation;
+				photonView.RPC("DiedForSpectate", PhotonTargets.All);
 				_weaponManager.myTable.GetComponent<NetworkStartTable>().score -= 1000f;
 				if (_weaponManager.myTable.GetComponent<NetworkStartTable>().score < 0f)
 				{
@@ -3912,6 +3924,27 @@ public sealed class Player_move_c : MonoBehaviour
 			Application.LoadLevel("GameOver");
 		}
 	}
+	}
+
+	public void LoseScreen()
+	{
+		Screen.lockCursor = false;
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+		Destroy(GameObject.FindGameObjectWithTag("BGM"));
+		Instantiate(Resources.Load<GameObject>("LoseScreen"));
+		Destroy(base.gameObject.transform.parent.gameObject);
+	}
+
+	[RPC]
+	public void DiedForSpectate()
+	{
+		if (GameObject.FindGameObjectsWithTag("Player").Length == 1)
+		{
+			LoseScreen();
+			return;
+		}
+		Destroy(base.gameObject.transform.parent.gameObject);
 	}
 
 	private void SetNoKilled()

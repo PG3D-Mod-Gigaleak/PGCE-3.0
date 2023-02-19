@@ -28,7 +28,47 @@ public class InGameGUI : MonoBehaviour
 
 	public GameObject killsLabel;
 
+	private FirstPersonControl fpc
+	{
+		get
+		{
+			return WeaponManager.sharedManager.myPlayer.GetComponent<FirstPersonControl>();
+		}
+	}
+
 	[HideInInspector] public Player_move_c playerMoveC;
+
+	public GameObject altShot;
+
+	public UIButtonColor shootButton;
+
+	public UIButtonColor jumpButton;
+
+	public UIButtonColor altShootButton;
+
+	private bool jumping
+	{
+		get
+		{
+			return jumpButton.state == UIButtonColor.State.Pressed;
+		}
+	}
+
+	public bool shooting
+	{
+		get
+		{
+			return shootButton.state == UIButtonColor.State.Pressed;
+		}
+	}
+
+	private bool altShooting
+	{
+		get
+		{
+			return altShootButton.state == UIButtonColor.State.Pressed;
+		}
+	}
 
 	public GameObject[] aimSprites;
 
@@ -39,6 +79,11 @@ public class InGameGUI : MonoBehaviour
 			Invoke("GenerateMiganie", 1f);
 			PlayerPrefs.SetInt("AddCoins", 0);
 		}
+	}
+
+	public void Reload()
+	{
+		playerMoveC.SendMessage("ReloadPressed");
 	}
 
 	public void OpenChat()
@@ -53,6 +98,18 @@ public class InGameGUI : MonoBehaviour
 
 	private void Update()
 	{
+		if (Application.isMobilePlatform)
+		{
+			fpc.jumpButton.jumpPressed = jumping;
+			if (shooting)
+			{
+				playerMoveC.SendMessage("ShotPressed");
+			}
+			else if (altShooting)
+			{
+				playerMoveC.SendMessage("ShotPressed", true);
+			}
+		}
 		aimSprites[0].transform.localPosition = new Vector3(0f, 8f + WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f);
 		aimSprites[1].transform.localPosition = new Vector3(0f, -8f - WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f);
 		aimSprites[3].transform.localPosition = new Vector3(8f + WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f, 0f);

@@ -15,8 +15,6 @@ public class CategoryMenuController : MonoBehaviour {
 		public string[] weaponComments = new string[10];
 
 		public string[] weaponStats = new string[10];
-
-		public int index;
 	}
 
 	[SerializeField]
@@ -87,7 +85,7 @@ public class CategoryMenuController : MonoBehaviour {
 
 	public Texture[] currentWeaponTextures()
 	{
-		string[] weaponthe = WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
+		string[] weaponthe = WeaponLists[weaponIndex].weaponNames;
 		Texture[] texs = new Texture[weaponsInThisPage()];
 		for (int i = 0; i < weaponsInThisPage(); i++)
 		{
@@ -111,7 +109,7 @@ public class CategoryMenuController : MonoBehaviour {
 		}
 		else
 		{
-			return Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[currentUpgradeIndex()]).GetComponent<WeaponSounds>().preview;
+			return Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[currentUpgradeIndex()]).GetComponent<WeaponSounds>().preview;
 		}
 	}
 
@@ -121,7 +119,7 @@ public class CategoryMenuController : MonoBehaviour {
 		{
 			return false;
 		}
-		return Utilities.LoadObject("Weapons/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<WeaponSounds>().hasUpgrades;
+		return Utilities.LoadObject("Weapons/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<WeaponSounds>().hasUpgrades;
 	}
 
 	public int currentWeaponPrice
@@ -130,13 +128,13 @@ public class CategoryMenuController : MonoBehaviour {
 		{
 			if (isGear)
 			{
-				return Utilities.LoadObject("gear/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<GearStats>().price;
+				return Utilities.LoadObject("gear/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<GearStats>().price;
 			}
 			if (!currentWeaponHasUpgrades())
 			{
-				return Utilities.LoadObject("Weapons/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<WeaponSounds>().price;
+				return Utilities.LoadObject("Weapons/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<WeaponSounds>().price;
 			}
-			return Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[currentUpgradeIndex()]).GetComponent<WeaponSounds>().price;
+			return Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[currentUpgradeIndex()]).GetComponent<WeaponSounds>().price;
 		}
 	}
 
@@ -150,9 +148,9 @@ public class CategoryMenuController : MonoBehaviour {
 
 	public int currentUpgradeIndex()
 	{
-		for (int i = 0; i < Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames.Length; i++)
+		for (int i = 0; i < Utilities.LoadObject("upgrades/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames.Length; i++)
 		{
-			if(Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[i]).tag == popupWeapon)
+			if(Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[i]).tag == popupWeapon)
 			{
 				return i;
 			}
@@ -162,7 +160,7 @@ public class CategoryMenuController : MonoBehaviour {
 
 	public string[] currentWeaponNames()
 	{
-		string[] weaponthe =  WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
+		string[] weaponthe =  WeaponLists[weaponIndex].weaponNames;
 		string[] names = new string[weaponsInThisPage()];
 		for (int i = 0; i < weaponsInThisPage(); i++)
 		{
@@ -180,7 +178,7 @@ public class CategoryMenuController : MonoBehaviour {
 
 	public string[] currentWeaponNames2()
 	{
-		string[] weaponthe =  WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
+		string[] weaponthe =  WeaponLists[weaponIndex].weaponNames;
 		string[] names = new string[weaponsInThisPage()];
 		for (int i = 0; i < weaponsInThisPage(); i++)
 		{
@@ -200,11 +198,11 @@ public class CategoryMenuController : MonoBehaviour {
 	{
 		if (!currentWeaponHasUpgrades())
 		{
-		return WeaponLists.Find(x => x.index == weaponIndex).weaponComments[popupIndex];
+		return WeaponLists[weaponIndex].weaponComments[popupIndex];
 		}
 		else
 		{
-			return Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponComments[currentUpgradeIndex()];
+			return Utilities.LoadObject("upgrades/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponComments[currentUpgradeIndex()];
 		}
 	}
 
@@ -212,11 +210,11 @@ public class CategoryMenuController : MonoBehaviour {
 	{	
 		if (!currentWeaponHasUpgrades())
 		{
-			return WeaponLists.Find(x => x.index == weaponIndex).weaponStats[popupIndex];
+			return WeaponLists[weaponIndex].weaponStats[popupIndex];
 		}
 		else
 		{
-			return Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponStats[currentUpgradeIndex()];
+			return Utilities.LoadObject("upgrades/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponStats[currentUpgradeIndex()];
 		}
 	}
 
@@ -224,7 +222,7 @@ public class CategoryMenuController : MonoBehaviour {
 
 	public int weaponsInThisPage()
 	{
-		string[] weaponthe =  WeaponLists.Find(x => x.index == weaponIndex).weaponNames;
+		string[] weaponthe =  WeaponLists[weaponIndex].weaponNames;
 		int amount = 0;
 		foreach (string str in weaponthe)
 		{
@@ -457,16 +455,16 @@ public class CategoryMenuController : MonoBehaviour {
 				if (GUI.Button(Utilities.screenScaleRect(0.46f, 0.25f, 0.075f, 0.075f), string.Empty, next))
 				{
 					BS();
-					if (currentUpgradeIndex() >= Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames.Length - 1)
+					if (currentUpgradeIndex() >= Utilities.LoadObject("upgrades/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames.Length - 1)
 					{
-						popupWeapon =  Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[0]).tag;
-						popupName =  Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[0]).GetComponent<WeaponSounds>().weaponName;
+						popupWeapon =  Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[0]).tag;
+						popupName =  Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[0]).GetComponent<WeaponSounds>().weaponName;
 						return;
 					}
 					if (currentUpgradeIndex() < WeaponLists.Count - 1)
 					{
-						popupWeapon =  Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[currentUpgradeIndex() + 1]).tag;
-						popupName =  Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists.Find(x => x.index == weaponIndex).weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[currentUpgradeIndex() + 1]).GetComponent<WeaponSounds>().weaponName;
+						popupWeapon =  Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[currentUpgradeIndex() + 1]).tag;
+						popupName =  Utilities.LoadObject("Weapons/" + Utilities.LoadObject("upgrades/" + WeaponLists[weaponIndex].weaponNames[popupIndex]).GetComponent<UpgradeInfo>().weaponNames[currentUpgradeIndex() + 1]).GetComponent<WeaponSounds>().weaponName;
 					}	
 				}
 			}
