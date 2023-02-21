@@ -3900,7 +3900,7 @@ public sealed class Player_move_c : MonoBehaviour
 			if (PlayerPrefs.GetInt("COOP", 0) == 1)
 			{
 				Instantiate(Resources.Load<GameObject>("spectator"), base.transform.position, Quaternion.identity).transform.Find("spectatorcamera").transform.rotation = transform.rotation;
-				photonView.RPC("DiedForSpectate", PhotonTargets.All, lastEnemyHit);
+				photonView.RPC("DiedForSpectate", PhotonTargets.All);
 				_weaponManager.myTable.GetComponent<NetworkStartTable>().score -= 1000f;
 				if (_weaponManager.myTable.GetComponent<NetworkStartTable>().score < 0f)
 				{
@@ -3938,11 +3938,10 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 
 	[RPC]
-	public void DiedForSpectate(string enemyKilled)
+	public void DiedForSpectate()
 	{
 		if (GameObject.FindGameObjectsWithTag("Player").Length == 1)
 		{
-			lastEnemyHit = enemyKilled;
 			LoseScreen();
 			return;
 		}
