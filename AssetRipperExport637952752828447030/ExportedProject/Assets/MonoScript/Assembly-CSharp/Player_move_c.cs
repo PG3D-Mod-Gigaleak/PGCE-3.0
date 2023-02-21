@@ -1362,8 +1362,9 @@ public sealed class Player_move_c : MonoBehaviour
 		base.GetComponent<NetworkView>().RPC("MinusLiveRPC", RPCMode.All, idKiller, minus, _isHeadShot);
 	}
 
-	public void hit(float dam)
+	public void hit(float dam, string name)
 	{
+		lastEnemyHit = name;
 		if (curArmor >= dam)
 		{
 			curArmor -= dam;
@@ -1527,8 +1528,9 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	public void minusLiveFromZombi(int _minusLive)
+	public void minusLiveFromZombi(int _minusLive, string name)
 	{
+		lastEnemyHit = name;
 		photonView.RPC("minusLiveFromZombiRPC", PhotonTargets.All, _minusLive);
 	}
 
@@ -3926,13 +3928,12 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 	}
 
+	[HideInInspector] public string lastEnemyHit;
+
 	public void LoseScreen()
 	{
-		Screen.lockCursor = false;
-		Cursor.lockState = CursorLockMode.None;
-		Cursor.visible = true;
 		Destroy(GameObject.FindGameObjectWithTag("BGM"));
-		Instantiate(Resources.Load<GameObject>("LoseScreen"));
+		Instantiate(Resources.Load<GameObject>("LoseScreen")).GetComponent<LoseScreen>().enemyDiedTo = lastEnemyHit;
 		Destroy(base.gameObject.transform.parent.gameObject);
 	}
 
