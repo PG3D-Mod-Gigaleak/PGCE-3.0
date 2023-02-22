@@ -1362,9 +1362,11 @@ public sealed class Player_move_c : MonoBehaviour
 		base.GetComponent<NetworkView>().RPC("MinusLiveRPC", RPCMode.All, idKiller, minus, _isHeadShot);
 	}
 
-	public void hit(float dam, string name)
+	public void hit(float dam, GameObject monster)
 	{
-		lastEnemyHit = name;
+		Destroy(_weaponManager.lastEnemyHitBy);
+		_weaponManager.lastEnemyHitBy = Instantiate(monster);
+		_weaponManager.lastEnemyHitBy.SetActive(false);
 		if (curArmor >= dam)
 		{
 			curArmor -= dam;
@@ -1528,9 +1530,11 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	public void minusLiveFromZombi(int _minusLive, string name)
+	public void minusLiveFromZombi(int _minusLive, GameObject monster)
 	{
-		lastEnemyHit = name;
+		Destroy(_weaponManager.lastEnemyHitBy);
+		_weaponManager.lastEnemyHitBy = Instantiate(monster);
+		_weaponManager.lastEnemyHitBy.SetActive(false);
 		photonView.RPC("minusLiveFromZombiRPC", PhotonTargets.All, _minusLive);
 	}
 
@@ -3899,6 +3903,8 @@ public sealed class Player_move_c : MonoBehaviour
 			base.gameObject.GetComponent<AudioSource>().PlayOneShot(deadPlayerSound);
 			if (PlayerPrefs.GetInt("COOP", 0) == 1)
 			{
+				diedInCOOP = true;
+				PhotonNetwork.Instantiate("spectator", base.transform.position, Quaternion.identity, 0).transform.Find("spectatorcamera").transform.rotation = transform.rotation;
 				photonView.RPC("DiedForSpectate", PhotonTargets.All);
 				_weaponManager.myTable.GetComponent<NetworkStartTable>().score -= 1000f;
 				if (_weaponManager.myTable.GetComponent<NetworkStartTable>().score < 0f)
@@ -3927,12 +3933,12 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 	}
 
-	[HideInInspector] public string lastEnemyHit;
+	[HideInInspector] public bool diedInCOOP;
 
 	public void LoseScreen()
 	{
 		Destroy(GameObject.FindGameObjectWithTag("BGM"));
-		Instantiate(Resources.Load<GameObject>("LoseScreen")).GetComponent<LoseScreen>().enemyDiedTo = lastEnemyHit;
+		Instantiate(Resources.Load<GameObject>("LoseScreen")).GetComponent<LoseScreen>().enemyDiedTo = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().lastEnemyHitBy;
 		Destroy(base.gameObject.transform.parent.gameObject);
 	}
 
@@ -3944,7 +3950,13 @@ public sealed class Player_move_c : MonoBehaviour
 			LoseScreen();
 			return;
 		}
-		Instantiate(Resources.Load<GameObject>("spectator"), base.transform.position, Quaternion.identity).transform.Find("spectatorcamera").transform.rotation = transform.rotation;
+		if (!diedInCOOP)
+		{
+			foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Spectator"))
+			{
+				obj.GetComponent<SpectatorController>().disableCameraOverride();
+			}
+		}
 		Destroy(base.gameObject.transform.parent.gameObject);
 	}
 

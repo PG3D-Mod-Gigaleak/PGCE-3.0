@@ -9,6 +9,7 @@ public class LoseScreen : MonoBehaviour
 		GameObject.FindGameObjectWithTag("GameController").GetComponent<Initializer>().isCancelReConnect = true;
 		if (PhotonNetwork.connected)
 		{
+			PhotonNetwork.Disconnect();
 			ConnectGUI.Local();
 		}
 		else
@@ -19,31 +20,9 @@ public class LoseScreen : MonoBehaviour
 		}
 	}
 
-	[HideInInspector] public string enemyDiedTo = "Enemy1_go";
+	[HideInInspector] public GameObject enemyDiedTo;
 
-	private string enemyFullName
-	{
-		get
-		{
-			if (enemyDiedTo.StartsWith("Enemy"))
-			{
-				return "enemies/" + enemyDiedTo.Replace("(Clone)", "");
-			}
-			return "bosses/" + enemyDiedTo.Replace("(Clone)", "");
-		}
-	}
-
-	private string enemyShortName
-	{
-		get
-		{
-			if (enemyDiedTo.StartsWith("Enemy"))
-			{
-				return enemyDiedTo.Replace("_go", "").Replace("(Clone)", "");
-			}
-			return enemyDiedTo.Replace("(Clone)", "");
-		}
-	}
+	public UILabel deathLabel;
 
 	public Transform enemyInstanPoint;
 
@@ -52,20 +31,27 @@ public class LoseScreen : MonoBehaviour
 		Screen.lockCursor = false;
 		Cursor.lockState = CursorLockMode.None;
 		Cursor.visible = true;
-		Debug.LogError(enemyFullName);
-		GameObject obj = Instantiate(GetBaseEnemy(Resources.Load<GameObject>(enemyFullName)), enemyInstanPoint);
-		obj.layer = 10;
-		foreach (Transform trf in obj.GetComponentsInChildren<Transform>())
+		if (enemyDiedTo != null)
+		{
+			GameObject objInstan = enemyDiedTo;
+			objInstan.name = objInstan.name.Replace("(Clone)", "");
+			GameObject obj = Instantiate(objInstan, enemyInstanPoint);
+			obj.SetActive(true);
+			obj.layer = 10;
+			foreach (Transform trf in obj.GetComponentsInChildren<Transform>())
+			{
+				trf.gameObject.layer = 10;
+			}
+			obj.GetComponent<Animation>().Play(Defs.CAnim(obj, "Norm_Walk"));
+			return;
+		}
+		deathLabel.text = "you only have yourself to blame...";
+		GameObject obj2 = Instantiate(Resources.Load<GameObject>("PlayerModel"), enemyInstanPoint);
+		obj2.layer = 10;
+		foreach (Transform trf in obj2.GetComponentsInChildren<Transform>())
 		{
 			trf.gameObject.layer = 10;
 		}
-		obj.GetComponent<Animation>().Play(Defs.CAnim(obj, "Norm_Walk"));
-		ZombiUpravlenie.SetTextureRecursivelyFrom(obj, Resources.Load<Texture>(Defs.GetThisCoopPath(Application.loadedLevelName) + enemyShortName));
-	}
-	
-	public GameObject GetBaseEnemy(GameObject enemy)
-	{
-		GameObject child = enemy.transform.GetChild(0).gameObject;
-		return child;
+		PreviewController.SetTextureRecursivelyFrom(obj2, SkinsManager.currentMultiplayerSkin());
 	}
 }

@@ -257,6 +257,7 @@ public class Rocket : MonoBehaviour
 					bool isHeadShot = false;
 					if (flag)
 					{
+						_weaponManager.lastEnemyHitBy = null;
 						float num2 = multiplayerDamage;
 						float num3 = num2 - gameObject4.GetComponent<SkinName>().playerMoveC.curArmor;
 						if (num3 < 0f)

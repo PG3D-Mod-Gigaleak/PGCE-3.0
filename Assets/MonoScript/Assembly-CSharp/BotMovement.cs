@@ -126,7 +126,7 @@ public class BotMovement : MonoBehaviour
 			base.transform.LookAt(vector);
 			if (CurLifeTime <= 0f)
 			{
-				healthDown.hit(_soundClips.damagePerHit, base.name);
+				healthDown.hit(_soundClips.damagePerHit, base.transform.GetChild(0).gameObject);
 				CurLifeTime = timeToRemoveLive;
 				if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
 				{

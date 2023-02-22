@@ -18,6 +18,8 @@ public sealed class WeaponManager : MonoBehaviour
         return Defs.CAnim(currentWeaponSounds.animationObject, a);
     }
 
+	[HideInInspector] public GameObject lastEnemyHitBy;
+
 	public static string CrystalSwordTag;
 
 	public static string MinersWeaponTag;

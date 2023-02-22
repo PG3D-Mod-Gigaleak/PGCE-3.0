@@ -170,6 +170,7 @@ public class SkinName : MonoBehaviour
 		}
 		else if (PlayerPrefs.GetInt("MultyPlayer") == 1 && ((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && photonView.isMine)) && col.collider.gameObject.name.Equals("DeadCollider") && playerGameObject.GetComponent<Player_move_c>().CurHealth > 0f)
 		{
+			_weaponManager.lastEnemyHitBy = null;
 			playerGameObject.GetComponent<Player_move_c>().curArmor = 0f;
 			playerGameObject.GetComponent<Player_move_c>().CurHealth = 0f;
 			if (playerGameObject.GetComponent<Player_move_c>().countKills > 0)

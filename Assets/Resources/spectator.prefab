@@ -38,9 +38,11 @@ GameObject:
   - component: {fileID: 4179465004907670}
   - component: {fileID: 114599794580245080}
   - component: {fileID: 143370883786691200}
+  - component: {fileID: 114645521747242830}
+  - component: {fileID: 114442183832358982}
   m_Layer: 0
   m_Name: spectator
-  m_TagString: Untagged
+  m_TagString: Spectator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -601,6 +603,17 @@ MonoBehaviour:
   relativeOffset: {x: 0, y: 0}
   pixelOffset: {x: 0, y: 0}
   widgetContainer: {fileID: 0}
+--- !u!114 &114442183832358982
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1423683685007668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52992d3b2907a9749993b2fe60404c1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114445507961233056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -691,6 +704,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c55a815d22d303f488a03a29bc98e399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spectateCam: {fileID: 20631755228421812}
+  NGUI: {fileID: 1552513829655882}
+--- !u!114 &114645521747242830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1423683685007668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25ae6de24cfdc3469b586d164d376d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subId: 0
+  ownerId: 0
+  group: 0
+  prefixBackup: -1
+  observed: {fileID: 114442183832358982}
+  synchronization: 2
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  instantiationId: -1
 --- !u!114 &114676537933106480
 MonoBehaviour:
   m_ObjectHideFlags: 1

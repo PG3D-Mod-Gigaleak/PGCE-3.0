@@ -244,7 +244,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 						{
 							base.GetComponent<AudioSource>().PlayOneShot(_soundClips.bite);
 						}
-						target.transform.Find("GameObject").GetComponent<Player_move_c>().minusLiveFromZombi(_soundClips.damagePerHit, base.name);
+						target.transform.Find("GameObject").GetComponent<Player_move_c>().minusLiveFromZombi(_soundClips.damagePerHit, base.transform.GetChild(0).gameObject);
 					}
 					PlayZombieAttack();
 				}

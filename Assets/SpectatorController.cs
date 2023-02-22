@@ -13,6 +13,20 @@ public class SpectatorController : MonoBehaviour
 		GetComponent<CharacterController>().Move(move2 * 10f * Time.deltaTime);
 	}
 
+	public Camera spectateCam;
+
+	public GameObject NGUI;
+
+	public void disableCameraOverride()
+	{
+		Destroy(NGUI);
+		Destroy(spectateCam);
+		Destroy(spectateCam.GetComponent<AudioListener>());
+		Destroy(spectateCam.GetComponent<MouseControls>());
+		Destroy(spectateCam.GetComponent<FlareLayer>());
+		Destroy(this);
+	}
+
 	public Vector2 updateKeyboardControls()
 	{
 		float num = default(float);
