@@ -575,7 +575,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -587,7 +587,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -599,7 +599,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!111 &111536698609948907
 Animation:
   m_ObjectHideFlags: 0
@@ -720,9 +720,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyName: Zombie
-  descriptio: we haven't figured out anything to say about this guy yet...
-  ruleOut: 1
+  enemyName: Ghost
+  descriptio: we aren't sure WHAT this thing is. if it was a ghost we couldn't see
+    it, let alone touch it!
+  ruleOut: 0
 --- !u!137 &137717034774124005
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

@@ -288,8 +288,6 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 		{
 			if (PlayerPrefs.GetInt(base.name.Replace("(Clone)", "")) == 0)
 			{
-				Debug.LogError(GameObject.FindGameObjectWithTag("InGameGUI") == null);
-				Debug.LogError(GameObject.FindGameObjectWithTag("InGameGUI").GetComponent<InGameGUI>() == null);
 				GameObject.FindGameObjectWithTag("InGameGUI").GetComponent<InGameGUI>().newEntryPopup(base.name.Replace("(Clone)", ""));
 			}
 			PlayerPrefs.SetInt(base.name.Replace("(Clone)", ""), 1);
