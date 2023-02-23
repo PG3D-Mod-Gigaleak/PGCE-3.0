@@ -122,6 +122,7 @@ GameObject:
   - component: {fileID: 111316637466675798}
   - component: {fileID: 65182350650042800}
   - component: {fileID: 114323450605096120}
+  - component: {fileID: 114067829040290874}
   m_Layer: 0
   m_Name: Enemy19
   m_TagString: Untagged
@@ -165,7 +166,7 @@ GameObject:
   - component: {fileID: 114338855045699676}
   - component: {fileID: 114696342848299382}
   m_Layer: 0
-  m_Name: Enemy19_go
+  m_Name: Enemy19
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -655,6 +656,21 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &114067829040290874
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1609110612579059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Slender
+  descriptio: this monster resembles the popular 'creepypasta' named "slenderman",
+    we're not sure of it's origin.
+  ruleOut: 0
 --- !u!114 &114202591476398220
 MonoBehaviour:
   m_ObjectHideFlags: 1

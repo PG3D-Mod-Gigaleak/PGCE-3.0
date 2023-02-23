@@ -46,6 +46,28 @@ public sealed class Defs
 		}
 	}
 
+	public static BossFightConfig _bossFightConfig;
+
+	public static BossFightConfig bossFightConfig
+	{
+		get
+		{
+			if (_bossFightConfig == null)
+			{
+				_bossFightConfig = Utilities.GetClass<BossFightConfig>("BossFightConfig");
+			}
+			return _bossFightConfig;
+		}
+	}
+
+	public static BossFightConfig.Level GetCurrentLevelDataForBossfight
+	{
+		get
+		{
+			return bossFightConfig.levels.Find(x => x.scene == Application.loadedLevelName);
+		}
+	}
+
 	public static string GetSceneNameFromRandomByIndex(int index)
 	{
 		return m_SurvivalConfig.levels.levels[index].PossibleLevels[randomScenesThisLoad[index]].mySceneName;
@@ -1181,7 +1203,7 @@ public sealed class Defs
 		mapNamesForUser.Add("the truth", "find out the truth about pg3d");
 		mapNamesForUser.Add("Zombie3D_Desert3", "the pixelated");
 		mapNamesForUser.Add("PSky_islands", "vjg pgy wrfcvg hqt rkzgn iwp ewtugf gfkvkqp yknn rtqdcdna tgngcug kp ncvg 2023 k fqpv mpqy");
-		mapNamesForUser.Add("FagSky_islands", "i hate kuro");
+		mapNamesForUser.Add("FajitaSky_islands", "i hate kuro");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -1239,7 +1261,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("the truth", 523);
 		levelNumsForMusicInMult.Add("Zombie3D_Desert3", 524);
 		levelNumsForMusicInMult.Add("PSky_islands", 4016);
-		levelNumsForMusicInMult.Add("FagSky_islands", 6969);
+		levelNumsForMusicInMult.Add("FajitaSky_islands", 6969);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);

@@ -284,6 +284,16 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 	[RPC]
 	private void Death()
 	{
+		if (photonView.isMine)
+		{
+			if (PlayerPrefs.GetInt(base.name.Replace("(Clone)", "")) == 0)
+			{
+				Debug.LogError(GameObject.FindGameObjectWithTag("InGameGUI") == null);
+				Debug.LogError(GameObject.FindGameObjectWithTag("InGameGUI").GetComponent<InGameGUI>() == null);
+				GameObject.FindGameObjectWithTag("InGameGUI").GetComponent<InGameGUI>().newEntryPopup(base.name.Replace("(Clone)", ""));
+			}
+			PlayerPrefs.SetInt(base.name.Replace("(Clone)", ""), 1);
+		}
 		if (PlayerPrefs.GetInt("COOP", 0) == 1)
 		{
 			if (_nma != null)

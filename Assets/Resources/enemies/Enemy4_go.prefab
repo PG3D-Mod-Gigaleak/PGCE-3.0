@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 114594240488679916}
   - component: {fileID: 195968836229638778}
   m_Layer: 0
-  m_Name: Enemy4_go
+  m_Name: Enemy4
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 111305760923273425}
   - component: {fileID: 65839665865834058}
   - component: {fileID: 114827644344361735}
+  - component: {fileID: 114586783250989738}
   m_Layer: 0
   m_Name: Enemy4
   m_TagString: Untagged
@@ -438,7 +439,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -510,6 +511,20 @@ MonoBehaviour:
   shouldMove: 1
   isCycle: 0
   _targetCyclePoints: []
+--- !u!114 &114586783250989738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1573247819151862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Zombie
+  descriptio: we haven't figured out anything to say about this guy yet...
+  ruleOut: 1
 --- !u!114 &114594240488679916
 MonoBehaviour:
   m_ObjectHideFlags: 0

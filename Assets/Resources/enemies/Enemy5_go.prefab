@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 111666595937966315}
   - component: {fileID: 65960838966075634}
   - component: {fileID: 114694158061024720}
+  - component: {fileID: 114370233861641366}
   m_Layer: 0
   m_Name: Enemy5
   m_TagString: Untagged
@@ -236,7 +237,7 @@ GameObject:
   - component: {fileID: 114665095740741324}
   - component: {fileID: 195965829589391706}
   m_Layer: 0
-  m_Name: Enemy5_go
+  m_Name: Enemy5
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -620,6 +621,21 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
+--- !u!114 &114370233861641366
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1764295838820710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Ghost
+  descriptio: we aren't sure WHAT this thing is. if it was a ghost we couldn't see
+    it, let alone touch it!
+  ruleOut: 0
 --- !u!114 &114494404994333049
 MonoBehaviour:
   m_ObjectHideFlags: 0

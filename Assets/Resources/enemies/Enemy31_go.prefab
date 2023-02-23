@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 114178397990075216}
   - component: {fileID: 114668627720513338}
   m_Layer: 0
-  m_Name: Enemy31_go
+  m_Name: Enemy31
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 111606312753514040}
   - component: {fileID: 65750751105467816}
   - component: {fileID: 114954148140339110}
+  - component: {fileID: 114565970065103180}
   m_Layer: 0
   m_Name: Enemy31
   m_TagString: Untagged
@@ -713,6 +714,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldDetectPlayer: 1
+--- !u!114 &114565970065103180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1950402533936774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Giant Spider
+  descriptio: that whole "angry spider" thing is looking less and less plausible...
+  ruleOut: 1
 --- !u!114 &114620298958636120
 MonoBehaviour:
   m_ObjectHideFlags: 1

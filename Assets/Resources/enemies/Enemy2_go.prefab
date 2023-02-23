@@ -30,7 +30,7 @@ GameObject:
   - component: {fileID: 114997255216110818}
   - component: {fileID: 114325451028336293}
   m_Layer: 0
-  m_Name: Enemy2_go
+  m_Name: Enemy2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,6 +63,7 @@ GameObject:
   - component: {fileID: 111655268523769100}
   - component: {fileID: 65034723376150104}
   - component: {fileID: 114232126984043293}
+  - component: {fileID: 114453045135803830}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Untagged
@@ -564,6 +565,20 @@ MonoBehaviour:
   shouldMove: 1
   isCycle: 0
   _targetCyclePoints: []
+--- !u!114 &114453045135803830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1525608196008182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Crawler
+  descriptio: the most this thing can do is sneak up on you and eat your legs.
+  ruleOut: 0
 --- !u!114 &114557715687212245
 MonoBehaviour:
   m_ObjectHideFlags: 0

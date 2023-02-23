@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 114639744450387414}
   - component: {fileID: 114223017380427858}
   m_Layer: 0
-  m_Name: Enemy23_go
+  m_Name: Enemy23
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -126,6 +126,7 @@ GameObject:
   - component: {fileID: 111844769569092357}
   - component: {fileID: 65234867028443722}
   - component: {fileID: 114415363073958110}
+  - component: {fileID: 114477276552402654}
   m_Layer: 0
   m_Name: Enemy23
   m_TagString: Untagged
@@ -711,6 +712,20 @@ MonoBehaviour:
   attackingSpeedRandomRange:
   - -0.2
   - 0.5
+--- !u!114 &114477276552402654
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1595759874765050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Zombie
+  descriptio: we haven't figured out anything to say about this guy yet...
+  ruleOut: 1
 --- !u!114 &114620680347194489
 MonoBehaviour:
   m_ObjectHideFlags: 1

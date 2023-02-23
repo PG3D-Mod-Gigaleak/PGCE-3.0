@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 111888910305019604}
   - component: {fileID: 65951454384151606}
   - component: {fileID: 114249751128549148}
+  - component: {fileID: 114387052514459618}
   m_Layer: 0
   m_Name: Enemy16
   m_TagString: Untagged
@@ -112,7 +113,7 @@ GameObject:
   - component: {fileID: 114651423466475658}
   - component: {fileID: 114994870761506615}
   m_Layer: 0
-  m_Name: Enemy16_go
+  m_Name: Enemy16
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -607,6 +608,21 @@ MonoBehaviour:
   attackingSpeedRandomRange:
   - -0.2
   - 0.5
+--- !u!114 &114387052514459618
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1213138825006752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Demon Creeper
+  descriptio: looks like the virus finally realized hands are a good thing! (unfortunately
+    for us)
+  ruleOut: 0
 --- !u!114 &114431264305753432
 MonoBehaviour:
   m_ObjectHideFlags: 0

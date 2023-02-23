@@ -70,6 +70,7 @@ GameObject:
   - component: {fileID: 111748676267395453}
   - component: {fileID: 65404306058308474}
   - component: {fileID: 114224642908672756}
+  - component: {fileID: 114909514542444440}
   m_Layer: 0
   m_Name: Enemy10
   m_TagString: Untagged
@@ -96,7 +97,7 @@ GameObject:
   - component: {fileID: 114887643553547950}
   - component: {fileID: 114258962192010769}
   m_Layer: 0
-  m_Name: Enemy10_go
+  m_Name: Enemy10
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -613,6 +614,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6cd61039c0dbd74b9e32d7e213dfe26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114909514542444440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1255648166576466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Creeper
+  descriptio: not sure what the zombie virus was thinking getting rid of the arms,
+    but this guy goes really fast due to the extra 2 legs.
+  ruleOut: 0
 --- !u!137 &137874456378050311
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

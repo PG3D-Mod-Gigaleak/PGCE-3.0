@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 111523948079151719}
   - component: {fileID: 65233534677304841}
   - component: {fileID: 114036309926222324}
+  - component: {fileID: 114935246063916696}
   m_Layer: 0
   m_Name: Enemy20
   m_TagString: Untagged
@@ -133,7 +134,7 @@ GameObject:
   - component: {fileID: 114040241942834514}
   - component: {fileID: 114233958073445422}
   m_Layer: 0
-  m_Name: Enemy20_go
+  m_Name: Enemy20
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -925,6 +926,20 @@ MonoBehaviour:
   shouldMove: 1
   isCycle: 0
   _targetCyclePoints: []
+--- !u!114 &114935246063916696
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1362771331132119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Zombie
+  descriptio: we haven't figured out anything to say about this guy yet...
+  ruleOut: 1
 --- !u!114 &114974199451793537
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 111184404995222392}
   - component: {fileID: 65189453185665066}
   - component: {fileID: 114001499595716718}
+  - component: {fileID: 114135363441097600}
   m_Layer: 0
   m_Name: Boss14
   m_TagString: Untagged
@@ -679,6 +680,22 @@ MonoBehaviour:
   attackingSpeedRandomRange:
   - -0.2
   - 0.5
+--- !u!114 &114135363441097600
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1658170741632104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Hulking Spider
+  descriptio: an absolutely towering spider, arachnophobiacs have been known to pass
+    out on the spot. avoid at all costs, and if you cant, kill it as quick as you
+    can.
+  ruleOut: 0
 --- !u!114 &114161884322772914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -804,7 +821,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 005ca0e14f53efc419a66052e1e7a80a, type: 2}
+  - {fileID: 2100000, guid: bb8939270e19834448bfa884d8750587, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

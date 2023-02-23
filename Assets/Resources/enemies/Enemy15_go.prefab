@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 114125681694429784}
   - component: {fileID: 114001723605235139}
   m_Layer: 0
-  m_Name: Enemy15_go
+  m_Name: Enemy15
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 111727412589591643}
   - component: {fileID: 65411688564209953}
   - component: {fileID: 114753491005696451}
+  - component: {fileID: 114256107129641730}
   m_Layer: 0
   m_Name: Enemy15
   m_TagString: Untagged
@@ -481,6 +482,20 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   instantiationId: 0
+--- !u!114 &114256107129641730
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1374254723804670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Headless Zombie
+  descriptio: hey, we found his other half! also still alive, somehow
+  ruleOut: 0
 --- !u!114 &114487603731139669
 MonoBehaviour:
   m_ObjectHideFlags: 0

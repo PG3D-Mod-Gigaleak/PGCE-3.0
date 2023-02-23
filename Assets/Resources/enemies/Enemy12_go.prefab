@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 111553003685985643}
   - component: {fileID: 65482431690065980}
   - component: {fileID: 114333926037200317}
+  - component: {fileID: 114776868501967574}
   m_Layer: 0
   m_Name: Enemy12
   m_TagString: Untagged
@@ -127,7 +128,7 @@ GameObject:
   - component: {fileID: 114546415284942068}
   - component: {fileID: 114830534878517933}
   m_Layer: 0
-  m_Name: Enemy12_go
+  m_Name: Enemy12
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -772,6 +773,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldDetectPlayer: 1
+--- !u!114 &114776868501967574
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1583779856387728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Spider
+  descriptio: we're not even sure if it's a zombie or just an angry spider yet.
+  ruleOut: 0
 --- !u!114 &114830534878517933
 MonoBehaviour:
   m_ObjectHideFlags: 0

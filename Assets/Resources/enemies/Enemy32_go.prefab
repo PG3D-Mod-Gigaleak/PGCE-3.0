@@ -117,6 +117,7 @@ GameObject:
   - component: {fileID: 111320750980340378}
   - component: {fileID: 65679585478893700}
   - component: {fileID: 114176685157434290}
+  - component: {fileID: 114348235898087726}
   m_Layer: 0
   m_Name: Enemy32
   m_TagString: Untagged
@@ -191,7 +192,7 @@ GameObject:
   - component: {fileID: 114698123870199046}
   - component: {fileID: 114105817402519496}
   m_Layer: 0
-  m_Name: Enemy32_go
+  m_Name: Enemy32
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -601,6 +602,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Bot
   hitTexture: {fileID: 2800000, guid: 6f5b96be682e8b04f8635781cfd80397, type: 3}
+--- !u!114 &114348235898087726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1848300703859740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Big Mutant Zombie
+  descriptio: an even bigger version of the mutant zombie! extremely dangerous!
+  ruleOut: 0
 --- !u!114 &114362077333291400
 MonoBehaviour:
   m_ObjectHideFlags: 1

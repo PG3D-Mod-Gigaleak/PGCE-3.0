@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 114917929244128634}
   - component: {fileID: 114564943397337550}
   m_Layer: 0
-  m_Name: Enemy17_go
+  m_Name: Enemy17
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 111809058297417092}
   - component: {fileID: 65668924889592635}
   - component: {fileID: 114447799152743420}
+  - component: {fileID: 114532600755022592}
   m_Layer: 0
   m_Name: Enemy17
   m_TagString: Untagged
@@ -504,6 +505,21 @@ MonoBehaviour:
   attackingSpeedRandomRange:
   - -0.2
   - 0.5
+--- !u!114 &114532600755022592
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1548895268551144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Obsidian Monster
+  descriptio: we aren't sure what this is, or how it exists, but use caution. it is
+    extremely tough and strong.
+  ruleOut: 0
 --- !u!114 &114564943397337550
 MonoBehaviour:
   m_ObjectHideFlags: 1

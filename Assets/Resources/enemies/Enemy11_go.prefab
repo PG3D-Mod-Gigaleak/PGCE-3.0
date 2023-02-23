@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 111357794435598327}
   - component: {fileID: 65340862293252153}
   - component: {fileID: 114346371435888334}
+  - component: {fileID: 114979123516760964}
   m_Layer: 0
   m_Name: Enemy11
   m_TagString: Untagged
@@ -65,7 +66,7 @@ GameObject:
   - component: {fileID: 114563482572986519}
   - component: {fileID: 114554601144616753}
   m_Layer: 0
-  m_Name: Enemy11_go
+  m_Name: Enemy11
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -432,6 +433,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Bot
   hitTexture: {fileID: 2800000, guid: 6f5b96be682e8b04f8635781cfd80397, type: 3}
+--- !u!114 &114979123516760964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1029893379250006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Slime
+  descriptio: a huge chunk of slime solidified into a cube, being controlled by the
+    zombie virus. what else can it infect?!
+  ruleOut: 0
 --- !u!195 &195700703559423632
 NavMeshAgent:
   m_ObjectHideFlags: 0

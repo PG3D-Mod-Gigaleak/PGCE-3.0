@@ -46,6 +46,8 @@ public class InGameGUI : MonoBehaviour
 
 	public UIButtonColor altShootButton;
 
+	public GameObject entryPopup;
+
 	private bool jumping
 	{
 		get
@@ -94,6 +96,15 @@ public class InGameGUI : MonoBehaviour
 	private void GenerateMiganie()
 	{
 		CoinsMessage.FireCoinsAddedEvent();
+	}
+
+	public void newEntryPopup(string name)
+	{
+		if (Encyclopedia.GetEnemyRuledOut(name))
+		{
+			return;
+		}
+		entryPopup.GetComponent<Animation>().PlayQueued("UnlockedNewThing");
 	}
 
 	private void Update()

@@ -139,6 +139,7 @@ GameObject:
   - component: {fileID: 111114237049074526}
   - component: {fileID: 65245428271035770}
   - component: {fileID: 114383547434008545}
+  - component: {fileID: 114607890521895316}
   m_Layer: 0
   m_Name: Enemy8
   m_TagString: Untagged
@@ -162,7 +163,7 @@ GameObject:
   - component: {fileID: 114188727161880803}
   - component: {fileID: 195486411947728353}
   m_Layer: 0
-  m_Name: Enemy8_go
+  m_Name: Enemy8
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -690,6 +691,21 @@ MonoBehaviour:
   attackingSpeedRandomRange:
   - -0.5
   - 0.5
+--- !u!114 &114607890521895316
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1819169346534631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Alien
+  descriptio: the government was in the middle of transporting these aliens before
+    they were overrun with zombies. great! another problem..
+  ruleOut: 0
 --- !u!114 &114764642366269651
 MonoBehaviour:
   m_ObjectHideFlags: 0

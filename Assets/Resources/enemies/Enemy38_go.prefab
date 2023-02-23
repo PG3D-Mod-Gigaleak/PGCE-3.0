@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 111425351066906286}
   - component: {fileID: 65336613839119184}
   - component: {fileID: 114092466790114412}
+  - component: {fileID: 114216778042683666}
   m_Layer: 0
   m_Name: Enemy38
   m_TagString: Untagged
@@ -111,7 +112,7 @@ GameObject:
   - component: {fileID: 114636599297106822}
   - component: {fileID: 114478923514454932}
   m_Layer: 0
-  m_Name: Enemy38_go
+  m_Name: Enemy38
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -603,6 +604,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Bot
   hitTexture: {fileID: 2800000, guid: 6f5b96be682e8b04f8635781cfd80397, type: 3}
+--- !u!114 &114216778042683666
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1032998665980438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Hunter Zombie
+  descriptio: extremely quick, can find you from anywhere, and completely shreds you.
+    extremely weak in terms of health however.
+  ruleOut: 0
 --- !u!114 &114270949329946936
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 114662176276944348}
   - component: {fileID: 195392744163352498}
   m_Layer: 0
-  m_Name: Enemy13_go
+  m_Name: Enemy13
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,6 +203,7 @@ GameObject:
   - component: {fileID: 111536698609948907}
   - component: {fileID: 65444331916310622}
   - component: {fileID: 114578250122222031}
+  - component: {fileID: 114776263714883580}
   m_Layer: 0
   m_Name: Enemy13
   m_TagString: Untagged
@@ -708,6 +709,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Bot
   hitTexture: {fileID: 2800000, guid: 6f5b96be682e8b04f8635781cfd80397, type: 3}
+--- !u!114 &114776263714883580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1815274664626058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Zombie
+  descriptio: we haven't figured out anything to say about this guy yet...
+  ruleOut: 1
 --- !u!137 &137717034774124005
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

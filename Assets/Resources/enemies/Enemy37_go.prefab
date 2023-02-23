@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 114815995872162910}
   - component: {fileID: 114938738772727596}
   m_Layer: 0
-  m_Name: Enemy37_go
+  m_Name: Enemy37
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 111921537847403394}
   - component: {fileID: 65865718772310796}
   - component: {fileID: 114826751656886292}
+  - component: {fileID: 114293717723292058}
   m_Layer: 0
   m_Name: Enemy37
   m_TagString: Untagged
@@ -223,7 +224,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4636403688495292}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 85.70599, y: 94.27095, z: 4.1867094}
+  m_LocalEulerAnglesHint: {x: 82.550606, y: 93.19153, z: 3.115964}
 --- !u!4 &4144959506373260
 Transform:
   m_ObjectHideFlags: 1
@@ -236,7 +237,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4636403688495292}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 64.75934, y: 18.701065, z: -74.23981}
+  m_LocalEulerAnglesHint: {x: 56.04066, y: 49.14682, z: -53.728294}
 --- !u!4 &4149418444892374
 Transform:
   m_ObjectHideFlags: 1
@@ -249,7 +250,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4551153774614052}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -20.427254, y: 16.404158, z: 44.081657}
+  m_LocalEulerAnglesHint: {x: -11.789698, y: 30.951572, z: 58.66014}
 --- !u!4 &4311657937354640
 Transform:
   m_ObjectHideFlags: 1
@@ -277,7 +278,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4636403688495292}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 2.4127502, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.30762133, y: 90, z: 0}
 --- !u!4 &4335838129576682
 Transform:
   m_ObjectHideFlags: 1
@@ -291,7 +292,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4551153774614052}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -32.889034, y: -4.1125693, z: 4.077964}
+  m_LocalEulerAnglesHint: {x: -1.9260571, y: -37.299847, z: 16.592617}
 --- !u!4 &4378263877439290
 Transform:
   m_ObjectHideFlags: 1
@@ -305,7 +306,7 @@ Transform:
   - {fileID: 4975486214833172}
   m_Father: {fileID: 4551153774614052}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 2.293411, y: -82.25993, z: 4.062502}
+  m_LocalEulerAnglesHint: {x: -4.970555, y: -82.93908, z: -19.259636}
 --- !u!4 &4432819235144716
 Transform:
   m_ObjectHideFlags: 1
@@ -349,7 +350,7 @@ Transform:
   - {fileID: 4378263877439290}
   m_Father: {fileID: 4636403688495292}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 64.759346, y: 18.701046, z: -74.23982}
+  m_LocalEulerAnglesHint: {x: 56.04068, y: 49.146828, z: -53.728294}
 --- !u!4 &4636403688495292
 Transform:
   m_ObjectHideFlags: 1
@@ -571,6 +572,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myName: Bot
   hitTexture: {fileID: 2800000, guid: 6f5b96be682e8b04f8635781cfd80397, type: 3}
+--- !u!114 &114293717723292058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1519954126175214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Dancing Zombie
+  descriptio: wth is even going on anymore
+  ruleOut: 0
 --- !u!114 &114668065346574530
 MonoBehaviour:
   m_ObjectHideFlags: 1

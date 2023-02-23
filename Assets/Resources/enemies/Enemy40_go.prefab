@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 111611987053939328}
   - component: {fileID: 65382794098453222}
   - component: {fileID: 114381463996480516}
+  - component: {fileID: 114289371012152476}
   m_Layer: 0
   m_Name: Enemy40
   m_TagString: Untagged
@@ -150,7 +151,7 @@ GameObject:
   - component: {fileID: 114766382790513108}
   - component: {fileID: 114255868821416890}
   m_Layer: 0
-  m_Name: Enemy40_go
+  m_Name: Enemy40
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -719,6 +720,21 @@ MonoBehaviour:
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   instantiationId: 0
+--- !u!114 &114289371012152476
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1231834962404202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Mossed Zombie
+  descriptio: the moss is hardened, and putrid. emitting foul spores. extremely hard
+    to kill. extremely slow as well.
+  ruleOut: 0
 --- !u!114 &114381463996480516
 MonoBehaviour:
   m_ObjectHideFlags: 1

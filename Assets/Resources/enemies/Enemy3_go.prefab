@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 111229468123735793}
   - component: {fileID: 65013887153585461}
   - component: {fileID: 114094042913518106}
+  - component: {fileID: 114097390427746246}
   m_Layer: 0
   m_Name: Enemy3
   m_TagString: Untagged
@@ -112,7 +113,7 @@ GameObject:
   - component: {fileID: 114074338519433972}
   - component: {fileID: 114321715906325820}
   m_Layer: 0
-  m_Name: Enemy3_go
+  m_Name: Enemy3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -448,6 +449,20 @@ MonoBehaviour:
   attackingSpeedRandomRange:
   - -1.5
   - 0
+--- !u!114 &114097390427746246
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1642448225674073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Crow
+  descriptio: ever heard as a kid that birds carry diseases? well, this one especially..
+  ruleOut: 0
 --- !u!114 &114173704816342824
 MonoBehaviour:
   m_ObjectHideFlags: 0

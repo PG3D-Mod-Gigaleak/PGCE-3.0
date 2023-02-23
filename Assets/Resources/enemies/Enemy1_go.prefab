@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 114490845268835642}
   - component: {fileID: 114456194867548520}
   m_Layer: 0
-  m_Name: Enemy1_go
+  m_Name: Enemy1
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 111826937894285601}
   - component: {fileID: 65941803989845808}
   - component: {fileID: 114618294107362289}
+  - component: {fileID: 114640756227572520}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -554,6 +555,20 @@ MonoBehaviour:
   attackingSpeedRandomRange:
   - -0.5
   - 0.5
+--- !u!114 &114640756227572520
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1873432275761427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Zombie
+  descriptio: just another weakling turned into cannon fodder.
+  ruleOut: 0
 --- !u!114 &114871208544443050
 MonoBehaviour:
   m_ObjectHideFlags: 0

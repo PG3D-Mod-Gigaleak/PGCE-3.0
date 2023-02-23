@@ -146,6 +146,11 @@ public class BotHealth : MonoBehaviour
 		}
 		if (_soundClips.health == 0f)
 		{
+			if (PlayerPrefs.GetInt(base.name.Replace("(Clone)", "")) == 0)
+			{
+				GameObject.FindGameObjectWithTag("InGameGUI").GetComponent<InGameGUI>().newEntryPopup(base.name.Replace("(Clone)", ""));
+			}
+			PlayerPrefs.SetInt(base.name.Replace("(Clone)", ""), 1);
 			IsLife = false;
 		}
 		else

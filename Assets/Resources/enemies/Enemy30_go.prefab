@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 111526143307212402}
   - component: {fileID: 65838740750675082}
   - component: {fileID: 114247577266981990}
+  - component: {fileID: 114455826605771384}
   m_Layer: 0
   m_Name: Enemy30
   m_TagString: Untagged
@@ -285,7 +286,7 @@ GameObject:
   - component: {fileID: 114228814240802624}
   - component: {fileID: 114623213153502892}
   m_Layer: 0
-  m_Name: Enemy30_go
+  m_Name: Enemy30
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -909,6 +910,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldDetectPlayer: 1
+--- !u!114 &114455826605771384
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1322606019455432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d63967d7d6ea66541a6aaeb88af3f96f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyName: Mutant Creeper
+  descriptio: something similar to the mutant zombie happened to the creeper, this
+    is probably nothing but an accident.
+  ruleOut: 0
 --- !u!114 &114513714222822114
 MonoBehaviour:
   m_ObjectHideFlags: 1
