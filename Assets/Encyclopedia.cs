@@ -59,7 +59,7 @@ public class Encyclopedia : MonoBehaviour
 	{
 		get
 		{
-			return (Input.GetAxis("Mouse ScrollWheel") == 0 ? 0 : Input.GetAxis("Mouse ScrollWheel") < 0 ? 5 : -5);
+			return (Input.GetAxis("Mouse ScrollWheel") == 0 ? 0 : Input.GetAxis("Mouse ScrollWheel") < 0 ? 25 : -25);
 		}
 	}
 
@@ -178,6 +178,7 @@ public class Encyclopedia : MonoBehaviour
 			return;
 		}
 		EncyclopediaStats newEnemy = Instantiate(Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name + "_go").transform.GetChild(0).gameObject, enemyInstantiationPoint).GetComponent<EncyclopediaStats>();
+		newEnemy.transform.localScale = Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name + "_go").transform.localScale;
 		newEnemy.gameObject.layer = 10;
 		foreach (Transform trf in newEnemy.gameObject.GetComponentsInChildren<Transform>())
 		{

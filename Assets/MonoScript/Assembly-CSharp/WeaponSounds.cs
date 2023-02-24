@@ -138,6 +138,12 @@ public class WeaponSounds : MonoBehaviour
 
 	private float timeFromFire;
 
+	public Vector3 armoryScale = new Vector3(1f, 1f, 1f);
+
+	public Vector3 armoryRotation;
+
+	public Vector3 armoryPosition;
+
 	private void Start()
 	{
 		if (animationObject != null && animationObject.GetComponent<Animation>()["Shoot"] != null)
