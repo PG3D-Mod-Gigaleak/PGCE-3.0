@@ -25,7 +25,10 @@ public class GameLoad : MonoBehaviour
 				Debug.Log("broke at " + i);
 				break;
 			}
-			WeaponManager.WeaponPrefabs.Add(obj);
+			if (!WeaponManager.WeaponPrefabs.Contains(obj))
+			{
+				WeaponManager.WeaponPrefabs.Add(obj);
+			}
 		}
 		LoadEnemies();
 	}
