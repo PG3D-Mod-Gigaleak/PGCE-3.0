@@ -49,6 +49,10 @@ public class NewArmory : MonoBehaviour
 
 	void Start()
 	{
+		if (!Debug.isDebugBuild)
+		{
+			Destroy(DeveloperButton);
+		}
 		gunButtonTemplate = Resources.Load<GameObject>("WeaponButtonTemplate");
 		foreach (UnityEngine.Object weapon in WeaponManager.WeaponPrefabs)
 		{
@@ -165,6 +169,8 @@ public class NewArmory : MonoBehaviour
 
 	public WeaponSounds currentWeapon;
 
+	public GameObject DeveloperButton;
+
 	public void SelectWeapon(WeaponSounds weapon)
 	{
 		purchaseButtonLabel.text = (Bought(weapon) ? WeaponEquipped(weapon) ? "Equipped" : "Equip" : "Purchase");
@@ -264,6 +270,13 @@ public class NewArmory : MonoBehaviour
 			default:
 			return "cat1";
 		}
+	}
+
+	public void DeveloperFunnies()
+	{
+		#if UNITY_EDITOR
+		Storager.setInt("Coins", Storager.getInt("Coins", false) + 99999, false);
+		#endif
 	}
 
 	public void CreateButton(WeaponSounds weapon)
