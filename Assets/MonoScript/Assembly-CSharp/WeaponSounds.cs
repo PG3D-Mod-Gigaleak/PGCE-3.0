@@ -144,6 +144,8 @@ public class WeaponSounds : MonoBehaviour
 
 	public Vector3 armoryPosition;
 
+	public CategoryType category;
+
 	private void Start()
 	{
 		if (animationObject != null && animationObject.GetComponent<Animation>()["Shoot"] != null)
