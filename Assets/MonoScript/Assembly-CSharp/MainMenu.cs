@@ -265,8 +265,7 @@ public sealed class MainMenu : MonoBehaviour
 		{
 			GUIHelper.DrawLoading();
 			GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().Reset();
-			Debug.Log("hi you pressed me");
-			Application.LoadLevel("ArmoryScene");
+			Application.LoadLevel("NewArmoryScene");
 		}
 	}
 

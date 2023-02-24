@@ -78,4 +78,24 @@ public static class Storager
 		}
 		return 0;
 	}
+
+	public static float getFloat(string key, bool useICloud)
+	{
+		_readCount++;
+		if (CryptoPlayerPrefs.HasKey(key))
+		{
+			return CryptoPlayerPrefs.GetFloat(key);
+		}
+		return 0f;
+	}
+
+	public static string getString(string key, bool useICloud)
+	{
+		_readCount++;
+		if (CryptoPlayerPrefs.HasKey(key))
+		{
+			return CryptoPlayerPrefs.GetString(key);
+		}
+		return "";
+	}
 }

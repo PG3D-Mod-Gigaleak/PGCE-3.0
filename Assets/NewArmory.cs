@@ -25,6 +25,10 @@ public class NewArmory : MonoBehaviour
 
 	public List<ButtonHandler> categoryButtons;
 
+	public ButtonHandler equipButton;
+
+	public string notApplicableText;
+
 	public List<GameObject> getCategoryWeaponList(int index)
 	{
 		switch (index)
@@ -43,9 +47,8 @@ public class NewArmory : MonoBehaviour
 		return primaries;
 	}
 
-	public void DoManual()
+	void Start()
 	{
-		Debug.Log(WeaponManager.WeaponPrefabs.Count);
 		gunButtonTemplate = Resources.Load<GameObject>("WeaponButtonTemplate");
 		foreach (UnityEngine.Object weapon in WeaponManager.WeaponPrefabs)
 		{
@@ -53,36 +56,47 @@ public class NewArmory : MonoBehaviour
 			CreateButton(weaponObject.GetComponent<WeaponSounds>());
 		}
 		ChangeCategory(0, true);
-	}
-
-	void Start()
-	{
+		equipButton.Clicked += (object sender2, EventArgs args2) =>
+		{
+			BuyCurrentWeapon();
+		};
 		categoryButtons[0].Clicked += (object sender2, EventArgs args2) =>
 		{
+			GetComponent<AudioSource>().PlayOneShot(normalPress);
 			ChangeCategory(0);
 		};
 		categoryButtons[1].Clicked += (object sender2, EventArgs args2) =>
 		{
+			GetComponent<AudioSource>().PlayOneShot(normalPress);
 			ChangeCategory(1);
 		};
 		categoryButtons[2].Clicked += (object sender2, EventArgs args2) =>
 		{
+			GetComponent<AudioSource>().PlayOneShot(normalPress);
 			ChangeCategory(2);
 		};
 		categoryButtons[3].Clicked += (object sender2, EventArgs args2) =>
 		{
+			GetComponent<AudioSource>().PlayOneShot(normalPress);
 			ChangeCategory(3);
 		};
 		categoryButtons[4].Clicked += (object sender2, EventArgs args2) =>
 		{
+			GetComponent<AudioSource>().PlayOneShot(normalPress);
 			ChangeCategory(4);
 		};
+	}
+
+	public void Exit()
+	{
+		LoadConnectScene.loading = null;
+		LoadConnectScene.sceneToLoad = Defs.CurrentMainMenuScene;
+		Application.LoadLevel("PromScene");
 	}
 	
 	void Update()
 	{
 		//another placeholder, please help
-		Debug.LogError(GetGridSize);
 		scrollThing.transform.localPosition = new Vector3(scrollThing.transform.localPosition.x, Mathf.Clamp(scrollThing.transform.localPosition.y + mouseScrollThing, -1680f, GetGridSize), scrollThing.transform.localPosition.z);
 	}
 
@@ -145,12 +159,128 @@ public class NewArmory : MonoBehaviour
 		}
 	}
 
+	public UILabel entityDamage, playerDamage, clip, reserve, capacity, movementSpeed, attackSpeed, recoilPower, recoilCooldown, impulse, radius, radiusSelf, rocketSpeed, nameLabel, purchaseButtonLabel; 
+	
+	public GameObject weaponActive;
+
+	public WeaponSounds currentWeapon;
+
+	public void SelectWeapon(WeaponSounds weapon)
+	{
+		purchaseButtonLabel.text = (Bought(weapon) ? WeaponEquipped(weapon) ? "Equipped" : "Equip" : "Purchase");
+		nameLabel.text = weapon.weaponName.Replace("newline", "\n");
+		weaponActive.SetActive(true);
+		entityDamage.text = weapon.damage + "";
+		playerDamage.text = weapon.multiplayerDamage + "";
+		clip.text = weapon.ammoInClip + "";
+		reserve.text = weapon.InitialAmmo + "";
+		capacity.text = weapon.maxAmmo + "";
+		movementSpeed.text = weapon.speedModifier + "";
+		if (weapon.isMelee)
+		{
+			attackSpeed.text = weapon.meleeAttackTimeModifier + "";
+		}
+		else
+		{
+			attackSpeed.text = notApplicableText;
+		}
+		recoilPower.text = weapon.upKoofFire + "";
+		recoilCooldown.text = weapon.downKoof + "";
+		if (weapon.bazooka)
+		{
+			impulse.text = weapon.bazookaImpulseRadius + "";
+			radius.text = weapon.bazookaExplosionRadius + "";
+			radiusSelf.text = weapon.bazookaExplosionRadiusSelf + "";
+			rocketSpeed.text = weapon.bazookaSpeed + "";
+		}
+		else
+		{
+			impulse.text = notApplicableText;
+			radius.text = notApplicableText;
+			radiusSelf.text = notApplicableText;
+			rocketSpeed.text = notApplicableText;
+		}
+		currentWeapon = weapon;
+	}
+
+	public bool Buy(WeaponSounds weapon)
+	{
+		if (Defs.CoinsAmount >= weapon.price)
+		{
+			Defs.CoinsAmount -= weapon.price;
+			Storager.setInt(weapon.tag + "shopbuy", 1, false);
+			return true;
+		}
+		return false;
+	}
+
+	public bool Bought(WeaponSounds weapon)
+	{
+		return Storager.getInt(weapon.tag + "shopbuy", false) == 1;
+	}
+
+	public AudioClip buy, normalPress;
+
+	public void BuyCurrentWeapon()
+	{
+		if (!Bought(currentWeapon))
+		{
+			if (Buy(currentWeapon))
+			{
+				GetComponent<AudioSource>().PlayOneShot(buy);
+				EquipWeapon(currentWeapon);
+				getCategoryWeaponList(currentCategoryIndex).Find(x => x.name == "WeaponButtonTemplate_" + currentWeapon.name).transform.Find("unboughtOnly").gameObject.SetActive(false);
+				return;
+			}
+			GetComponent<AudioSource>().PlayOneShot(normalPress);
+			return;
+		}
+		GetComponent<AudioSource>().PlayOneShot(normalPress);
+		EquipWeapon(currentWeapon);
+	}
+
+	public void EquipWeapon(WeaponSounds weapon)
+	{
+		PlayerPrefs.SetString(GetCatStringFromCategoryType(weapon.category), weapon.tag);
+	}
+
+	public bool WeaponEquipped(WeaponSounds weapon)
+	{
+		return PlayerPrefs.GetString(GetCatStringFromCategoryType(weapon.category)) == weapon.tag;
+	}
+
+	public string GetCatStringFromCategoryType(CategoryType category)
+	{
+		switch (category)
+		{
+			case CategoryType.Backup:
+			return "cat2";
+			case CategoryType.Melee:
+			return "cat3";
+			case CategoryType.Special:
+			return "cat4";
+			case CategoryType.Heavy:
+			return "cat5";
+			default:
+			return "cat1";
+		}
+	}
+
 	public void CreateButton(WeaponSounds weapon)
 	{
+		bool needsBuy = !Bought(weapon) && weapon.price != 0;
 		GameObject newButton = Instantiate(gunButtonTemplate);
+		newButton.tag = "WeaponButton";
+		newButton.transform.Find("EquippedLabel").gameObject.SetActive(WeaponEquipped(weapon));
+		newButton.transform.Find("unboughtOnly").gameObject.SetActive(needsBuy);
+		newButton.GetComponent<ButtonHandler>().Clicked += (object sender2, EventArgs args2) =>
+		{
+			GetComponent<AudioSource>().PlayOneShot(normalPress);
+			SelectWeapon(weapon);
+		};
 		newButton.name = newButton.name.Replace("(Clone)", "") + "_" + weapon.name;
 		newButton.transform.Find("GunInstantiation").localScale = weapon.armoryScale;
-		newButton.transform.Find("PriceLabel").GetComponent<UILabel>().text = weapon.price + "";
+		newButton.transform.Find("unboughtOnly").Find("PriceLabel").GetComponent<UILabel>().text = weapon.price + "";
 		newButton.transform.Find("NameLabel").GetComponent<UILabel>().text = weapon.weaponName.Replace("newline", "\n");
 		try
 		{

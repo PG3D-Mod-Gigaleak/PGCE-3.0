@@ -27,7 +27,6 @@ public class GameLoad : MonoBehaviour
 			}
 			WeaponManager.WeaponPrefabs.Add(obj);
 		}
-		GameObject.Find("ArmoryGUI").SendMessage("DoManual");
 		LoadEnemies();
 	}
 
