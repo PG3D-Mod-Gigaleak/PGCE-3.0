@@ -285,6 +285,16 @@ public class NewArmory : MonoBehaviour
 		try
 		{
 			GameObject gunPrefab = Instantiate(weapon.bonusPrefab, newButton.transform.Find("GunInstantiation"));
+			if (gunPrefab.GetComponent<SkinnedMeshRenderer>())
+			{
+				GameObject newModel = new GameObject("NewModel_" + gunPrefab.name);
+				newModel.AddComponent<MeshFilter>().sharedMesh = gunPrefab.GetComponent<SkinnedMeshRenderer>().sharedMesh;
+				newModel.AddComponent<MeshRenderer>().materials = gunPrefab.GetComponent<SkinnedMeshRenderer>().materials;
+				newModel.transform.parent = gunPrefab.transform;
+				newModel.transform.localScale = Vector3.one;
+				newModel.transform.localPosition = Vector3.zero;
+				newModel.transform.localRotation = Quaternion.Euler(weapon.armoryRotation);
+			}
 			gunPrefab.transform.localRotation = Quaternion.Euler(weapon.armoryRotation);
 			gunPrefab.transform.localPosition = weapon.armoryPosition;
 			gunPrefab.gameObject.layer = 10;
