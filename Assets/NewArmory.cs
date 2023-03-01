@@ -101,7 +101,7 @@ public class NewArmory : MonoBehaviour
 	void Update()
 	{
 		//another placeholder, please help
-		scrollThing.transform.localPosition = new Vector3(scrollThing.transform.localPosition.x, Mathf.Clamp(scrollThing.transform.localPosition.y + mouseScrollThing, -1680f, GetGridSize), scrollThing.transform.localPosition.z);
+		scrollThing.transform.localPosition = new Vector3(scrollThing.transform.localPosition.x, scrollThing.transform.localPosition.y + mouseScrollThing, scrollThing.transform.localPosition.z);
 	}
 
 	public float GetGridSize
