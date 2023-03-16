@@ -44,7 +44,6 @@ public class GameLoad : MonoBehaviour
 				Debug.Log("broke at " + i);
 				break;
 			}
-			obj.name = obj.name.Replace("_go", "");
 			Encyclopedia.storedEntities.Add(obj as GameObject);
 		}
 		LoadBosses();
