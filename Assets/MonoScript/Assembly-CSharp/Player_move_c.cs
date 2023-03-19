@@ -3768,14 +3768,14 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			else if (Input.GetKeyDown(KeyCode.Alpha4))
         	{
-				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Special)
+				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Special && PlayerPrefs.GetString("cat4") != "")
 				{
 					ChangeWeaponFull(CategoryType.Special);
 				}
 			}
 			else if (Input.GetKeyDown(KeyCode.Alpha5))
         	{
-				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Heavy)
+				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Heavy && PlayerPrefs.GetString("cat5") != "")
 				{
 					ChangeWeaponFull(CategoryType.Heavy);
 				}

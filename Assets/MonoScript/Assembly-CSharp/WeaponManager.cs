@@ -486,14 +486,6 @@ public sealed class WeaponManager : MonoBehaviour
 		{
 			PlayerPrefs.SetString("cat3", "Weapon9");
 		}
-		if (PlayerPrefs.GetString("cat4") == String.Empty || PlayerPrefs.GetInt("refreshWeaponSystem") == 0)
-		{
-			PlayerPrefs.SetString("cat4", "Weapon12");
-		}
-		if (PlayerPrefs.GetString("cat5") == String.Empty || PlayerPrefs.GetInt("refreshWeaponSystem") == 0)
-		{
-			PlayerPrefs.SetString("cat5", "Weapon21");
-		}
 		if (PlayerPrefs.GetInt("refreshWeaponSystem") == 0)
 		{
 			PlayerPrefs.SetInt("refreshWeaponSystem", 1);
