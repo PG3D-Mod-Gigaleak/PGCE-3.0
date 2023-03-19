@@ -190,6 +190,10 @@ public class FirstPersonControl : MonoBehaviour
 		if (!Application.isMobilePlatform)
 		{
 			moveTouchPad.position = updateKeyboardControls();
+			if (Cursor.lockState == CursorLockMode.Locked)
+			{
+				rotateTouchPad.position = new Vector2(Input.GetAxis("Mouse X") * 10f, Input.GetAxis("Mouse Y") * 10f);
+			}
 			if (Input.GetKey(KeyCode.Space))
 			{
 				jumpButton.jumpPressed = true;

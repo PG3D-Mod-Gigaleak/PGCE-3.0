@@ -3,17 +3,6 @@ using UnityEngine;
 
 public sealed class Defs
 {
-
-	public static string cat1;
-
-	public static string cat2;
-
-	public static string cat3;
-
-	public static string cat4;
-
-	public static string cat5;
-
 	public static SurvivalConfig survivalConfig;
 
 	public static TimeSurvivalConfig timeSurvivalConfig;

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Holoville.HOTween;
 using UnityEngine;
+using System.Linq;
 
 public sealed class Player_move_c : MonoBehaviour
 {
@@ -1558,9 +1559,10 @@ public sealed class Player_move_c : MonoBehaviour
 		StartCoroutine(Flash(base.gameObject.transform.parent.gameObject));
 	}
 
-	public void setParentWeaponHelp(string _tag, GameObject[] players, NetworkViewID idWeapon, NetworkViewID idParent, string _ip, string nameSkin, string _nickName)
+	public void setParentWeaponHelp(string _name, GameObject[] players, NetworkViewID idWeapon, NetworkViewID idParent, string _ip, string nameSkin, string _nickName)
 	{
-		GameObject[] array = GameObject.FindGameObjectsWithTag(_tag);
+		GameObject[] array = (from weapon in Resources.FindObjectsOfTypeAll<WeaponSounds>() where weapon.gameObject.activeInHierarchy && weapon.name == _name.Replace("(Clone)", "") select weapon.gameObject).ToArray();
+		Debug.LogError(array.Length);
 		GameObject[] array2 = array;
 		foreach (GameObject gameObject in array2)
 		{
@@ -1667,10 +1669,10 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	public void setParentWeaponHelpPhoton(string _tag, GameObject[] players, int idWeapon, int idParent, string _ip, string nameSkin, string _nickName)
+	public void setParentWeaponHelpPhoton(string _name, GameObject[] players, int idWeapon, int idParent, string _ip, string nameSkin, string _nickName)
 	{
 		photonView = PhotonView.Get(this);
-		GameObject[] array = GameObject.FindGameObjectsWithTag(_tag);
+		GameObject[] array = (from weapon in GameObject.FindGameObjectsWithTag("Weapon") where weapon.activeInHierarchy && weapon.name.Replace("(Clone)", "") == _name.Replace("(Clone)", "") select weapon).ToArray();
 		GameObject[] array2 = array;
 		foreach (GameObject gameObject in array2)
 		{
@@ -2785,7 +2787,6 @@ public sealed class Player_move_c : MonoBehaviour
 					if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")))
 					{
 						gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
-						Debug.LogError(doubleShotIndex);
 						gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play("Shoot" + doubleShotIndex);
 						DoDoubleShot();
 					}
@@ -3659,7 +3660,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	public IEnumerator SwapOutRoutine(bool isAlpha1)
+	public IEnumerator SwapOutRoutine(CategoryType category)
 	{
 		isSwappin = true;
 		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play("SwapOut");
@@ -3676,26 +3677,9 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		yield return new WaitForSeconds(_weaponManager.currentWeaponSounds.swapTime);
 		isSwappin = false;
-		if (!isAlpha1)
-		{
-			_weaponManager.CurrentWeaponIndex++;
-			int count = _weaponManager.playerWeapons.Count;
-			count = ((count == 0) ? 1 : count);
-			_weaponManager.CurrentWeaponIndex %= count;
-			ChangeWeapon(_weaponManager.CurrentWeaponIndex, false);
-			StartCoroutine(SwapInRoutine());
-		}
-		if (isAlpha1)
-		{
-			_weaponManager.CurrentWeaponIndex--;
-			if (_weaponManager.CurrentWeaponIndex < 0)
-			{
-				_weaponManager.CurrentWeaponIndex = _weaponManager.playerWeapons.Count - 1;
-			}
-			_weaponManager.CurrentWeaponIndex %= _weaponManager.playerWeapons.Count;
-			ChangeWeapon(_weaponManager.CurrentWeaponIndex, false);
-			StartCoroutine(SwapInRoutine());
-		}
+		_weaponManager.CurrentWeaponIndex = categoryIndex(category);
+		ChangeWeapon(_weaponManager.CurrentWeaponIndex, false);
+		StartCoroutine(SwapInRoutine());
 	}
 
 	private IEnumerator SetCanReceiveSwipes()
@@ -3716,6 +3700,43 @@ public sealed class Player_move_c : MonoBehaviour
 		return _weaponManager.currentWeaponSounds.isSwapIn || _weaponManager.currentWeaponSounds.isSwapOut;
 	}
 
+	private int categoryIndex(CategoryType type)
+	{
+		for (int i = 0; i < _weaponManager.playerWeapons.Count; i++)
+		{
+			if (((Weapon)_weaponManager.playerWeapons[i]).category == type)
+			{
+				return i;
+			}
+		}
+		throw new NullReferenceException();
+		return 0;
+	}
+
+	public void ChangeWeaponFull(CategoryType category)
+	{
+		if (!(!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut"))))
+		{
+			return;
+		}
+		if ((((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1) || PlayerPrefs.GetInt("MultyPlayer") != 1)
+		{
+			if (_weaponManager.currentWeaponSounds.isSwapOut)
+			{
+				StartCoroutine(SwapOutRoutine(category));
+			}
+			else if (!_weaponManager.currentWeaponSounds.isSwapOut)
+			{
+				_weaponManager.CurrentWeaponIndex = categoryIndex(category);
+				ChangeWeapon(_weaponManager.CurrentWeaponIndex, false);
+				StartCoroutine(SwapInRoutine());
+			}
+		}
+		canReceiveSwipes = false;
+		StartCoroutine(SetCanReceiveSwipes());
+		slideMagnitudeX = 0f;
+	}
+
 	private void Update()
 	{
 		if (!Application.isMobilePlatform)
@@ -3724,52 +3745,41 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				ShotPressed(true);
 			}
-			if (Input.GetKeyDown(KeyCode.Alpha2) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
-       		{
-       			if ((((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1) || PlayerPrefs.GetInt("MultyPlayer") != 1)
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+        	{
+				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Primary)
 				{
-					if (_weaponManager.currentWeaponSounds.isSwapOut)
-					{
-						StartCoroutine(SwapOutRoutine(false));
-					}
-					if (!_weaponManager.currentWeaponSounds.isSwapOut)
-					{
-						_weaponManager.CurrentWeaponIndex++;
-						int count = _weaponManager.playerWeapons.Count;
-						count = ((count == 0) ? 1 : count);
-						_weaponManager.CurrentWeaponIndex %= count;
-						ChangeWeapon(_weaponManager.CurrentWeaponIndex, false);
-						StartCoroutine(SwapInRoutine());
-					}
+					ChangeWeaponFull(CategoryType.Primary);
 				}
-				canReceiveSwipes = false;
-				StartCoroutine(SetCanReceiveSwipes());
-				slideMagnitudeX = 0f;
 			}
-                if (Input.GetKeyDown(KeyCode.Alpha1) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
-        		{
-					if ((((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1) || PlayerPrefs.GetInt("MultyPlayer") != 1)
-					{
-						if (_weaponManager.currentWeaponSounds.isSwapOut)
-						{
-							StartCoroutine(SwapOutRoutine(true));
-						}
-						if (!_weaponManager.currentWeaponSounds.isSwapOut)
-						{
-						_weaponManager.CurrentWeaponIndex--;
-						if (_weaponManager.CurrentWeaponIndex < 0)
-						{
-							_weaponManager.CurrentWeaponIndex = _weaponManager.playerWeapons.Count - 1;
-						}
-							_weaponManager.CurrentWeaponIndex %= _weaponManager.playerWeapons.Count;
-							ChangeWeapon(_weaponManager.CurrentWeaponIndex, false);
-							StartCoroutine(SwapInRoutine());
-						}
-					}
-					canReceiveSwipes = false;
-					StartCoroutine(SetCanReceiveSwipes());
-					slideMagnitudeX = 0f;
+			else if (Input.GetKeyDown(KeyCode.Alpha2))
+        	{
+				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Backup)
+				{
+					ChangeWeaponFull(CategoryType.Backup);
 				}
+			}
+			else if (Input.GetKeyDown(KeyCode.Alpha3))
+        	{
+				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Melee)
+				{
+					ChangeWeaponFull(CategoryType.Melee);
+				}
+			}
+			else if (Input.GetKeyDown(KeyCode.Alpha4))
+        	{
+				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Special)
+				{
+					ChangeWeaponFull(CategoryType.Special);
+				}
+			}
+			else if (Input.GetKeyDown(KeyCode.Alpha5))
+        	{
+				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Heavy)
+				{
+					ChangeWeaponFull(CategoryType.Heavy);
+				}
+			}
 		}				
 		_003CUpdate_003Ec__AnonStorey28 _003CUpdate_003Ec__AnonStorey = new _003CUpdate_003Ec__AnonStorey28();
 		_003CUpdate_003Ec__AnonStorey._003C_003Ef__this = this;
@@ -3779,7 +3789,6 @@ public sealed class Player_move_c : MonoBehaviour
 			GlobalGameController.rotMyPlayer = _weaponManager.myPlayer.transform.rotation;
 			GlobalGameController.healthMyPlayer = CurHealth;
 		}
-
 		slideScroll();
 		if (timerShow[0] > 0f)
 		{

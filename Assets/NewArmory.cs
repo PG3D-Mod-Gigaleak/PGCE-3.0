@@ -214,7 +214,7 @@ public class NewArmory : MonoBehaviour
 		if (Defs.CoinsAmount >= weapon.price)
 		{
 			Defs.CoinsAmount -= weapon.price;
-			Storager.setInt(weapon.tag + "shopbuy", 1, false);
+			Storager.setInt(weapon.name + "shopbuy", 1, false);
 			return true;
 		}
 		return false;
@@ -222,7 +222,7 @@ public class NewArmory : MonoBehaviour
 
 	public bool Bought(WeaponSounds weapon)
 	{
-		return Storager.getInt(weapon.tag + "shopbuy", false) == 1;
+		return Storager.getInt(weapon.name + "shopbuy", false) == 1;
 	}
 
 	public AudioClip buy, normalPress;
@@ -247,12 +247,12 @@ public class NewArmory : MonoBehaviour
 
 	public void EquipWeapon(WeaponSounds weapon)
 	{
-		PlayerPrefs.SetString(GetCatStringFromCategoryType(weapon.category), weapon.tag);
+		PlayerPrefs.SetString(GetCatStringFromCategoryType(weapon.category), weapon.name);
 	}
 
 	public bool WeaponEquipped(WeaponSounds weapon)
 	{
-		return PlayerPrefs.GetString(GetCatStringFromCategoryType(weapon.category)) == weapon.tag;
+		return PlayerPrefs.GetString(GetCatStringFromCategoryType(weapon.category)) == weapon.name;
 	}
 
 	public string GetCatStringFromCategoryType(CategoryType category)

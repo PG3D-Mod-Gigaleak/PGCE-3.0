@@ -18,6 +18,8 @@ public class TimeSurvivalConfig : MonoBehaviour
 
 		public string[] myEnemies = new string[10] { "1", "15", "14", "2", "3", "9", "11", "12", "10", "16" };
 
+		public SurvivalConfig.Enemy[] enemies;
+
 		public string myPath = "enemyskins/coop/";
 
 		public float MaxTime = 300f;

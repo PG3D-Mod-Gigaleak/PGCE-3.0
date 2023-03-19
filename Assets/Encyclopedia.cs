@@ -27,6 +27,8 @@ public class Encyclopedia : MonoBehaviour
 
 	private List<ParticleSystem> fixedSystems = new List<ParticleSystem>();
 
+	public static List<SurvivalConfig.Enemy> parsedEnemies = new List<SurvivalConfig.Enemy>();
+
 	void Start()
 	{
 		enemyButtonTemplate = Resources.Load<GameObject>("EncyclopediaEnemyButton");
@@ -37,7 +39,7 @@ public class Encyclopedia : MonoBehaviour
 			{
 				continue;
 			}
-			if (PlayerPrefs.GetInt(entity.name) == 1)
+			if (PlayerPrefs.GetInt(entity.name) == 1 || PlayerPrefs.GetInt(entity.name + "_go") == 1)
 			{
 				CreateButton(entity.name, false);
 				unlockedEnemies.Add(entity.name);
@@ -52,7 +54,7 @@ public class Encyclopedia : MonoBehaviour
 	void Update()
 	{
 		//placeholder until the scrollbar decides to function at all
-		scrollThing.transform.localPosition = new Vector3(scrollThing.transform.localPosition.x, Mathf.Clamp(scrollThing.transform.localPosition.y + mouseScrollThing, -1467f, -590f), scrollThing.transform.localPosition.z);
+		scrollThing.transform.localPosition = new Vector3(scrollThing.transform.localPosition.x, scrollThing.transform.localPosition.y + mouseScrollThing, scrollThing.transform.localPosition.z);
 	}
 
 	public int mouseScrollThing
@@ -67,7 +69,7 @@ public class Encyclopedia : MonoBehaviour
 	{
 		if (name.StartsWith("Enemy"))
 		{
-			return Resources.Load<GameObject>("enemies/" + name + (name.EndsWith("_go") ? "" : "_go")).transform.GetChild(0).GetComponent<EncyclopediaStats>().ruleOut;
+			return Resources.Load<GameObject>("enemies/" + name).transform.GetChild(0).GetComponent<EncyclopediaStats>().ruleOut;
 		}
 		return Resources.Load<GameObject>("bosses/" + name).transform.GetChild(0).GetComponent<EncyclopediaStats>().ruleOut;
 	}
@@ -131,13 +133,13 @@ public class Encyclopedia : MonoBehaviour
 	public GameObject CreateButton(string name, bool locked)
 	{
 		bool boss = name.StartsWith("Boss");
-		if (!boss && Resources.Load<GameObject>("enemies/" + name + "_go") == null || boss && Resources.Load<GameObject>("bosses/" + name) == null)
+		if (!boss && Resources.Load<GameObject>("enemies/" + name) == null || boss && Resources.Load<GameObject>("bosses/" + name) == null)
 		{
 			return null;
 		}
 		GameObject newButton = (locked ? Instantiate(lockedEnemyButtonTemplate, enemyGridList.transform)  : Instantiate(enemyButtonTemplate, enemyGridList.transform));
-		EncyclopediaStats newEnemy = Instantiate(Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name + "_go").transform.GetChild(0).gameObject, newButton.transform.Find("EnemyInstantiation")).GetComponent<EncyclopediaStats>();
-		newEnemy.transform.localScale = Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name + "_go").transform.localScale;
+		EncyclopediaStats newEnemy = Instantiate(Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name).transform.GetChild(0).gameObject, newButton.transform.Find("EnemyInstantiation")).GetComponent<EncyclopediaStats>();
+		newEnemy.transform.localScale = Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name).transform.localScale;
 		newEnemy.gameObject.layer = 10;
 		foreach (Transform trf in newEnemy.gameObject.GetComponentsInChildren<Transform>())
 		{
@@ -173,12 +175,12 @@ public class Encyclopedia : MonoBehaviour
 		{
 			Debug.Log("nothing there LOL!");
 		}
-		if (Resources.Load<GameObject>(boss ? "bosses/" + name :"enemies/" + name + "_go") == null)
+		if (Resources.Load<GameObject>(boss ? "bosses/" + name :"enemies/" + name) == null)
 		{
 			return;
 		}
-		EncyclopediaStats newEnemy = Instantiate(Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name + "_go").transform.GetChild(0).gameObject, enemyInstantiationPoint).GetComponent<EncyclopediaStats>();
-		newEnemy.transform.localScale = Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name + "_go").transform.localScale;
+		EncyclopediaStats newEnemy = Instantiate(Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name).transform.GetChild(0).gameObject, enemyInstantiationPoint).GetComponent<EncyclopediaStats>();
+		newEnemy.transform.localScale = Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name).transform.localScale;
 		newEnemy.gameObject.layer = 10;
 		foreach (Transform trf in newEnemy.gameObject.GetComponentsInChildren<Transform>())
 		{

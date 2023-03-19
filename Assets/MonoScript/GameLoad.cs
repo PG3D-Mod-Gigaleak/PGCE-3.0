@@ -49,6 +49,35 @@ public class GameLoad : MonoBehaviour
 		LoadBosses();
 	}
 
+	public static void LoadEnemiesIntoDictionary()
+	{
+	    List<SurvivalConfig.Enemy> foundEnemies = new List<SurvivalConfig.Enemy>();
+	    foreach (SurvivalConfig.BaseLevel possibleLevel in Defs.m_SurvivalConfig.levels.levels)
+	    {
+			foreach (SurvivalConfig.LevelSettings level in possibleLevel.PossibleLevels)
+			{
+	        	foreach (SurvivalConfig.Enemy enemy in level.enemies)
+	        	{
+	        	    if (foundEnemies.Find(x => x.name == enemy.name) == null)
+	        	    {
+	        	        foundEnemies.Add(enemy);
+	        	    }
+	        	}
+			}
+	    }
+	    foreach (TimeSurvivalConfig.MapSettings level in Defs.m_TimeSurvivalConfig.maps.mapSettings)
+	    {
+	        foreach (SurvivalConfig.Enemy enemy in level.enemies)
+	        {
+	            if (foundEnemies.Find(x => x.name == enemy.name) == null)
+	            {
+	                foundEnemies.Add(enemy);
+	            }
+	        }
+	    }
+	    Encyclopedia.parsedEnemies.AddRange(foundEnemies);
+	}
+
 	public void LoadBosses()
 	{
 		int i = 1;
@@ -62,6 +91,6 @@ public class GameLoad : MonoBehaviour
 			}
 			Encyclopedia.storedEntities.Add(obj as GameObject);
 		}
+		LoadEnemiesIntoDictionary();
 	}
-
 }

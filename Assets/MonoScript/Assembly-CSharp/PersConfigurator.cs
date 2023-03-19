@@ -18,7 +18,7 @@ public class PersConfigurator : MonoBehaviour
 		List<GameObject> list = new List<GameObject>();
 		foreach (GameObject obj in BonusCreator.GetAllWeapons())
 		{
-			if (obj.tag == PlayerPrefs.GetString("cat1") || obj.tag == PlayerPrefs.GetString("cat2") || obj.tag == PlayerPrefs.GetString("cat3") || obj.tag == PlayerPrefs.GetString("cat4") || obj.tag == PlayerPrefs.GetString("cat5"))
+			if (obj.name.Replace("(Clone)", "") == PlayerPrefs.GetString("cat1") || obj.name.Replace("(Clone)", "") == PlayerPrefs.GetString("cat2") || obj.name.Replace("(Clone)", "") == PlayerPrefs.GetString("cat3") || obj.name.Replace("(Clone)", "") == PlayerPrefs.GetString("cat4") || obj.name.Replace("(Clone)", "") == PlayerPrefs.GetString("cat5"))
 			{
 				list.Add(obj);
 			}

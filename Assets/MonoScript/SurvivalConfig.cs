@@ -11,6 +11,17 @@ public class SurvivalConfig : MonoBehaviour
 		public SurvivalConfig.BaseLevel[] levels = new SurvivalConfig.BaseLevel[Defs.numOfLevels];
 	}
 
+	
+	[Serializable]
+	public class Enemy
+	{
+		public string name;
+
+		public GameObject prefab;
+
+		public Texture skin;
+	}
+
 	[Serializable]
 	public class BaseLevel
 	{
@@ -23,6 +34,8 @@ public class SurvivalConfig : MonoBehaviour
 		public string mySceneName;
 
 		public string[] myEnemies;
+
+		public SurvivalConfig.Enemy[] enemies;
 
 		public int myMusicLevel;
 
