@@ -33,19 +33,14 @@ public class Encyclopedia : MonoBehaviour
 	{
 		enemyButtonTemplate = Resources.Load<GameObject>("EncyclopediaEnemyButton");
 		lockedEnemyButtonTemplate = Resources.Load<GameObject>("EncyclopediaLockedEnemyButton");
-		foreach (GameObject entity in storedEntities)
+		foreach (SurvivalConfig.Enemy enemy in parsedEnemies)
 		{
-			if (entity.transform.GetChild(0).GetComponent<EncyclopediaStats>() != null && entity.transform.GetChild(0).GetComponent<EncyclopediaStats>().ruleOut)
+			if (PlayerPrefs.GetInt(enemy.name + "_EncyclopediaUnlock") == 1)
 			{
+				CreateButton(enemy, false);
 				continue;
 			}
-			if (PlayerPrefs.GetInt(entity.name) == 1 || PlayerPrefs.GetInt(entity.name + "_go") == 1)
-			{
-				CreateButton(entity.name, false);
-				unlockedEnemies.Add(entity.name);
-				continue;
-			}
-			CreateButton(entity.name, true);
+			CreateButton(enemy, true);
 		}
 		enemyGridList.Reposition();
 		FixParticles();
@@ -123,6 +118,45 @@ public class Encyclopedia : MonoBehaviour
 		}
 	}
 
+	public static void SetTextureRecursivelyFromDontChange(GameObject obj, Texture txt)
+	{
+		foreach (Transform item in obj.transform)
+		{
+			if ((bool)item.gameObject.GetComponent<Renderer>() && (bool)item.gameObject.GetComponent<Renderer>().material)
+			{
+				if (item.gameObject.GetComponent<Renderer>().materials.Length > 1 && item.gameObject.name.Equals("raven_head"))
+				{
+					Material[] materials = item.gameObject.GetComponent<Renderer>().materials;
+					foreach (Material material in materials)
+					{
+						if (material.name.Equals("raven_eye (Instance)"))
+						{
+							if (GlobalGameController.currentLevel == 6)
+							{
+								material.color = new Color(0.32156864f, 0f, 44f / 85f);
+							}
+						}
+						else
+						{
+							if (item.tag != "donotchange")
+							{
+								material.mainTexture = txt;
+							}
+						}
+					}
+				}
+				else
+				{
+					if (item.tag != "donotchange")
+					{
+						item.gameObject.GetComponent<Renderer>().material.mainTexture = txt;
+					}
+				}
+			}
+			SetTextureRecursivelyFromDontChange(item.gameObject, txt);
+		}
+	}
+
 	public void Exit()
 	{
 		LoadConnectScene.loading = null;
@@ -130,18 +164,18 @@ public class Encyclopedia : MonoBehaviour
 		Application.LoadLevel("PromScene");
 	}
 
-	public GameObject CreateButton(string name, bool locked)
+	public GameObject CreateButton(SurvivalConfig.Enemy enemy, bool locked)
 	{
-		bool boss = name.StartsWith("Boss");
-		if (!boss && Resources.Load<GameObject>("enemies/" + name) == null || boss && Resources.Load<GameObject>("bosses/" + name) == null)
+		bool boss = enemy.name.StartsWith("Boss");
+		if (enemy.prefab == null)
 		{
 			return null;
 		}
 		GameObject newButton = (locked ? Instantiate(lockedEnemyButtonTemplate, enemyGridList.transform)  : Instantiate(enemyButtonTemplate, enemyGridList.transform));
-		EncyclopediaStats newEnemy = Instantiate(Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name).transform.GetChild(0).gameObject, newButton.transform.Find("EnemyInstantiation")).GetComponent<EncyclopediaStats>();
-		newEnemy.transform.localScale = Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name).transform.localScale;
-		newEnemy.gameObject.layer = 10;
-		foreach (Transform trf in newEnemy.gameObject.GetComponentsInChildren<Transform>())
+		GameObject newEnemy = Instantiate(enemy.prefab.transform.GetChild(0).gameObject, newButton.transform.Find("EnemyInstantiation"));
+		newEnemy.transform.localScale = enemy.prefab.transform.localScale;
+		newEnemy.layer = 10;
+		foreach (Transform trf in newEnemy.GetComponentsInChildren<Transform>())
 		{
 			trf.gameObject.layer = 10;
 		}
@@ -152,20 +186,21 @@ public class Encyclopedia : MonoBehaviour
 		}
 		if (!locked)
 		{
-			newButton.transform.Find("NameLabel").GetComponent<UILabel>().text = newEnemy.enemyName;
+			newButton.transform.Find("NameLabel").GetComponent<UILabel>().text = enemy.name.Replace("_", " ").Replace("Default", "");
 			newButton.GetComponent<ButtonHandler>().Clicked += (object sender2, EventArgs args2) =>
 			{
-				SelectEnemy(name);
+				SelectEnemy(enemy);
 			};
+			SetTextureRecursivelyFromDontChange(newEnemy, enemy.skin);
 		}
 		return newButton;
 	}
 
 	public AudioClip btnSound;
 
-	public void SelectEnemy(string name)
+	public void SelectEnemy(SurvivalConfig.Enemy enemy)
 	{
-		bool boss = name.StartsWith("Boss");
+		bool boss = enemy.name.StartsWith("Boss");
 		GetComponent<AudioSource>().PlayOneShot(btnSound);
 		try
 		{
@@ -175,20 +210,28 @@ public class Encyclopedia : MonoBehaviour
 		{
 			Debug.Log("nothing there LOL!");
 		}
-		if (Resources.Load<GameObject>(boss ? "bosses/" + name :"enemies/" + name) == null)
+		if (enemy.prefab == null)
 		{
 			return;
 		}
-		EncyclopediaStats newEnemy = Instantiate(Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name).transform.GetChild(0).gameObject, enemyInstantiationPoint).GetComponent<EncyclopediaStats>();
-		newEnemy.transform.localScale = Resources.Load<GameObject>(boss ? "bosses/" + name : "enemies/" + name).transform.localScale;
+		GameObject newEnemy = Instantiate(enemy.prefab.transform.GetChild(0).gameObject, enemyInstantiationPoint);
+		newEnemy.transform.localScale = enemy.prefab.transform.localScale;
 		newEnemy.gameObject.layer = 10;
 		foreach (Transform trf in newEnemy.gameObject.GetComponentsInChildren<Transform>())
 		{
 			trf.gameObject.layer = 10;
 		}
 		newEnemy.GetComponent<Animation>().Play(Defs.CAnim(newEnemy.gameObject, "Norm_Walk"));
-		enemyNameLabel.text = newEnemy.enemyName;
-		descriptionLabel.text = newEnemy.descriptio;
+		enemyNameLabel.text = enemy.name.Replace("_", " ").Replace("Default", "");
+		try
+		{
+			descriptionLabel.text = (EncyclopediaInfo.GetEntry(enemy.name).description == "" ? "hey you. the person who added this enemy. please set a description you IDIOT...." : EncyclopediaInfo.GetEntry(enemy.name).description);
+		}
+		catch
+		{
+			descriptionLabel.text = "there's a thing called encyclopedia entries. use it buddy.";
+		}
+		SetTextureRecursivelyFromDontChange(newEnemy, enemy.skin);
 		FixParticles();
 	}
 }

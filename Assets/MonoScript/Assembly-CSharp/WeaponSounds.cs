@@ -146,6 +146,12 @@ public class WeaponSounds : MonoBehaviour
 
 	public CategoryType category;
 
+	public bool isZooming;
+
+	public int scopeNum;
+
+	public float zoomFov;
+
 	private void Start()
 	{
 		if (animationObject != null && animationObject.GetComponent<Animation>()["Shoot"] != null)

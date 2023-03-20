@@ -56,26 +56,20 @@ public class BotHealth : MonoBehaviour
 		healthDown = GameObject.FindGameObjectWithTag("PlayerGun").GetComponent<Player_move_c>();
 		if (base.gameObject.name.IndexOf("Boss") == -1)
 		{
-			_skin = SetSkinForObj(_modelChild);
+			_skin = SetSkinForObj(_modelChild, this.name);
 			return;
 		}
 		Renderer componentInChildren = _modelChild.GetComponentInChildren<Renderer>();
 		_skin = componentInChildren.material.mainTexture;
 	}
 
-	public static Texture SetSkinForObj(GameObject go)
+	public static Texture SetSkinForObj(GameObject go, string theName)
 	{
 		if (!_skinsManager)
 		{
 			_skinsManager = GameObject.FindGameObjectWithTag("SkinsManager").GetComponent<SkinsManagerPixlGun>();
 		}
-		Texture texture = null;
-		string text = SkinNameForObj(go.name);
-		string the = (PlayerPrefs.GetInt("COOP", 0) != 1 || Defs.IsDefaultCoopSettings) ? "" : Application.loadedLevelName;
-		if (!(texture = _skinsManager.skins[text + the] as Texture))
-		{
-			Debug.Log("No skin: " + text);
-		}
+		Texture texture = Defs.GetSkinForEnemy(((GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]) ? (GlobalGameController.previousLevel + 1) : 0), theName);
 		SetTextureRecursivelyFrom(go, texture);
 		return texture;
 	}
@@ -146,11 +140,11 @@ public class BotHealth : MonoBehaviour
 		}
 		if (_soundClips.health == 0f)
 		{
-			if (PlayerPrefs.GetInt(base.name.Replace("(Clone)", "")) == 0)
+			if (PlayerPrefs.GetInt(base.name.Replace("(Clone)", "") + "_EncyclopediaUnlock") == 0)
 			{
-				GameObject.FindGameObjectWithTag("InGameGUI").GetComponent<InGameGUI>().newEntryPopup(base.name.Replace("(Clone)", ""));
+				GameObject.FindGameObjectWithTag("InGameGUI").GetComponent<InGameGUI>().newEntryPopup(base.name.Replace("(Clone)", "") + "_EncyclopediaUnlock");
 			}
-			PlayerPrefs.SetInt(base.name.Replace("(Clone)", ""), 1);
+			PlayerPrefs.SetInt(base.name.Replace("(Clone)", "") + "_EncyclopediaUnlock", 1);
 			IsLife = false;
 		}
 		else

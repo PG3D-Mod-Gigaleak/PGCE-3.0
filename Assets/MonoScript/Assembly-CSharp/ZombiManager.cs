@@ -9,7 +9,7 @@ public class ZombiManager : MonoBehaviour
 
 	public float nextAddZombi;
 
-	public List<GameObject> zombiePrefabs = new List<GameObject>();
+	public List<SurvivalConfig.Enemy> zombiePrefabs = new List<SurvivalConfig.Enemy>();
 
 	private List<string[]> _enemies = new List<string[]>();
 
@@ -31,14 +31,7 @@ public class ZombiManager : MonoBehaviour
 
 	private void Awake()
 	{
-		string[] array = null;
-		array = Defs.GetEnemiesFromThisCoopLevel(Application.loadedLevelName);
-		string[] array2 = array;
-		foreach (string text in array2)
-		{
-			GameObject item = Resources.Load("Enemies/Enemy" + text + "_go") as GameObject;
-			zombiePrefabs.Add(item);
-		}
+		zombiePrefabs.AddRange(Defs.GetEnemiesFromThisCoopLevel(Application.loadedLevelName));
 	}
 
 	private void Start()
@@ -194,7 +187,8 @@ public class ZombiManager : MonoBehaviour
 	[RPC]
 	private void addZombiRPC(int typeOfZomb, Vector3 pos, int _id)
 	{
-		GameObject gameObject = (GameObject)Object.Instantiate(zombiePrefabs[typeOfZomb], pos, Quaternion.identity);
+		GameObject gameObject = (GameObject)Object.Instantiate(zombiePrefabs[typeOfZomb].prefab, pos, Quaternion.identity);
+		gameObject.name = zombiePrefabs[typeOfZomb].name;
 		gameObject.GetComponent<ZombiUpravlenie>().typeZombInMas = typeOfZomb;
 		PhotonView component = gameObject.GetComponent<PhotonView>();
 		component.viewID = _id;

@@ -28,17 +28,17 @@ public class ScenePrerenderer : MonoBehaviour
 
 	private void Render_()
 	{
-		List<GameObject> zombiePrefabs = GameObject.FindGameObjectWithTag("GameController").GetComponent<ZombieCreator>().zombiePrefabs;
+		List<SurvivalConfig.Enemy> zombiePrefabs = GameObject.FindGameObjectWithTag("GameController").GetComponent<ZombieCreator>().zombiePrefabs;
 		GameObject[] array = new GameObject[zombiePrefabs.Count];
 		int num = 0;
-		foreach (GameObject item in zombiePrefabs)
+		foreach (SurvivalConfig.Enemy item in zombiePrefabs)
 		{
-			GameObject gameObject = (GameObject)Object.Instantiate(item.transform.GetChild(0).gameObject, new Vector3(base.transform.position.x, base.transform.position.y - 20f, base.transform.position.z), item.transform.GetChild(0).gameObject.transform.rotation);
+			GameObject gameObject = (GameObject)Object.Instantiate(item.prefab.transform.GetChild(0).gameObject, new Vector3(base.transform.position.x, base.transform.position.y - 20f, base.transform.position.z), item.prefab.transform.GetChild(0).gameObject.transform.rotation);
 			string text = "(Clone)";
 			int num2 = gameObject.name.IndexOf(text);
-			gameObject.name = ((num2 >= 0) ? gameObject.name.Remove(num2, text.Length) : gameObject.name);
+			gameObject.name = item.name;
 			gameObject.transform.parent = base.transform.parent;
-			BotHealth.SetSkinForObj(gameObject);
+			//BotHealth.SetSkinForObj(gameObject, item.name);
 			array[num] = gameObject;
 			num++;
 		}

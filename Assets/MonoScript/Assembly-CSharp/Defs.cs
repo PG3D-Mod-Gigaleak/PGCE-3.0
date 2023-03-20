@@ -72,9 +72,40 @@ public sealed class Defs
 		return m_SurvivalConfig.levels.levels[index + offset].PossibleLevels[randomScenesThisLoad[index]].myLoading;
 	}
 
-	public static string[] GetEnemiesFromRandomByIndex(int index)
+	public static SurvivalConfig.Enemy[] GetEnemiesFromRandomByIndex(int index)
 	{
-		return m_SurvivalConfig.levels.levels[index].PossibleLevels[randomScenesThisLoad[index]].myEnemies;
+		return m_SurvivalConfig.levels.levels[index].PossibleLevels[randomScenesThisLoad[index]].enemies;
+	}
+
+	public static SurvivalConfig.Enemy GetEnemy(int levelIndex, string enemyName)
+	{
+		return System.Array.Find(m_SurvivalConfig.levels.levels[levelIndex].PossibleLevels[randomScenesThisLoad[levelIndex]].enemies, x => x.name == enemyName);
+	}
+
+	public static Texture GetSkinForEnemy(int levelIndex, string enemyName)
+	{
+		foreach (SurvivalConfig.Enemy enemy in m_SurvivalConfig.levels.levels[levelIndex - 1].PossibleLevels[randomScenesThisLoad[levelIndex - 1]].enemies)
+		{
+			if (enemy.name == enemyName)
+			{
+				return enemy.skin;
+			}
+			Debug.LogError(enemy.name + " is not " + enemyName);
+		}
+		return null;
+	}
+
+	public static Texture GetSkinForEnemyCOOP(string scene, string enemyName)
+	{
+		foreach (SurvivalConfig.Enemy enemy in GetEnemiesFromThisCoopLevel(scene))
+		{
+			if (enemy.name == enemyName)
+			{
+				return enemy.skin;
+			}
+			Debug.LogError(enemy.name + " is not " + enemyName);
+		}
+		return null;
 	}
 
 	public static int GetBGMNumberFromRandomByIndex(int index)
@@ -87,16 +118,16 @@ public sealed class Defs
 		return m_SurvivalConfig.levels.levels[index - 1].PossibleLevels[randomScenesThisLoad[index]].myBoss;
 	}
 
-	public static string[] GetEnemiesFromThisCoopLevel(string scene)
+	public static SurvivalConfig.Enemy[] GetEnemiesFromThisCoopLevel(string scene)
 	{
 		foreach (TimeSurvivalConfig.MapSettings mapSettings in m_TimeSurvivalConfig.maps.mapSettings)
 		{
 			if (mapSettings.MyName == scene)
 			{
-				return mapSettings.myEnemies;
+				return mapSettings.enemies;
 			}
 		}
-		return m_TimeSurvivalConfig.maps.mapSettings[0].myEnemies;
+		return m_TimeSurvivalConfig.maps.mapSettings[0].enemies;
 	}
 
 	public static int GetMaxEnemiesFromThisCoopLevel(string scene)

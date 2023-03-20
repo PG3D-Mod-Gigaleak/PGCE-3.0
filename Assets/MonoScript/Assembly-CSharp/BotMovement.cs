@@ -191,7 +191,7 @@ public class BotMovement : MonoBehaviour
 	{
 	}
 
-	private void Death()
+	public void Death()
 	{
 		_nma.enabled = false;
 		if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))

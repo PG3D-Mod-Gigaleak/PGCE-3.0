@@ -27,7 +27,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 
 	public Texture zagolovokStart;
 
-	public List<GameObject> zombiePrefabs = new List<GameObject>();
+	public List<SurvivalConfig.Enemy> zombiePrefabs = new List<SurvivalConfig.Enemy>();
 
 	private GameObject _playerPrefab;
 
@@ -171,14 +171,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 
 	private void Awake()
 	{
-		string[] array = null;
-		array = Defs.GetEnemiesFromThisCoopLevel(Application.loadedLevelName);
-		string[] array2 = array;
-		foreach (string text in array2)
-		{
-			GameObject item = Resources.Load("Enemies/Enemy" + text + "_go") as GameObject;
-			zombiePrefabs.Add(item);
-		}
+		zombiePrefabs.AddRange(Defs.GetEnemiesFromThisCoopLevel(Application.loadedLevelName));
 	}
 
 	public void setScoreFromGlobalGameController()
@@ -616,7 +609,8 @@ public sealed class NetworkStartTable : MonoBehaviour
 					return;
 				}
 			}
-			GameObject gameObject2 = (GameObject)UnityEngine.Object.Instantiate(zombiePrefabs[typeOfZomb], pos, Quaternion.identity);
+			GameObject gameObject2 = (GameObject)UnityEngine.Object.Instantiate(zombiePrefabs[typeOfZomb].prefab, pos, Quaternion.identity);
+			gameObject2.name = zombiePrefabs[typeOfZomb].name;
 			PhotonView component = gameObject2.GetComponent<PhotonView>();
 			component.viewID = _id;
 			return;

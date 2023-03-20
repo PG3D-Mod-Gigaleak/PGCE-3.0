@@ -74,6 +74,21 @@ public class InGameGUI : MonoBehaviour
 
 	public GameObject[] aimSprites;
 
+	public UITexture zoomTex;
+
+	private bool zoomed;
+
+	public void Zoom(bool onOff, int index = 0)
+	{
+		zoomTex.gameObject.SetActive(onOff);
+		zoomTex.mainTexture = Resources.Load<Texture>("scopes/" + index);
+		foreach (GameObject aimSprite in aimSprites)
+		{
+			aimSprite.SetActive(!onOff);
+		}
+		zoomed = onOff;
+	}
+
 	private void Start()
 	{
 		if (PlayerPrefs.GetInt("AddCoins", 0) == 1)
@@ -100,10 +115,6 @@ public class InGameGUI : MonoBehaviour
 
 	public void newEntryPopup(string name)
 	{
-		if (Encyclopedia.GetEnemyRuledOut(name))
-		{
-			return;
-		}
 		entryPopup.GetComponent<Animation>().PlayQueued("UnlockedNewThing");
 	}
 
@@ -120,6 +131,10 @@ public class InGameGUI : MonoBehaviour
 			{
 				playerMoveC.SendMessage("ShotPressed", true);
 			}
+		}
+		if (zoomed)
+		{
+			return;
 		}
 		aimSprites[0].transform.localPosition = new Vector3(0f, 8f + WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f);
 		aimSprites[1].transform.localPosition = new Vector3(0f, -8f - WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f);

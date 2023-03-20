@@ -101,19 +101,13 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 		}
 	}
 
-	public static Texture SetSkinForObj(GameObject go)
+	public static Texture SetSkinForObj(GameObject go, string theName)
 	{
 		if (!_skinsManager)
 		{
 			_skinsManager = GameObject.FindGameObjectWithTag("SkinsManager").GetComponent<SkinsManagerPixlGun>();
 		}
-		Texture texture = null;
-		string text = SkinNameForObj(go.name);
-		string the = (PlayerPrefs.GetInt("COOP", 0) != 1 || Defs.IsDefaultCoopSettings) ? "" : Application.loadedLevelName;
-		if (!(texture = _skinsManager.skins[text + the] as Texture))
-		{
-			Debug.Log("No skin: " + text);
-		}
+		Texture texture = Defs.GetSkinForEnemyCOOP(Application.loadedLevelName, theName);
 		SetTextureRecursivelyFrom(go, texture);
 		return texture;
 	}
@@ -173,7 +167,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 
 	private void Start()
 	{
-		_skin = SetSkinForObj(_modelChild);
+		_skin = SetSkinForObj(_modelChild, this.name);
 		_nma = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		_modelChildCollider = _modelChild.GetComponent<BoxCollider>();
 		shootAnim = offAnim;
@@ -186,7 +180,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 		Walk();
 		_soundClips.attackingSpeed += Random.Range(0f - _soundClips.attackingSpeedRandomRange[0], _soundClips.attackingSpeedRandomRange[1]);
 		photonView = PhotonView.Get(this);
-		_skin = SetSkinForObj(_modelChild);
+		_skin = SetSkinForObj(_modelChild, this.name);
 		if (photonView.isMine)
 		{
 			photonView.RPC("setHealthRPC", PhotonTargets.All, _soundClips.health);
@@ -286,11 +280,11 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 	{
 		if (photonView.isMine)
 		{
-			if (PlayerPrefs.GetInt(base.name.Replace("(Clone)", "")) == 0)
+			if (PlayerPrefs.GetInt(base.name.Replace("(Clone)", "") + "_EncyclopediaUnlock") == 0)
 			{
-				GameObject.FindGameObjectWithTag("InGameGUI").GetComponent<InGameGUI>().newEntryPopup(base.name.Replace("(Clone)", ""));
+				GameObject.FindGameObjectWithTag("InGameGUI").GetComponent<InGameGUI>().newEntryPopup(base.name.Replace("(Clone)", "") + "_EncyclopediaUnlock");
 			}
-			PlayerPrefs.SetInt(base.name.Replace("(Clone)", ""), 1);
+			PlayerPrefs.SetInt(base.name.Replace("(Clone)", "") + "_EncyclopediaUnlock", 1);
 		}
 		if (PlayerPrefs.GetInt("COOP", 0) == 1)
 		{

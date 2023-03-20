@@ -9,7 +9,7 @@ public class ZombieCreator : MonoBehaviour
 
 	public bool bossShowm;
 
-	public List<GameObject> zombiePrefabs = new List<GameObject>();
+	public List<SurvivalConfig.Enemy> zombiePrefabs = new List<SurvivalConfig.Enemy>();
 
 	private bool _isMultiplayer;
 
@@ -23,7 +23,7 @@ public class ZombieCreator : MonoBehaviour
 
 	private GameObject[] _enemyCreationZones;
 
-	private List<string[]> _enemies = new List<string[]>();
+	private List<SurvivalConfig.Enemy[]> _enemies = new List<SurvivalConfig.Enemy[]>();
 
 	public int NumOfLiveZombies
 	{
@@ -90,28 +90,19 @@ public class ZombieCreator : MonoBehaviour
 	{
 		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
 		{
-			//_enemies.Add(new string[6] { "1", "2", "1", "11", "12", "13" });
-			//_enemies.Add(new string[5] { "1", "2", "3", "10", "14" });
-			//_enemies.Add(new string[8] { "1", "2", "3", "9", "10", "12", "14", "15" });
-			//_enemies.Add(new string[6] { "1", "2", "4", "11", "9", "16" });
-			//_enemies.Add(new string[7] { "1", "2", "4", "9", "11", "10", "12" });
-			//_enemies.Add(new string[5] { "1", "2", "3", "9", "17" });
-			//_enemies.Add(new string[5] { "6", "7", "7", "1", "2" });
-			//_enemies.Add(new string[6] { "1", "2", "8", "10", "11", "12" });
-			//_enemies.Add(new string[3] { "18", "19", "20" });
-			//_enemies.Add(new string[5] { "21", "22", "23", "24", "25" });
-			//_enemies.Add(new string[3] { "18", "19", "20" });
 			for (int i = 0; i < Defs.numOfLevels; i++)
 			{
 				_enemies.Add(Defs.GetEnemiesFromRandomByIndex(i));
 			}
 			string[] array = null;
-			array = ((GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]) ? _enemies[GlobalGameController.previousLevel] : new string[1] { "1" });
-			string[] array2 = array;
-			foreach (string text in array2)
+			if (!(GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]))
 			{
-				GameObject item = Resources.Load("Enemies/Enemy" + text + "_go") as GameObject;
-				zombiePrefabs.Add(item);
+				zombiePrefabs.Add((new SurvivalConfig.Enemy() {name = "Zombie_Default", prefab = Resources.Load<GameObject>("enemies/Enemy1_go"), skin = Resources.Load<GameObject>("enemies/Enemy1_go").GetComponent<MeshRenderer>().material.GetTexture("_MainTex")}));
+				return;
+			}
+			foreach (SurvivalConfig.Enemy[] enemies in _enemies)
+			{
+				zombiePrefabs.AddRange(enemies);
 			}
 		}
 	}
@@ -160,13 +151,11 @@ public class ZombieCreator : MonoBehaviour
 			int numOfZombsToAdd3 = GlobalGameController.ZombiesInWave;
 			numOfZombsToAdd3 = Mathf.Min(numOfZombsToAdd3, GlobalGameController.SimultaneousEnemiesOnLevelConstraint - NumOfLiveZombies);
 			numOfZombsToAdd3 = Mathf.Min(numOfZombsToAdd3, GlobalGameController.EnemiesToKill - (NumOfDeadZombies + NumOfLiveZombies));
-			string[] enemies_2 = null;
-			enemies_2 = ((GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]) ? _enemies[GlobalGameController.previousLevel] : new string[1] { "1" });
 			for (int i = 0; i < numOfZombsToAdd3; i++)
 			{
-				int typeOfZomb = Random.Range(0, enemies_2.Length);
+				int typeOfZomb = Random.Range(0, _enemies[GlobalGameController.previousLevel].Length);
 				GameObject spawnZone = _enemyCreationZones[Random.Range(0, _enemyCreationZones.Length)];
-				Object.Instantiate(position: _createPos(spawnZone), original: zombiePrefabs[typeOfZomb], rotation: Quaternion.identity);
+				Object.Instantiate(position: _createPos(spawnZone), original: zombiePrefabs[typeOfZomb].prefab, rotation: Quaternion.identity).name = zombiePrefabs[typeOfZomb].name;
 			}
 			yield return new WaitForSeconds(curInterval);
 		}

@@ -40,7 +40,7 @@ public class BotAI : MonoBehaviour
 	{
 		if (!_eh.getIsLife() && !deaded)
 		{
-			SendMessage("Death");
+			GetComponent<BotMovement>().Death();
 			_botTrigger.shouldDetectPlayer = false;
 			deaded = true;
 		}

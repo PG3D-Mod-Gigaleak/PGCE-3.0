@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.IO;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -73,6 +74,20 @@ public static Texture2D CropTexture(Texture2D texture, Vector2 coords)
 public static T GetClass<T>(string path) where T: MonoBehaviour
 {
 	return (T)Resources.Load<GameObject>(path).GetComponent<T>();
+}
+
+public static void SpitOutList(string[] lines, string fileName = "nothing")
+{
+	if (fileName == "nothing")
+	{
+		fileName = "aRandomListFile" + UnityEngine.Random.Range(0, 999999999) + UnityEngine.Random.Range(0, 999999999) + UnityEngine.Random.Range(0, 999999999) + UnityEngine.Random.Range(0, 999999999);
+	}
+	if (!fileName.Contains("."))
+	{
+		fileName += ".txt";
+	}
+	File.Create(Application.streamingAssetsPath + "/" + fileName).Dispose();
+	File.WriteAllLines(Application.streamingAssetsPath + "/" + fileName, lines);
 }
 
 }

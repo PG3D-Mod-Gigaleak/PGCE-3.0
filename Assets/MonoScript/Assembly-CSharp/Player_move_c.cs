@@ -634,6 +634,8 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public string curGear;
 
+	public Camera gunCam;
+
 	public int playerID()
 	{
 		return PhotonNetwork.player.ID;
@@ -722,7 +724,6 @@ public sealed class Player_move_c : MonoBehaviour
 		unRecoiling = false;
 		while (stackedUnRecoils > 0)
 		{
-			Camera.main.GetComponent<MouseControls>().enabled = false;
 			if (unRecoiling)
 			{
 				yield break;
@@ -734,7 +735,6 @@ public sealed class Player_move_c : MonoBehaviour
 			stackedUnRecoils--;
 			}
 		}
-		Camera.main.GetComponent<MouseControls>().enabled = true;
 	}
 
 	public void DoDoubleShot()
@@ -3719,6 +3719,10 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			return;
 		}
+		if (isZoomed)
+		{
+			ZoomPress();
+		}
 		if ((((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1) || PlayerPrefs.GetInt("MultyPlayer") != 1)
 		{
 			if (_weaponManager.currentWeaponSounds.isSwapOut)
@@ -3735,6 +3739,28 @@ public sealed class Player_move_c : MonoBehaviour
 		canReceiveSwipes = false;
 		StartCoroutine(SetCanReceiveSwipes());
 		slideMagnitudeX = 0f;
+	}
+
+	private bool isZoomed;
+
+	public void ZoomPress()
+	{
+		if (!_weaponManager.currentWeaponSounds.isZooming)
+		{
+			return;
+		}
+		if (!isZoomed)
+		{
+			inGameGUI.Zoom(true, _weaponManager.currentWeaponSounds.scopeNum);
+			Camera.main.fieldOfView = _weaponManager.currentWeaponSounds.zoomFov;
+			gunCam.fieldOfView = 0.01f;
+			isZoomed = true;
+			return;
+		}
+		inGameGUI.Zoom(false);
+		Camera.main.fieldOfView = 75f;
+		gunCam.fieldOfView = 75f;
+		isZoomed = false;
 	}
 
 	private void Update()
@@ -3779,6 +3805,10 @@ public sealed class Player_move_c : MonoBehaviour
 				{
 					ChangeWeaponFull(CategoryType.Heavy);
 				}
+			}
+			if (Input.GetMouseButtonDown(1))
+			{
+				ZoomPress();
 			}
 		}				
 		_003CUpdate_003Ec__AnonStorey28 _003CUpdate_003Ec__AnonStorey = new _003CUpdate_003Ec__AnonStorey28();
