@@ -59,22 +59,22 @@ namespace Prime31
 
 		public static void initialize(Type type)
 		{
-			try
-			{
-				MonoBehaviour monoBehaviour = UnityEngine.Object.FindObjectOfType(type) as MonoBehaviour;
-				if (!(monoBehaviour != null))
-				{
-					GameObject prime31ManagerGameObject = getPrime31ManagerGameObject();
-					GameObject gameObject = new GameObject(type.ToString());
-					gameObject.AddComponent(type);
-					gameObject.transform.parent = prime31ManagerGameObject.transform;
-					UnityEngine.Object.DontDestroyOnLoad(gameObject);
-				}
-			}
-			catch (UnityException)
-			{
-				Debug.LogWarning(string.Concat("It looks like you have the ", type, " on a GameObject in your scene. Our new prefab-less manager system does not require the ", type, " to be on a GameObject.\nIt will be added to your scene at runtime automatically for you. Please remove the script from your scene."));
-			}
+			//try
+			//{
+			//	MonoBehaviour monoBehaviour = UnityEngine.Object.FindObjectOfType(type) as MonoBehaviour;
+			//	if (!(monoBehaviour != null))
+			//	{
+			//		GameObject prime31ManagerGameObject = getPrime31ManagerGameObject();
+			//		GameObject gameObject = new GameObject(type.ToString());
+			//		gameObject.AddComponent(type);
+			//		gameObject.transform.parent = prime31ManagerGameObject.transform;
+			//		UnityEngine.Object.DontDestroyOnLoad(gameObject);
+			//	}
+			//}
+			//catch (UnityException)
+			//{
+			//	Debug.LogWarning(string.Concat("It looks like you have the ", type, " on a GameObject in your scene. Our new prefab-less manager system does not require the ", type, " to be on a GameObject.\nIt will be added to your scene at runtime automatically for you. Please remove the script from your scene."));
+			//}
 		}
 
 		private void Awake()

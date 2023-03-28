@@ -90,20 +90,21 @@ public class ZombieCreator : MonoBehaviour
 	{
 		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
 		{
-			for (int i = 0; i < Defs.numOfLevels; i++)
-			{
-				_enemies.Add(Defs.GetEnemiesFromRandomByIndex(i));
-			}
-			string[] array = null;
-			if (!(GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]))
-			{
-				zombiePrefabs.Add((new SurvivalConfig.Enemy() {name = "Zombie_Default", prefab = Resources.Load<GameObject>("enemies/Enemy1_go"), skin = Resources.Load<GameObject>("enemies/Enemy1_go").GetComponent<MeshRenderer>().material.GetTexture("_MainTex")}));
-				return;
-			}
-			foreach (SurvivalConfig.Enemy[] enemies in _enemies)
-			{
-				zombiePrefabs.AddRange(enemies);
-			}
+			//for (int i = 0; i < Defs.numOfLevels; i++)
+			//{
+			//	_enemies.Add(Defs.GetEnemiesFromRandomByIndex(i));
+			//}
+			//string[] array = null;
+			//if (!(GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]))
+			//{
+			//	zombiePrefabs.Add((new SurvivalConfig.Enemy() {name = "Zombie_Default", prefab = Resources.Load<GameObject>("enemies/Enemy1_go"), skin = Resources.Load<GameObject>("enemies/Enemy1_go").GetComponent<MeshRenderer>().material.GetTexture("_MainTex")}));
+			//	return;
+			//}
+			//foreach (SurvivalConfig.Enemy[] enemies in _enemies)
+			//{
+			//	zombiePrefabs.AddRange(enemies);
+			//}
+			zombiePrefabs.AddRange(Defs.GetEnemiesFromRandomByIndex(GlobalGameController.previousLevel));
 		}
 	}
 
@@ -153,7 +154,7 @@ public class ZombieCreator : MonoBehaviour
 			numOfZombsToAdd3 = Mathf.Min(numOfZombsToAdd3, GlobalGameController.EnemiesToKill - (NumOfDeadZombies + NumOfLiveZombies));
 			for (int i = 0; i < numOfZombsToAdd3; i++)
 			{
-				int typeOfZomb = Random.Range(0, _enemies[GlobalGameController.previousLevel].Length);
+				int typeOfZomb = Random.Range(0, zombiePrefabs.Count);
 				GameObject spawnZone = _enemyCreationZones[Random.Range(0, _enemyCreationZones.Length)];
 				Object.Instantiate(position: _createPos(spawnZone), original: zombiePrefabs[typeOfZomb].prefab, rotation: Quaternion.identity).name = zombiePrefabs[typeOfZomb].name;
 			}

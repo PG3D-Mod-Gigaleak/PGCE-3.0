@@ -59,38 +59,32 @@ public sealed class Defs
 
 	public static string GetSceneNameFromRandomByIndex(int index)
 	{
-		return m_SurvivalConfig.levels.levels[index].PossibleLevels[randomScenesThisLoad[index]].mySceneName;
+		return m_SurvivalConfig.levels.levels[index].PossibleLevels[0].mySceneName;
 	}
 
 	public static string GetLoadingNameFromRandomByIndex(int index)
 	{
-		int offset = (GlobalGameController.previousLevel == 0) ? -1 : 1;
-		if (PlayerPrefs.GetInt(Defs.TrainingComplSett) == 0)
-		{
-			offset = 0;
-		}
-		return m_SurvivalConfig.levels.levels[index + offset].PossibleLevels[randomScenesThisLoad[index]].myLoading;
+		return m_SurvivalConfig.levels.levels[index].PossibleLevels[0].myLoading;
 	}
 
 	public static SurvivalConfig.Enemy[] GetEnemiesFromRandomByIndex(int index)
 	{
-		return m_SurvivalConfig.levels.levels[index].PossibleLevels[randomScenesThisLoad[index]].enemies;
+		return m_SurvivalConfig.levels.levels[index].PossibleLevels[0].enemies;
 	}
 
 	public static SurvivalConfig.Enemy GetEnemy(int levelIndex, string enemyName)
 	{
-		return System.Array.Find(m_SurvivalConfig.levels.levels[levelIndex].PossibleLevels[randomScenesThisLoad[levelIndex]].enemies, x => x.name == enemyName);
+		return System.Array.Find(m_SurvivalConfig.levels.levels[levelIndex].PossibleLevels[0].enemies, x => x.name == enemyName);
 	}
 
 	public static Texture GetSkinForEnemy(int levelIndex, string enemyName)
 	{
-		foreach (SurvivalConfig.Enemy enemy in m_SurvivalConfig.levels.levels[levelIndex - 1].PossibleLevels[randomScenesThisLoad[levelIndex - 1]].enemies)
+		foreach (SurvivalConfig.Enemy enemy in m_SurvivalConfig.levels.levels[levelIndex - 1].PossibleLevels[0].enemies)
 		{
 			if (enemy.name == enemyName)
 			{
 				return enemy.skin;
 			}
-			Debug.LogError(enemy.name + " is not " + enemyName);
 		}
 		return null;
 	}
@@ -110,12 +104,12 @@ public sealed class Defs
 
 	public static int GetBGMNumberFromRandomByIndex(int index)
 	{
-		return m_SurvivalConfig.levels.levels[index].PossibleLevels[randomScenesThisLoad[index]].myMusicLevel;
+		return m_SurvivalConfig.levels.levels[index].PossibleLevels[0].myMusicLevel;
 	}
 
 	public static int GetBossFromRandomByIndex(int index)
 	{
-		return m_SurvivalConfig.levels.levels[index - 1].PossibleLevels[randomScenesThisLoad[index]].myBoss;
+		return m_SurvivalConfig.levels.levels[index - 1].PossibleLevels[0].myBoss;
 	}
 
 	public static SurvivalConfig.Enemy[] GetEnemiesFromThisCoopLevel(string scene)
