@@ -450,7 +450,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public float[] timerShow = new float[3] { -1f, -1f, -1f };
 
-	public AudioClip deadPlayerSound;
+	public AudioClip[] deadPlayerSounds, respawnPlayerSounds;
 
 	public AudioClip damagePlayerSound;
 
@@ -2041,7 +2041,7 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 
 	[RPC]
-	private void setVisibleWear()
+	private void setVisibleWear(string gear)
 	{
 		foreach(PhotonPlayer photonPlayer in PhotonNetwork.playerList)
 		{
@@ -2051,28 +2051,9 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				if (gameObject.GetComponent<Player_move_c>().playerID() == photonPlayer.ID)
 				{
-				GameObject GObj = gameObject.GetComponent<Player_move_c>().GetVisibleWear((string)photonPlayer.customProperties["gear"]);
-				Debug.LogError(GObj.name + " " + (string)photonPlayer.customProperties["gear"]);
-				GObj.SetActive(true);
+					GameObject GObj = gameObject.GetComponent<Player_move_c>().GetVisibleWear(gear);
+					GObj.SetActive(true);
 				}
-				else
-				{
-					Debug.LogError("nop");
-				}
-			}
-		}
-	}
-
-	[RPC]
-	private void SetValues(int id)
-	{
-		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			if (id == this.gameObject.GetComponent<PhotonView>().viewID)
-			{
-				gameObject.GetComponent<Player_move_c>().curGear = PlayerPrefs.GetString("gear");
 			}
 		}
 	}
@@ -2300,21 +2281,13 @@ public sealed class Player_move_c : MonoBehaviour
 			base.transform.parent.transform.rotation = GlobalGameController.rotMyPlayer;
 			PlayerPrefs.SetInt("StartAfterDisconnect", 0);
 		}
-		//if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
-		//{
-		//	base.GetComponent<NetworkView>().RPC("SetValues", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
-		//}
-		//else
-		//{
-		//	photonView.RPC("SetValues", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
-		//}
 		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
 		{
 			base.GetComponent<NetworkView>().RPC("setVisibleWear", RPCMode.Others);
 		}
 		else
 		{
-			photonView.RPC("setVisibleWear", PhotonTargets.Others);
+			photonView.RPC("setVisibleWear", PhotonTargets.Others, PlayerPrefs.GetString("gear"));
 		}
 	}
 
@@ -3603,10 +3576,18 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	private int randomDeadIndex, randomRespawnIndex;
+
 	[RPC]
-	private void ImKilled()
+	private void ImKilled(int index)
 	{
-		base.gameObject.GetComponent<AudioSource>().PlayOneShot(deadPlayerSound);
+		base.gameObject.GetComponent<AudioSource>().PlayOneShot(deadPlayerSounds[index]);
+	}
+
+	[RPC]
+	private void ImRespawn(int index)
+	{
+		base.gameObject.GetComponent<AudioSource>().PlayOneShot(respawnPlayerSounds[index]);
 	}
 
 	private IEnumerator FlashWhenHit()
@@ -3929,17 +3910,18 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			return;
 		}
+		randomDeadIndex = UnityEngine.Random.Range(0, deadPlayerSounds.Length);
 		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
 		{
 			if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
 			{
-				base.GetComponent<NetworkView>().RPC("ImKilled", RPCMode.All);
+				base.GetComponent<NetworkView>().RPC("ImKilled", RPCMode.All, randomDeadIndex);
 			}
 			else
 			{
-				photonView.RPC("ImKilled", PhotonTargets.Others);
+				photonView.RPC("ImKilled", PhotonTargets.Others, randomDeadIndex);
 			}
-			base.gameObject.GetComponent<AudioSource>().PlayOneShot(deadPlayerSound);
+			base.gameObject.GetComponent<AudioSource>().PlayOneShot(deadPlayerSounds[randomDeadIndex]);
 			if (PlayerPrefs.GetInt("COOP", 0) == 1)
 			{
 				diedInCOOP = true;
@@ -4001,6 +3983,9 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void SetNoKilled()
 	{
+		randomRespawnIndex = UnityEngine.Random.Range(0, respawnPlayerSounds.Length);
+		GetComponent<AudioSource>().PlayOneShot(respawnPlayerSounds[randomRespawnIndex]);
+		photonView.RPC("ImRespawn", PhotonTargets.Others, randomRespawnIndex);
 		isKilled = false;
 	}
 

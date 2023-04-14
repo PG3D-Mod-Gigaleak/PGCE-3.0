@@ -274,9 +274,7 @@ public class NewArmory : MonoBehaviour
 
 	public void DeveloperFunnies()
 	{
-		#if UNITY_EDITOR
 		Storager.setInt("Coins", Storager.getInt("Coins", false) + 99999, false);
-		#endif
 	}
 
 	public void CreateButton(WeaponSounds weapon)
