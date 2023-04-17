@@ -395,6 +395,11 @@ public sealed class Initializer : MonoBehaviour
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
+		if (PlayerPrefs.GetString("MapName").Equals("Abandoned_Pool_old"))
+		{
+			position = new Vector3(19.36158f, 19.61019f, -24.24763f);
+			rotation = Quaternion.Euler(new Vector3(35.9299f, -11.80757f, -1.581451f));
+		}
 		tc = UnityEngine.Object.Instantiate(tempCam, position, rotation) as GameObject;
 
 		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))

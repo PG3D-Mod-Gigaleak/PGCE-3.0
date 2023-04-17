@@ -1218,6 +1218,7 @@ public sealed class Defs
 		mapNamesForUser.Add("Zombie3D_Desert3", "the pixelated");
 		mapNamesForUser.Add("PSky_islands", "vjg pgy wrfcvg hqt rkzgn iwp ewtugf gfkvkqp yknn rtqdcdna tgngcug kp ncvg 2023 k fqpv mpqy");
 		mapNamesForUser.Add("FajitaSky_islands", "i hate kuro");
+		mapNamesForUser.Add("Abandoned_Pool_old", "welcome back to the old days of abandoned pool");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -1276,6 +1277,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("Zombie3D_Desert3", 524);
 		levelNumsForMusicInMult.Add("PSky_islands", 4016);
 		levelNumsForMusicInMult.Add("FajitaSky_islands", 6969);
+		levelNumsForMusicInMult.Add("Abandoned_Pool_old", 1001);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
