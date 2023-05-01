@@ -2629,7 +2629,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &163
 Transform:
@@ -2877,7 +2877,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &181
 Transform:
@@ -3227,7 +3227,7 @@ Transform:
   - {fileID: 295}
   - {fileID: 289}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &204
 Transform:
@@ -3295,7 +3295,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &209
 Transform:
@@ -3625,7 +3625,7 @@ Transform:
   - {fileID: 185}
   - {fileID: 212}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &233
 Transform:
@@ -3638,7 +3638,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &234
 Transform:
@@ -3860,7 +3860,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &250
 Transform:
@@ -3944,7 +3944,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &256
 Transform:
@@ -4050,7 +4050,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &264
 Transform:
@@ -4251,7 +4251,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &279
 Transform:
@@ -4336,7 +4336,7 @@ Transform:
   - {fileID: 173}
   - {fileID: 189}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &284
 Transform:
@@ -4349,7 +4349,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &285
 Transform:
@@ -4551,7 +4551,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &300
 Transform:
@@ -4701,7 +4701,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &311
 Transform:
@@ -13130,6 +13130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 0}
   reload: {fileID: 0}
   empty: {fileID: 8300000, guid: 8abf0874373851d409d07275eed7ced0, type: 2}
@@ -13151,6 +13154,52 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 0
+  weaponName: 
+  oldMeleeSystem: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
 --- !u!114 &530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13162,6 +13211,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 0}
   reload: {fileID: 0}
   empty: {fileID: 8300000, guid: 8abf0874373851d409d07275eed7ced0, type: 2}
@@ -13183,6 +13235,52 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 0
+  weaponName: 
+  oldMeleeSystem: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
 --- !u!114 &531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13234,6 +13332,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 0}
   reload: {fileID: 0}
   empty: {fileID: 8300000, guid: 8abf0874373851d409d07275eed7ced0, type: 2}
@@ -13255,6 +13356,52 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 0
+  weaponName: 
+  oldMeleeSystem: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
 --- !u!114 &535
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13278,6 +13425,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 8300000, guid: 18e5534ae6f36114794344b6e9a0f269, type: 2}
   reload: {fileID: 0}
   empty: {fileID: 8300000, guid: 8abf0874373851d409d07275eed7ced0, type: 2}
@@ -13299,6 +13449,52 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 0
+  weaponName: 
+  oldMeleeSystem: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
 --- !u!114 &537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13532,6 +13728,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 8300000, guid: 5673ee27f3d96414e98907577def421c, type: 2}
   reload: {fileID: 8300000, guid: d1cd45ebba312524da22308dcea5ed72, type: 2}
   empty: {fileID: 8300000, guid: 8abf0874373851d409d07275eed7ced0, type: 2}
@@ -13553,6 +13752,52 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 0
+  weaponName: 
+  oldMeleeSystem: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
 --- !u!114 &543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13564,6 +13809,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  swapTime: 1
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 8300000, guid: 86981644a2237684da696793f922517d, type: 2}
   reload: {fileID: 0}
   empty: {fileID: 0}
@@ -13585,6 +13833,52 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 0
+  weaponName: 
+  oldMeleeSystem: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
 --- !u!114 &544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13695,7 +13989,7 @@ Transform:
   m_LocalScale: {x: 0.49781367, y: 0.27021548, z: 0.06589469}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &125663267
 GameObject:
@@ -13779,5 +14073,51 @@ Transform:
   m_LocalScale: {x: 0.0031711473, y: 0.10420492, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1208091130
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4445228121086696, guid: cd2c1d238bec1491f922db1b75f48d71, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -4.6851826
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445228121086696, guid: cd2c1d238bec1491f922db1b75f48d71, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 16.606056
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445228121086696, guid: cd2c1d238bec1491f922db1b75f48d71, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -109.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445228121086696, guid: cd2c1d238bec1491f922db1b75f48d71, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445228121086696, guid: cd2c1d238bec1491f922db1b75f48d71, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.70710677
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445228121086696, guid: cd2c1d238bec1491f922db1b75f48d71, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445228121086696, guid: cd2c1d238bec1491f922db1b75f48d71, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071069
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445228121086696, guid: cd2c1d238bec1491f922db1b75f48d71, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4445228121086696, guid: cd2c1d238bec1491f922db1b75f48d71, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90.00001
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: cd2c1d238bec1491f922db1b75f48d71, type: 2}
+  m_IsPrefabParent: 0
