@@ -390,6 +390,11 @@ public sealed class Initializer : MonoBehaviour
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
+		if (PlayerPrefs.GetString("MapName").Equals("UtopiaWavy"))
+		{
+			position = new Vector3(-25.14f, 13.22f, 19.2f);
+			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
+		}
 		if (PlayerPrefs.GetString("MapName").Equals("FajitaSky_islands"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
