@@ -1280,6 +1280,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("UtopiaWavy", 4017);
 		levelNumsForMusicInMult.Add("FajitaSky_islands", 6969);
 		levelNumsForMusicInMult.Add("Abandoned_Pool_old", 1001);
+		levelNumsForMusicInMult.Add("pokman", 7000);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
