@@ -510,7 +510,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &397
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1105,7 +1105,7 @@ Transform:
   m_GameObject: {fileID: 98}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 11.362018, y: 11.3620205, z: 11.3620205}
   m_Children:
   - {fileID: 1007}
   - {fileID: 1155}
@@ -1649,6 +1649,7 @@ Transform:
   - {fileID: 1373761369}
   - {fileID: 1755950667}
   - {fileID: 1623651422}
+  - {fileID: 487821404}
   m_Father: {fileID: 672}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -0, z: -0}
@@ -6364,6 +6365,52 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 0
+  weaponName: 
+  oldMeleeSystem: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
 --- !u!1001 &255274251
 Prefab:
   m_ObjectHideFlags: 0
@@ -7052,6 +7099,52 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 0
+  weaponName: 
+  oldMeleeSystem: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
 --- !u!1001 &300683969
 Prefab:
   m_ObjectHideFlags: 0
@@ -8833,6 +8926,492 @@ Transform:
   m_PrefabParentObject: {fileID: 4251766602265510, guid: 815c078eee210e448a607ce91614995b,
     type: 2}
   m_PrefabInternal: {fileID: 486084190}
+--- !u!1001 &487821403
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1191}
+    m_Modifications:
+    - target: {fileID: 400000, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_RootOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a8b190c6f07b24f488afedbceecc8308, type: 2}
+    - target: {fileID: 100000, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: windows
+      objectReference: {fileID: 0}
+    - target: {fileID: 100004, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: fakeoutside
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300020, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a8b190c6f07b24f488afedbceecc8308, type: 2}
+    - target: {fileID: 100022, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: PlayroomWalls
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300022, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 81c9a09630cc19a429d4f090283547f1, type: 2}
+    - target: {fileID: 100024, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: WallPoles
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300024, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 59d6309e5af2afd4db3009ef2ea2a027, type: 2}
+    - target: {fileID: 100026, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: Glasses
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300026, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9639bf8714789af40a66918ce4bd4dd4, type: 2}
+    - target: {fileID: 100028, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: Furniture
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300028, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b6b0b96137687654ebe6cff44278a5f1, type: 2}
+    - target: {fileID: 100030, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: Frames
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300030, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 957a6d6d57bd17949b2e4b724cb1df1d, type: 2}
+    - target: {fileID: 100032, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: PlayroomFloor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300032, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6620063d56e69f84984866c60035b305, type: 2}
+    - target: {fileID: 100034, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: BedroomFlames
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300034, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 47c8779c61d87db4a98afd053e310e41, type: 2}
+    - target: {fileID: 100036, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: BedroomWalls
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300004, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a4a88729414960d4693a93e616cc70fe, type: 2}
+    - target: {fileID: 100006, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: BedroomCeiling
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300006, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e67b25335a214d9418767ce36d69bc38, type: 2}
+    - target: {fileID: 100008, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: BedroomFloor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300008, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 43d9980e28fcfd34aa0488fd906ce78b, type: 2}
+    - target: {fileID: 100010, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: KitchenFloor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300010, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b54f87d7de86a7547b767b6cf8b2671c, type: 2}
+    - target: {fileID: 100012, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: KitchenWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300012, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 56e3db8ebb6380342826d90e676c9e67, type: 2}
+    - target: {fileID: 100014, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: KitchenFrames
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300014, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b62402b5ffecf994e88e66327f7ffc3b, type: 2}
+    - target: {fileID: 100016, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: BathroomFloor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300016, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9bb730cea14cea14a958f6b26987705d, type: 2}
+    - target: {fileID: 100018, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: BathroomWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300018, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2aee3c619cf729644a4444dc8682b8a3, type: 2}
+    - target: {fileID: 100020, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+      propertyPath: m_Name
+      value: Doors
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_IsPrefabParent: 0
+--- !u!4 &487821404 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821405 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100020, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821406 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100018, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821407 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100016, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821408 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100014, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821409 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100012, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821410 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100010, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821411 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100008, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821412 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100006, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821413 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100036, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821414 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100034, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821415 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100032, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821416 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100030, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821417 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100028, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821418 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100026, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821419 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100024, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!1 &487821420 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100022, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+  m_PrefabInternal: {fileID: 487821403}
+--- !u!64 &487821421
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821405}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300034, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821422
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821406}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300032, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821423
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821407}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300030, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821424
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821408}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300028, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821425
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821409}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300026, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821426
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821410}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300024, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821427
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821411}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300022, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821428
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821412}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300020, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821429
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821413}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300018, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821430
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821414}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300016, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821431
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821415}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300014, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821432
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821416}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300012, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821433
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821417}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300010, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821434
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821418}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300008, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821435
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821419}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300006, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
+--- !u!64 &487821436
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 487821420}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300004, guid: 4a51c34f83752bf48a90c8a5ee0758ea, type: 3}
 --- !u!1 &497143978
 GameObject:
   m_ObjectHideFlags: 0
@@ -14511,6 +15090,52 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 0
+  weaponName: 
+  oldMeleeSystem: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
 --- !u!4 &770741490
 Transform:
   m_ObjectHideFlags: 0
@@ -16175,6 +16800,52 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 0
+  weaponName: 
+  oldMeleeSystem: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
 --- !u!4 &962212187
 Transform:
   m_ObjectHideFlags: 0
@@ -17581,6 +18252,52 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 0
+  weaponName: 
+  oldMeleeSystem: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
 --- !u!1 &1114450514
 GameObject:
   m_ObjectHideFlags: 0
@@ -17632,6 +18349,52 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 0
+  weaponName: 
+  oldMeleeSystem: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
 --- !u!4 &1114450516
 Transform:
   m_ObjectHideFlags: 0
@@ -29293,7 +30056,7 @@ Transform:
   m_GameObject: {fileID: 1980894481}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 11.362018, y: 11.3620205, z: 11.3620205}
   m_Children:
   - {fileID: 566086898}
   - {fileID: 372997473}

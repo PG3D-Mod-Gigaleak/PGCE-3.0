@@ -100,6 +100,8 @@ public class WeaponSounds : MonoBehaviour
 
 	public bool oldMeleeSystem;
 
+	public bool emptyState;
+
 	[Header("imported stuff")]
 
 	public Vector2 startZone = new Vector2(3f, 3f);
@@ -157,6 +159,14 @@ public class WeaponSounds : MonoBehaviour
 		if (animationObject != null && animationObject.GetComponent<Animation>()["Shoot"] != null)
 		{
 			animLength = animationObject.GetComponent<Animation>()["Shoot"].length;
+		}
+	}
+
+	public void EmptyState()
+	{
+		if (emptyState && (animationObject.GetComponent<Animation>().IsPlaying("Idle") || !animationObject.GetComponent<Animation>().isPlaying))
+		{
+			animationObject.GetComponent<Animation>().Play("GunEmptyState");
 		}
 	}
 

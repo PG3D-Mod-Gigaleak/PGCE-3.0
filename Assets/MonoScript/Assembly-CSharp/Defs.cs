@@ -350,7 +350,7 @@ public sealed class Defs
 	public static string CAnim(GameObject animator, string con){
         foreach (AnimationState ac in animator.GetComponent<Animation>()){
             string nm = ac.name.ToString();
-            if (nm.Contains(con) || nm.StartsWith(con) || nm == con){            
+            if (nm.StartsWith(con) || nm == con){            
                 return nm;
             }
         }

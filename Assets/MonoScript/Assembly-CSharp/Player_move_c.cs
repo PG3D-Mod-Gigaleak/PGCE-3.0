@@ -2653,10 +2653,13 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		else
 		{
-			WS.animationObject.GetComponent<Animation>().Play(myCAnim("Empty"));
-			if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
+			if (!WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")))
 			{
-				base.GetComponent<AudioSource>().PlayOneShot(WS.empty);
+				WS.animationObject.GetComponent<Animation>().Play(myCAnim("Empty"));
+				if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
+				{
+					base.GetComponent<AudioSource>().PlayOneShot(WS.empty);
+				}
 			}
 		}
 	}
@@ -3638,6 +3641,10 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			yield return new WaitForSeconds(_weaponManager.currentWeaponSounds.swapTime);
 			isSwappin = false;
+		}
+		if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == 0)
+		{
+			_weaponManager.currentWeaponSounds.EmptyState();
 		}
 	}
 
