@@ -11,7 +11,34 @@ public class SpectatorController : MonoBehaviour
         Vector3 move2 = transform.right * x2 + transform.forward * z2;
 		move2.y += (Input.GetKey(KeyCode.Space) ? 1f : (Input.GetKey(KeyCode.C) ? -1f : 0f));
 		GetComponent<CharacterController>().Move(move2 * 10f * Time.deltaTime);
+		if (isLocked)
+		{
+			Cursor.visible = false;
+			float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+			float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+			xRotation -= mouseY;
+			xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+			spectateCam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+			transform.Rotate(Vector3.up * mouseX);
+		}
 	}
+
+	private bool isLocked
+	{
+		get
+		{
+			return Cursor.lockState == CursorLockMode.Locked;
+		}
+	}
+
+	void Start()
+	{
+		Cursor.lockState = CursorLockMode.Locked;
+	}
+
+	public float mouseSensitivity = 100f;
+
+	private float xRotation = 0f;
 
 	public Camera spectateCam;
 

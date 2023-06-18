@@ -1353,14 +1353,14 @@ public sealed class Player_move_c : MonoBehaviour
 		GUI.enabled = true && !disable;
 	}
 
-	public void MinusLive(int idKiller, float minus, bool _isHeadShot)
-	{
-		photonView.RPC("MinusLiveRPCPhoton", PhotonTargets.All, idKiller, minus, _isHeadShot);
-	}
-
 	public void MinusLive(NetworkViewID idKiller, float minus, bool _isHeadShot)
 	{
-		base.GetComponent<NetworkView>().RPC("MinusLiveRPC", RPCMode.All, idKiller, minus, _isHeadShot);
+		photonView.RPC("minusLivePhoton", PhotonTargets.All, idKiller, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, minus);
+	}
+
+	public void MinusLive(int idKiller, float minus, bool _isHeadShot)
+	{
+		photonView.RPC("minusLivePhoton", PhotonTargets.All, idKiller, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, minus);
 	}
 
 	public void hit(float dam, GameObject monster)
@@ -3703,7 +3703,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public void ChangeWeaponFull(CategoryType category)
 	{
-		if (!(!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut"))))
+		if (!(!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut"))))
 		{
 			return;
 		}
