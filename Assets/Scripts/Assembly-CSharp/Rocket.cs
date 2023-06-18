@@ -280,7 +280,7 @@ public class Rocket : MonoBehaviour
 					}
 					else
 					{
-						_weaponManager.myPlayer.GetComponent<PhotonView>().RPC("minusLivePhoton", PhotonTargets.All, gameObject4.GetComponent<PhotonView>().viewID, _weaponManager.myPlayer.GetComponent<PhotonView>().viewID, multiplayerDamage * num);
+						gameObject4.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().MinusLive(_weaponManager.myPlayer.GetComponent<PhotonView>().viewID, multiplayerDamage * num);
 					}
 				}
 			}

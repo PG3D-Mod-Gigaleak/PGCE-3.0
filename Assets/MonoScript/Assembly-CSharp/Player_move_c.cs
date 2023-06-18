@@ -2499,6 +2499,11 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	public void MinusLive(int id, float minus)
+	{
+		photonView.RPC("minusLivePhoton", PhotonTargets.All, _weaponManager.myPlayer.GetComponent<PhotonView>().viewID, id, minus);
+	}
+
 	private void ReloadPressed()
 	{
 		if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.isHeal ||  _weaponManager.CurrentWeaponIndex < 0 || _weaponManager.CurrentWeaponIndex >= _weaponManager.playerWeapons.Count || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack <= 0 || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == _weaponManager.currentWeaponSounds.ammoInClip || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
@@ -3425,18 +3430,6 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 		}
 		StartCoroutine(CheckHitByMelee(alt));
-	}
-
-	public void MinusLive(int viewID, float damage)
-	{
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
-		{
-			base.GetComponent<NetworkView>().RPC("minusLive", RPCMode.All, viewID, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, damage);
-		}
-		else
-		{
-			photonView.RPC("minusLivePhoton", PhotonTargets.All, viewID, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, damage);
-		}
 	}
 
 	private IEnumerator CheckHitByMelee(bool alt)
