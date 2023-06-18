@@ -1355,12 +1355,12 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public void MinusLive(NetworkViewID idKiller, float minus, bool _isHeadShot)
 	{
-		photonView.RPC("minusLivePhoton", PhotonTargets.All, idKiller, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, minus);
+		photonView.RPC("minusLivePhoton", PhotonTargets.All, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, idKiller, minus);
 	}
 
 	public void MinusLive(int idKiller, float minus, bool _isHeadShot)
 	{
-		photonView.RPC("minusLivePhoton", PhotonTargets.All, idKiller, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, minus);
+		photonView.RPC("minusLivePhoton", PhotonTargets.All, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, idKiller, minus);
 	}
 
 	public void hit(float dam, GameObject monster)
