@@ -1353,16 +1353,6 @@ public sealed class Player_move_c : MonoBehaviour
 		GUI.enabled = true && !disable;
 	}
 
-	public void MinusLive(NetworkViewID idKiller, float minus, bool _isHeadShot)
-	{
-		photonView.RPC("minusLivePhoton", PhotonTargets.All, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, idKiller, minus);
-	}
-
-	public void MinusLive(int idKiller, float minus, bool _isHeadShot)
-	{
-		photonView.RPC("minusLivePhoton", PhotonTargets.All, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, idKiller, minus);
-	}
-
 	public void hit(float dam, GameObject monster)
 	{
 		Destroy(_weaponManager.lastEnemyHitBy);
@@ -2505,14 +2495,7 @@ public sealed class Player_move_c : MonoBehaviour
 		bool flag = false;
 		if (Defs.isMulti && !Defs.isCOOP)
 		{
-			if (true)
-			{
-				plr.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().MinusLive(base.transform.parent.gameObject.GetComponent<NetworkView>().viewID, _weaponManager.currentWeaponSounds.multiplayerDamage * num, flag);
-			}
-			else
-			{
-				plr.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().MinusLive(base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, _weaponManager.currentWeaponSounds.multiplayerDamage * num, flag);
-			}
+			_weaponManager.myPlayer.GetComponent<PhotonView>().RPC("minusLivePhoton", PhotonTargets.All, plr.GetComponent<PhotonView>().viewID, _weaponManager.myPlayer.GetComponent<PhotonView>().viewID, _weaponManager.currentWeaponSounds.multiplayerDamage * num);
 		}
 	}
 
