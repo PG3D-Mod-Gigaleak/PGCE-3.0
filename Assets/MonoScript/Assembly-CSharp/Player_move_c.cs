@@ -2501,7 +2501,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public void MinusLive(int id, float minus)
 	{
-		photonView.RPC("minusLivePhoton", PhotonTargets.All, _weaponManager.myPlayer.GetComponent<PhotonView>().viewID, id, minus);
+		photonView.RPC("minusLivePhoton", PhotonTargets.All, id, _weaponManager.myPlayer.GetComponent<PhotonView>().viewID, minus);
 	}
 
 	private void ReloadPressed()
