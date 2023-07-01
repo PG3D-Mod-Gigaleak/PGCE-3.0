@@ -2391,7 +2391,7 @@ public sealed class Player_move_c : MonoBehaviour
 			if (id == gameObject.GetComponent<PhotonView>().viewID)
 			{
 				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "Reload"));
-				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().reload);
+				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().reload);
 			}
 		}
 	}
@@ -2405,7 +2405,7 @@ public sealed class Player_move_c : MonoBehaviour
 			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
 			{
 				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "ChargeUp"));
-				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().chargeUp);
+				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().chargeUp);
 			}
 		}
 	}
@@ -2420,7 +2420,7 @@ public sealed class Player_move_c : MonoBehaviour
 			if (id == gameObject.GetComponent<PhotonView>().viewID)
 			{
 				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "ChargeUp"));
-				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().chargeUp);
+				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().chargeUp);
 			}
 		}
 	}
@@ -2435,7 +2435,7 @@ public sealed class Player_move_c : MonoBehaviour
 			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
 			{
 				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "ChargeDown"));
-				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().chargeDown);
+				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().chargeDown);
 			}
 		}
 	}
