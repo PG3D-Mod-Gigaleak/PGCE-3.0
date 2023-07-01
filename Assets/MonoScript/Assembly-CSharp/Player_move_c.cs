@@ -1441,12 +1441,19 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	public Animation parentedAnimation;
+
 	private void WalkAnimation()
 	{
 		if (_singleOrMultiMine() && (bool)_weaponManager && (bool)_weaponManager.currentWeaponSounds)
 		{
 			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().CrossFade(myCAnim("Walk"));
 		}
+		if (parentedAnimation.IsPlaying("ParentedWalk"))
+		{
+			return;
+		}
+		parentedAnimation.CrossFade("ParentedWalk");
 	}
 
 	private void IdleAnimation()
@@ -1458,7 +1465,12 @@ public sealed class Player_move_c : MonoBehaviour
 		else if (_singleOrMultiMine() && (bool)___weaponManager && (bool)___weaponManager.currentWeaponSounds && isSwap())
 		{
 			___weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play(myCAnim("Idle"));
+		}		
+		if (parentedAnimation.IsPlaying("ParentedIdle"))
+		{
+			return;
 		}
+		parentedAnimation.CrossFade("ParentedIdle");
 	}
 
 	public void hideGUI()
@@ -1823,7 +1835,7 @@ public sealed class Player_move_c : MonoBehaviour
 		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
 		{
 			gameObject = (GameObject)UnityEngine.Object.Instantiate(((Weapon)_weaponManager.playerWeapons[index]).weaponPrefab, Vector3.zero, Quaternion.identity);
-			gameObject.transform.parent = base.gameObject.transform;
+			gameObject.transform.parent = swayParent;
 			gameObject.transform.rotation = rotation;
 		}
 		else
@@ -3242,6 +3254,8 @@ public sealed class Player_move_c : MonoBehaviour
 		UnityEngine.Object.Instantiate(hole, _pos, _rot);
 		UnityEngine.Object.Instantiate(wallParticle, _pos, _rot);
 	}
+
+	public Transform swayParent;
 
 	public IEnumerator doSpeedBoost(WeaponSounds WS)
 	{
