@@ -1704,20 +1704,20 @@ public sealed class Player_move_c : MonoBehaviour
 				{
 					continue;
 				}
-				foreach (Transform item2 in gameObject3.transform)
+				foreach (Transform item2 in gameObject3.transform.GetChild(0))
 				{
 					item2.parent = null;
 					item2.position += -Vector3.up * 1000f;
 				}
-				gameObject.transform.parent = gameObject3.transform;
+				gameObject.transform.parent = gameObject3.transform.GetChild(0);
 				if (gameObject.transform.Find("BulletSpawnPoint") != null)
 				{
 					gameObject3.GetComponent<Player_move_c>()._bulletSpawnPoint = gameObject.transform.Find("BulletSpawnPoint").gameObject;
 				}
 				gameObject.transform.localPosition = new Vector3(0f, -1.7f, 0f);
-				gameObject.transform.rotation = gameObject3.transform.rotation;
+				gameObject.transform.rotation = gameObject3.transform.GetChild(0).rotation;
 				GameObject gameObject4 = null;
-				gameObject4 = gameObject3.transform.GetChild(0).gameObject.GetComponent<WeaponSounds>().bonusPrefab;
+				gameObject4 = gameObject3.transform.GetChild(0).GetChild(0).gameObject.GetComponent<WeaponSounds>().bonusPrefab;
 				if (myTable == null && PlayerPrefs.GetInt("MultyPlayer") == 1)
 				{
 					GameObject[] array3 = GameObject.FindGameObjectsWithTag("NetworkTable");
