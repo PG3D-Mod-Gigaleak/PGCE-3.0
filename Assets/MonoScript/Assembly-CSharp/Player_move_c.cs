@@ -2375,8 +2375,8 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
 			{
-				gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject, "Reload"));
-				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().reload);
+				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "Reload"));
+				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().reload);
 			}
 		}
 	}
@@ -2390,7 +2390,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			if (id == gameObject.GetComponent<PhotonView>().viewID)
 			{
-				gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject, "Reload"));
+				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "Reload"));
 				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().reload);
 			}
 		}
@@ -2404,7 +2404,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
 			{
-				gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject, "ChargeUp"));
+				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "ChargeUp"));
 				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().chargeUp);
 			}
 		}
@@ -2419,7 +2419,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			if (id == gameObject.GetComponent<PhotonView>().viewID)
 			{
-				gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject, "ChargeUp"));
+				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "ChargeUp"));
 				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().chargeUp);
 			}
 		}
@@ -2434,7 +2434,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
 			{
-				gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject, "ChargeDown"));
+				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "ChargeDown"));
 				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().chargeDown);
 			}
 		}
@@ -2449,8 +2449,8 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			if (id == gameObject.GetComponent<PhotonView>().viewID)
 			{
-				gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("ChargeDown"));
-				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().chargeDown);
+				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("ChargeDown"));
+				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().chargeDown);
 			}
 		}
 	}
@@ -3216,29 +3216,29 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				if (isFlash)
 				{
-					if (!gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().isDouble)
+					if (!gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().isDouble)
 					{
-						gameObject.transform.GetChild(0).GetComponent<FlashFire>().fire();
+						gameObject.transform.GetChild(0).GetChild(0).GetComponent<FlashFire>().fire();
 					}
 					else
 					{
-						gameObject.transform.GetChild(0).GetComponent<FlashFire>().fire(doubleShotIndex);
+						gameObject.transform.GetChild(0).GetChild(0).GetComponent<FlashFire>().fire(doubleShotIndex);
 					}
 				}
-				if (!gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().isDouble)
+				if (!gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().isDouble)
 				{
-					gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject, "Shoot"));
+					gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject, "Shoot"));
 				}
 				else
 				{
 					if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")))
 					{
-						gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
-						gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("Shoot" + doubleShotIndex));
+						gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
+						gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("Shoot" + doubleShotIndex));
 						DoDoubleShot();
 					}
 				}
-				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().shoot);
+				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().shoot);
 			}
 		}
 	}
