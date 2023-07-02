@@ -69,6 +69,10 @@ public class FirstPersonControl : MonoBehaviour
 	
 	public Joystick jumpButton;
 
+	public float camSwaySpeed;
+
+	public CamSway camSway;
+
 	public FirstPersonControl()
 	{
 		forwardSpeed = 4f;
@@ -202,6 +206,7 @@ public class FirstPersonControl : MonoBehaviour
 			{
 				jumpButton.jumpPressed = false;
 			}
+			camSway.value = Mathf.Lerp(camSway.value, moveTouchPad.position.x > 0 ? -2.5f : moveTouchPad.position.x < 0 ? 2.5f : 0, Time.deltaTime * camSwaySpeed);
 		}
 		Vector3 motion = thisTransform.TransformDirection(new Vector3(moveTouchPad.position.x, 0f, moveTouchPad.position.y));
 		motion.y = 0f;
@@ -234,15 +239,15 @@ public class FirstPersonControl : MonoBehaviour
 			}
 			if (jump)
 			{
-				velocity = character.velocity;
+				//velocity = character.velocity;
 				velocity.y = jumpSpeed;
 			}
 		}
 		else
 		{
 			velocity.y += Physics.gravity.y * Time.deltaTime;
-			motion.x *= inAirMultiplier;
-			motion.z *= inAirMultiplier;
+			//motion.x *= inAirMultiplier;
+			//motion.z *= inAirMultiplier;
 			if (rotateTouchPad.jumpPressed)
 			{
 				rotateTouchPad.jumpPressed = false;

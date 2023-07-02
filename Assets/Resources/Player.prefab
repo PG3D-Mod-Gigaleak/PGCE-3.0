@@ -244,10 +244,10 @@ GameObject:
   - component: {fileID: 81555204597112434}
   - component: {fileID: 114822393807602882}
   - component: {fileID: 114314135281993900}
-  - component: {fileID: 114160201352158026}
   - component: {fileID: 114090597150828334}
   - component: {fileID: 114758384804875820}
   - component: {fileID: 114320959672394928}
+  - component: {fileID: 114864476236903908}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -893,7 +893,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4766581313503082}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0.15121567, y: 0, z: 0.8136319}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.58776927}
 --- !u!4 &4466994911428476
 Transform:
   m_ObjectHideFlags: 1
@@ -2488,21 +2488,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axis: 1
-  min: 0
-  max: 0
-  playerGun: {fileID: 1166298083777220}
---- !u!114 &114160201352158026
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1361502147575346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58b1c91961c84f74ebf9272bd59a3061, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  axis: 2
   min: 0
   max: 0
   playerGun: {fileID: 1166298083777220}
@@ -7167,6 +7152,8 @@ MonoBehaviour:
   camPlayer: {fileID: 1361502147575346}
   isMine: 0
   jumpButton: {fileID: 114338687832328354}
+  camSwaySpeed: 8
+  camSway: {fileID: 114864476236903908}
 --- !u!114 &114758384804875820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -7197,6 +7184,18 @@ MonoBehaviour:
   min: -65
   max: 80
   playerGun: {fileID: 1166298083777220}
+--- !u!114 &114864476236903908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1361502147575346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a53facdb3b919646b811d43da06d7d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 0
 --- !u!114 &114942210423268394
 MonoBehaviour:
   m_ObjectHideFlags: 1

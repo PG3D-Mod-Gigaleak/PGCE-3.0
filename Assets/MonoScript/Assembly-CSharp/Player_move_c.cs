@@ -1453,7 +1453,8 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			return;
 		}
-		parentedAnimation.CrossFade("ParentedWalk");
+		parentedAnimation["ParentedWalk"].speed = _weaponManager.currentWeaponSounds.speedModifier;
+		parentedAnimation.CrossFade("ParentedWalk", 0.1f);
 	}
 
 	private void IdleAnimation()
@@ -1470,7 +1471,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			return;
 		}
-		parentedAnimation.CrossFade("ParentedIdle");
+		parentedAnimation.CrossFade("ParentedIdle", 0.15f);
 	}
 
 	public void hideGUI()

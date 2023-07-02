@@ -52,7 +52,7 @@ public sealed class AppsMenu : MonoBehaviour
 	private void Start()
 	{
 		SetRandomLevels();
-		StartCoroutine(loadLevel());
+		//StartCoroutine(loadLevel());
 	}
 
 	private void LoadLoading()

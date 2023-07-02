@@ -12,10 +12,12 @@ public class GameLoad : MonoBehaviour
 
 	public void BeginLoading()
 	{
-		LoadWeapons();
+		StartCoroutine(LoadWeapons());
 	}
 
-	public void LoadWeapons()
+	public UILabel currentTask;
+
+	public IEnumerator LoadWeapons()
 	{
 		int i = 1;
 		for (;;i++)
@@ -26,15 +28,28 @@ public class GameLoad : MonoBehaviour
 				Debug.Log("broke at " + i);
 				break;
 			}
+			currentTask.text = "Loading Weapon (" + obj.name + ").";
 			if (!WeaponManager.WeaponPrefabs.Contains(obj))
 			{
 				WeaponManager.WeaponPrefabs.Add(obj);
 			}
+			if (i % 15 == 0)
+			{
+				yield return null;
+			}
 		}
-		LoadEnemies();
+		if (Debug.isDebugBuild)
+		{
+			StartCoroutine(LoadEnemies());
+		}
+		else
+		{
+			currentTask.text = "done! loading into the menu...";
+			Application.LoadLevel("Loading");
+		}
 	}
 
-	public void LoadEnemies()
+	public IEnumerator LoadEnemies()
 	{
 		int i = 1;
 		for (;;i++)
@@ -45,14 +60,18 @@ public class GameLoad : MonoBehaviour
 				Debug.Log("broke at " + i);
 				break;
 			}
+			currentTask.text = "Loading Enemy (" + obj.name + ")";
 			Encyclopedia.storedEntities.Add(obj as GameObject);
+			yield return null;
 		}
-		LoadBosses();
+		StartCoroutine(LoadBosses());
 	}
 
-	public static void LoadEnemiesIntoDictionary()
+	public static IEnumerator LoadEnemiesIntoDictionary(UILabel currentTask)
 	{
 	    List<SurvivalConfig.Enemy> foundEnemies = new List<SurvivalConfig.Enemy>();
+		currentTask.text = "Sorting Enemies Into Dictionary";
+		yield return null;
 	    foreach (SurvivalConfig.BaseLevel possibleLevel in Defs.m_SurvivalConfig.levels.levels)
 	    {
 			foreach (SurvivalConfig.LevelSettings level in possibleLevel.PossibleLevels)
@@ -77,9 +96,12 @@ public class GameLoad : MonoBehaviour
 	        }
 	    }
 	    Encyclopedia.parsedEnemies.AddRange(foundEnemies);
+		currentTask.text = "done! loading into the menu...";
+		Application.LoadLevel("Loading");
+		yield return null;
 	}
 
-	public void LoadBosses()
+	public IEnumerator LoadBosses()
 	{
 		int i = 1;
 		for (;;i++)
@@ -90,8 +112,10 @@ public class GameLoad : MonoBehaviour
 				Debug.Log("broke at " + i);
 				break;
 			}
+			currentTask.text = "Loading Boss (" + obj.name + ")";
 			Encyclopedia.storedEntities.Add(obj as GameObject);
+			yield return null;
 		}
-		LoadEnemiesIntoDictionary();
+		StartCoroutine(LoadEnemiesIntoDictionary(currentTask));
 	}
 }

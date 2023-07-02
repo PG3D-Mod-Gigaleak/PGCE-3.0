@@ -7,13 +7,15 @@ public class MenuBackgroundMusic : MonoBehaviour
 	{
 		"ConnectScene",
 		"SettingScene",
-		"ArmoryScene",
-		"PrimaryScene",
-		"BackupScene",
-		"MeleeScene",
-		"SpecialScene",
-		"PremiumScene",
-		"GearScene"
+		"NewArmoryScene",
+		"PromScene"
+		//"ArmoryScene",
+		//"PrimaryScene",
+		//"BackupScene",
+		//"MeleeScene",
+		//"SpecialScene",
+		//"PremiumScene",
+		//"GearScene"
 	};
 
 	private void Start()

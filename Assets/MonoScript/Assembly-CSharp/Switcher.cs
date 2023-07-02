@@ -34,10 +34,19 @@ public sealed class Switcher : MonoBehaviour
 
 	private Rect plashkaCoinsRect;
 
+	public UITexture loadingScreen;
+	
+	private void Update()
+	{
+		loadingScreen.mainTexture = fonToDraw;
+	}
+
 	private void Start()
 	{
-		int random = (int)UnityEngine.Random.Range(0, Defs.MainMenuScenes.Length);
-		Defs.CurrentMainMenuScene = Defs.MainMenuScenes[random];
+		//add this back when it's time, but we must do this LATER!!!
+		//int random = (int)UnityEngine.Random.Range(0, Defs.MainMenuScenes.Length);
+		//Defs.CurrentMainMenuScene = Defs.MainMenuScenes[random];
+		Defs.CurrentMainMenuScene = "Menu_DesertTemple";
 		Debug.Log("0 GlobalGameController.currentLevel " + GlobalGameController.currentLevel);
 		AudioListener.volume = (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true) ? 1 : 0);
 		if (GlobalGameController._currentIndexInMapping >= GlobalGameController.NumOfLevels - 1 && GlobalGameController.currentLevel != 101 && !isGameOver)
@@ -118,7 +127,7 @@ public sealed class Switcher : MonoBehaviour
 		}
 		else
 		{
-			Invoke("LoadMenu", 3.5f);
+			Invoke("LoadMenu", 2f);
 		}
 		if (!GameObject.FindGameObjectWithTag("SkinsManager") && (bool)skinsManagerPrefab)
 		{
@@ -359,17 +368,17 @@ public sealed class Switcher : MonoBehaviour
 
 	private void OnGUI()
 	{
-		int depth = GUI.depth;
-		if (isGameOver)
-		{
-			GUI.depth = 4;
-		}
-		Rect position = new Rect(((float)Screen.width - 2048f * (float)Screen.height / 1154f) / 2f, 0f, 2048f * (float)Screen.height / 1154f, Screen.height);
-		GUI.DrawTexture(position, fonToDraw, ScaleMode.StretchToFill);
-		if (plashkaCoins != null)
-		{
-			GUI.DrawTexture(plashkaCoinsRect, plashkaCoins, ScaleMode.StretchToFill);
-		}
+		//int depth = GUI.depth;
+		//if (isGameOver)
+		//{
+		//	GUI.depth = 4;
+		//}
+		//Rect position = new Rect(((float)Screen.width - 2048f * (float)Screen.height / 1154f) / 2f, 0f, 2048f * (float)Screen.height / 1154f, Screen.height);
+		//GUI.DrawTexture(position, fonToDraw, ScaleMode.StretchToFill);
+		//if (plashkaCoins != null)
+		//{
+		//	GUI.DrawTexture(plashkaCoinsRect, plashkaCoins, ScaleMode.StretchToFill);
+		//}
 	}
 
 	private void LoadMenu()

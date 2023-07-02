@@ -6,30 +6,40 @@ public sealed class LoadConnectScene : MonoBehaviour
 
 	public static Texture loading;
 
+	public UITexture loadingTexture;
+
 	private GameObject aInd;
 
 	private void Start()
 	{
-		if (loading == null)
+		//if (loading == null)
+		//{
+		//	loading = MenuSettings.GetCurrentMenu.loading;
+		//}
+		Invoke("_loadConnectScene", 2f);
+		//aInd = StoreKitEventListener.purchaseActivityInd;
+		//if (aInd == null)
+		//{
+		//	Debug.LogWarning("aInd == null");
+		//}
+		//else
+		//{
+		//	aInd.SetActive(true);
+		//}
+	}
+
+	void Update()
+	{
+		if (loading != null)
 		{
-			loading = MenuSettings.GetCurrentMenu.loading;
-		}
-		Invoke("_loadConnectScene", 2.5f);
-		aInd = StoreKitEventListener.purchaseActivityInd;
-		if (aInd == null)
-		{
-			Debug.LogWarning("aInd == null");
-		}
-		else
-		{
-			aInd.SetActive(true);
+			loadingTexture.mainTexture = loading;
 		}
 	}
 
 	private void OnGUI()
 	{
-		Rect position = new Rect(((float)Screen.width - 2048f * (float)Screen.height / 1154f) / 2f, 0f, 2048f * (float)Screen.height / 1154f, Screen.height);
-		GUI.DrawTexture(position, loading, ScaleMode.StretchToFill);
+		//Rect position = new Rect(((float)Screen.width - 2048f * (float)Screen.height / 1154f) / 2f, 0f, 2048f * (float)Screen.height / 1154f, Screen.height);
+		//GUI.DrawTexture(position, loading, ScaleMode.StretchToFill);
 	}
 
 	private void _loadConnectScene()
