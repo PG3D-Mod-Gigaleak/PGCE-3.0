@@ -3142,7 +3142,7 @@ public sealed class Player_move_c : MonoBehaviour
 				_gunWiapon = ws.bonusPrefab;
 				if (!ws.isMelee)
 				{
-					gunFlashTmp = chaild.transform.GetChild(0).GetChild(0).Find("BulletSpawnPoint").transform.GetChild(0).GetChild(0).gameObject;
+					gunFlashTmp = chaild.transform.GetChild(0).Find("BulletSpawnPoint").transform.GetChild(0).gameObject;
 				}
 				break;
 			}
@@ -3230,7 +3230,7 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 				if (!gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().isDouble)
 				{
-					gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject, "Shoot"));
+					gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "Shoot"));
 				}
 				else
 				{
