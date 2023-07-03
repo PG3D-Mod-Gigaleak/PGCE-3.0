@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class MenuGUI : MonoBehaviour
 {
-	public void EnterSurvival()
-	{
-		loading = true;
-		PlayerPrefs.SetInt("MultyPlayer", 0);
-		PlayerPrefs.SetInt("COOP", 0);
-		GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().Reset();
-		PlayerPrefs.SetFloat(Defs.CurrentHealthSett, Player_move_c.MaxPlayerHealth);
-		PlayerPrefs.SetFloat(Defs.CurrentArmorSett, 0f);
-		FlurryPluginWrapper.LogSurvivalModePress();
-		Application.LoadLevel("LoadingNoWait");
-	}
-
 	public void EnterDeathmatch()
 	{
 		loading = true;
@@ -26,27 +14,16 @@ public class MenuGUI : MonoBehaviour
 		Application.LoadLevel("ConnectScene");
 	}
 
-	public void EnterCOOP()
-	{
-		loading = true;
-		PlayerPrefs.SetString("TypeConnect", "inet");
-		PlayerPrefs.SetInt("COOP", 1);
-		PlayerPrefs.SetInt("MultyPlayer", 1);
-		GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().Reset();
-		FlurryPluginWrapper.LogCOOPModePress();
-		Application.LoadLevel("ConnectScene");
-	}
-
 	public void EnterArmory()
 	{
 		loading = true;
 		Application.LoadLevel("NewArmoryScene");
 	}
 
-	public void EnterDictionary()
+	public void EnterTesting()
 	{
 		loading = true;
-		Application.LoadLevel("Encyclopedia");
+		Application.LoadLevel("BetaTesting");
 	}
 
 	public void EnterSettings()

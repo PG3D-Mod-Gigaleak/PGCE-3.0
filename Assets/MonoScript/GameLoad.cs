@@ -33,10 +33,10 @@ public class GameLoad : MonoBehaviour
 			{
 				WeaponManager.WeaponPrefabs.Add(obj);
 			}
-			if (i % 15 == 0)
-			{
+			//if (i % 4 == 0)
+			//{
 				yield return null;
-			}
+			//}
 		}
 		if (Debug.isDebugBuild)
 		{
