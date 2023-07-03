@@ -97,7 +97,6 @@ public sealed class Defs
 			{
 				return enemy.skin;
 			}
-			Debug.LogError(enemy.name + " is not " + enemyName);
 		}
 		return null;
 	}

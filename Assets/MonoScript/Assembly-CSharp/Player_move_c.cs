@@ -1469,11 +1469,6 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			___weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play(myCAnim("Idle"));
 		}		
-		if (parentedAnimation.IsPlaying("ParentedIdle"))
-		{
-			return;
-		}
-		parentedAnimation.CrossFade("ParentedIdle", 0.15f);
 	}
 
 	public void hideGUI()
@@ -3142,7 +3137,7 @@ public sealed class Player_move_c : MonoBehaviour
 				_gunWiapon = ws.bonusPrefab;
 				if (!ws.isMelee)
 				{
-					gunFlashTmp = chaild.transform.GetChild(0).Find("BulletSpawnPoint").transform.GetChild(0).gameObject;
+					gunFlashTmp = ws.GetComponent<FlashFire>().gunFlashObj;
 				}
 				break;
 			}
@@ -3798,6 +3793,13 @@ public sealed class Player_move_c : MonoBehaviour
 				{
 					parentedAnimation["ParentedWalk"].speed = _weaponManager.currentWeaponSounds.speedModifier;
 					parentedAnimation.CrossFade("ParentedWalk", 0.1f);
+				}
+			}
+			else
+			{
+				if (!parentedAnimation.IsPlaying("ParentedIdle"))
+				{
+					parentedAnimation.CrossFade("ParentedIdle", 0.15f);
 				}
 			}
 		}				
