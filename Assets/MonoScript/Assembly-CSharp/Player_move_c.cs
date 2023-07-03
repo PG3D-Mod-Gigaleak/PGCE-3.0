@@ -1441,6 +1441,14 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	private bool walking
+	{
+		get
+		{
+			return Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d");
+		}
+	}
+
 	public Animation parentedAnimation;
 
 	private void WalkAnimation()
@@ -1449,12 +1457,6 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().CrossFade(myCAnim("Walk"));
 		}
-		if (parentedAnimation.IsPlaying("ParentedWalk"))
-		{
-			return;
-		}
-		parentedAnimation["ParentedWalk"].speed = _weaponManager.currentWeaponSounds.speedModifier;
-		parentedAnimation.CrossFade("ParentedWalk", 0.1f);
 	}
 
 	private void IdleAnimation()
@@ -3789,6 +3791,14 @@ public sealed class Player_move_c : MonoBehaviour
 			if (Input.GetMouseButtonDown(1))
 			{
 				ZoomPress();
+			}
+			if (walking)
+			{
+				if (!parentedAnimation.IsPlaying("ParentedWalk"))
+				{
+					parentedAnimation["ParentedWalk"].speed = _weaponManager.currentWeaponSounds.speedModifier;
+					parentedAnimation.CrossFade("ParentedWalk", 0.1f);
+				}
 			}
 		}				
 		_003CUpdate_003Ec__AnonStorey28 _003CUpdate_003Ec__AnonStorey = new _003CUpdate_003Ec__AnonStorey28();
