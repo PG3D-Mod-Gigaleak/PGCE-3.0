@@ -12,6 +12,13 @@ public class Skins : ScriptableObject
 		public Texture skinTexture;
 
 		public Color color = new Color(1, 1, 1, 1);
+
+		public Skin(string name, Texture skinTex, Color clr)
+		{
+			skin = name;
+			skinTexture = skinTex;
+			color = clr;
+		}
 	}
 
 	public Skin[] skins;

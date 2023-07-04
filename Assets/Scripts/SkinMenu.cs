@@ -19,7 +19,10 @@ public class SkinMenu : MonoBehaviour
 		{
 			CreateSkinButton(skin);
 		}
-		skinGrid.Reposition();
+		foreach (Skins.Skin skin in SkinImporter.ImportedSkins())
+		{
+			CreateSkinButton(skin);
+		}
 	}
 
 	public void EnterMenu()
@@ -36,7 +39,7 @@ public class SkinMenu : MonoBehaviour
 	{
 		get
 		{
-			return (Input.GetAxis("Mouse ScrollWheel") == 0 ? 0 : Input.GetAxis("Mouse ScrollWheel") < 0 ? 25 : -25);
+			return (Input.GetAxis("Mouse ScrollWheel") == 0 ? 0 : Input.GetAxis("Mouse ScrollWheel") < 0 ? 50 : -50);
 		}
 	}
 
@@ -62,5 +65,6 @@ public class SkinMenu : MonoBehaviour
 		button.skin.sharedMaterial.SetTexture("_MainTex", skin.skinTexture);
 		button.button.GetComponent<ButtonHandler>().Clicked += (object sender2, EventArgs args2)=> { SetSkin(skin);  if (button.transform.localScale == Vector3.one) { button.transform.localScale *= 0.8f; } StartCoroutine(SetBack(button.transform)); };
 		button.transform.localScale = Vector3.one;
+		skinGrid.Reposition();
 	}
 }

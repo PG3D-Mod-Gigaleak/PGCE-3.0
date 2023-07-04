@@ -306,7 +306,7 @@ MonoBehaviour:
   arrangement: 0
   sorting: 0
   pivot: 0
-  maxPerLine: 3
+  maxPerLine: 4
   cellWidth: 200
   cellHeight: 200
   animateSmoothly: 0
@@ -320,7 +320,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 460065596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -206.93, y: 256.75, z: 0}
+  m_LocalPosition: {x: -320, y: 256.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 435607295}
@@ -548,6 +548,7 @@ GameObject:
   - component: {fileID: 1126487300}
   - component: {fileID: 1126487304}
   - component: {fileID: 1126487306}
+  - component: {fileID: 1126487305}
   m_Layer: 10
   m_Name: UI Root
   m_TagString: Untagged
@@ -666,6 +667,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scroll: {fileID: 435607295}
   skinGrid: {fileID: 460065597}
+--- !u!114 &1126487305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1126487299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26bb29bdaf4853b45aaea8e51d102419, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skinMenu: {fileID: 1126487304}
 --- !u!82 &1126487306
 AudioSource:
   m_ObjectHideFlags: 0
@@ -770,7 +783,7 @@ Transform:
   m_GameObject: {fileID: 1126710526}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0008, y: 1.0008, z: 1.0008}
+  m_LocalScale: {x: 1.2760568, y: 1.0008, z: 1.0008}
   m_Children: []
   m_Father: {fileID: 763026488}
   m_RootOrder: 1
@@ -803,7 +816,7 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 1, g: 1, b: 1, a: 0.841}
+  mColor: {r: 1, g: 1, b: 1, a: 0.859}
   mPivot: 4
   mWidth: 1280
   mHeight: 720
