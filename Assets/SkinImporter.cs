@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-//thank you ChatGPT.
 public class SkinImporter : MonoBehaviour
 {
     private static Color GetSkinColor(string skinData)
