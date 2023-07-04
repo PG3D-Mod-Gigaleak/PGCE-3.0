@@ -11,6 +11,13 @@ public class SkinMenu : MonoBehaviour
 
 	public UIGrid skinGrid;
 
+	public AudioClip btnSound;
+
+	private void PlayBtnSound()
+	{
+		GetComponent<AudioSource>().PlayOneShot(btnSound);
+	}
+    
 	void Start()
 	{
 		skinBtn = Resources.Load<GameObject>("SkinButton");
@@ -52,6 +59,7 @@ public class SkinMenu : MonoBehaviour
 	{
 		yield return new WaitForSeconds(0.1f);
 		transform.localScale = Vector3.one;
+		PlayBtnSound();
 	}
 
 	public void CreateSkinButton(Skins.Skin skin)
