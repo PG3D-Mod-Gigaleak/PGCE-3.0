@@ -99,7 +99,7 @@ public class BotHealth : MonoBehaviour
 						}
 						else
 						{
-							if (item.tag != "donotchange")
+							if (item.tag != "donotchange" && item.tag != "ObjectLabel")
 							{
 								material.mainTexture = txt;
 							}
@@ -108,7 +108,7 @@ public class BotHealth : MonoBehaviour
 				}
 				else
 				{
-					if (item.tag != "donotchange")
+					if (item.tag != "donotchange" && item.tag != "ObjectLabel")
 					{
 						item.gameObject.GetComponent<Renderer>().material.mainTexture = txt;
 					}

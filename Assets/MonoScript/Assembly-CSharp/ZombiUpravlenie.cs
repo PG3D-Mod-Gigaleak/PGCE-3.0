@@ -137,7 +137,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 						}
 						else
 						{
-							if (item.tag != "donotchange")
+							if (item.tag != "donotchange" && item.tag != "ObjectLabel")
 							{
 								material.mainTexture = txt;
 							}
@@ -146,7 +146,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 				}
 				else
 				{
-					if (item.tag != "donotchange")
+					if (item.tag != "donotchange" && item.tag != "ObjectLabel")
 					{
 						item.gameObject.GetComponent<Renderer>().material.mainTexture = txt;
 					}

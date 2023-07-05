@@ -3084,7 +3084,7 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				continue;
 			}
-			if ((bool)item.gameObject.GetComponent<Renderer>() && (bool)item.gameObject.GetComponent<Renderer>().material && item.gameObject.tag != "donotchange")
+			if ((bool)item.gameObject.GetComponent<Renderer>() && (bool)item.gameObject.GetComponent<Renderer>().material && item.gameObject.tag != "donotchange" && item.gameObject.tag != "ObjectLabel")
 			{
 				if (item.gameObject.GetComponent<Renderer>().materials.Length > 1 && item.gameObject.name.Equals("raven_head"))
 				{
