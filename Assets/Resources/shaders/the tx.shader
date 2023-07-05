@@ -9,6 +9,7 @@ Shader "Unlit/WhiteTransparent" {
 
         ZWrite Off
         Blend SrcAlpha OneMinusSrcAlpha
+        Cull Off
 
         Pass {
             CGPROGRAM
