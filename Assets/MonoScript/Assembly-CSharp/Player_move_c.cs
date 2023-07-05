@@ -3454,6 +3454,11 @@ public sealed class Player_move_c : MonoBehaviour
 	public void MinusLivePlayer(int hitPlayerID, float damage, bool headShot = false)
 	{
 		photonView.RPC("minusLivePhoton", PhotonTargets.All, hitPlayerID, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, damage, headShot);
+		if (headShot)
+		{
+			inGameGUI.Headmark();
+			return;
+		}
 		inGameGUI.Hitmark();
 	}
 
