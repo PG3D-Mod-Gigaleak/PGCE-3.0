@@ -1642,10 +1642,10 @@ public sealed class Player_move_c : MonoBehaviour
 				SetTextureRecursivelyFrom(stopObjs: (gameObject.GetComponent<WeaponSounds>().isMelee || !(gameObject2 != null)) ? new GameObject[1] { gameObject4 } : new GameObject[2] { gameObject4, gameObject2 }, obj: gameObject3.transform.parent.gameObject, txt: gameObject3.GetComponent<Player_move_c>()._skin);
 				if (PlayerPrefs.GetInt("MultyPlayer") == 1 && ((PlayerPrefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1 && _label == null)
 				{
-					GameObject original = Resources.Load("ObjectLabel") as GameObject;
+					GameObject original = Resources.Load("NewLabel") as GameObject;
 					_label = UnityEngine.Object.Instantiate(original) as GameObject;
-					_label.GetComponent<ObjectLabel>().target = base.transform;
-					_label.GetComponent<GUIText>().text = _nickName;
+					_label.GetComponent<NewLabel>().target = base.transform;
+					_label.GetComponent<TextMesh>().text = _nickName;
 				}
 			}
 		}
@@ -1755,10 +1755,10 @@ public sealed class Player_move_c : MonoBehaviour
 				SetTextureRecursivelyFrom(stopObjs: (gameObject.GetComponent<WeaponSounds>().isMelee || !(gameObject2 != null)) ? new GameObject[1] { gameObject4 } : new GameObject[2] { gameObject4, gameObject2 }, obj: gameObject3.transform.parent.gameObject, txt: gameObject3.GetComponent<Player_move_c>()._skin);
 				if (PlayerPrefs.GetInt("MultyPlayer") == 1 && ((PlayerPrefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && _label == null)
 				{
-					GameObject original = Resources.Load("ObjectLabel") as GameObject;
+					GameObject original = Resources.Load("NewLabel") as GameObject;
 					_label = UnityEngine.Object.Instantiate(original) as GameObject;
-					_label.GetComponent<ObjectLabel>().target = base.transform;
-					_label.GetComponent<GUIText>().text = _nickName;
+					_label.GetComponent<NewLabel>().target = base.transform;
+					_label.GetComponent<TextMesh>().text = _nickName;
 				}
 			}
 		}

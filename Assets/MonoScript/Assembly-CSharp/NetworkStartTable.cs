@@ -492,7 +492,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 			_playerPrefab = Resources.Load("Player") as GameObject;
 			myPlayer = (GameObject)Network.Instantiate(_playerPrefab, position, base.transform.rotation, 0);
 		}
-		ObjectLabel.currentCamera = Camera.main;
+		currentCamera = Camera.main;
 		_weaponManager.myPlayer = myPlayer;
 		if (PlayerPrefs.GetString("TypeConnect").Equals("local") && PlayerPrefs.GetString("TypeGame").Equals("server"))
 		{
@@ -503,6 +503,8 @@ public sealed class NetworkStartTable : MonoBehaviour
 		GameObject.FindGameObjectWithTag("GameController").GetComponent<Initializer>().SetupObjectThatNeedsPlayer();
 		showTable = false;
 	}
+
+	public static Camera currentCamera;
 
 	[RPC]
 	private void setState(string _namePlayer, int _countKills, int _oldCountLills, float _score)
@@ -868,7 +870,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 					Invoke("startPlayer", 0.1f);
 				}
 			}
-			ObjectLabel.currentCamera = GameObject.FindGameObjectWithTag("GameController").GetComponent<Initializer>().tc.GetComponent<Camera>();
+			currentCamera = GameObject.FindGameObjectWithTag("GameController").GetComponent<Initializer>().tc.GetComponent<Camera>();
 			tempCam.SetActive(true);
 			_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
 			string text = (NamePlayer = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(PlayerPrefs.GetString("NamePlayer", Defs.defaultPlayerName)));
@@ -1117,7 +1119,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 			GameObject[] array4 = array3;
 			foreach (GameObject gameObject2 in array4)
 			{
-				if (gameObject2.GetComponent<ObjectLabel>().target == gameObject.transform)
+				if (gameObject2.GetComponent<NewLabel>().target == gameObject.transform)
 				{
 					UnityEngine.Object.Destroy(gameObject2);
 					break;
@@ -1214,7 +1216,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		GlobalGameController.Score = -1;
 		CountKills = -1;
 		synchState();
-		ObjectLabel.currentCamera = GameObject.FindGameObjectWithTag("GameController").GetComponent<Initializer>().tc.GetComponent<Camera>();
+		currentCamera = GameObject.FindGameObjectWithTag("GameController").GetComponent<Initializer>().tc.GetComponent<Camera>();
 		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
 		{
 			UnityEngine.Object.DestroyObject(_weaponManager.myPlayer);
