@@ -3432,7 +3432,7 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 				else
 				{
-					MinusLivePlayer(hitInfo.collider.gameObject.GetComponent<PhotonView>().viewID, WS.multiplayerDamage, hitInfo.collider.gameObject.CompareTag("HeadCollider"));
+					MinusLivePlayer(hitInfo.collider.transform.parent.gameObject.GetComponent<PhotonView>().viewID, WS.multiplayerDamage, hitInfo.collider.gameObject.CompareTag("HeadCollider"));
 				}
 			}
 			return;
