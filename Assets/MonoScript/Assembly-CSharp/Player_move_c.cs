@@ -1646,6 +1646,8 @@ public sealed class Player_move_c : MonoBehaviour
 					_label = UnityEngine.Object.Instantiate(original) as GameObject;
 					_label.GetComponent<NewLabel>().target = base.transform;
 					_label.GetComponent<TextMesh>().text = _nickName;
+					_label.transform.parent = base.transform;
+					_label.transform.localPosition = original.transform.position;
 				}
 			}
 		}
@@ -1759,6 +1761,8 @@ public sealed class Player_move_c : MonoBehaviour
 					_label = UnityEngine.Object.Instantiate(original) as GameObject;
 					_label.GetComponent<NewLabel>().target = base.transform;
 					_label.GetComponent<TextMesh>().text = _nickName;
+					_label.transform.parent = base.transform;
+					_label.transform.localPosition = original.transform.position;
 				}
 			}
 		}
