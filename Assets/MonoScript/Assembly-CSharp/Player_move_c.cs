@@ -200,6 +200,8 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	public CharacterController characterController;
+
 	public GUIStyle restoreWindButStyle;
 
 	public GameObject customDialogPrefab;
@@ -1445,7 +1447,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		get
 		{
-			return Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d");
+			return (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")) && characterController.isGrounded;
 		}
 	}
 
@@ -1455,7 +1457,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		if (_singleOrMultiMine() && (bool)_weaponManager && (bool)_weaponManager.currentWeaponSounds)
 		{
-			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().CrossFade(myCAnim("Walk"));
+			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().CrossFade(myCAnim("Walk"), 0.125f);
 		}
 	}
 
@@ -1463,7 +1465,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		if (_singleOrMultiMine() && (bool)___weaponManager && (bool)___weaponManager.currentWeaponSounds && !isSwap())
 		{
-			___weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().CrossFade(myCAnim("Idle"));
+			___weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().CrossFade(myCAnim("Idle"), 0.125f);
 		}
 		else if (_singleOrMultiMine() && (bool)___weaponManager && (bool)___weaponManager.currentWeaponSounds && isSwap())
 		{
@@ -2509,11 +2511,6 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	public void MinusLive(int id, float minus)
-	{
-		photonView.RPC("minusLivePhoton", PhotonTargets.All, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, id, minus);
-	}
-
 	private void ReloadPressed()
 	{
 		if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.isHeal ||  _weaponManager.CurrentWeaponIndex < 0 || _weaponManager.CurrentWeaponIndex >= _weaponManager.playerWeapons.Count || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack <= 0 || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == _weaponManager.currentWeaponSounds.ammoInClip || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
@@ -3425,7 +3422,7 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 				else
 				{
-					photonView.RPC("minusLivePhoton", PhotonTargets.All, hitInfo.collider.gameObject.GetComponent<PhotonView>().viewID, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, WS.multiplayerDamage);
+					MinusLivePlayer(hitInfo.collider.gameObject.GetComponent<PhotonView>().viewID, WS.multiplayerDamage);
 				}
 			}
 			return;
@@ -3442,6 +3439,16 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 		}
 		StartCoroutine(CheckHitByMelee(alt));
+	}
+
+	public void MinusLivePlayer(int hitPlayerID, float damage)
+	{
+		photonView.RPC("minusLivePhoton", PhotonTargets.All, hitPlayerID, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, damage);
+	}
+
+	public void MinusLiveSelf(int fromPlayerID, float damage)
+	{
+		photonView.RPC("minusLivePhoton", PhotonTargets.All, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, fromPlayerID, damage);
 	}
 
 	private IEnumerator CheckHitByMelee(bool alt)
@@ -3525,7 +3532,7 @@ public sealed class Player_move_c : MonoBehaviour
 					}
 					else
 					{
-						photonView.RPC("minusLivePhoton", PhotonTargets.All, tr.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().viewID, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, WS.multiplayerDamage);
+						MinusLivePlayer(tr.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().viewID, WS.multiplayerDamage);
 					}
 				}
 			}
