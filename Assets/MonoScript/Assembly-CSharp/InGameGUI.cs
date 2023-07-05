@@ -105,6 +105,11 @@ public class InGameGUI : MonoBehaviour
 		hitmarker.Play("Hitmark");
 	}
 
+	public void Headmark()
+	{
+		hitmarker.Play("Headmarker");
+	}
+
 	public void Reload()
 	{
 		playerMoveC.SendMessage("ReloadPressed");
