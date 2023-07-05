@@ -3044,7 +3044,7 @@ public sealed class Player_move_c : MonoBehaviour
 				{
 					continue;
 				}
-				item.gameObject.GetComponent<AudioSource>().PlayOneShot(headShot ? headshotSounds[UnityEngine.Random.Range(0, 2)] : damagePlayerSound);
+				item.gameObject.GetComponent<AudioSource>().PlayOneShot(headShot ? headshotSounds[UnityEngine.Random.Range(0, 2)] : damagePlayerSound, headShot ? 0.3f : 1f);
 				if (!gameObject.Equals(_weaponManager.myPlayer) || gameObject.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().isKilled)
 				{
 					break;
