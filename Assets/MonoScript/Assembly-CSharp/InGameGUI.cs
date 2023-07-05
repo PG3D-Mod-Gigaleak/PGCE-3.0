@@ -78,6 +78,8 @@ public class InGameGUI : MonoBehaviour
 
 	private bool zoomed;
 
+	public Animation hitmarker;
+
 	public void Zoom(bool onOff, int index = 0)
 	{
 		zoomTex.gameObject.SetActive(onOff);
@@ -96,6 +98,11 @@ public class InGameGUI : MonoBehaviour
 			Invoke("GenerateMiganie", 1f);
 			PlayerPrefs.SetInt("AddCoins", 0);
 		}
+	}
+
+	public void Hitmark()
+	{
+		hitmarker.Play("Hitmark");
 	}
 
 	public void Reload()
