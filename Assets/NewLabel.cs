@@ -9,5 +9,7 @@ public class NewLabel : MonoBehaviour
 	void Update()
 	{
 		transform.LookAt(Camera.main.transform);
+		Vector3 eulers = transform.localRotation.eulerAngles;
+		transform.localRotation = Quaternion.Euler(eulers.x, eulers.y - 180, eulers.z);
 	}
 }
