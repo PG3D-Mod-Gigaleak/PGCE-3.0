@@ -3287,22 +3287,42 @@ public sealed class Player_move_c : MonoBehaviour
 		WS.speedModifier = original;
 	}
 
+	public AudioClip doorOpen, doorClose;
+
 	[RPC]
-	public void DoorRPC(Animation door, AudioSource source, AudioClip clip, float elapse, bool open)
+	public void DoorRPC(string doorName, string sourceName, float elapse, bool open)
 	{
+		Animation door = null;
+		foreach (GameObject doorObject in GameObject.FindGameObjectsWithTag("DoorObject"))
+		{
+			if (doorObject.name == doorName)
+			{
+				door = doorObject.GetComponent<Animation>();
+				break;
+			}
+		}
+		AudioSource source = null;
+		foreach (GameObject doorTrigger in GameObject.FindGameObjectsWithTag("DoorTrigger"))
+		{
+			if (doorTrigger.name == sourceName)
+			{
+				source = doorTrigger.GetComponent<AudioSource>();
+				break;
+			}
+		}
 		door.Play(open ? "open" : "close");
 		door[open ? "open" : "close"].time = elapse;
-		source.PlayOneShot(clip);
+		source.PlayOneShot(open ? doorOpen : doorClose);
 	}
 
-	public void PlayOpenOnDoor(Animation door, AudioSource source, AudioClip doorOpen, float elapse)
+	public void PlayOpenOnDoor(string door, string source, float elapse)
 	{
-		photonView.RPC("DoorRPC", PhotonTargets.Others, door, source, doorOpen, elapse, true);
+		photonView.RPC("DoorRPC", PhotonTargets.Others, door, source, elapse, true);
 	}
 
-	public void PlayCloseOnDoor(Animation door, AudioSource source, AudioClip doorClose, float elapse)
+	public void PlayCloseOnDoor(string door, string source, float elapse)
 	{
-		photonView.RPC("DoorRPC", PhotonTargets.Others, door, source, doorClose, elapse, false);
+		photonView.RPC("DoorRPC", PhotonTargets.Others, door, source, elapse, false);
 	}
 
 	public void shootS(bool alt)

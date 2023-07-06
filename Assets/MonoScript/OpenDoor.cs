@@ -81,7 +81,10 @@ public class OpenDoor : MonoBehaviour
 		_doorAnim.Play("close");
 		_doorAnim["close"].time = elapse;
 		_source.PlayOneShot(close);
-		Globals.PlayerMove.PlayCloseOnDoor(_doorAnim, _source, close, elapse);
+		if (Defs.isMulti)
+		{
+			Globals.PlayerMove.PlayCloseOnDoor(_doorAnim.name, _source.name, elapse);
+		}
 		doorOpened = false;
 	}
 
@@ -90,7 +93,10 @@ public class OpenDoor : MonoBehaviour
 		_doorAnim.Play("open");
 		_doorAnim["open"].time = elapse;
 		_source.PlayOneShot(open);
-		Globals.PlayerMove.PlayOpenOnDoor(_doorAnim, _source, open, elapse);
+		if (Defs.isMulti)
+		{
+			Globals.PlayerMove.PlayOpenOnDoor(_doorAnim.name, _source.name, elapse);
+		}
 		doorOpened = true;
 	}
 }
