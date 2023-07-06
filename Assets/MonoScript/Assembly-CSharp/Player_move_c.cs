@@ -3287,6 +3287,24 @@ public sealed class Player_move_c : MonoBehaviour
 		WS.speedModifier = original;
 	}
 
+	[RPC]
+	public void DoorRPC(Animation door, AudioSource source, AudioClip clip, float elapse, bool open)
+	{
+		door.Play(open ? "open" : "close");
+		door[open ? "open" : "close"].time = elapse;
+		source.PlayOneShot(clip);
+	}
+
+	public void PlayOpenOnDoor(Animation door, AudioSource source, AudioClip doorOpen, float elapse)
+	{
+		photonView.RPC("DoorRPC", PhotonTargets.Others, door, source, doorOpen, elapse, true);
+	}
+
+	public void PlayCloseOnDoor(Animation door, AudioSource source, AudioClip doorClose, float elapse)
+	{
+		photonView.RPC("DoorRPC", PhotonTargets.Others, door, source, doorClose, elapse, false);
+	}
+
 	public void shootS(bool alt)
 	{
 		WeaponSounds WS = null;

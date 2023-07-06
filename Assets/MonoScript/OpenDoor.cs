@@ -2,79 +2,95 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OpenDoor : MonoBehaviour {
-
-public GameObject door;
-
-private bool closing;
-
-private bool hasOpened;
-
-private bool hasClosed;
-
-private bool cancel;
-
-public AudioClip open;
-
-public AudioClip close;
-
-void Update()
+public class OpenDoor : MonoBehaviour
 {
-	if (!door.GetComponent<Animation>().IsPlaying("open") && closing && !hasClosed)
-	{
-		door.GetComponent<Animation>().Play("close");
-		closing = false;
-		cancel = true;
-		hasOpened = false;
-		hasClosed = true;
-		GetComponent<AudioSource>().PlayOneShot(close);
-	}
-}
+	public GameObject door;
 
-void OnTriggerEnter()
-{
-	if (!door.GetComponent<Animation>().isPlaying && !hasOpened)
+	public AudioClip open;
+
+	public AudioClip close;
+
+	private float timer;
+
+	private bool doorOpened;
+
+	private Animation _doorAnim;
+
+	private AudioSource _source;
+
+	private bool closeOnTimerZero;
+
+	void Start()
 	{
-	door.GetComponent<Animation>().Play("open");
-	hasOpened = true;
-	cancel = true;
-	hasClosed = false;
-	GetComponent<AudioSource>().PlayOneShot(open);
-	StartCoroutine(waitForClose());
+		_doorAnim = door.GetComponent<Animation>();
+		_source = GetComponent<AudioSource>();
 	}
-}
-void OnTriggerExit()
-{
-	if (!door.GetComponent<Animation>().isPlaying && !hasClosed)
+
+	void Update()
 	{
-	door.GetComponent<Animation>().Play("close");
-	closing = false;
-	cancel = true;
-	hasOpened = false;
-	hasClosed = true;
-	GetComponent<AudioSource>().PlayOneShot(close);
+		if (timer > 0f)
+		{
+			timer -= 1 * Time.deltaTime;
+			return;
+		}
+		if (closeOnTimerZero)
+		{
+			Close(0f);
+			closeOnTimerZero = false;
+		}
 	}
-}
-public IEnumerator waitForClose()
-{
-	yield return new WaitForSeconds(3f);
-	if (!door.GetComponent<Animation>().isPlaying && !cancel && !hasClosed)
+
+	void OnTriggerEnter(Collider other)
 	{
-		door.GetComponent<Animation>().Play("close");
-		closing = false;
-		hasOpened = false;
-		hasClosed = true;
-		GetComponent<AudioSource>().PlayOneShot(close);
+		if (other.tag == "Player")
+		{
+			InteractDoor(true);
+		}
 	}
-	cancel = false;
-	yield return new WaitForSeconds(2f);
-	if (!door.GetComponent<Animation>().isPlaying && !hasClosed)
+
+	void OnTriggerExit(Collider other)
 	{
-		door.GetComponent<Animation>().Play("close");
-		closing = false;
-		hasOpened = false;
-		hasClosed = true;
-		GetComponent<AudioSource>().PlayOneShot(close);
+		if (other.tag == "Player")
+		{
+			InteractDoor(false);
+		}
 	}
-}
+
+	public void InteractDoor(bool open)
+	{
+		if (doorOpened)
+		{
+			if (open)
+			{
+				timer = 2f;
+				return;
+			}
+			closeOnTimerZero = true;
+			timer = 2f;
+			return;
+		}
+		if (!open || _doorAnim.IsPlaying("open"))
+		{
+			return;
+		}
+		Open(_doorAnim.IsPlaying("close") ? _doorAnim["close"].length - _doorAnim["close"].time : 0f);
+	}
+
+	public void Close(float elapse)
+	{
+		_doorAnim.Play("close");
+		_doorAnim["close"].time = elapse;
+		_source.PlayOneShot(close);
+		Globals.PlayerMove.PlayCloseOnDoor(_doorAnim, _source, close, elapse);
+		doorOpened = false;
+	}
+
+	public void Open(float elapse)
+	{
+		_doorAnim.Play("open");
+		_doorAnim["open"].time = elapse;
+		_source.PlayOneShot(open);
+		Globals.PlayerMove.PlayOpenOnDoor(_doorAnim, _source, open, elapse);
+		doorOpened = true;
+	}
 }
