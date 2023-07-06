@@ -15,6 +15,8 @@ public class ThirdPersonNetwork : Photon.MonoBehaviour
 
 	private Quaternion correctPlayerRot = Quaternion.identity;
 
+	private Vector3 correctPlayerScale = Vector3.zero;
+
 	private void Awake()
 	{
 		if (PlayerPrefs.GetInt("MultyPlayer") != 1 || PlayerPrefs.GetString("TypeConnect").Equals("local"))
@@ -30,6 +32,7 @@ public class ThirdPersonNetwork : Photon.MonoBehaviour
 			iskilled = GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().isKilled;
 			stream.SendNext(base.transform.position);
 			stream.SendNext(base.transform.rotation);
+			stream.SendNext(base.transform.localScale);
 			stream.SendNext(iskilled);
 			GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().isKilled = iskilled;
 		}
@@ -37,6 +40,7 @@ public class ThirdPersonNetwork : Photon.MonoBehaviour
 		{
 			correctPlayerPos = (Vector3)stream.ReceiveNext();
 			correctPlayerRot = (Quaternion)stream.ReceiveNext();
+			correctPlayerScale = (Vector3)stream.ReceiveNext();
 			oldIsKilled = iskilled;
 			iskilled = (bool)stream.ReceiveNext();
 		}
@@ -50,11 +54,13 @@ public class ThirdPersonNetwork : Photon.MonoBehaviour
 			{
 				base.transform.position = Vector3.Lerp(base.transform.position, correctPlayerPos, Time.deltaTime * 5f);
 				base.transform.rotation = Quaternion.Lerp(base.transform.rotation, correctPlayerRot, Time.deltaTime * 5f);
+				base.transform.localScale = Vector3.Lerp(base.transform.localScale, correctPlayerScale, Time.deltaTime * 5f);
 			}
 			else
 			{
 				base.transform.position = correctPlayerPos;
 				base.transform.rotation = correctPlayerRot;
+				base.transform.localScale = correctPlayerScale;
 			}
 		}
 	}
