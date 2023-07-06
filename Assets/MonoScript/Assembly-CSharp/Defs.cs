@@ -1215,6 +1215,7 @@ public sealed class Defs
 		mapNamesForUser.Add("COMZ_unused_church", "cool church");
 		mapNamesForUser.Add("the truth", "find out the truth about pg3d");
 		mapNamesForUser.Add("Zombie3D_Desert3", "the pixelated");
+		mapNamesForUser.Add("Supermarket", "Blockmart");
 		mapNamesForUser.Add("PSky_islands", "vjg pgy wrfcvg hqt rkzgn iwp ewtugf gfkvkqp yknn rtqdcdna tgngcug kp ncvg 2023 k fqpv mpqy");
 		mapNamesForUser.Add("UtopiaWavy", "utopia but I gave you drugs");
 		mapNamesForUser.Add("FajitaSky_islands", "i hate kuro");
@@ -1280,6 +1281,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("FajitaSky_islands", 6969);
 		levelNumsForMusicInMult.Add("Abandoned_Pool_old", 1001);
 		levelNumsForMusicInMult.Add("echo_room", 4018);
+		levelNumsForMusicInMult.Add("Supermarket", 4019);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
