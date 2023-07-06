@@ -3313,6 +3313,7 @@ public sealed class Player_move_c : MonoBehaviour
 		door.Play(open ? "open" : "close");
 		door[open ? "open" : "close"].time = elapse;
 		source.PlayOneShot(open ? doorOpen : doorClose);
+		source.GetComponent<OpenDoor>().doorOpened = open;
 	}
 
 	public void PlayOpenOnDoor(string door, string source, float elapse)

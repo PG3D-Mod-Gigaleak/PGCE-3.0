@@ -12,7 +12,7 @@ public class OpenDoor : MonoBehaviour
 
 	private float timer;
 
-	private bool doorOpened;
+	[HideInInspector] public bool doorOpened;
 
 	private Animation _doorAnim;
 
