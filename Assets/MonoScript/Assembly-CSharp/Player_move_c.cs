@@ -739,6 +739,23 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	private Transform currentBulletSpawn
+	{
+		get
+		{
+			if (!_weaponManager.currentWeaponSounds.isDouble)
+			{
+				return _bulletSpawnPoint.transform;
+			}
+			return doubleShotIndex == 0 ? _bulletSpawnPoint.transform : _weaponManager.currentWeaponSounds.secondBulletSpawn;
+		}
+	}
+
+	public void SpawnShootline(Vector3 lookDir)
+	{
+		Instantiate(Resources.Load<GameObject>("ShootLine"), currentBulletSpawn.position, Quaternion.Euler(lookDir)).GetComponent<TrailFade>().UpdateColor(_weaponManager.currentWeaponSounds.shootLineColor);
+	}
+
 	public void DoDoubleShot()
 	{
 		if (doubleShotIndex == 0)
@@ -3356,8 +3373,10 @@ public sealed class Player_move_c : MonoBehaviour
 				_HitEnemies(list);
 				return;
 			}
-			Ray ray = Camera.main.ScreenPointToRay(new Vector3((float)Screen.width * 0.5f - _weaponManager.currentWeaponSounds.startZone.x * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef * 0.5f + (float)UnityEngine.Random.Range(0, Mathf.RoundToInt(_weaponManager.currentWeaponSounds.startZone.x * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef)), (float)Screen.height * 0.5f - _weaponManager.currentWeaponSounds.startZone.y * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef * 0.5f + (float)UnityEngine.Random.Range(0, Mathf.RoundToInt(_weaponManager.currentWeaponSounds.startZone.y * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef)), 0f));
+			Vector3 bulletDir = new Vector3((float)Screen.width * 0.5f - _weaponManager.currentWeaponSounds.startZone.x * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef * 0.5f + (float)UnityEngine.Random.Range(0, Mathf.RoundToInt(_weaponManager.currentWeaponSounds.startZone.x * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef)), (float)Screen.height * 0.5f - _weaponManager.currentWeaponSounds.startZone.y * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef * 0.5f + (float)UnityEngine.Random.Range(0, Mathf.RoundToInt(_weaponManager.currentWeaponSounds.startZone.y * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef)), 0f);
+			Ray ray = Camera.main.ScreenPointToRay(bulletDir);
 			_weaponManager.currentWeaponSounds.fire();
+			//SpawnShootline(ray.direction);
 			RaycastHit hitInfo;
 			if (!Physics.Raycast(ray, out hitInfo, 100f, -2053))
 			{

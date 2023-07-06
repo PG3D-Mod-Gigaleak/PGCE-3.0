@@ -154,6 +154,10 @@ public class WeaponSounds : MonoBehaviour
 
 	public float zoomFov;
 
+	public Transform secondBulletSpawn;
+
+	public Color shootLineColor = new Color(1, 1, 0, 1);
+
 	private void Start()
 	{
 		if (animationObject != null && animationObject.GetComponent<Animation>()["Shoot"] != null)
