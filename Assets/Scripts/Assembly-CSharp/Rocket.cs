@@ -221,6 +221,7 @@ public class Rocket : MonoBehaviour
 				{
 					continue;
 				}
+				Globals.PlayerMove.inGameGUI.Hitmark();
 				if (!isMulti)
 				{
 					BotHealth component = gameObject3.GetComponent<BotHealth>();

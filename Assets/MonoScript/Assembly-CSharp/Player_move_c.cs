@@ -3470,6 +3470,7 @@ public sealed class Player_move_c : MonoBehaviour
 						_weaponManager.myTable.GetComponent<NetworkStartTable>().synchState();
 					}
 				}
+				inGameGUI.Hitmark();
 			}
 			if (PlayerPrefs.GetInt("MultyPlayer") == 1)
 			{
