@@ -178,6 +178,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 714}
+  - component: {fileID: 99}
   m_Layer: 0
   m_Name: Level1
   m_TagString: Untagged
@@ -185,6 +186,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &99
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 98}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3b3d22777d2a86498a9f99bea294c88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cake: {fileID: 93672893}
+  drink: {fileID: 1921889803}
+  objectStack: {fileID: 552431087}
+  pointStack: {fileID: 2119189627}
+  enderStack: {fileID: 12898265}
 --- !u!1 &107
 GameObject:
   m_ObjectHideFlags: 0
@@ -30426,6 +30443,7 @@ MonoBehaviour:
   startingPoint: {fileID: 1797464771}
   itemParent: {fileID: 821596301}
   objectStack: {fileID: 552431087}
+  pointStack: {fileID: 2119189627}
   drink: {fileID: 1921889803}
   cake: {fileID: 93672893}
   currentPoint: {fileID: 0}

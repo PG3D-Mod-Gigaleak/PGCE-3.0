@@ -1,8 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnderAI : MonoBehaviour
+public class EnderAIPhoton : Photon.MonoBehaviour
 {
 	public Animation eyes;
 
@@ -24,7 +24,8 @@ public class EnderAI : MonoBehaviour
 
 	private float blinkTimer;
 
-	public void Blink() { PlayEyeAnimation("Blink"); }
+	[RPC]
+	public void EnderBlink() { PlayEyeAnimation("Blink"); }
 
 	public void EyesLookAround() { PlayEyeAnimation("LookAround"); }
 
@@ -32,49 +33,74 @@ public class EnderAI : MonoBehaviour
 
 	public void LookAround() { mAnim.Play("LookAround"); }
 
+	public void CallRPC(string method, params object[] parameters)
+	{
+		if (!PhotonNetwork.isMasterClient)
+		{
+			return;
+		}
+		photonView.RPC(method, PhotonTargets.All, parameters);
+	}
+
+	public void CallRPC(string method)
+	{
+		if (!PhotonNetwork.isMasterClient)
+		{
+			return;
+		}
+		photonView.RPC(method, PhotonTargets.All);
+	}
+
+
 	private void Start()
 	{
-		if (Defs.isMulti)
+		if (!Defs.isMulti)
 		{
-			Destroy(gameObject);
+			Destroy(this);
 		}
+		cake = EnderSpawner.instance.cake;
+		drink = EnderSpawner.instance.drink;
+		objectStack = EnderSpawner.instance.objectStack;
+		pointStack = EnderSpawner.instance.pointStack;
+		startingPoint = pointStack.Find("PLAYROOM_CENTER").GetComponent<EnderAIPoint>();
 		mAnim = GetComponent<Animation>();
 		mAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		currentPoint = startingPoint;
 		moving = true;
-		ChangePoint();
+		CallRPC("EnderOnReachCheckpoint", currentPoint.actionHere.action, false, UnityEngine.Random.Range(0, currentPoint.connectedPoints.Length));
 	}
 
 	private void Update()
 	{
-		blinkTimer -= 1 * Time.deltaTime;
-		if (blinkTimer <= 0f)
+		if (PhotonNetwork.isMasterClient)
 		{
-			Blink();
-			blinkTimer = UnityEngine.Random.Range(0.3f, 2f);
+			blinkTimer -= 1 * Time.deltaTime;
+			if (blinkTimer <= 0f)
+			{
+				CallRPC("EnderBlink");
+				blinkTimer = UnityEngine.Random.Range(0.3f, 2f);
+			}
 		}
 		if (actioning && !mAnim.isPlaying)
 		{
 			if (eating)
 			{
-				Debug.LogError("ate");
 				onFinishEat();
 				eating = false;
 			}
 			else if (drinking)
 			{
-				Debug.LogError("drank");
 				onFinishDrink();
 				drinking = false;
 			}
-			OnFinishAction();
+			CallRPC("EnderOnFinishAction", UnityEngine.Random.Range(0, currentPoint.connectedPoints.Length));
 		}
 		if (moving && !actioning && !eating && !drinking)
 		{
 			if (mAgent.hasPath && mAgent.remainingDistance <= 0.3f)
 			{
 				moving = false;
-				OnReachCheckpoint(currentPoint);
+				CallRPC("EnderOnReachCheckpoint", currentPoint.actionHere.action, UnityEngine.Random.Range(0f, 1f) <= currentPoint.actionHere.chance, UnityEngine.Random.Range(0, currentPoint.connectedPoints.Length));
 			}
 			if (!mAnim.isPlaying)
 			{
@@ -84,40 +110,39 @@ public class EnderAI : MonoBehaviour
 		}
 	}
 
-	public bool CallAction(EnderAIPoint.Action action) 
+	public void CallAction(string action) 
 	{ 
-		if (UnityEngine.Random.Range(0f, 1f) <= action.chance)
-		{
-			base.SendMessage(action.action);
-			moving = false;
-			return true;
-		}
-		return false;
+		base.SendMessage(action);
+		moving = false;
 	}
 
-	public void OnFinishAction()
+	[RPC]
+	public void EnderOnFinishAction(int randIndex)
 	{
+		Debug.LogError("hi");
 		actioning = false;
 		moving = true;
-		ChangePoint();
+		ChangePoint(randIndex);
 	}
 
-	public void ChangePoint()
+	public void ChangePoint(int randIndex)
 	{
-		int index = UnityEngine.Random.Range(0, currentPoint.connectedPoints.Length);
+		int index = randIndex;
 		EnderAIPoint randomPoint = currentPoint.connectedPoints[index].GetComponent<EnderAIPoint>();
 		currentPoint = randomPoint;
 	}
 
-	public void OnReachCheckpoint(EnderAIPoint point)
+	[RPC]
+	public void EnderOnReachCheckpoint(string action, bool actioned, int randIndex)
 	{
-		if (CallAction(point.actionHere))
+		if (actioned)
 		{
+			CallAction(action);
 			actioning = true;
 			return;
 		}
 		moving = true;
-		ChangePoint();
+		ChangePoint(randIndex);
 	}
 
 	public void EatCake() { Eat(cake); }
