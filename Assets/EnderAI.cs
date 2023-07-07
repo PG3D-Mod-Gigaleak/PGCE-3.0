@@ -8,7 +8,7 @@ public class EnderAI : MonoBehaviour
 
 	public EnderAIPoint startingPoint;
 
-	public Transform itemParent;
+	public Transform itemParent, objectStack;
 
 	public GameObject drink, cake;
 
@@ -18,7 +18,7 @@ public class EnderAI : MonoBehaviour
 
 	public EnderAIPoint currentPoint;
 
-	private bool eating, drinking, moving, actioning, actioningAnimation;
+	private bool eating, drinking, moving, actioning;
 
 	private string lastPlayedAnimation, lastPlayedEyeAnimation;
 
@@ -30,7 +30,7 @@ public class EnderAI : MonoBehaviour
 
 	public void WideEyes() { PlayEyeAnimation("WideEyes"); }
 
-	public void LookAround() { PlayAnimation("LookAround"); }
+	public void LookAround() { mAnim.Play("LookAround"); }
 
 	private void Start()
 	{
@@ -49,6 +49,22 @@ public class EnderAI : MonoBehaviour
 			Blink();
 			blinkTimer = UnityEngine.Random.Range(0.3f, 2f);
 		}
+		if (actioning && !mAnim.isPlaying)
+		{
+			if (eating)
+			{
+				Debug.LogError("ate");
+				onFinishEat();
+				eating = false;
+			}
+			else if (drinking)
+			{
+				Debug.LogError("drank");
+				onFinishDrink();
+				drinking = false;
+			}
+			OnFinishAction();
+		}
 		if (moving && !actioning && !eating && !drinking)
 		{
 			if (mAgent.hasPath && mAgent.remainingDistance <= 0.3f)
@@ -56,31 +72,11 @@ public class EnderAI : MonoBehaviour
 				moving = false;
 				OnReachCheckpoint(currentPoint);
 			}
+			if (!mAnim.isPlaying)
+			{
+				mAnim.Play("Walk");
+			}
 			mAgent.SetDestination(currentPoint.transform.position);
-			PlayAnimation("Walk");
-		}
-		if (actioning && !mAnim.isPlaying)
-		{
-			if (!actioningAnimation)
-			{
-				PlayAnimation(eating ? "Eat" : drinking ? "Drink" : "LookAround");
-				if (eating)
-				{
-					onFinishEat();
-					eating = false;
-				}
-				if (drinking)
-				{
-					onFinishDrink();
-					drinking = false;
-				}
-				actioningAnimation = true;
-			}
-			else
-			{
-				OnFinishAction();
-				actioningAnimation = false;
-			}
 		}
 	}
 
@@ -90,7 +86,6 @@ public class EnderAI : MonoBehaviour
 		{
 			base.SendMessage(action.action);
 			moving = false;
-			mAnim.Stop();
 			return true;
 		}
 		return false;
@@ -106,18 +101,15 @@ public class EnderAI : MonoBehaviour
 	public void ChangePoint()
 	{
 		int index = UnityEngine.Random.Range(0, currentPoint.connectedPoints.Length);
-		Debug.LogError(index);
 		EnderAIPoint randomPoint = currentPoint.connectedPoints[index].GetComponent<EnderAIPoint>();
 		currentPoint = randomPoint;
 	}
 
 	public void OnReachCheckpoint(EnderAIPoint point)
 	{
-		Debug.LogError("rach");
 		if (CallAction(point.actionHere))
 		{
 			actioning = true;
-			mAnim.Stop();
 			return;
 		}
 		moving = true;
@@ -130,36 +122,30 @@ public class EnderAI : MonoBehaviour
 
 	public void Eat(GameObject foodObject)
 	{
-		PlayAnimation("Eat");
+		mAnim.Play("Eat");
+		eating = true;
 		transform.LookAt(foodObject.transform.position);
 		transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
-		Vector3 origPos = foodObject.transform.position;
-		onFinishEat += ()=> { foodObject.transform.position = origPos; foodObject.transform.parent = null; onFinishEat = null; };
+		Vector3 origPos = foodObject.transform.localPosition;
+		Quaternion origRot = foodObject.transform.localRotation;
+		onFinishEat += ()=> { foodObject.transform.parent = objectStack; foodObject.transform.localPosition = origPos; foodObject.transform.localRotation = origRot; onFinishEat = null; };
 		foodObject.transform.parent = itemParent;
 		foodObject.transform.localPosition = Vector3.zero;
+		foodObject.transform.localRotation = Quaternion.identity;
 	}
 
 	public void Drink(GameObject drinkObject)
 	{
-		PlayAnimation("Drink");
+		mAnim.Play("Drink");
+		drinking = true;
 		transform.LookAt(drinkObject.transform.position);
 		transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
-		Vector3 origPos = drinkObject.transform.position;
-		onFinishDrink += ()=> { drinkObject.transform.position = origPos; drinkObject.transform.parent = null; onFinishEat = null; };
+		Vector3 origPos = drinkObject.transform.localPosition;
+		Quaternion origRot = drinkObject.transform.localRotation;
+		onFinishDrink += ()=> { drinkObject.transform.parent = objectStack; drinkObject.transform.localPosition = origPos; drinkObject.transform.localRotation = origRot; onFinishDrink = null; };
 		drinkObject.transform.parent = itemParent;
 		drinkObject.transform.localPosition = Vector3.zero;
-	}
-
-	public void PlayAnimation(string animation)
-	{
-		Debug.LogError(animation);
-		if (animation == lastPlayedAnimation)
-		{
-			mAnim.Play(animation);
-			return;
-		}
-		lastPlayedAnimation = animation;
-		mAnim.Play(animation);
+		drinkObject.transform.localRotation = Quaternion.identity;
 	}
 
 	public void PlayEyeAnimation(string animation)
