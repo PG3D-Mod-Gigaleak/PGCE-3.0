@@ -686,7 +686,7 @@ MonoBehaviour:
   preview: {fileID: 2800000, guid: 45a3d274c584fa54bbe8e23fce6f639f, type: 3}
   inAppExtensionModifier: 10
   meleeAngle: 45
-  multiplayerDamage: 3.5
+  multiplayerDamage: 25
   meleeAttackTimeModifier: 0.57
   isHeal: 0
   healAmount: 0
@@ -711,6 +711,7 @@ MonoBehaviour:
   price: 1750
   weaponName: Longinus
   oldMeleeSystem: 0
+  emptyState: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -734,6 +735,8 @@ MonoBehaviour:
   isZooming: 1
   scopeNum: 4
   zoomFov: 50
+  secondBulletSpawn: {fileID: 0}
+  shootLineColor: {r: 1, g: 1, b: 0, a: 1}
 --- !u!148 &148804013368936334
 NetworkView:
   m_ObjectHideFlags: 1

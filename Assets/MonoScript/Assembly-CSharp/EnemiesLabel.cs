@@ -17,7 +17,7 @@ public class EnemiesLabel : MonoBehaviour
 				UIRoot uIRoot = NGUITools.FindInParents<UIRoot>(base.gameObject);
 				float num = (float)uIRoot.manualHeight * ((float)Screen.width / (float)Screen.height);
 				InGameGUI component = GameObject.FindGameObjectWithTag("InGameGUI").GetComponent<InGameGUI>();
-				GameObject gameObject = component.hearts[component.hearts.Length - 1];
+				GameObject gameObject = component.healthBar.gameObject;
 				float num2 = gameObject.transform.localPosition.x + gameObject.transform.localScale.x / 2f;
 				float num3 = num - 131f - 128f;
 				float num4 = (num3 - num2) / 3f;

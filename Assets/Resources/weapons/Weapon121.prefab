@@ -1085,7 +1085,7 @@ MonoBehaviour:
   isMelee: 1
   range: 2
   damage: 150
-  speedModifier: 3
+  speedModifier: 2.25
   animationObject: {fileID: 1138919760880212}
   Probability: 1
   damageRange: {x: -10, y: 10}
@@ -1093,7 +1093,7 @@ MonoBehaviour:
   preview: {fileID: 2800000, guid: 572ed7bfce6ff8e4ca697c8e5d57143a, type: 3}
   inAppExtensionModifier: 10
   meleeAngle: 45
-  multiplayerDamage: 3
+  multiplayerDamage: 20
   meleeAttackTimeModifier: 0.57
   isHeal: 0
   healAmount: 0
@@ -1118,6 +1118,7 @@ MonoBehaviour:
   price: 650
   weaponName: BCW Mustang
   oldMeleeSystem: 0
+  emptyState: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -1138,6 +1139,11 @@ MonoBehaviour:
   armoryRotation: {x: 0, y: 0, z: 0}
   armoryPosition: {x: 0, y: 0, z: 0}
   category: 2
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
+  secondBulletSpawn: {fileID: 0}
+  shootLineColor: {r: 1, g: 1, b: 0, a: 1}
 --- !u!114 &114886273230757298
 MonoBehaviour:
   m_ObjectHideFlags: 1

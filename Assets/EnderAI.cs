@@ -30,7 +30,7 @@ public class EnderAI : MonoBehaviour
 
 	public void WideEyes() { PlayEyeAnimation("WideEyes"); }
 
-	public void LookAround() { mAnim.Play("LookAround"); }
+	public void LookAround() { PlayAnimation("LookAround"); }
 
 	private void Start()
 	{
@@ -71,14 +71,14 @@ public class EnderAI : MonoBehaviour
 		}
 		if (moving && !actioning && !eating && !drinking)
 		{
-			if (mAgent.hasPath && mAgent.remainingDistance <= 0.3f)
+			if (mAgent.hasPath && mAgent.remainingDistance <= 1)
 			{
 				moving = false;
 				OnReachCheckpoint(currentPoint);
 			}
 			if (!mAnim.isPlaying)
 			{
-				mAnim.Play("Walk");
+				PlayAnimation("Walk");
 			}
 			mAgent.SetDestination(currentPoint.transform.position);
 		}
@@ -126,7 +126,7 @@ public class EnderAI : MonoBehaviour
 
 	public void Eat(GameObject foodObject)
 	{
-		mAnim.Play("Eat");
+		PlayAnimation("Eat");
 		eating = true;
 		transform.LookAt(foodObject.transform.position);
 		transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
@@ -140,7 +140,7 @@ public class EnderAI : MonoBehaviour
 
 	public void Drink(GameObject drinkObject)
 	{
-		mAnim.Play("Drink");
+		PlayAnimation("Drink");
 		drinking = true;
 		transform.LookAt(drinkObject.transform.position);
 		transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
@@ -165,6 +165,17 @@ public class EnderAI : MonoBehaviour
 		}
 		lastPlayedEyeAnimation = animation;
 		eyes.CrossFade(animation, 0.2f);
+	}
+
+	public void PlayAnimation(string animation)
+	{
+		if (animation == lastPlayedAnimation)
+		{
+			mAnim.Play(animation);
+			return;
+		}
+		lastPlayedAnimation = animation;
+		mAnim.CrossFade(animation, 0.2f);
 	}
 
 	private System.Action onFinishEat, onFinishDrink;

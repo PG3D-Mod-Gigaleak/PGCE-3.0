@@ -525,7 +525,7 @@ MonoBehaviour:
   multiplayerDamage: 2
   meleeAttackTimeModifier: 0.57
   isHeal: 1
-  healAmount: 4
+  healAmount: 25
   HealArmor: 0
   maxHealItems: 5
   bloomLow: 0
@@ -547,6 +547,7 @@ MonoBehaviour:
   price: 200
   weaponName: Krabby Patty
   oldMeleeSystem: 0
+  emptyState: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -567,6 +568,11 @@ MonoBehaviour:
   armoryRotation: {x: 0, y: 0, z: 0}
   armoryPosition: {x: 0, y: 0, z: 0}
   category: 2
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
+  secondBulletSpawn: {fileID: 0}
+  shootLineColor: {r: 1, g: 1, b: 0, a: 1}
 --- !u!148 &148731657316352654
 NetworkView:
   m_ObjectHideFlags: 1

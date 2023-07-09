@@ -183,7 +183,6 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			_003C_003Ef__this._rightJoystick.SendMessage("HasAmmo");
 			_003C_003Ef__this.CurHealth = _003C_003Ef__this.MaxHealth;
-			_003C_003Ef__this.curArmor = GetArmor();
 			Debug.Log("zoneCreatePlayer " + _003C_003Ef__this.zoneCreatePlayer.Length + " " + UnityEngine.Random.Range(0, _003C_003Ef__this.zoneCreatePlayer.Length));
 			GameObject gameObject = _003C_003Ef__this.zoneCreatePlayer[UnityEngine.Random.Range(0, _003C_003Ef__this.zoneCreatePlayer.Length)];
 			BoxCollider component = gameObject.GetComponent<BoxCollider>();
@@ -436,7 +435,13 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public float curArmor;
 
-	public float MaxArmor;
+	public float MaxArmor
+	{
+		get
+		{
+			return 100;
+		}
+	}
 
 	public int AmmoBoxWidth = 100;
 
@@ -652,7 +657,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		get
 		{
-			return 9;
+			return 100;
 		}
 	}
 
@@ -1991,58 +1996,6 @@ public sealed class Player_move_c : MonoBehaviour
 		RanksTapReceiver.RanksClicked -= RanksPressed;
 	}
 
-	public GameObject GetVisibleWear(string curgear)
-	{
-		//Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
-		switch(curgear)
-		{
-			case "Iron Armor":
-			return ironArmor;
-			case "Golden Armor":
-			return goldArmor;
-			case "Diamond Armor":
-			return diamondArmor;
-			case "Stalker":
-			return stalkerhelmet;
-			default:
-			return noVisibleWear;
-		}
-	}
-
-	public static float GetArmor()
-	{
-		//Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
-		switch(PlayerPrefs.GetString("gear"))
-		{
-			case "Iron Armor":
-			return 1f;
-			case "Golden Armor":
-			return 2f;
-			case "Diamond Armor":
-			return 3f;
-			default:
-			return 0f;
-		}
-	}
-
-	public static float GetSpeedMod()
-	{
-		//Debug.LogError("current gear is " + PlayerPrefs.GetString("gear"));
-		switch(PlayerPrefs.GetString("gear"))
-		{
-			case "Sneakers":
-			return 1.1f;
-			case "Iron Armor":
-			return 0.95f;
-			case "Golden Armor":
-			return 0.9f;
-			case "Diamond Armor":
-			return 0.85f;
-			default:
-			return 1f;
-		}
-	}
-
 	private void RanksPressed()
 	{
 		RemoveButtonHandelrs();
@@ -2063,29 +2016,8 @@ public sealed class Player_move_c : MonoBehaviour
 		myIp = _ip;
 	}
 
-	[RPC]
-	private void setVisibleWear(string gear)
-	{
-		foreach(PhotonPlayer photonPlayer in PhotonNetwork.playerList)
-		{
-			GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
-			GameObject[] array2 = array;
-			foreach (GameObject gameObject in array2)
-			{
-				if (gameObject.GetComponent<Player_move_c>().playerID() == photonPlayer.ID)
-				{
-					GameObject GObj = gameObject.GetComponent<Player_move_c>().GetVisibleWear(gear);
-					GObj.SetActive(true);
-				}
-			}
-		}
-	}
-
 	private void Start()
 	{
-		ExitGames.Client.Photon.Hashtable hs = new ExitGames.Client.Photon.Hashtable();
-		hs["gear"] = PlayerPrefs.GetString("gear");
-		PhotonNetwork.player.SetCustomProperties(hs);
 		widthPoduct = (float)(healthInApp.normal.background.width * Screen.height) / 768f * (320f / (float)healthInApp.normal.background.height);
 		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
 		{
@@ -2274,12 +2206,10 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			CurHealth = PlayerPrefs.GetFloat(Defs.CurrentHealthSett, MaxPlayerHealth);
 			//curArmor = PlayerPrefs.GetFloat(Defs.CurrentArmorSett, MaxArmor);
-			curArmor = GetArmor();
 		}
 		else
 		{
 			CurHealth = MaxPlayerHealth;
-			curArmor = GetArmor();
 		}
 		Invoke("SendSpeedModifier", 0.5f);
 		GameObject gameObject3 = (GameObject)UnityEngine.Object.Instantiate(renderAllObjectPrefab, Vector3.zero, Quaternion.identity);
@@ -2303,14 +2233,6 @@ public sealed class Player_move_c : MonoBehaviour
 			base.transform.parent.transform.position = GlobalGameController.posMyPlayer;
 			base.transform.parent.transform.rotation = GlobalGameController.rotMyPlayer;
 			PlayerPrefs.SetInt("StartAfterDisconnect", 0);
-		}
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
-		{
-			base.GetComponent<NetworkView>().RPC("setVisibleWear", RPCMode.Others);
-		}
-		else
-		{
-			photonView.RPC("setVisibleWear", PhotonTargets.Others, PlayerPrefs.GetString("gear"));
 		}
 	}
 
@@ -3362,30 +3284,30 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			if (WS.HealArmor)
 			{
-			if (curArmor <= 9f)
-			{
-			curArmor += WS.healAmount;
-			if (curArmor > 9f)
-			{
-				curArmor = 9f;
-			}
-			}
-			((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
-			return;
+				if (curArmor <= 9f)
+				{
+					curArmor += WS.healAmount;
+					if (curArmor > 9f)
+					{
+						curArmor = 9f;
+					}
+				}
+				((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
+				return;
 			}
 			if (WS.SpeedBoost)
 			{
-			StartCoroutine(doSpeedBoost(WS));
-			((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
-			return;
+				StartCoroutine(doSpeedBoost(WS));
+				((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
+				return;
 			}
-			if (CurHealth <= 9f)
+			if (CurHealth <= MaxHealth)
 			{
-			CurHealth += WS.healAmount;
-			if (CurHealth > 9f)
-			{
-				CurHealth = 9f;
-			}
+				CurHealth += WS.healAmount;
+				if (CurHealth > MaxHealth)
+				{
+					CurHealth = MaxHealth;
+				}
 			}
 			((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
 			return;
@@ -3883,6 +3805,18 @@ public sealed class Player_move_c : MonoBehaviour
 				{
 					parentedAnimation.CrossFade("ParentedIdle", 0.15f);
 				}
+			}
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				SwitchPause();
+			}
+			if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyUp(KeyCode.Tab))
+			{
+				RanksPressed();
+			}
+			if (Input.GetKeyDown(KeyCode.T))
+			{
+				OpenChat();
 			}
 		}				
 		_003CUpdate_003Ec__AnonStorey28 _003CUpdate_003Ec__AnonStorey = new _003CUpdate_003Ec__AnonStorey28();

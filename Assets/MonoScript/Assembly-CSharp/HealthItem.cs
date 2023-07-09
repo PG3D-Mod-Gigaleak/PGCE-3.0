@@ -120,7 +120,7 @@ public class HealthItem : MonoBehaviour
 		{
 			return;
 		}
-		test.CurHealth += 1f;
+		test.CurHealth += 20f;
 		if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
 		{
 			test.gameObject.GetComponent<AudioSource>().PlayOneShot(HealthItemUp);

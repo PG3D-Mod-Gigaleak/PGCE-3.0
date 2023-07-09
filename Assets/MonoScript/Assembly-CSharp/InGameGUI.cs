@@ -14,10 +14,6 @@ public class InGameGUI : MonoBehaviour
 
 	public GetString timeLeft;
 
-	public GameObject[] hearts = new GameObject[0];
-
-	public GameObject[] armorShields = new GameObject[0];
-
 	public GameObject elixir;
 
 	public GameObject scoreLabel;
@@ -75,6 +71,10 @@ public class InGameGUI : MonoBehaviour
 	public GameObject[] aimSprites;
 
 	public UITexture zoomTex;
+
+	public UITexture healthBar, armorBar;
+
+	public UILabel healthAmount, armorAmount;
 
 	private bool zoomed;
 
@@ -152,13 +152,9 @@ public class InGameGUI : MonoBehaviour
 		aimSprites[1].transform.localPosition = new Vector3(0f, -8f - WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f);
 		aimSprites[3].transform.localPosition = new Vector3(8f + WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f, 0f);
 		aimSprites[2].transform.localPosition = new Vector3(-8f - WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f, 0f);
-		for (int i = 0; i < Player_move_c.MaxPlayerHealth; i++)
-		{
-			hearts[i].SetActive((float)i < health());
-		}
-		for (int j = 0; j < Player_move_c.MaxPlayerHealth; j++)
-		{
-			armorShields[j].SetActive((float)j < armor());
-		}
+		healthBar.fillAmount = (playerMoveC.CurHealth / playerMoveC.MaxHealth) / 11f;
+		armorBar.fillAmount = (playerMoveC.curArmor / playerMoveC.MaxArmor) / 11f;
+		healthAmount.text = Mathf.RoundToInt(playerMoveC.CurHealth) + "";
+		armorAmount.text = Mathf.RoundToInt(playerMoveC.curArmor) + "";
 	}
 }

@@ -450,7 +450,7 @@ MonoBehaviour:
   preview: {fileID: 2800000, guid: db5a6fb814c3aca4bb73f815cca55e8b, type: 3}
   inAppExtensionModifier: 10
   meleeAngle: 45
-  multiplayerDamage: 6
+  multiplayerDamage: 100
   meleeAttackTimeModifier: 0.25
   isHeal: 0
   healAmount: 0
@@ -475,6 +475,7 @@ MonoBehaviour:
   price: 750
   weaponName: Cleaver
   oldMeleeSystem: 0
+  emptyState: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -495,6 +496,11 @@ MonoBehaviour:
   armoryRotation: {x: 0, y: 0, z: 0}
   armoryPosition: {x: 0, y: 0, z: 0}
   category: 2
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
+  secondBulletSpawn: {fileID: 0}
+  shootLineColor: {r: 1, g: 1, b: 0, a: 1}
 --- !u!148 &148221711646200890
 NetworkView:
   m_ObjectHideFlags: 1

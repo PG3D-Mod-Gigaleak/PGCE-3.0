@@ -603,8 +603,8 @@ MonoBehaviour:
   swapTime: 1.3333
   isSwapIn: 1
   isSwapOut: 1
-  shoot: {fileID: 8300000, guid: d0e6e6e30a1d88b409ac545e672b26d8, type: 3}
-  reload: {fileID: 8300000, guid: aec958e07b43613489560e1579ac1b93, type: 3}
+  shoot: {fileID: 8300000, guid: 252c5f35d76284d41a84ea8d1c2f0770, type: 3}
+  reload: {fileID: 8300000, guid: abf8c378fd1234a44b4085627973624c, type: 3}
   empty: {fileID: 8300000, guid: 7a430345fb1626043b19d700b3991f07, type: 3}
   isSerialShooting: 1
   bonusPrefab: {fileID: 1585760947645836}
@@ -622,7 +622,7 @@ MonoBehaviour:
   preview: {fileID: 2800000, guid: 43f3b58eba9b06a41b0dabea58726305, type: 3}
   inAppExtensionModifier: 10
   meleeAngle: 45
-  multiplayerDamage: 4.5
+  multiplayerDamage: 40
   meleeAttackTimeModifier: 0.57
   isHeal: 0
   healAmount: 0
@@ -647,6 +647,7 @@ MonoBehaviour:
   price: 400
   weaponName: Guerilla Rifle
   oldMeleeSystem: 0
+  emptyState: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -670,6 +671,8 @@ MonoBehaviour:
   isZooming: 1
   scopeNum: 4
   zoomFov: 45
+  secondBulletSpawn: {fileID: 0}
+  shootLineColor: {r: 1, g: 1, b: 0, a: 1}
 --- !u!114 &114842756279004926
 MonoBehaviour:
   m_ObjectHideFlags: 1
