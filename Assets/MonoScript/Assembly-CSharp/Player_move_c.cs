@@ -2204,7 +2204,7 @@ public sealed class Player_move_c : MonoBehaviour
 		_SetGunFlashActive(false);
 		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
 		{
-			CurHealth = PlayerPrefs.GetFloat(Defs.CurrentHealthSett, MaxPlayerHealth);
+			//CurHealth = PlayerPrefs.GetFloat(Defs.CurrentHealthSett, MaxPlayerHealth);
 			//curArmor = PlayerPrefs.GetFloat(Defs.CurrentArmorSett, MaxArmor);
 		}
 		else
@@ -3284,12 +3284,12 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			if (WS.HealArmor)
 			{
-				if (curArmor <= 9f)
+				if (curArmor <= MaxArmor)
 				{
 					curArmor += WS.healAmount;
-					if (curArmor > 9f)
+					if (curArmor > MaxArmor)
 					{
-						curArmor = 9f;
+						curArmor = MaxArmor;
 					}
 				}
 				((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
