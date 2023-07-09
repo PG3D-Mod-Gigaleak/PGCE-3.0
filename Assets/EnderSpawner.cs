@@ -13,7 +13,7 @@ public class EnderSpawner : MonoBehaviour
 		instance = this;
 	}
 
-	void Start()
+	void Update()
 	{
 		if (Defs.isMulti)
 		{
