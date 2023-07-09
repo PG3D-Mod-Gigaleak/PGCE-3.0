@@ -431,7 +431,13 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private int currentCategory = -1;
 
-	public float MaxHealth = MaxPlayerHealth;
+	public float MaxHealth
+	{
+		get
+		{
+			return MaxPlayerHealth;
+		}
+	}
 
 	public float curArmor;
 

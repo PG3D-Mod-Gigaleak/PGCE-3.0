@@ -152,8 +152,8 @@ public class InGameGUI : MonoBehaviour
 		aimSprites[1].transform.localPosition = new Vector3(0f, -8f - WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f);
 		aimSprites[3].transform.localPosition = new Vector3(8f + WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f, 0f);
 		aimSprites[2].transform.localPosition = new Vector3(-8f - WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f, 0f);
-		healthBar.fillAmount = (playerMoveC.CurHealth / playerMoveC.MaxHealth) / 11f;
-		armorBar.fillAmount = (playerMoveC.curArmor / playerMoveC.MaxArmor) / 11f;
+		healthBar.fillAmount = (playerMoveC.CurHealth / playerMoveC.MaxHealth);
+		armorBar.fillAmount = (playerMoveC.curArmor / playerMoveC.MaxArmor);
 		healthAmount.text = Mathf.RoundToInt(playerMoveC.CurHealth) + "";
 		armorAmount.text = Mathf.RoundToInt(playerMoveC.curArmor) + "";
 	}
