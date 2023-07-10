@@ -133,6 +133,10 @@ public class AmmoItem : MonoBehaviour
 		{
 			GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().AddHeal();
 		}
+		else if (GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().currentWeaponSounds.throwObject)
+		{
+			GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().AddThrowObject();
+		}
 		if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
 		{
 			test.gameObject.GetComponent<AudioSource>().PlayOneShot(AmmoItemUp);

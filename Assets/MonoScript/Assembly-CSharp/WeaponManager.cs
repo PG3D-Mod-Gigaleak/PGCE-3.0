@@ -924,6 +924,16 @@ public sealed class WeaponManager : MonoBehaviour
 		}
 	}
 
+	public void AddThrowObject()
+	{
+		Weapon weapon = (Weapon)playerWeapons[CurrentWeaponIndex];
+		WeaponSounds component = weapon.weaponPrefab.GetComponent<WeaponSounds>();
+		if (weapon.currentAmmoInClip < component.throwObjects)
+		{
+			weapon.currentAmmoInClip++;
+		}
+	}
+
 	public void SetMaxAmmoFrAllWeapons()
 	{
 		foreach (Weapon playerWeapon in playerWeapons)

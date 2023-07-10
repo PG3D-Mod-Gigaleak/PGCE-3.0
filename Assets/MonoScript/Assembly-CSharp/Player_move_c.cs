@@ -904,12 +904,12 @@ public sealed class Player_move_c : MonoBehaviour
 				Debug.LogWarning("OnGUI(): _weaponManager.currentWeaponSounds is null.");
 			}
 		}
-		if (_weaponManager != null && _weaponManager.CurrentWeaponIndex >= 0 && _weaponManager.CurrentWeaponIndex < _weaponManager.playerWeapons.Count && !_weaponManager.currentWeaponSounds.isMelee && !_weaponManager.currentWeaponSounds.isHeal)
+		if (_weaponManager != null && _weaponManager.CurrentWeaponIndex >= 0 && _weaponManager.CurrentWeaponIndex < _weaponManager.playerWeapons.Count && !_weaponManager.currentWeaponSounds.isMelee && !_weaponManager.currentWeaponSounds.isHeal && !_weaponManager.currentWeaponSounds.throwObject)
 		{
 			GUI.DrawTexture(position5, ammoTexture);
 			GUI.Box(position6, ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip + "/" + ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack, AmmoBox);
 		}
-		if (_weaponManager.currentWeaponSounds.isHeal)
+		if (_weaponManager.currentWeaponSounds.isHeal || _weaponManager.currentWeaponSounds.throwObject)
 		{
 			GUI.DrawTexture(position5, ammoTexture);
 			string str = ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip.ToString();
@@ -1968,7 +1968,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		int currentWeaponIndex = _weaponManager.CurrentWeaponIndex;
 		Weapon weapon = (Weapon)_weaponManager.playerWeapons[currentWeaponIndex];
-		return weapon.currentAmmoInBackpack < _weaponManager.currentWeaponSounds.MaxAmmoWithRespectToInApp || _weaponManager.currentWeaponSounds.isHeal;
+		return weapon.currentAmmoInBackpack < _weaponManager.currentWeaponSounds.MaxAmmoWithRespectToInApp || _weaponManager.currentWeaponSounds.isHeal || _weaponManager.currentWeaponSounds.throwObject;
 	}
 
 	private void SwitchPause()
@@ -2463,7 +2463,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void ReloadPressed()
 	{
-		if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.isHeal ||  _weaponManager.CurrentWeaponIndex < 0 || _weaponManager.CurrentWeaponIndex >= _weaponManager.playerWeapons.Count || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack <= 0 || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == _weaponManager.currentWeaponSounds.ammoInClip || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
+		if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.isHeal || _weaponManager.currentWeaponSounds.throwObject ||  _weaponManager.CurrentWeaponIndex < 0 || _weaponManager.CurrentWeaponIndex >= _weaponManager.playerWeapons.Count || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack <= 0 || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == _weaponManager.currentWeaponSounds.ammoInClip || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
 		{
 			return;
 		}
@@ -2573,7 +2573,7 @@ public sealed class Player_move_c : MonoBehaviour
 			return;
 		}
 		WS.animationObject.GetComponent<Animation>().Stop();
-		if (WS.isMelee || WS.isHeal)
+		if (WS.isMelee || WS.isHeal || WS.throwObject)
 		{
 			_Shot(alt);
 		}
@@ -2695,7 +2695,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			WS = _weaponManager.currentWeaponSounds;
 		}
-		if (!WS.isHeal || WS.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
+		if ((!WS.throwObject || WS.throwObject && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0) || !WS.isHeal || WS.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
 		{
 			if (!alt)
 			{
@@ -3255,6 +3255,17 @@ public sealed class Player_move_c : MonoBehaviour
 		photonView.RPC("DoorRPC", PhotonTargets.Others, door, source, elapse, false);
 	}
 
+	[RPC]
+	public void SpawnThrownObject(int viewID, string weaponName, float damage, SerializableVector3 pos, SerializableQuaternion rot)
+	{
+		Instantiate(Resources.Load<GameObject>("ThrowObjects/" + weaponName), pos, rot).GetComponent<ThrownObject>().multiplayerDamage = damage;
+	}
+
+	public void SpawnThrownObjectOffline(float damage)
+	{
+		Instantiate(Resources.Load<GameObject>("ThrowObjects/" + _weaponManager.currentWeaponSounds.name.Replace("(Clone)", "")), _bulletSpawnPoint.transform.position, _bulletSpawnPoint.transform.rotation).GetComponent<ThrownObject>().multiplayerDamage = damage;
+	}
+
 	public void shootS(bool alt)
 	{
 		WeaponSounds WS = null;
@@ -3285,6 +3296,19 @@ public sealed class Player_move_c : MonoBehaviour
 			gameObject3.GetComponent<Rigidbody>().useGravity = WS.grenadeLauncher;
 			extraSpeed = WS.bazookaSpeed;
 			rocketToLaunch = gameObject3;
+			return;
+		}
+		if (WS.throwObject && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
+		{
+			if (Defs.isMulti)
+			{
+				photonView.RPC("SpawnThrownObject", PhotonTargets.All, transform.parent.GetComponent<PhotonView>().viewID, _weaponManager.currentWeaponSounds.name.Replace("(Clone)", ""), WS.multiplayerDamage, _bulletSpawnPoint.transform.position, _bulletSpawnPoint.transform.rotation);
+			}
+			else
+			{
+				SpawnThrownObjectOffline(WS.multiplayerDamage);
+			}
+			((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
 			return;
 		}
 		if (WS.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)

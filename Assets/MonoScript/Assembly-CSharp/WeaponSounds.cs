@@ -102,6 +102,10 @@ public class WeaponSounds : MonoBehaviour
 
 	public bool emptyState;
 
+	public bool throwObject;
+
+	public int throwObjects;
+
 	[Header("imported stuff")]
 
 	public Vector2 startZone = new Vector2(3f, 3f);
