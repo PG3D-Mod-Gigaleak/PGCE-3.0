@@ -94,18 +94,18 @@ public class FirstPersonControl : MonoBehaviour
 
 	public virtual void SetSpeedModifier(float speedMod)
 	{
-		//if (!(startForwardSpeed <= 0f))
-		//{
-		//	forwardSpeed = startForwardSpeed * speedMod * Player_move_c.GetSpeedMod();
-		//}
-		//if (!(startBackwardSpeed <= 0f))
-		//{
-		//	backwardSpeed = startBackwardSpeed * speedMod * Player_move_c.GetSpeedMod();
-		//}
-		//if (!(startSidestepSpeed <= 0f))
-		//{
-		//	sidestepSpeed = startSidestepSpeed * speedMod * Player_move_c.GetSpeedMod();
-		//}
+		if (!(startForwardSpeed <= 0f))
+		{
+			forwardSpeed = startForwardSpeed * speedMod * Globals.PlayerMove.GetSpeedMod();
+		}
+		if (!(startBackwardSpeed <= 0f))
+		{
+			backwardSpeed = startBackwardSpeed * speedMod * Globals.PlayerMove.GetSpeedMod();
+		}
+		if (!(startSidestepSpeed <= 0f))
+		{
+			sidestepSpeed = startSidestepSpeed * speedMod * Globals.PlayerMove.GetSpeedMod();
+		}
 	}
 
 	public virtual void Start()

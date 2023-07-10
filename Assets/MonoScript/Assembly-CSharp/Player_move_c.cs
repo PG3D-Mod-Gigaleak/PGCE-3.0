@@ -1833,6 +1833,19 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	private bool sprinting
+	{
+		get
+		{
+			return Input.GetKey(KeyCode.LeftShift);
+		}
+	}
+
+	public float GetSpeedMod()
+	{
+		return sprinting ? _weaponManager.currentWeaponSounds.speedModifier * 1.5f : _weaponManager.currentWeaponSounds.speedModifier;
+	}
+
 	public void ChangeWeapon(int index, bool shouldSetMaxAmmo = true)
 	{
 		photonView = PhotonView.Get(this);
@@ -3826,8 +3839,16 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				if (!parentedAnimation.IsPlaying("ParentedWalk"))
 				{
-					parentedAnimation["ParentedWalk"].speed = _weaponManager.currentWeaponSounds.speedModifier;
-					parentedAnimation.CrossFade("ParentedWalk", 0.1f);
+					if (sprinting)
+					{
+						parentedAnimation["ParentedWalk"].speed = _weaponManager.currentWeaponSounds.speedModifier * 1.4f;
+						parentedAnimation.CrossFade("ParentedWalk", 0.1f);
+					}
+					else
+					{
+						parentedAnimation["ParentedWalk"].speed = _weaponManager.currentWeaponSounds.speedModifier;
+						parentedAnimation.CrossFade("ParentedWalk", 0.1f);
+					}
 				}
 			}
 			else
@@ -3849,7 +3870,25 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				OpenChat();
 			}
-		}				
+			if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift))
+			{
+				parentedAnimation.Stop();
+			}
+		}
+		if (sprinting)
+		{
+			if (Camera.main.fieldOfView < 90f)
+			{
+				Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 91f, Time.deltaTime * 15f);
+			}
+		}
+		else
+		{
+			if (Camera.main.fieldOfView > 75f)
+			{
+				Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 74f, Time.deltaTime * 30f);
+			}
+		}			
 		_003CUpdate_003Ec__AnonStorey28 _003CUpdate_003Ec__AnonStorey = new _003CUpdate_003Ec__AnonStorey28();
 		_003CUpdate_003Ec__AnonStorey._003C_003Ef__this = this;
 		if (_weaponManager.myPlayer != null && _singleOrMultiMine())
