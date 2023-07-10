@@ -1958,7 +1958,6 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			GunFlash = GameObject.Find("GunFlash").transform;
 		}
-		SendSpeedModifier();
 		if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
 		{
 			base.gameObject.GetComponent<AudioSource>().PlayOneShot(ChangeWeaponClip);
@@ -2708,7 +2707,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			WS = _weaponManager.currentWeaponSounds;
 		}
-		if ((!WS.throwObject || WS.throwObject && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0) || !WS.isHeal || WS.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
+		if ((!WS.throwObject || WS.throwObject && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0) || (!WS.isHeal || WS.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0))
 		{
 			if (!alt)
 			{
@@ -3269,7 +3268,7 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 
 	[RPC]
-	public void SpawnThrownObject(int viewID, string weaponName, float damage, SerializableVector3 pos, SerializableQuaternion rot)
+	public void SpawnThrownObject(int viewID, string weaponName, float damage, Vector3 pos, Quaternion rot)
 	{
 		Instantiate(Resources.Load<GameObject>("ThrowObjects/" + weaponName), pos, rot).GetComponent<ThrownObject>().multiplayerDamage = damage;
 	}
@@ -3311,17 +3310,20 @@ public sealed class Player_move_c : MonoBehaviour
 			rocketToLaunch = gameObject3;
 			return;
 		}
-		if (WS.throwObject && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
+		if (WS.throwObject)
 		{
-			if (Defs.isMulti)
+			if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
 			{
-				photonView.RPC("SpawnThrownObject", PhotonTargets.All, transform.parent.GetComponent<PhotonView>().viewID, _weaponManager.currentWeaponSounds.name.Replace("(Clone)", ""), WS.multiplayerDamage, _bulletSpawnPoint.transform.position, _bulletSpawnPoint.transform.rotation);
+				if (Defs.isMulti)
+				{
+					photonView.RPC("SpawnThrownObject", PhotonTargets.All, transform.parent.GetComponent<PhotonView>().viewID, _weaponManager.currentWeaponSounds.name.Replace("(Clone)", ""), WS.multiplayerDamage, _bulletSpawnPoint.transform.position, _bulletSpawnPoint.transform.rotation);
+				}
+				else
+				{
+					SpawnThrownObjectOffline(WS.multiplayerDamage);
+				}
+				((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
 			}
-			else
-			{
-				SpawnThrownObjectOffline(WS.multiplayerDamage);
-			}
-			((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
 			return;
 		}
 		if (WS.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
