@@ -29,17 +29,17 @@ public class ThrownObject : MonoBehaviour
 	[RPC]
 	public void DestroyThrownObject()
 	{
-		Instantiate(Resources.Load<GameObject>("ThrownDestruct/" + name), transform.position, transform.rotation);
+		Instantiate(Resources.Load<GameObject>("ThrownDestruct/" + name.Replace("(Clone)", "")), transform.position, transform.rotation);
 		Destroy(gameObject);
 	}
 
 	public void DestroyThrownObjectOffline()
 	{
-		Instantiate(Resources.Load<GameObject>("ThrownDestruct/" + name), transform.position, transform.rotation);
+		Instantiate(Resources.Load<GameObject>("ThrownDestruct/" + name.Replace("(Clone)", "")), transform.position, transform.rotation);
 		Destroy(gameObject);
 	}
 
-	void OnTriggerEnter(Collider other)
+	void OnCollisionEnter(Collision other)
 	{
 		if (other.transform.tag == "HeadCollider" || other.transform.tag == "BodyCollider")
 		{

@@ -92,19 +92,19 @@ public class FirstPersonControl : MonoBehaviour
 		isMine = true;
 	}
 
-	public virtual void SetSpeedModifier(float speedMod)
+	public virtual void SetSpeedModifier()
 	{
 		if (!(startForwardSpeed <= 0f))
 		{
-			forwardSpeed = startForwardSpeed * speedMod * Globals.PlayerMove.GetSpeedMod();
+			forwardSpeed = startForwardSpeed* Globals.PlayerMove.GetSpeedMod();
 		}
 		if (!(startBackwardSpeed <= 0f))
 		{
-			backwardSpeed = startBackwardSpeed * speedMod * Globals.PlayerMove.GetSpeedMod();
+			backwardSpeed = startBackwardSpeed * Globals.PlayerMove.GetSpeedMod();
 		}
 		if (!(startSidestepSpeed <= 0f))
 		{
-			sidestepSpeed = startSidestepSpeed * speedMod * Globals.PlayerMove.GetSpeedMod();
+			sidestepSpeed = startSidestepSpeed * Globals.PlayerMove.GetSpeedMod();
 		}
 	}
 
@@ -208,6 +208,7 @@ public class FirstPersonControl : MonoBehaviour
 			}
 			camSway.value = Mathf.Lerp(camSway.value, moveTouchPad.position.x > 0 ? -2.5f : moveTouchPad.position.x < 0 ? 2.5f : 0, Time.deltaTime * camSwaySpeed);
 		}
+		SetSpeedModifier();
 		Vector3 motion = thisTransform.TransformDirection(new Vector3(moveTouchPad.position.x, 0f, moveTouchPad.position.y));
 		motion.y = 0f;
 		motion.Normalize();
