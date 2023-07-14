@@ -1221,6 +1221,7 @@ public sealed class Defs
 		mapNamesForUser.Add("UtopiaWavy", "utopia but I gave you drugs");
 		mapNamesForUser.Add("FajitaSky_islands", "i hate kuro");
 		mapNamesForUser.Add("Abandoned_Pool_old", "welcome back to the old days of abandoned pool");
+		mapNamesForUser.Add("InnerDynasty", "Inner Dynasty");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -1284,6 +1285,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("echo_room", 4018);
 		levelNumsForMusicInMult.Add("Supermarket", 4019);
 		levelNumsForMusicInMult.Add("Paradise_Night", 4020);
+		levelNumsForMusicInMult.Add("InnerDynasty", 2023);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
