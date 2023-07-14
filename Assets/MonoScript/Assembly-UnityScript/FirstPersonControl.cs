@@ -73,6 +73,21 @@ public class FirstPersonControl : MonoBehaviour
 
 	public CamSway camSway;
 
+	// BHOP SHIT
+	public float bhopSpeedMult = 1.0f;
+	public float initialBhopIncrement = 0.25f;
+	public float bhopIncrement = 0.25f;
+	public float bhopTimeout = 0.05f;
+	public float bhopAllowTimer = 0.0f;
+	public float time = 0.0f;
+	//public float bhopAllowerTime = 0.5f;
+	//public float bhopAllowerTimeout = 0.2f;
+	public float timeAtLastPress = 0.0f;
+	public float holdTimeout = 0.2f;
+	public bool isHoldingJump = false;
+	//public bool bhopIsAllowed = false;
+	//public bool justJumped = false;
+
 	public FirstPersonControl()
 	{
 		forwardSpeed = 4f;
@@ -96,15 +111,15 @@ public class FirstPersonControl : MonoBehaviour
 	{
 		if (!(startForwardSpeed <= 0f))
 		{
-			forwardSpeed = startForwardSpeed* Globals.PlayerMove.GetSpeedMod();
+			forwardSpeed = startForwardSpeed* Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult;
 		}
 		if (!(startBackwardSpeed <= 0f))
 		{
-			backwardSpeed = startBackwardSpeed * Globals.PlayerMove.GetSpeedMod();
+			backwardSpeed = startBackwardSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult;
 		}
 		if (!(startSidestepSpeed <= 0f))
 		{
-			sidestepSpeed = startSidestepSpeed * Globals.PlayerMove.GetSpeedMod();
+			sidestepSpeed = startSidestepSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult;
 		}
 	}
 
@@ -185,12 +200,18 @@ public class FirstPersonControl : MonoBehaviour
 
 	public virtual void Jump()
 	{
+		if (bhopAllowTimer < bhopTimeout /*&& bhopIsAllowed*/ && !isHoldingJump) {
+			bhopSpeedMult += bhopIncrement;
+			bhopIncrement /= 1.15f;
+		}
+		//justJumped = false;
 		jump = true;
 		canJump = false;
 	}
 
 	public virtual void Update()
 	{
+		time += Time.deltaTime;
 		if (!Application.isMobilePlatform)
 		{
 			moveTouchPad.position = updateKeyboardControls();
@@ -201,6 +222,11 @@ public class FirstPersonControl : MonoBehaviour
 			if (Input.GetKey(KeyCode.Space))
 			{
 				jumpButton.jumpPressed = true;
+			}
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				timeAtLastPress = time;
+				//justJumped = true;
 			}
 			if (Input.GetKeyUp(KeyCode.Space))
 			{
@@ -228,9 +254,30 @@ public class FirstPersonControl : MonoBehaviour
 		{
 			motion *= sidestepSpeed * vector.x;
 		}
+		/*if (bhopAllowerTime > bhopAllowerTimeout && !bhopIsAllowed) {
+			print("Bhop allowed again");
+			bhopIsAllowed = true;
+			bhopAllowerTime = 0;
+		}*/
+		if (time-timeAtLastPress > holdTimeout && Input.GetKey(KeyCode.Space)) {
+			isHoldingJump = true;
+		}
+		if (!Input.GetKey(KeyCode.Space)) {
+			isHoldingJump = false;
+		}
 		if (character.isGrounded)
 		{
 			canJump = true;
+			bhopAllowTimer += Time.deltaTime;
+			/*if (!bhopIsAllowed) {
+				bhopAllowerTime += Time.deltaTime;
+			} else {
+				bhopAllowerTime = 0;
+			}*/
+			if (bhopAllowTimer > bhopTimeout) {
+				bhopSpeedMult = 1.0f;
+				bhopIncrement = initialBhopIncrement;
+			}
 			jump = false;
 			Joystick joystick = rotateTouchPad;
 			if (canJump && joystick.jumpPressed)
@@ -246,11 +293,17 @@ public class FirstPersonControl : MonoBehaviour
 		}
 		else
 		{
+			bhopAllowTimer = 0;
+			//bhopAllowerTime = 0;
 			velocity.y += Physics.gravity.y * Time.deltaTime;
 			//motion.x *= inAirMultiplier;
 			//motion.z *= inAirMultiplier;
 			if (rotateTouchPad.jumpPressed)
 			{
+				/*if (justJumped) {
+					print("Jump pressed while in air! Negating next bhop.");
+					bhopIsAllowed = false;
+				}*/
 				rotateTouchPad.jumpPressed = false;
 			}
 		}
