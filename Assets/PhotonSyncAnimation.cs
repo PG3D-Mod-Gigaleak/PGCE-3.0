@@ -28,8 +28,13 @@ public class PhotonSyncAnimation : MonoBehaviour
 		photonView.viewID = PhotonNetwork.AllocateViewID();
         anim = GetComponent<Animation>();
         animationTime = anim[anim.clip.name].normalizedTime;
-        photonView.RPC("SyncAnimationTime", PhotonTargets.All, animationTime);
+        Invoke("Idiocy", 1f);
     }
+
+	private void Idiocy()
+	{
+		photonView.RPC("SyncAnimationTime", PhotonTargets.All, animationTime);
+	}
 
     [RPC]
     private void SyncAnimationTime(float time)
