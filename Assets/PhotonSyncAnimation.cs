@@ -10,6 +10,8 @@ public class PhotonSyncAnimation : Photon.MonoBehaviour
 
 	public string syncAnim;
 
+	private bool synced;
+
     private void Awake()
     {
 		if (!PhotonNetwork.connected)
@@ -27,18 +29,20 @@ public class PhotonSyncAnimation : Photon.MonoBehaviour
 
     private void Start()
     {
-        if (photonView.isMine)
-        {
-            animationTime = anim[anim.clip.name].normalizedTime;
-            photonView.RPC("SyncAnimationTime", PhotonTargets.Others, animationTime);
-        }
+        animationTime = anim[anim.clip.name].normalizedTime;
+        photonView.RPC("SyncAnimationTime", PhotonTargets.All, animationTime);
     }
 
     [RPC]
     private void SyncAnimationTime(float time)
     {
+		if (synced)
+		{
+			return;
+		}
         animationTime = time;
         anim[syncAnim].normalizedTime = animationTime;
         anim.Play(syncAnim);
+		synced = true;
 	}
 }
