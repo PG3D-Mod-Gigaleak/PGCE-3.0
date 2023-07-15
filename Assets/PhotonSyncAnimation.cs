@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
-using Photon;
 
 [RequireComponent(typeof(PhotonView))]
-public class PhotonSyncAnimation : Photon.MonoBehaviour
+public class PhotonSyncAnimation : MonoBehaviour
 {
     private Animation anim;
+
+	private PhotonView photonView;
 	
     private float animationTime;
 
@@ -14,6 +15,7 @@ public class PhotonSyncAnimation : Photon.MonoBehaviour
 
     private void Awake()
     {
+		photonView = GetComponent<PhotonView>();
 		if (!PhotonNetwork.connected)
 		{
 			enabled = false;
