@@ -18,7 +18,10 @@ public class PhotonSyncAnimation : Photon.MonoBehaviour
 		{
 			enabled = false;
 		}
-		photonView.viewID = PhotonNetwork.AllocateViewID();
+		if (photonView.viewID == 0)
+		{
+			photonView.viewID = PhotonNetwork.AllocateViewID();
+		}
         anim = GetComponent<Animation>();
     }
 
