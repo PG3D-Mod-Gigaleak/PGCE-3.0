@@ -28,7 +28,7 @@ public class PhotonSyncAnimation : MonoBehaviour
 		photonView.viewID = PhotonNetwork.AllocateViewID();
         anim = GetComponent<Animation>();
         animationTime = anim[anim.clip.name].normalizedTime;
-        Invoke("Idiocy", 1f);
+        Invoke("Idiocy", 10f);
     }
 
 	private void Idiocy()
