@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Photon;
 
+[RequireComponent(typeof(PhotonView))]
 public class PhotonSyncAnimation : Photon.MonoBehaviour
 {
     private Animation anim;
@@ -15,8 +16,14 @@ public class PhotonSyncAnimation : Photon.MonoBehaviour
 		{
 			enabled = false;
 		}
+		photonView.viewID = PhotonNetwork.AllocateViewID();
         anim = GetComponent<Animation>();
     }
+
+	private void OnDestroy()
+	{
+		PhotonNetwork.UnAllocateViewID(photonView.viewID);
+	}
 
     private void Start()
     {
