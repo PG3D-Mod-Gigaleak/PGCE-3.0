@@ -13,20 +13,6 @@ public class PhotonSyncAnimation : MonoBehaviour
 
 	private bool synced;
 
-    private void Awake()
-    {
-		photonView = GetComponent<PhotonView>();
-		if (!PhotonNetwork.connected)
-		{
-			enabled = false;
-		}
-		if (photonView.viewID == 0)
-		{
-			photonView.viewID = PhotonNetwork.AllocateViewID();
-		}
-        anim = GetComponent<Animation>();
-    }
-
 	private void OnDestroy()
 	{
 		PhotonNetwork.UnAllocateViewID(photonView.viewID);
@@ -34,6 +20,13 @@ public class PhotonSyncAnimation : MonoBehaviour
 
     private void Start()
     {
+		photonView = GetComponent<PhotonView>();
+		if (!PhotonNetwork.connected)
+		{
+			enabled = false;
+		}
+		photonView.viewID = PhotonNetwork.AllocateViewID();
+        anim = GetComponent<Animation>();
         animationTime = anim[anim.clip.name].normalizedTime;
         photonView.RPC("SyncAnimationTime", PhotonTargets.All, animationTime);
     }
