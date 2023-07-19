@@ -320,8 +320,6 @@ GameObject:
   m_Component:
   - component: {fileID: 156}
   - component: {fileID: 438}
-  - component: {fileID: 365}
-  - component: {fileID: 452}
   m_Layer: 0
   m_Name: Matress
   m_TagString: Untagged
@@ -1694,8 +1692,6 @@ GameObject:
   - component: {fileID: 316}
   - component: {fileID: 483}
   - component: {fileID: 252}
-  - component: {fileID: 319}
-  - component: {fileID: 397}
   m_Layer: 0
   m_Name: Pool_water
   m_TagString: Untagged
@@ -1907,8 +1903,6 @@ GameObject:
   m_Component:
   - component: {fileID: 251}
   - component: {fileID: 117}
-  - component: {fileID: 373}
-  - component: {fileID: 492}
   m_Layer: 0
   m_Name: Matress
   m_TagString: Untagged
@@ -5692,18 +5686,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4944b488a8ee1494d89e499447656865, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncAnim: poolwater
 --- !u!23 &320
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -6343,18 +6325,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 112}
   m_Mesh: {fileID: 4300000, guid: bce5d454ec8bf5f4993631f1690c493f, type: 2}
---- !u!114 &365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 21}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4944b488a8ee1494d89e499447656865, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncAnim: Take 001
 --- !u!33 &366
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6418,18 +6388,6 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 635b8bb15eeb28043844e6f15da62d62, type: 2}
---- !u!114 &373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4944b488a8ee1494d89e499447656865, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncAnim: materss_goaround
 --- !u!65 &374
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6691,26 +6649,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d25ae6de24cfdc3469b586d164d376d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  subId: 0
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  instantiationId: 0
 --- !u!96 &398
 TrailRenderer:
   serializedVersion: 2
@@ -8381,26 +8319,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 94}
   m_Enabled: 1
---- !u!114 &452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 21}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d25ae6de24cfdc3469b586d164d376d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  subId: 0
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  instantiationId: 0
 --- !u!143 &453
 CharacterController:
   m_ObjectHideFlags: 0
@@ -19786,26 +19704,6 @@ MonoBehaviour:
   CoinIsPresent: 0
   pos: {x: 40.6, y: 0.3, z: -34.7}
   effectsPrefab: {fileID: 0}
---- !u!114 &492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d25ae6de24cfdc3469b586d164d376d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  subId: 0
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  instantiationId: 0
 --- !u!1 &108003196
 GameObject:
   m_ObjectHideFlags: 0
