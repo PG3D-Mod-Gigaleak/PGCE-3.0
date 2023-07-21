@@ -95,8 +95,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1741955795574878}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.50000006, w: 0.50000006}
-  m_LocalPosition: {x: 0, y: 1.269, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 8}
+  m_LocalPosition: {x: 0, y: 1.783, z: 0}
+  m_LocalScale: {x: 12, y: 12, z: 12}
   m_Children: []
   m_Father: {fileID: 4945299636619596}
   m_RootOrder: 0
@@ -214,8 +214,8 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
+  DopplerLevel: 0
+  MinDistance: 5.686046
   MaxDistance: 100
   Pan2D: 0
   rolloffMode: 2
@@ -227,19 +227,19 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 1
+      value: 0.9625435
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
       time: 1
-      value: 0
+      value: 0.8582001
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -286,7 +286,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d13cd7825b4fa4c1e988c7b451a4fc52, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -295,9 +295,9 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 0
-  MinDistance: 1
+  MinDistance: 10
   MaxDistance: 500
-  Pan2D: 0
+  Pan2D: -0.578
   rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
@@ -428,14 +428,14 @@ MonoBehaviour:
   voice: {fileID: 8300000, guid: c48af40b3953c46da9cc0324fe634d2a, type: 3}
   bite: {fileID: 8300000, guid: ec00596974c24cf4eb33fd795185b359, type: 3}
   death: {fileID: 8300000, guid: ce622e19b654a49af95c7bdfcdefbbcb, type: 3}
-  notAttackingSpeed: 1
-  attackingSpeed: 3
-  health: 100
-  attackDistance: 2
-  timeToHit: 0.25
+  notAttackingSpeed: 11
+  attackingSpeed: 11
+  health: 1200
+  attackDistance: 3
+  timeToHit: 0.1
   detectRadius: 40
-  damagePerHit: 1
-  scorePerKill: 100
+  damagePerHit: 10
+  scorePerKill: 600
   attackingSpeedRandomRange:
   - -0.25
   - 0.25

@@ -185,6 +185,9 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 		{
 			photonView.RPC("setHealthRPC", PhotonTargets.All, _soundClips.health);
 		}
+		if (gameObject.name == "HER") {
+			_modelChild.transform.Find("Audio Source").GetComponent<AudioSource>().Play();
+		}
 	}
 
 	public void setId(int _id)
@@ -218,7 +221,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 					{
 						_nma.SetDestination(vector);
 						_nma.speed = _soundClips.attackingSpeed * Mathf.Pow(1.05f, GlobalGameController.AllLevelsCompleted);
-						timeToUpdateNavMesh = 0.5f;
+						timeToUpdateNavMesh = 0f;
 					}
 					CurLifeTime = _soundClips.timeToHit;
 					PlayZombieRun();
@@ -288,6 +291,9 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 		}
 		if (PlayerPrefs.GetInt("COOP", 0) == 1)
 		{
+			if (gameObject.name == "HER") {
+				_modelChild.transform.Find("Audio Source").GetComponent<AudioSource>().Stop();
+			}
 			if (_nma != null)
 			{
 				_nma.enabled = false;
