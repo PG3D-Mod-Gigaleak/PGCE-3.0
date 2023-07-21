@@ -1223,6 +1223,7 @@ public sealed class Defs
 		mapNamesForUser.Add("Abandoned_Pool_old", "welcome back to the old days of abandoned pool");
 		mapNamesForUser.Add("InnerDynasty", "Inner Dynasty");
 		mapNamesForUser.Add("MapBuilder_Map2", "Dark Cave");
+		mapNamesForUser.Add("carpark", "CAR PARK");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -1288,6 +1289,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("Paradise_Night", 4020);
 		levelNumsForMusicInMult.Add("InnerDynasty", 2023);
 		levelNumsForMusicInMult.Add("MapBuilder_Map2", 4021);
+		levelNumsForMusicInMult.Add("carpark", 4022);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
