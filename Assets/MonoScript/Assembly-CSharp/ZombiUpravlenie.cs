@@ -185,7 +185,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 		{
 			photonView.RPC("setHealthRPC", PhotonTargets.All, _soundClips.health);
 		}
-		if (gameObject.name == "HER") {
+		if (gameObject.name == "HER" || gameObject.name == "Whiteface") {
 			_modelChild.transform.Find("Audio Source").GetComponent<AudioSource>().Play();
 		}
 	}
@@ -291,7 +291,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 		}
 		if (PlayerPrefs.GetInt("COOP", 0) == 1)
 		{
-			if (gameObject.name == "HER") {
+			if (gameObject.name == "HER" || gameObject.name == "Whiteface") {
 				_modelChild.transform.Find("Audio Source").GetComponent<AudioSource>().Stop();
 			}
 			if (_nma != null)
