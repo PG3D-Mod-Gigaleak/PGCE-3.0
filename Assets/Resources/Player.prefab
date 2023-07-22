@@ -4872,9 +4872,7 @@ MonoBehaviour:
     m_FixedHeight: 0
     m_StretchWidth: 1
     m_StretchHeight: 0
-  MaxHealth: 9
   curArmor: 0
-  MaxArmor: 9
   AmmoBoxWidth: 203
   AmmoBoxHeight: 50
   AmmoBoxOffset: 0
@@ -4911,6 +4909,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d942f4292adba2d49aa65538fdb1d6f4, type: 3}
   - {fileID: 8300000, guid: 803773c1a5e08a94d997d6e629b67e6c, type: 3}
   - {fileID: 8300000, guid: ae736c35aba01e54c898b5728197ae52, type: 3}
+  - {fileID: 8300000, guid: e68fe1adf1d4c1a48b5a4b678eb3d5cc, type: 3}
   damagePlayerSound: {fileID: 8300000, guid: 561f6bb34c196104b86eb8c65c4a8034, type: 3}
   zoneCreatePlayer: []
   ScoreBox:
@@ -7268,6 +7267,15 @@ MonoBehaviour:
   jumpButton: {fileID: 114338687832328354}
   camSwaySpeed: 8
   camSway: {fileID: 114864476236903908}
+  bhopSpeedMult: 1
+  initialBhopIncrement: 0.25
+  bhopIncrement: 0.25
+  bhopTimeout: 0.05
+  bhopAllowTimer: 0
+  time: 0
+  timeAtLastPress: 0
+  holdTimeout: 0.2
+  isHoldingJump: 0
 --- !u!114 &114758384804875820
 MonoBehaviour:
   m_ObjectHideFlags: 1
