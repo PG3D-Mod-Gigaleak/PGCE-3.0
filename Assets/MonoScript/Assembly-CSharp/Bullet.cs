@@ -2,58 +2,65 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-	private float LifeTime = 1f;
+	public float speed;
 
-	private float RespawnTime;
+	public float lifetime;
 
-	public float bulletSpeed = 200f;
+	private TrailRenderer mTrailRenderer;
 
-	public float lifeS = 500f;
+	private MeshRenderer mMeshRenderer;
 
-	public Vector3 startPos;
-
-	public Vector3 endPos;
-
-	private void Start()
+	private MeshRenderer meshRenderer
 	{
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+		get
 		{
-			Invoke("RemoveSelf", LifeTime);
-		}
-		startPos = base.transform.position;
-	}
-
-	private void RemoveSelf()
-	{
-		Object.Destroy(base.gameObject);
-	}
-
-	public float GetDistance(Vector3 vectorA, Vector3 vectorB)
-	{
-		return Mathf.Sqrt((vectorA.x - vectorB.x) * (vectorA.x - vectorB.x) + (vectorA.y - vectorB.y) * (vectorA.y - vectorB.y) + (vectorA.z - vectorB.z) * (vectorA.z - vectorB.z));
-	}
-
-	private void Update()
-	{
-		PhotonView photonView = null;
-		if (base.GetComponent<NetworkView>() == null)
-		{
-			return;
-		}
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1 || (PlayerPrefs.GetInt("MultyPlayer") == 1 && ((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || PlayerPrefs.GetString("TypeConnect").Equals("inet"))))
-		{
-			base.transform.position += base.transform.forward * bulletSpeed * Time.deltaTime;
-		}
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1 && ((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || PlayerPrefs.GetString("TypeConnect").Equals("inet")) && GetDistance(startPos, base.transform.position) >= lifeS)
-		{
-			if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+			if (mMeshRenderer == null)
 			{
-				Network.Destroy(base.gameObject);
+				mMeshRenderer = GetComponent<MeshRenderer>();
 			}
-			else
-			{
-				Object.Destroy(base.gameObject);
-			}
+			return mMeshRenderer;
 		}
+	}
+
+	private TrailRenderer trailRenderer
+	{
+		get
+		{
+			if (mTrailRenderer == null)
+			{
+				mTrailRenderer = GetComponent<TrailRenderer>();
+			}
+			return mTrailRenderer;
+		}
+	}
+
+	void Start()
+	{
+		mTrailRenderer = GetComponent<TrailRenderer>();
+		mMeshRenderer = GetComponent<MeshRenderer>();
+		Invoke("DestroySelf", lifetime);
+	}
+
+	void Update()
+	{
+		transform.position += (transform.forward * speed) * Time.deltaTime;
+	}
+
+	void DestroySelf()
+	{
+		Destroy(gameObject);
+	}
+
+	public void UpdateColor(Color newColor)
+	{
+		GradientColorKey[] colorKeys = trailRenderer.colorGradient.colorKeys;
+		for (int i = 0; i < colorKeys.Length; i++)
+		{
+			colorKeys[i].color = newColor;
+		}
+		Gradient gradient = trailRenderer.colorGradient;
+		gradient.colorKeys = colorKeys;
+		trailRenderer.colorGradient = gradient;
+		meshRenderer.material.SetColor("_Color", newColor);
 	}
 }

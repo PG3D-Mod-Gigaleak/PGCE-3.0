@@ -762,9 +762,9 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	public void SpawnShootline(Vector3 lookDir)
+	public void SpawnShootline(Quaternion lookDir)
 	{
-		Instantiate(Resources.Load<GameObject>("ShootLine"), currentBulletSpawn.position, Quaternion.Euler(lookDir)).GetComponent<TrailFade>().UpdateColor(_weaponManager.currentWeaponSounds.shootLineColor);
+		Instantiate(Resources.Load<GameObject>("ShootLine"), currentBulletSpawn.position, lookDir).GetComponent<TrailFade>().UpdateColor(_weaponManager.currentWeaponSounds.shootLineColor);
 	}
 
 	public void DoDoubleShot()
@@ -3267,9 +3267,20 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 
 	[RPC]
+	public void SpawnBullet(Vector3 color, Vector3 pos, Quaternion rot)
+	{
+		Instantiate(Resources.Load<GameObject>("Bullet"), pos, rot).GetComponent<Bullet>().UpdateColor(new Color(color.x, color.y, color.z, 1f));
+	}
+
+	public void SpawnBulletOffline(Color color, Vector3 pos, Quaternion rot)
+	{
+		Instantiate(Resources.Load<GameObject>("Bullet"), pos, rot).GetComponent<Bullet>().UpdateColor(color);
+	}
+
+	[RPC]
 	public void SpawnThrownObject(int viewID, string weaponName, float damage, Vector3 pos, Quaternion rot)
 	{
-		Instantiate(Resources.Load<GameObject>("ThrowObjects/" + weaponName), pos, rot).GetComponent<ThrownObject>().multiplayerDamage = damage;
+		Instantiate(Resources.Load<GameObject>("ThrowObjects/" + weaponName), pos, rot).GetComponent<ThrownObject>().SetMultiplayerData(viewID, damage);
 	}
 
 	public void SpawnThrownObjectOffline(float damage)
@@ -3382,7 +3393,15 @@ public sealed class Player_move_c : MonoBehaviour
 			Vector3 bulletDir = new Vector3((float)Screen.width * 0.5f - _weaponManager.currentWeaponSounds.startZone.x * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef * 0.5f + (float)UnityEngine.Random.Range(0, Mathf.RoundToInt(_weaponManager.currentWeaponSounds.startZone.x * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef)), (float)Screen.height * 0.5f - _weaponManager.currentWeaponSounds.startZone.y * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef * 0.5f + (float)UnityEngine.Random.Range(0, Mathf.RoundToInt(_weaponManager.currentWeaponSounds.startZone.y * _weaponManager.currentWeaponSounds.tekKoof * Defs.Coef)), 0f);
 			Ray ray = Camera.main.ScreenPointToRay(bulletDir);
 			_weaponManager.currentWeaponSounds.fire();
-			//SpawnShootline(ray.direction);
+			if (Defs.isMulti)
+			{
+				photonView.RPC("SpawnBullet", PhotonTargets.All, new Vector3(WS.shootLineColor.r, WS.shootLineColor.g, WS.shootLineColor.b), currentBulletSpawn.position, Quaternion.LookRotation(ray.direction));
+			}
+			else
+			{
+				SpawnBulletOffline(WS.shootLineColor, currentBulletSpawn.position, Quaternion.LookRotation(ray.direction));
+			}
+			//SpawnShootline(Quaternion.LookRotation(ray.direction));
 			RaycastHit hitInfo;
 			if (!Physics.Raycast(ray, out hitInfo, 100f, -2053))
 			{
@@ -3475,6 +3494,11 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 		}
 		StartCoroutine(CheckHitByMelee(alt));
+	}
+
+	public void MinusLivePlayerManual(int sender, int receiver, float damage, bool headShot = false)
+	{
+		photonView.RPC("minusLivePhoton", PhotonTargets.All, receiver, sender, damage, headShot);
 	}
 
 	public void MinusLivePlayer(int hitPlayerID, float damage, bool headShot = false)
