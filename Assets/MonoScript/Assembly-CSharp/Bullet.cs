@@ -34,6 +34,8 @@ public class Bullet : MonoBehaviour
 		}
 	}
 
+	public Light pointLight;
+
 	void Start()
 	{
 		mTrailRenderer = GetComponent<TrailRenderer>();
@@ -62,5 +64,6 @@ public class Bullet : MonoBehaviour
 		gradient.colorKeys = colorKeys;
 		trailRenderer.colorGradient = gradient;
 		meshRenderer.material.SetColor("_Color", newColor);
+		pointLight.color = newColor;
 	}
 }
