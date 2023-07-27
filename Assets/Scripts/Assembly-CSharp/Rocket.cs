@@ -184,8 +184,7 @@ public class Rocket : MonoBehaviour
 
 	public Vector3 oldPosition;
 	public Vector3 oldForward;
-	public long lateFramesLoaded;
-	public void LateUpdate() {
+	public void FixedUpdate() {
 		Vector3 fwd = oldForward;
 		RaycastHit otherHit;
         if (Physics.Raycast(oldPosition, fwd, out otherHit, Vector3.Distance(oldPosition, transform.position))) {
@@ -197,7 +196,6 @@ public class Rocket : MonoBehaviour
 		}
 		oldForward = transform.forward;
 		oldPosition = transform.position;
-		lateFramesLoaded++;
 	}
 
 	public void ImDestroyRPC()
