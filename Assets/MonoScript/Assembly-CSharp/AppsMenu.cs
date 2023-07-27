@@ -52,6 +52,7 @@ public sealed class AppsMenu : MonoBehaviour
 	private void Start()
 	{
 		SetRandomLevels();
+		Debug.Log("Your HWID is " + SystemInfo.deviceUniqueIdentifier);
 		//StartCoroutine(loadLevel());
 	}
 

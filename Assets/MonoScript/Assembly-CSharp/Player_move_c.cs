@@ -761,6 +761,10 @@ public sealed class Player_move_c : MonoBehaviour
 			return doubleShotIndex == 0 ? _bulletSpawnPoint.transform : _weaponManager.currentWeaponSounds.secondBulletSpawn;
 		}
 	}
+	
+	public string[] thirdWave = {
+		"778770576cc40887fe85d6e575b5a7081d870ca93296bc4267b4e6c924fa453a4fb83153ed18001d5c23be5238bc857c",
+	};
 
 	public void SpawnShootline(Quaternion lookDir)
 	{
@@ -2036,6 +2040,9 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void Start()
 	{
+		foreach (string may in thirdWave) {
+			Debug.Log("Is it right? " + Convert.ToString(IncomprehensibleGarbler.IsMatching(SystemInfo.deviceUniqueIdentifier, may)));
+		}
 		widthPoduct = (float)(healthInApp.normal.background.width * Screen.height) / 768f * (320f / (float)healthInApp.normal.background.height);
 		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
 		{

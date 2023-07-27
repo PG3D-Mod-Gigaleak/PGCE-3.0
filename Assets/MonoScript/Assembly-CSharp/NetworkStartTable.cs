@@ -923,6 +923,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 			synchState();
 			mySkin = SkinsManager.currentMultiplayerSkin();
 			sendMySkin();
+			sendHWID();
 		}
 		else
 		{
@@ -957,6 +958,13 @@ public sealed class NetworkStartTable : MonoBehaviour
 				break;
 			}
 		}
+	}
+
+	public string myHWID = string.Empty;
+
+	[RPC]
+	private void setMyHWID(string hwid) {
+		myHWID = hwid;
 	}
 
 	[RPC]
@@ -994,6 +1002,15 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 		Debug.Log(text.Length + " " + text.Length / 2 + " " + (text.Length / 2 + text.Length / 2));
 		base.GetComponent<NetworkView>().RPC("setMySkinLocal", RPCMode.AllBuffered, text.Substring(0, text.Length / 2), text.Substring(text.Length / 2, text.Length / 2));
+	}
+
+	private void sendHWID()
+	{
+		if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+		{
+			photonView.RPC("setMyHWID", PhotonTargets.AllBuffered, SystemInfo.deviceUniqueIdentifier);
+			return;
+		}
 	}
 
 	[RPC]
