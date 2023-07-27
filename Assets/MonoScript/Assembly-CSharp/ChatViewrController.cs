@@ -56,6 +56,8 @@ public class ChatViewrController : MonoBehaviour
 
 	public void closeChat()
 	{
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
 		mKeyboard.active = false;
 		mKeyboard = null;
 		PlayerObject.GetComponent<Player_move_c>().showChat = false;

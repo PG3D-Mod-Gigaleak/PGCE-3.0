@@ -810,7 +810,7 @@ public sealed class Player_move_c : MonoBehaviour
 		showChatOld = showChat;
 		if (showRanks)
 		{
-			GUI.DrawTexture(new Rect(((float)Screen.width - 2048f * (float)Screen.height / 1154f) / 2f, 0f, 2048f * (float)Screen.height / 1154f, Screen.height), ranksFon, ScaleMode.StretchToFill);
+			//GUI.DrawTexture(new Rect(((float)Screen.width - 2048f * (float)Screen.height / 1154f) / 2f, 0f, 2048f * (float)Screen.height / 1154f, Screen.height), ranksFon, ScaleMode.StretchToFill);
 			GUI.DrawTexture(new Rect((float)Screen.width / 2f - (float)head_players.width / 2f * num, (float)Screen.height * 0.1f - (float)head_players.height / 2f * (float)Screen.height / 768f, (float)head_players.width * num, (float)head_players.height * num), head_players);
 			Texture texture = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? killsStyle : scoreTextureCOOP);
 			GUI.DrawTexture(new Rect((float)Screen.width / 2f + ((float)playersWindow.normal.background.width / 2f - (float)texture.width * 1.6f) * num, (float)Screen.height * 0.55f - ((float)playersWindow.normal.background.height + (float)nicksStyle.height * 1.8f) * 0.5f * num, (float)texture.width * num, (float)texture.height * num), texture);
@@ -2508,6 +2508,8 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		if (PlayerPrefs.GetInt("MultyPlayer") == 1 && !_pauser.paused && PlayerPrefs.GetInt("ChatOn", 1) == 1)
 		{
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
 			showChat = true;
 			_weaponManager.currentWeaponSounds.gameObject.SetActive(false);
 			GameObject gameObject3 = (GameObject)UnityEngine.Object.Instantiate(chatViewer);
@@ -3893,11 +3895,15 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				SwitchPause();
 			}
-			if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyUp(KeyCode.Tab))
+			if (Input.GetKeyDown(KeyCode.Tab))
 			{
 				RanksPressed();
 			}
-			if (Input.GetKeyDown(KeyCode.T))
+			if (Input.GetKeyUp(KeyCode.Tab)) {
+				AddButtonHandlers();
+				showRanks = false;
+			}
+			if (Input.GetKeyDown(KeyCode.T) && !showChat)
 			{
 				OpenChat();
 			}
