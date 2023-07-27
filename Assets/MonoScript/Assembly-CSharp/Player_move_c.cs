@@ -762,6 +762,23 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 	
+	/*
+	 * REMINDER TO ADD YOUR HWID HASH HERE!
+	 * //////////////////////////////////////////////////////////////////////////////////////
+	 * //////////////////////////////////////////////////////////////////////////////////////
+	 * load the game from AppCenter, a log will appear in console with the format
+	 * "Your HWID is: [hwid]"
+	 * copy that hwid, and open https://emn178.github.io/online-tools/sha384.html
+	 * in Input, put the hwid, then copy the text that shows up in Output
+	 * then logically put it in the array
+	 * //////////////////////////////////////////////////////////////////////////////////////
+	 * //////////////////////////////////////////////////////////////////////////////////////
+	 * PREFERRABLY keep the comma at the end instead of not adding one at the end
+	 * yes, that's valid syntax, and yes, it helps just a slight bit just so commits aren't
+	 * rewriting 1 line and adding another
+	 * //////////////////////////////////////////////////////////////////////////////////////
+	 * //////////////////////////////////////////////////////////////////////////////////////
+	 */
 	public string[] thirdWave = {
 		"778770576cc40887fe85d6e575b5a7081d870ca93296bc4267b4e6c924fa453a4fb83153ed18001d5c23be5238bc857c",
 	};
