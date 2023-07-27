@@ -74,7 +74,7 @@ public class InGameGUI : MonoBehaviour
 
 	public UITexture healthBar, armorBar;
 
-	public UILabel healthAmount, armorAmount;
+	public UILabel healthAmount, armorAmount, pingLabel;
 
 	private bool zoomed;
 
@@ -147,6 +147,12 @@ public class InGameGUI : MonoBehaviour
 		if (zoomed)
 		{
 			return;
+		}
+		if (PhotonNetwork.connectionState == ConnectionState.Connected && PhotonNetwork.room != null) {
+			pingLabel.alpha = 1;
+			pingLabel.text = "Ping: " + PhotonNetwork.GetPing() + "ms";
+		} else {
+			pingLabel.alpha = 0;
 		}
 		aimSprites[0].transform.localPosition = new Vector3(0f, 8f + WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f);
 		aimSprites[1].transform.localPosition = new Vector3(0f, -8f - WeaponManager.sharedManager.currentWeaponSounds.tekKoof * WeaponManager.sharedManager.currentWeaponSounds.startZone.y * 0.5f, 0f);
