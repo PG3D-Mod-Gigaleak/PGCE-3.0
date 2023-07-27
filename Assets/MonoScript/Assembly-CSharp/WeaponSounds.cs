@@ -161,6 +161,8 @@ public class WeaponSounds : MonoBehaviour
 	public Transform secondBulletSpawn;
 
 	public Color shootLineColor = new Color(1, 1, 0, 1);
+	
+	public int bulletIndex;
 
 	private void Start()
 	{

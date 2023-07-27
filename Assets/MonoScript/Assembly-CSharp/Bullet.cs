@@ -6,6 +6,10 @@ public class Bullet : MonoBehaviour
 
 	public float lifetime;
 
+	public bool changeColor, destroySelfOnImpact = true, destroyEffect;
+
+	public GameObject effect;
+
 	private TrailRenderer mTrailRenderer;
 
 	private MeshRenderer mMeshRenderer;
@@ -38,23 +42,42 @@ public class Bullet : MonoBehaviour
 
 	void Start()
 	{
-		mTrailRenderer = GetComponent<TrailRenderer>();
-		mMeshRenderer = GetComponent<MeshRenderer>();
-		Invoke("DestroySelf", lifetime);
+		if (changeColor)
+		{
+			mTrailRenderer = GetComponent<TrailRenderer>();
+			mMeshRenderer = GetComponent<MeshRenderer>();
+		}
+		if (lifetime != -1f)
+		{
+			Invoke("DestroySelf", lifetime);
+		}
 	}
 
 	void Update()
 	{
-		transform.position += (transform.forward * speed) * Time.deltaTime;
+		transform.position += transform.forward * (Time.deltaTime * speed);
 	}
 
 	void DestroySelf()
 	{
 		Destroy(gameObject);
+		if (destroyEffect)
+		{
+			Instantiate(effect, transform.position, transform.rotation);
+		}
+	}
+
+	void OnTriggerEnter()
+	{
+		DestroySelf();
 	}
 
 	public void UpdateColor(Color newColor)
 	{
+		if (!changeColor)
+		{
+			return;
+		}
 		GradientColorKey[] colorKeys = trailRenderer.colorGradient.colorKeys;
 		for (int i = 0; i < colorKeys.Length; i++)
 		{

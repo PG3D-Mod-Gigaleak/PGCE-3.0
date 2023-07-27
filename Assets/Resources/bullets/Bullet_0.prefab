@@ -23,8 +23,9 @@ GameObject:
   - component: {fileID: 96806566466740242}
   - component: {fileID: 33895801673293218}
   - component: {fileID: 23481958176987330}
+  - component: {fileID: 65124004967945230}
   m_Layer: 0
-  m_Name: Bullet
+  m_Name: Bullet_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -114,6 +115,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1187885011309822}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65124004967945230
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1187885011309822}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &96806566466740242
 TrailRenderer:
   serializedVersion: 2
@@ -248,6 +261,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7549fb7f8e4dfce4aa66f7668a2e8707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 225
+  speed: 450
   lifetime: 2
+  changeColor: 1
+  destroySelfOnImpact: 1
+  destroyEffect: 0
+  effect: {fileID: 0}
   pointLight: {fileID: 108223552283684112}

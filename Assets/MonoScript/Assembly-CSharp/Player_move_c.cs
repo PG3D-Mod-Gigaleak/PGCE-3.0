@@ -3267,14 +3267,14 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 
 	[RPC]
-	public void SpawnBullet(Vector3 color, Vector3 pos, Quaternion rot)
+	public void SpawnBullet(Vector3 color, Vector3 pos, Quaternion rot, int bulletIndex)
 	{
-		Instantiate(Resources.Load<GameObject>("Bullet"), pos, rot).GetComponent<Bullet>().UpdateColor(new Color(color.x, color.y, color.z, 1f));
+		Instantiate(Resources.Load<GameObject>("Bullets/Bullet_" + bulletIndex), pos, rot).GetComponent<Bullet>().UpdateColor(new Color(color.x, color.y, color.z, 1f));
 	}
 
-	public void SpawnBulletOffline(Color color, Vector3 pos, Quaternion rot)
+	public void SpawnBulletOffline(Color color, Vector3 pos, Quaternion rot, int bulletIndex)
 	{
-		Instantiate(Resources.Load<GameObject>("Bullet"), pos, rot).GetComponent<Bullet>().UpdateColor(color);
+		Instantiate(Resources.Load<GameObject>("Bullets/Bullet_" + bulletIndex), pos, rot).GetComponent<Bullet>().UpdateColor(color);
 	}
 
 	[RPC]
@@ -3395,13 +3395,12 @@ public sealed class Player_move_c : MonoBehaviour
 			_weaponManager.currentWeaponSounds.fire();
 			if (Defs.isMulti)
 			{
-				photonView.RPC("SpawnBullet", PhotonTargets.All, new Vector3(WS.shootLineColor.r, WS.shootLineColor.g, WS.shootLineColor.b), currentBulletSpawn.position, Quaternion.LookRotation(ray.direction));
+				photonView.RPC("SpawnBullet", PhotonTargets.All, new Vector3(WS.shootLineColor.r, WS.shootLineColor.g, WS.shootLineColor.b), currentBulletSpawn.position, Quaternion.LookRotation(ray.direction), WS.bulletIndex);
 			}
 			else
 			{
-				SpawnBulletOffline(WS.shootLineColor, currentBulletSpawn.position, Quaternion.LookRotation(ray.direction));
+				SpawnBulletOffline(WS.shootLineColor, currentBulletSpawn.position, Quaternion.LookRotation(ray.direction), WS.bulletIndex);
 			}
-			//SpawnShootline(Quaternion.LookRotation(ray.direction));
 			RaycastHit hitInfo;
 			if (!Physics.Raycast(ray, out hitInfo, 100f, -2053))
 			{
