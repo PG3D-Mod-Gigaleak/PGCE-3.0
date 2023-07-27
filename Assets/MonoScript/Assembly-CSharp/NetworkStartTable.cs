@@ -1008,7 +1008,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 	{
 		if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
 		{
-			photonView.RPC("setMyHWID", PhotonTargets.AllBuffered, SystemInfo.deviceUniqueIdentifier);
+			photonView.RPC("setMyHWID", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress());
 			return;
 		}
 	}

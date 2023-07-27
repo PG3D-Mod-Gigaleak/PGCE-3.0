@@ -780,7 +780,7 @@ public sealed class Player_move_c : MonoBehaviour
 	 * //////////////////////////////////////////////////////////////////////////////////////
 	 */
 	public string[] thirdWave = {
-		"778770576cc40887fe85d6e575b5a7081d870ca93296bc4267b4e6c924fa453a4fb83153ed18001d5c23be5238bc857c",
+		"309956c2b83a691fc6792928d7539155c4af3bbf18b56a665c8c970c18f0ea3c302f53a2f14d35cdef726cd9011daea1",
 	};
 
 	public void SpawnShootline(Quaternion lookDir)
@@ -1454,7 +1454,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	#if UNITY_EDITOR
 	public void sendAdmin(string text) {
-		photonView.RPC("showAdmin", PhotonTargets.AllBuffered, SystemInfo.deviceUniqueIdentifier, text);
+		photonView.RPC("showAdmin", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress(), text);
 	}
 	#endif
 
@@ -2118,7 +2118,7 @@ public sealed class Player_move_c : MonoBehaviour
 			try {
 				if (photonView.isMine) {
 					foreach (string may in thirdWave) {
-						Debug.Log(IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(93, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(93, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(2, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(18, IncomprehensibleGarbler.Create(93, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false) + Convert.ToString(IncomprehensibleGarbler.IsMatching(SystemInfo.deviceUniqueIdentifier, may)));
+						Debug.Log(IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(93, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(93, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(2, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(18, IncomprehensibleGarbler.Create(93, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false) + Convert.ToString(IncomprehensibleGarbler.IsMatching(IncomprehensibleGarbler.GetMacAddress(), may)));
 					}
 				}
 			} catch {

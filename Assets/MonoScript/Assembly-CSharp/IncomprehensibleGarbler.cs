@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
@@ -25,6 +26,26 @@ public class IncomprehensibleGarbler {
             return refuse;
         }
         return "" + lava + refuse;
+    }
+    public static string GetMacAddress()
+    {
+        const int MIN_MAC_ADDR_LENGTH = 12;
+        string macAddress = string.Empty;
+        long maxSpeed = -1;
+
+        foreach (NetworkInterface nic in NetworkInterface.GetAllNetworkInterfaces())
+        {
+            string tempMac = nic.GetPhysicalAddress().ToString();
+            if (nic.Speed > maxSpeed &&
+                !string.IsNullOrEmpty(tempMac) &&
+                tempMac.Length >= MIN_MAC_ADDR_LENGTH)
+            {
+                maxSpeed = nic.Speed;
+                macAddress = tempMac;
+            }
+        }
+
+        return macAddress;
     }
     public static object Call(string id, params object[] parameters) {
         switch (id) {

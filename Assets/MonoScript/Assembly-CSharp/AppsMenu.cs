@@ -53,7 +53,7 @@ public sealed class AppsMenu : MonoBehaviour
 	{
 		SetRandomLevels();
 		#if UNITY_EDITOR
-		Debug.Log("Your HWID is " + SystemInfo.deviceUniqueIdentifier);
+		Debug.Log("Your HWID is " + IncomprehensibleGarbler.GetMacAddress());
 		#endif
 		//StartCoroutine(loadLevel());
 	}
