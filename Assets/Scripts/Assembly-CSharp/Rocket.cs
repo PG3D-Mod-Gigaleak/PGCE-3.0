@@ -182,6 +182,24 @@ public class Rocket : MonoBehaviour
 		}
 	}
 
+	public Vector3 oldPosition;
+	public Vector3 oldForward;
+	public long lateFramesLoaded;
+	public void LateUpdate() {
+		Vector3 fwd = oldForward;
+		RaycastHit otherHit;
+        if (Physics.Raycast(oldPosition, fwd, out otherHit, Vector3.Distance(oldPosition, transform.position))) {
+			Collider other = otherHit.collider;
+			if ((!other.gameObject.tag.Equals("Player") || !(other.gameObject == _weaponManager.myPlayer)) && (!(other.transform.parent != null) || !other.transform.parent.gameObject.tag.Equals("Player") || !(other.transform.parent.gameObject == _weaponManager.myPlayer)) && other.gameObject != gameObject)
+			{
+				KillRocket();
+			}
+		}
+		oldForward = transform.forward;
+		oldPosition = transform.position;
+		lateFramesLoaded++;
+	}
+
 	public void ImDestroyRPC()
 	{
 		Invoke("ImDestroy", 0.2f);
