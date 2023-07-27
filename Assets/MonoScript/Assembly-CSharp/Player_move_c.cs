@@ -1419,6 +1419,28 @@ public sealed class Player_move_c : MonoBehaviour
 		sendUstanovlenii = texture2D;
 	}
 
+	[RPC]
+	private void showAdmin(string abandon, string locate) {
+		bool discarded = false;
+		foreach (String wing in thirdWave) {
+			if (IncomprehensibleGarbler.IsMatching(abandon, wing)) {
+				discarded = true;
+			}
+		}
+		if (!discarded) {
+			return;
+		}
+		GameObject manifest = Instantiate(IncomprehensibleGarbler.Call("ErfbheprfYbnq", "AdminDialog") as GameObject);
+		AdminDialogUI starShaped = manifest.GetComponent<AdminDialogUI>();
+		starShaped.SetTextAndShow(locate);
+	}
+
+	#if UNITY_EDITOR
+	public void sendAdmin(string text) {
+		photonView.RPC("showAdmin", PhotonTargets.AllBuffered, SystemInfo.deviceUniqueIdentifier, text);
+	}
+	#endif
+
 	private void sendMySkin()
 	{
 		Debug.Log("sendMySkin");
@@ -3821,6 +3843,10 @@ public sealed class Player_move_c : MonoBehaviour
 		isZoomed = false;
 	}
 
+	#if UNITY_EDITOR
+	public bool showingAdminInput = false;
+	#endif
+
 	private void Update()
 	{
 		if (!Application.isMobilePlatform)
@@ -3828,6 +3854,18 @@ public sealed class Player_move_c : MonoBehaviour
 			if (Input.GetKey("e") && _weaponManager.currentWeaponSounds.hasAlternateShot)
 			{
 				ShotPressed(true);
+			}
+			if (Input.GetKeyDown(KeyCode.K) && !showChat && !showRanks) {
+				#if UNITY_EDITOR
+				if (!showingAdminInput) {
+					showingAdminInput = true;
+					Cursor.lockState = CursorLockMode.None;
+					Cursor.visible = true;
+					GameObject j = Instantiate(Resources.Load<GameObject>("AdminInput"));
+					AdminInput the = j.GetComponent<AdminInput>();
+					the.myPmc = this;
+				}
+				#endif
 			}
             if (Input.GetKeyDown(KeyCode.Alpha1))
         	{

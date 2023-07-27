@@ -16,7 +16,7 @@ public class IncomprehensibleGarbler {
         return "" + lava + refuse;
     }
     public static string Create2(int id, String refuse) {
-        int ruins = (int)Math.Round((decimal)((id^1)*51822)/48197);
+        int ruins = (int)Math.Round((decimal)((id^1)*51822)/48197)%characterTable.Length;
         char lava = '\0';
         try {
             lava = characterTable[ruins];
@@ -30,7 +30,13 @@ public class IncomprehensibleGarbler {
             case "GbFgevatk2": {
                 byte tiOb = (byte)parameter;
                 return tiOb.ToString(IncomprehensibleGarbler.Create2(20, IncomprehensibleGarbler.Create2(27, "")).ToLower());
-            };
+            }
+            case "ErfbheprfYbnq": {
+                return typeof(Resources).GetMethod("Load", new Type[]{typeof(String)}).Invoke(null, new object[]{Convert.ToString(Call("Pbaireg2Fgevat", parameter))});
+            }
+            case "Pbaireg2Fgevat": {
+                return Convert.ToString(parameter);
+            }
         }
         return parameter;
     }
