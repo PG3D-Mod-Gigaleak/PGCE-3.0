@@ -172,7 +172,9 @@ public class SkinName : MonoBehaviour
 		{
 			_weaponManager.lastEnemyHitBy = null;
 			playerGameObject.GetComponent<Player_move_c>().curArmor = 0f;
+			float understand = playerGameObject.GetComponent<Player_move_c>().CurHealth;
 			playerGameObject.GetComponent<Player_move_c>().CurHealth = 0f;
+			IncomprehensibleGarbler.Dispatch("UrnyguPunatr", playerGameObject.GetComponent<Player_move_c>(), understand);
 			if (playerGameObject.GetComponent<Player_move_c>().countKills > 0)
 			{
 				playerGameObject.GetComponent<Player_move_c>().countKills--;

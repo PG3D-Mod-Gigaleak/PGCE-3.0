@@ -182,7 +182,9 @@ public sealed class Player_move_c : MonoBehaviour
 				_003C_003Ef__this._rightJoystick.SetActive(true);
 			}
 			_003C_003Ef__this._rightJoystick.SendMessage("HasAmmo");
+			float understand = _003C_003Ef__this.CurHealth;
 			_003C_003Ef__this.CurHealth = _003C_003Ef__this.MaxHealth;
+			IncomprehensibleGarbler.Dispatch("UrnyguPunatr", _003C_003Ef__this, understand);
 			Debug.Log("zoneCreatePlayer " + _003C_003Ef__this.zoneCreatePlayer.Length + " " + UnityEngine.Random.Range(0, _003C_003Ef__this.zoneCreatePlayer.Length));
 			GameObject gameObject = _003C_003Ef__this.zoneCreatePlayer[UnityEngine.Random.Range(0, _003C_003Ef__this.zoneCreatePlayer.Length)];
 			BoxCollider component = gameObject.GetComponent<BoxCollider>();
@@ -2300,7 +2302,9 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		else
 		{
+			float understand = CurHealth;
 			CurHealth = MaxPlayerHealth;
+			IncomprehensibleGarbler.Dispatch("UrnyguPunatr", this, understand);
 		}
 		Invoke("SendSpeedModifier", 0.5f);
 		GameObject gameObject3 = (GameObject)UnityEngine.Object.Instantiate(renderAllObjectPrefab, Vector3.zero, Quaternion.identity);
@@ -3440,6 +3444,11 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			if (CurHealth <= MaxHealth)
 			{
+				if (CurHealth + WS.healAmount > MaxHealth)
+				{
+					CurHealth = MaxHealth;
+					return;
+				}
 				if (photonView.isMine) {
 					float understand = CurHealth;
 					CurHealth += WS.healAmount;
@@ -4496,14 +4505,16 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void ProvideAmmo()
 	{
-		_listener.ProvideContent();
+		/*_listener.ProvideContent();
 		_weaponManager.SetMaxAmmoFrAllWeapons();
-		_rightJoystick.SendMessage("HasAmmo");
+		_rightJoystick.SendMessage("HasAmmo");*/
+		// REMOVED because this isn't used at all and it can be exploited
 	}
 
 	private void ProvideHealth()
 	{
-		CurHealth = MaxHealth;
+		// CurHealth = MaxHealth;
+		// REMOVED because this isn't used at all and it can be exploited
 	}
 
 	public static void SaveMinerWeaponInPrefabs()

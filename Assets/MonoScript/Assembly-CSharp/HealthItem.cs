@@ -120,6 +120,12 @@ public class HealthItem : MonoBehaviour
 		{
 			return;
 		}
+		if (test.CurHealth + 20 > test.MaxHealth) {
+			float add = (test.CurHealth + 20) - 100;
+			float understand = test.CurHealth;
+			test.CurHealth -= add;
+			IncomprehensibleGarbler.Dispatch("UrnyguPunatr", test, understand);
+		}
 		if (test.isMine) {
 			float understand = test.CurHealth;
 			test.CurHealth += 20f;
