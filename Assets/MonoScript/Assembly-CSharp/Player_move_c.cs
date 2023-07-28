@@ -3444,10 +3444,12 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			if (CurHealth <= MaxHealth)
 			{
-				if (CurHealth + WS.healAmount > MaxHealth)
+				if (CurHealth + WS.healAmount > MaxHealth && photonView.isMine)
 				{
-					CurHealth = MaxHealth;
-					return;
+					float add = (CurHealth + WS.healAmount) - 100;
+					float understand = CurHealth;
+					CurHealth -= add;
+					IncomprehensibleGarbler.Dispatch("UrnyguPunatr", this, understand);
 				}
 				if (photonView.isMine) {
 					float understand = CurHealth;
