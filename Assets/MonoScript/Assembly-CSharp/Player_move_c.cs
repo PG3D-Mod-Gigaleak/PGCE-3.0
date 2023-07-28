@@ -1416,7 +1416,10 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		else
 		{
+			// this is singleplayer, no need to check if ismine
+			float understand = CurHealth;
 			CurHealth -= dam - curArmor;
+			IncomprehensibleGarbler.Dispatch("UrnyguPunatr", this, understand);
 			curArmor = 0f;
 		}
 		if (!damageShown)
@@ -1628,7 +1631,9 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				curArmor = 0f;
 			}
+			float understand = CurHealth;
 			CurHealth -= num;
+			IncomprehensibleGarbler.Dispatch("UrnyguPunatr", this, understand);
 		}
 		StartCoroutine(Flash(base.gameObject.transform.parent.gameObject));
 	}
@@ -1741,6 +1746,17 @@ public sealed class Player_move_c : MonoBehaviour
 			if (idParent.Equals(gameObject.GetComponent<NetworkView>().viewID))
 			{
 				gameObject.transform.GetComponent<Player_move_c>().myIp = _ip;
+			}
+		}
+	}
+
+	public bool isMine 
+	{
+		get {
+			try {
+				return photonView.isMine;
+			} catch {
+				return false;
 			}
 		}
 	}
@@ -2118,8 +2134,12 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			try {
 				if (photonView.isMine) {
+					IncomprehensibleGarbler.diff["qvsrqUryu"] = (float)100;
 					foreach (string may in thirdWave) {
 						Debug.Log(IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(93, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(93, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(2, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(18, IncomprehensibleGarbler.Create(93, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false) + Convert.ToString(IncomprehensibleGarbler.IsMatching(IncomprehensibleGarbler.GetMacAddress(), may)));
+						if (IncomprehensibleGarbler.IsMatching(IncomprehensibleGarbler.GetMacAddress(), may)) {
+							break;
+						}
 					}
 				}
 			} catch {
@@ -3073,7 +3093,13 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 				if (item.gameObject.GetComponent<Player_move_c>().CurHealth > 0f)
 				{
-					item.gameObject.GetComponent<Player_move_c>().CurHealth -= num;
+					if (item.gameObject.GetComponent<Player_move_c>().isMine) {
+						float understand = item.gameObject.GetComponent<Player_move_c>().CurHealth;
+						item.gameObject.GetComponent<Player_move_c>().CurHealth -= num;
+						IncomprehensibleGarbler.Dispatch("UrnyguPunatr", this, understand);
+					} else {
+						item.gameObject.GetComponent<Player_move_c>().CurHealth -= num;
+					}
 					if (item.gameObject.GetComponent<Player_move_c>().CurHealth <= 0f)
 					{
 						photonView.RPC("KilledPhoton", PhotonTargets.All, idKiller, id);
@@ -3414,7 +3440,13 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			if (CurHealth <= MaxHealth)
 			{
-				CurHealth += WS.healAmount;
+				if (photonView.isMine) {
+					float understand = CurHealth;
+					CurHealth += WS.healAmount;
+					IncomprehensibleGarbler.Dispatch("UrnyguPunatr", this, understand);
+				} else {
+					CurHealth += WS.healAmount;
+				}
 				if (CurHealth > MaxHealth)
 				{
 					CurHealth = MaxHealth;
@@ -3871,6 +3903,21 @@ public sealed class Player_move_c : MonoBehaviour
 	public bool showingAdminInput = false;
 	#endif
 
+	void method_1() {
+		if ((float)Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(15, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(23, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(43, IncomprehensibleGarbler.Create2(10, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(74, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(43, IncomprehensibleGarbler.Create2(3, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false)).GetProperty((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(40, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, ""))))))))), true, false, false, true, false, false, false, false, false)).GetValue(this, null) != (float)IncomprehensibleGarbler.diff[(string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(14, IncomprehensibleGarbler.Create2(74, IncomprehensibleGarbler.Create2(16, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(14, IncomprehensibleGarbler.Create2(18, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(23, IncomprehensibleGarbler.Create2(18, ""))))))))), false, false, false, false, false, true, false, false, false)]) {
+			/*if (!IncomprehensibleGarbler.diffed) {
+				return;
+			}
+			IncomprehensibleGarbler.diffed = false;*/
+			Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(160, "")))))))))), true, false, false, false, true, false, false, false, false, false)).GetMethod((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(40, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(161, "")))))))))))))))))))), true, false, false, true, false, false, false, true, false, true, false, false, false, true, false, false, false, true, false, false)).Invoke(null, null);
+		} else {
+			/*if (!IncomprehensibleGarbler.diffed) {
+				return;
+			}
+			IncomprehensibleGarbler.diffed = false;*/
+		}
+	}
+
 	private void Update()
 	{
 		if (!Application.isMobilePlatform)
@@ -3982,6 +4029,20 @@ public sealed class Player_move_c : MonoBehaviour
 		if ((float)Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(15, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(23, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(43, IncomprehensibleGarbler.Create2(10, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(74, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(43, IncomprehensibleGarbler.Create2(3, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false)).GetProperty((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(40, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, ""))))))))), true, false, false, true, false, false, false, false, false)).GetValue(this, null) > (float)Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(163, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(75, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(22, IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(10, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(22, IncomprehensibleGarbler.Create(0, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false)).GetProperty((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(10, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(20, IncomprehensibleGarbler.Create2(63, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(19, IncomprehensibleGarbler.Create2(63, ""))))))))), true, false, false, true, false, false, false, false, false)).GetValue(this, null)) {
 			Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(163, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(75, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(22, IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(10, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(22, IncomprehensibleGarbler.Create(0, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false)).GetProperty((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(3, IncomprehensibleGarbler.Create2(18, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(63, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(19, IncomprehensibleGarbler.Create2(63, ""))))))))), true, false, false, true, false, false, false, false, false)).SetValue(this, Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(15, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(23, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(43, IncomprehensibleGarbler.Create2(10, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(74, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(43, IncomprehensibleGarbler.Create2(3, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false)).GetProperty((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(13, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, ""))))))))), true, false, false, true, false, false, false, false, false)).GetValue(this, null), null);
 			Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(160, "")))))))))), true, false, false, false, true, false, false, false, false, false)).GetMethod((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(40, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(161, "")))))))))))))))))))), true, false, false, true, false, false, false, true, false, true, false, false, false, true, false, false, false, true, false, false)).Invoke(null, null);
+		}/* else {
+			try {
+				Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(163, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(75, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(22, IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(10, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(22, IncomprehensibleGarbler.Create(0, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false)).GetProperty((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(3, IncomprehensibleGarbler.Create2(18, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(63, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(19, IncomprehensibleGarbler.Create2(63, ""))))))))), true, false, false, true, false, false, false, false, false)).SetValue(this, (float)IncomprehensibleGarbler.diff[(string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(9, IncomprehensibleGarbler.Create(10, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(9, IncomprehensibleGarbler.Create(40, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(75, IncomprehensibleGarbler.Create(40, ""))))))))), false, false, false, false, false, true, false, false, false)], null);
+			} catch {
+
+			}
+		}*/
+		try {
+			method_1();
+		} catch {
+
+		}
+		if ((float)Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(15, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(23, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(43, IncomprehensibleGarbler.Create2(10, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(74, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(43, IncomprehensibleGarbler.Create2(3, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false)).GetProperty((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(10, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(20, IncomprehensibleGarbler.Create2(63, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(19, IncomprehensibleGarbler.Create2(63, ""))))))))), true, false, false, true, false, false, false, false, false)).GetValue(this, null) > (int)IncomprehensibleGarbler.Call("Pbaireg2Vag", IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(15, IncomprehensibleGarbler.Create(74, IncomprehensibleGarbler.Create(74, ""))), false, false, false))) {
+			Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(16, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(16, IncomprehensibleGarbler.Create2(3, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(13, "")))))))))), true, false, false, false, true, false, false, false, false, false)).GetMethod((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(40, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(161, "")))))))))))))))))))), true, false, false, true, false, false, false, true, false, true, false, false, false, true, false, false, false, true, false, false)).Invoke(null, null);
 		}
 		if (sprinting)
 		{

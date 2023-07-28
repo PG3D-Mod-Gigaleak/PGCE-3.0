@@ -120,7 +120,13 @@ public class HealthItem : MonoBehaviour
 		{
 			return;
 		}
-		test.CurHealth += 20f;
+		if (test.isMine) {
+			float understand = test.CurHealth;
+			test.CurHealth += 20f;
+			IncomprehensibleGarbler.Dispatch("UrnyguPunatr", test, understand);
+		} else {
+			test.CurHealth += 20f;
+		}
 		if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
 		{
 			test.gameObject.GetComponent<AudioSource>().PlayOneShot(HealthItemUp);

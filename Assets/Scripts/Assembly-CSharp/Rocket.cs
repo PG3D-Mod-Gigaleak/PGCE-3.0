@@ -288,7 +288,13 @@ public class Rocket : MonoBehaviour
 						}
 						if (gameObject4.GetComponent<SkinName>().playerMoveC.CurHealth > 0f)
 						{
-							gameObject4.GetComponent<SkinName>().playerMoveC.CurHealth -= num3;
+							if (gameObject4.GetComponent<SkinName>().playerMoveC.isMine) {
+								float understand = gameObject4.GetComponent<SkinName>().playerMoveC.CurHealth;
+								gameObject4.GetComponent<SkinName>().playerMoveC.CurHealth -= num3;
+								IncomprehensibleGarbler.Dispatch("UrnyguPunatr", gameObject4.GetComponent<SkinName>().playerMoveC, understand);
+							} else {
+								gameObject4.GetComponent<SkinName>().playerMoveC.CurHealth -= num3;
+							}
 							if (gameObject4.GetComponent<SkinName>().playerMoveC.CurHealth <= 0f)
 							{
 								gameObject4.GetComponent<SkinName>().playerMoveC.sendImDeath(gameObject4.GetComponent<SkinName>().NickName);

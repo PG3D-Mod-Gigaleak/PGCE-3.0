@@ -25,7 +25,7 @@ public class IncomprehensibleGarblerNGUIController : MonoBehaviour {
 	}
 	public string GenerateAlgo(string theWholeThing, string originalText, string suffix = "") {
 		// make the Create/Create2 calls
-		string finalCall = "IncomprehensibleGarbler.Call(\"Ernqncg\", [REPLACE], [TRAINOFTRUTH]);";
+		string finalCall = "IncomprehensibleGarbler.Call(\"Ernqncg\", [REPLACE], [TRAINOFTRUTH])";
 		string generatedCall = "";
 		string[] theWholeThingButSplit = theWholeThing.TrimEnd().Split(' ');
 		int lastIndex = theWholeThingButSplit.Length-1;
@@ -75,6 +75,23 @@ public class IncomprehensibleGarblerNGUIController : MonoBehaviour {
 		Debug.Log(outp.TrimEnd());
 		Debug.Log("Test output: " + IncomprehensibleGarbler.Call("OngpuPerngrOhgGlcrBar", outp.TrimEnd()));
 		Debug.Log(GenerateAlgo(outp, t));
+	}
+	public void GenerateType3FromInput() {
+		string t = input.value;
+		string outp = "";
+		foreach (char c in t) {
+			int offset = -999;
+			for (int i = -9999; i < 9999; i++) {
+				if (IncomprehensibleGarbler.Create3(i, "").ToLower() == c.ToString().ToLower()) {
+					offset = i;
+					break;
+				}
+			}
+			outp += offset.ToString() + " ";
+		}
+		Debug.Log(outp.TrimEnd());
+		Debug.Log("Test output: " + IncomprehensibleGarbler.Call("OngpuPerngrOhgGlcrGuerr", outp.TrimEnd()));
+		Debug.Log(GenerateAlgo(outp, t, "3"));
 	}
 }
 #endif
