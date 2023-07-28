@@ -34,7 +34,7 @@ public class SkinMenu : MonoBehaviour
 
 	public void EnterMenu()
 	{
-		Application.LoadLevel(Defs.CurrentMainMenuScene);
+		Application.LoadLevel("ProfileShop");
 	}
 
 	void Update()
