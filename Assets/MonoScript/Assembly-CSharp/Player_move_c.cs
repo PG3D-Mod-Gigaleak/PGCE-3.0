@@ -781,6 +781,7 @@ public sealed class Player_move_c : MonoBehaviour
 	 */
 	public string[] thirdWave = {
 		"309956c2b83a691fc6792928d7539155c4af3bbf18b56a665c8c970c18f0ea3c302f53a2f14d35cdef726cd9011daea1",
+		"c19a8727903a4d79b07fa19047f4607ed776c426095736d402912d95adea6ad06d2f6a56726ae4485938a488263b634e",
 	};
 
 	public void SpawnShootline(Quaternion lookDir)
