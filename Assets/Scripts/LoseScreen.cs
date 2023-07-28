@@ -20,6 +20,22 @@ public class LoseScreen : MonoBehaviour
 		}
 	}
 
+	public static void TheCallToRuleThemAll()
+	{
+		GameObject.FindGameObjectWithTag("GameController").GetComponent<Initializer>().isCancelReConnect = true;
+		if (PhotonNetwork.connected)
+		{
+			PhotonNetwork.Disconnect();
+			ConnectGUI.Local();
+		}
+		else
+		{
+			LoadConnectScene.loading = null;
+			LoadConnectScene.sceneToLoad = Defs.CurrentMainMenuScene;
+			Application.LoadLevel("PromScene");
+		}
+	}
+
 	[HideInInspector] public GameObject enemyDiedTo;
 
 	public UILabel deathLabel;

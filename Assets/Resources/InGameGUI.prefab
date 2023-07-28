@@ -509,6 +509,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1594722971710026
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4934284598649628}
+  - component: {fileID: 114423373836770014}
+  m_Layer: 10
+  m_Name: PingLabel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1594973686722062
 GameObject:
   m_ObjectHideFlags: 1
@@ -734,7 +750,7 @@ GameObject:
   - component: {fileID: 4750057005366250}
   - component: {fileID: 114182080467732304}
   m_Layer: 10
-  m_Name: PingLabel
+  m_Name: FPSLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1371,12 +1387,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1852702787715126}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10, y: -194, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.000061, y: -226.4, z: 0}
+  m_LocalScale: {x: 0.9984, y: 0.9984, z: 0.9984}
   m_Children: []
   m_Father: {fileID: 4941917924720354}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4750622638055744
 Transform:
@@ -1560,6 +1576,19 @@ Transform:
   m_Father: {fileID: 4941917924720354}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4934284598649628
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1594722971710026}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10, y: -194, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4941917924720354}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4941917924720354
 Transform:
   m_ObjectHideFlags: 1
@@ -1575,6 +1604,7 @@ Transform:
   - {fileID: 4846323064315094}
   - {fileID: 4030600221794228}
   - {fileID: 4265215830002716}
+  - {fileID: 4934284598649628}
   - {fileID: 4750057005366250}
   m_Father: {fileID: 4036897808235054}
   m_RootOrder: 0
@@ -2449,7 +2479,7 @@ MonoBehaviour:
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 0}
   mFont: {fileID: 114568443242562173, guid: 8c2b9882bc5395244845469da236f084, type: 2}
-  mText: 'Ping: 0ms'
+  mText: 'FPS: 0'
   mFontSize: 24
   mFontStyle: 0
   mAlignment: 0
@@ -3030,6 +3060,74 @@ MonoBehaviour:
     mMethodName: Jump
     mParameters: []
     oneShot: 0
+--- !u!114 &114423373836770014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1594722971710026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ad3c74c84a85744f80230002b43d3a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  rightAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  bottomAnchor:
+    target: {fileID: 0}
+    relative: 0
+    absolute: 0
+  topAnchor:
+    target: {fileID: 0}
+    relative: 1
+    absolute: 0
+  updateAnchors: 1
+  mColor: {r: 1, g: 1, b: 1, a: 1}
+  mPivot: 3
+  mWidth: 419
+  mHeight: 30
+  mDepth: 6
+  mMat: {fileID: 0}
+  autoResizeBoxCollider: 0
+  hideIfOffScreen: 0
+  keepAspectRatio: 0
+  aspectRatio: 13.966666
+  keepCrispWhenShrunk: 1
+  mTrueTypeFont: {fileID: 0}
+  mFont: {fileID: 114568443242562173, guid: 8c2b9882bc5395244845469da236f084, type: 2}
+  mText: 'Ping: 0ms'
+  mFontSize: 24
+  mFontStyle: 0
+  mAlignment: 0
+  mEncoding: 1
+  mMaxLineCount: 0
+  mEffectStyle: 2
+  mEffectColor: {r: 0, g: 0, b: 0, a: 1}
+  mSymbols: 1
+  mEffectDistance: {x: 2, y: 2}
+  mOverflow: 0
+  mApplyGradient: 0
+  mGradientTop: {r: 1, g: 1, b: 1, a: 1}
+  mGradientBottom: {r: 0.7, g: 0.7, b: 0.7, a: 1}
+  mSpacingX: 0
+  mSpacingY: 0
+  mUseFloatSpacing: 0
+  mFloatSpacingX: 0
+  mFloatSpacingY: 0
+  mOverflowEllipsis: 0
+  mOverflowWidth: 0
+  mModifier: 0
+  mShrinkToFit: 0
+  mMaxLineWidth: 0
+  mMaxLineHeight: 0
+  mLineWidth: 0
+  mMultiline: 1
 --- !u!114 &114445056634153760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3341,7 +3439,8 @@ MonoBehaviour:
   armorBar: {fileID: 114947188578214578}
   healthAmount: {fileID: 114136738580554620}
   armorAmount: {fileID: 114937771033575364}
-  pingLabel: {fileID: 114182080467732304}
+  pingLabel: {fileID: 114423373836770014}
+  fpsLabel: {fileID: 114182080467732304}
   hitmarker: {fileID: 111351496364933742}
 --- !u!114 &114640354625578796
 MonoBehaviour:
