@@ -30,7 +30,7 @@ public class LoadingUI : MonoBehaviour
 		{
 			trf.gameObject.layer = 10;
 		}
-		nameLabel.text = randSounds.weaponName;
+		nameLabel.text = randSounds.weaponName.Replace("newline", "\n");
 		Tips tips = Utilities.GetClass<Tips>("Tips");
 		tipLabel.text = tips.tips[UnityEngine.Random.Range(0, tips.tips.Length)];
 	}
