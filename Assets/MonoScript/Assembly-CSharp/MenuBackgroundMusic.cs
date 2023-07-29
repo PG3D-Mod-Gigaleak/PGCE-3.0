@@ -8,7 +8,8 @@ public class MenuBackgroundMusic : MonoBehaviour
 		"ConnectScene",
 		"SettingScene",
 		"NewArmoryScene",
-		"PromScene"
+		"PromScene",
+		"NewMapList",
 		//"ArmoryScene",
 		//"PrimaryScene",
 		//"BackupScene",

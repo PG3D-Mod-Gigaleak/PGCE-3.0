@@ -8,9 +8,8 @@ public class MapMenu : MonoBehaviour
 
 	private GameObject _mapButton;
 
-	public Transform scroll;
-
 	public UIGrid grid;
+	public UIScrollView scrollView;
 
 	void Start()
 	{
@@ -21,13 +20,14 @@ public class MapMenu : MonoBehaviour
 			MapButton mapBtn = Instantiate(_mapButton, grid.transform).GetComponent<MapButton>();
 			mapBtn.nameLabel.text = map.mapName;
 			mapBtn.mapIcon.mainTexture = map.icon;
+			mapBtn.GetComponent<UIDragScrollView>().scrollView = scrollView;
 		}
 		grid.Reposition();
 	}
 
 	void Update()
 	{
-		scroll.localPosition = new Vector3(scroll.localPosition.x, scroll.localPosition.y + mouseScrollThing, scroll.localPosition.z);
+		//scroll.localPosition = new Vector3(scroll.localPosition.x, scroll.localPosition.y + mouseScrollThing, scroll.localPosition.z);
 	}
 
 	public int mouseScrollThing

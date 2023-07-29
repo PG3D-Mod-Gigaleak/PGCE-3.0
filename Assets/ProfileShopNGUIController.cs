@@ -17,9 +17,9 @@ public class ProfileShopNGUIController : MonoBehaviour {
 		usernameInput.value = PlayerPrefs.GetString("NamePlayer", "Player");
 		button.skin.sharedMaterial = new Material(Shader.Find("Mobile/Diffuse"));
 		button.skin.sharedMaterial.SetTexture("_MainTex", skinTex);
-		usernameInput.onValidate += OnValidate;
+		usernameInput.onValidate += Validate;
 	}
-	public char OnValidate(string text, int charIndex, char addedChar) {
+	public char Validate(string text, int charIndex, char addedChar) {
 		if ("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz?!^\"',.-_[]{} ".IndexOf(addedChar) == -1) {
 			return default(char);
 		}
