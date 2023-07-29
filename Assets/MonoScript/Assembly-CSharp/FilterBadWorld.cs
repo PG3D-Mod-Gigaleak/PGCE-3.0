@@ -9,9 +9,9 @@ public class FilterBadWorld : MonoBehaviour
 
 	private const RegexOptions Options = RegexOptions.IgnoreCase;
 
-	private string[] badWords = new string[1]
+	private string[] badWords = new string[]
 	{
-		"dashcat"
+		"dashcat", "nigger", "nigga", "niga", "igga", "igger", "iga", "iger", "nigea"
 	};
 
 	public string FilterString(string inputStr)
