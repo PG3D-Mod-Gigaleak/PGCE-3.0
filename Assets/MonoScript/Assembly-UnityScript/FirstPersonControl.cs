@@ -214,6 +214,27 @@ public class FirstPersonControl : MonoBehaviour
 		canJump = false;
 	}
 
+	public Transform gravGroundCheck;
+
+	public bool isGrounded {
+		get {
+			if (_playerGun.GetComponent<Player_move_c>().isGravFlipped) {
+				RaycastHit otherHit;
+				Debug.DrawRay(transform.position, Vector3.up*Vector3.Distance(transform.position, gravGroundCheck.position), Color.green);
+				if (Physics.Raycast(transform.position, Vector3.up, out otherHit, Vector3.Distance(transform.position, gravGroundCheck.position))) {
+					Collider other = otherHit.collider;
+					if (other.gameObject != gameObject) {
+						return true;
+					}
+				} else {
+					return false;
+				}
+			}
+			return character.isGrounded;
+		}
+	}
+
+
 	public virtual void Update()
 	{
 		time += Time.deltaTime;
@@ -266,7 +287,7 @@ public class FirstPersonControl : MonoBehaviour
 		{
 			isHoldingJump = false;
 		}
-		if (character.isGrounded)
+		if (isGrounded)
 		{
 			canJump = true;
 			bhopAllowTimer += Time.deltaTime;
@@ -284,7 +305,7 @@ public class FirstPersonControl : MonoBehaviour
 			}
 			if (jump)
 			{
-				velocity.y = jumpSpeed;
+				velocity.y = jumpSpeed * (_playerGun.GetComponent<Player_move_c>().isGravFlipped ? -1 : 1);
 			}
 		}
 		else
@@ -300,7 +321,7 @@ public class FirstPersonControl : MonoBehaviour
 		motion += Physics.gravity;
 		motion *= Time.deltaTime;
 		timeUpdateAnim -= Time.deltaTime;
-		if (!(timeUpdateAnim >= 0f) && character.isGrounded)
+		if (!(timeUpdateAnim >= 0f) && isGrounded)
 		{
 			timeUpdateAnim = 0.5f;
 			if (!(new Vector2(motion.x, motion.z).magnitude <= 0f) && !_playerGun.GetComponent<Player_move_c>().isSwapping())
@@ -320,7 +341,7 @@ public class FirstPersonControl : MonoBehaviour
 			return;
 		}
 		character.Move(motion);
-		if (character.isGrounded)
+		if (isGrounded)
 		{
 			velocity = Vector3.zero;
 		}

@@ -1525,7 +1525,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		get
 		{
-			return (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")) && characterController.isGrounded;
+			return (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")) && _weaponManager.myPlayer.GetComponent<FirstPersonControl>().isGrounded;
 		}
 	}
 
@@ -2028,6 +2028,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			inGameGUI.altShot.SetActive(_weaponManager.currentWeaponSounds.hasAlternateShot);
 		}
+		_weaponManager.currentWeaponSounds.animationObject.transform.localScale = new Vector3(1, (isGravFlipped == true ? -1 : 1), 1);
 	}
 
 	private void SendSpeedModifier()
