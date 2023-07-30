@@ -114,17 +114,21 @@ public class FirstPersonControl : MonoBehaviour
 
 	public virtual void SetSpeedModifier()
 	{
-		if (!(startForwardSpeed <= 0f))
-		{
-			forwardSpeed = startForwardSpeed* Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult;
-		}
-		if (!(startBackwardSpeed <= 0f))
-		{
-			backwardSpeed = startBackwardSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult;
-		}
-		if (!(startSidestepSpeed <= 0f))
-		{
-			sidestepSpeed = startSidestepSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult;
+		try {
+			if (!(startForwardSpeed <= 0f))
+			{
+				forwardSpeed = startForwardSpeed* Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult;
+			}
+			if (!(startBackwardSpeed <= 0f))
+			{
+				backwardSpeed = startBackwardSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult;
+			}
+			if (!(startSidestepSpeed <= 0f))
+			{
+				sidestepSpeed = startSidestepSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult;
+			}
+		} catch {
+
 		}
 	}
 
@@ -136,7 +140,11 @@ public class FirstPersonControl : MonoBehaviour
 		startSidestepSpeed = sidestepSpeed;
 		thisTransform = (Transform)GetComponent(typeof(Transform));
 		character = (CharacterController)GetComponent(typeof(CharacterController));
-		_playerGun = GameObject.FindGameObjectWithTag("PlayerGun");
+		foreach (GameObject pgun in GameObject.FindGameObjectsWithTag("PlayerGun")) {
+			if (pgun.GetComponent<Player_move_c>().isMine) {
+				_playerGun = pgun;
+			}
+		}
 		GameObject gameObject = GameObject.Find("PlayerSpawn");
 		if ((bool)gameObject)
 		{
@@ -218,16 +226,18 @@ public class FirstPersonControl : MonoBehaviour
 
 	public bool isGrounded {
 		get {
-			if (_playerGun.GetComponent<Player_move_c>().isGravFlipped) {
-				RaycastHit otherHit;
-				Debug.DrawRay(transform.position, Vector3.up*Vector3.Distance(transform.position, gravGroundCheck.position), Color.green);
-				if (Physics.Raycast(transform.position, Vector3.up, out otherHit, Vector3.Distance(transform.position, gravGroundCheck.position))) {
-					Collider other = otherHit.collider;
-					if (other.gameObject != gameObject) {
-						return true;
+			if (_playerGun != null && _playerGun.GetComponent<Player_move_c>().isMine) {
+				if (_playerGun.GetComponent<Player_move_c>().isMine && _playerGun.GetComponent<Player_move_c>().isGravFlipped) {
+					RaycastHit otherHit;
+					Debug.DrawRay(transform.position, Vector3.up*Vector3.Distance(transform.position, gravGroundCheck.position), Color.green);
+					if (Physics.Raycast(transform.position, Vector3.up, out otherHit, Vector3.Distance(transform.position, gravGroundCheck.position))) {
+						Collider other = otherHit.collider;
+						if (other.gameObject != gameObject) {
+							return true;
+						}
+					} else {
+						return false;
 					}
-				} else {
-					return false;
 				}
 			}
 			return character.isGrounded;
