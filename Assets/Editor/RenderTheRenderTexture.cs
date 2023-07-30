@@ -6,7 +6,7 @@ using UnityEditor;
 
 public class RenderTheRenderTexture : Editor
 {
-	[MenuItem("Assets/RenderTexture/Render To PNG", false, 0)]
+	[MenuItem("Assets/RenderTexture/Render To PNG", false, 99)]
 	public static void RenderPNG()
 	{
 		if (!Directory.Exists(Application.dataPath + "/Rendered PNGs"))
@@ -19,17 +19,19 @@ public class RenderTheRenderTexture : Editor
 			if (selected is RenderTexture)
 			{
 				RenderTexture renderTexture = (RenderTexture)selected;
-				if (!File.Exists(Application.dataPath + "/Rendered PNGs/" + renderTexture.name + ".png"))
+				string path = EditorUtility.SaveFilePanel("Save PNG", Application.dataPath, "Rendered PNG", "png");
+				if (!File.Exists(path))
 				{
-					File.Create(Application.dataPath + "/Rendered PNGs/" + renderTexture.name + ".png").Dispose();
-					Texture2D tex = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGBA32, false);
-        			RenderTexture.active = renderTexture;
-        			tex.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
-        			tex.Apply();
-        			File.WriteAllBytes(Application.dataPath + "/Rendered PNGs/" + renderTexture.name + ".png", tex.EncodeToPNG());
-					Texture2D newTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(Application.dataPath + "/Rendered PNGs/" + renderTexture.name + ".png");
+					File.Create(path).Dispose();
 				}
+				Texture2D tex = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.RGBA32, false);
+        		RenderTexture.active = renderTexture;
+        		tex.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+        		tex.Apply();
+        		File.WriteAllBytes(path, tex.EncodeToPNG());
 			}
 		}
+
+		AssetDatabase.Refresh(ImportAssetOptions.Default);
 	}
 }
