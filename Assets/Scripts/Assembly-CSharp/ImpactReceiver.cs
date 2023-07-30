@@ -29,6 +29,9 @@ public class ImpactReceiver : MonoBehaviour
 		{
 			dir.y = 0f - dir.y;
 		}
+		if (gameObject.GetComponent<FirstPersonControl>().playerGameObject.GetComponent<Player_move_c>().isMine && gameObject.GetComponent<FirstPersonControl>().playerGameObject.GetComponent<Player_move_c>().isGravFlipped) {
+			dir.y *= -1;
+		}
 		impact += dir.normalized * force / mass;
 	}
 }
