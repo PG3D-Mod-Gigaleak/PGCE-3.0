@@ -182,6 +182,9 @@ public sealed class Player_move_c : MonoBehaviour
 				_003C_003Ef__this._rightJoystick.SetActive(true);
 			}
 			_003C_003Ef__this._rightJoystick.SendMessage("HasAmmo");
+			if (_003C_003Ef__this.isGravFlipped) {
+				Physics.gravity *= -1;
+			}
 			_003C_003Ef__this.isGravFlipped = false;
 			float understand = _003C_003Ef__this.CurHealth;
 			_003C_003Ef__this.CurHealth = _003C_003Ef__this.MaxHealth;
@@ -2100,6 +2103,9 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void Start()
 	{
+		if (Physics.gravity.y > 0) {
+			Physics.gravity *= -1;
+		}
 		widthPoduct = (float)(healthInApp.normal.background.width * Screen.height) / 768f * (320f / (float)healthInApp.normal.background.height);
 		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
 		{
