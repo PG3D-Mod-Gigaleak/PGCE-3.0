@@ -3955,7 +3955,7 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				ShotPressed(true);
 			}
-			if (Input.GetKeyDown(KeyCode.K) && !showChat && !showRanks) {
+			if (Input.GetKeyDown(KeyCode.K) && !showChat && !showRanks && isMine) {
 				#if UNITY_EDITOR
 				if (!showingAdminInput) {
 					showingAdminInput = true;

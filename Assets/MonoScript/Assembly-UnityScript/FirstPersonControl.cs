@@ -134,7 +134,9 @@ public class FirstPersonControl : MonoBehaviour
 
 	public virtual void Start()
 	{
-		Screen.lockCursor = true;
+		if (isMine) {
+			Screen.lockCursor = true;
+		}
 		startForwardSpeed = forwardSpeed;
 		startBackwardSpeed = backwardSpeed;
 		startSidestepSpeed = sidestepSpeed;
