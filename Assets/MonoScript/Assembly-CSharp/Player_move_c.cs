@@ -3584,7 +3584,7 @@ public sealed class Player_move_c : MonoBehaviour
 					base.GetComponent<NetworkView>().RPC("fireFlash", RPCMode.Others, base.gameObject.transform.GetComponent<NetworkView>().viewID, true);
 				}
 			}
-			if ((hitInfo.collider.gameObject.CompareTag("BodyCollider") || hitInfo.collider.gameObject.CompareTag("HeadCollider")) && PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetInt("COOP", 0) != 1)
+			if ((hitInfo.collider.gameObject.CompareTag("BodyCollider") || hitInfo.collider.gameObject.CompareTag("HeadCollider")) && PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetInt("COOP", 0) != 1 && !hitInfo.collider.transform.parent.gameObject.GetComponent<FirstPersonControl>().playerGameObject.GetComponent<Player_move_c>().isMine)
 			{
 				if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
 				{
@@ -3949,7 +3949,15 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void Update()
 	{
-		if (!Application.isMobilePlatform)
+		if (isMine) {
+			foreach (GameObject bodyCollider in GameObject.FindGameObjectsWithTag("BodyCollider")) {
+				if (bodyCollider.transform.parent.GetComponent<FirstPersonControl>().playerGameObject.GetComponent<Player_move_c>().isMine) {
+					bodyCollider.layer = LayerMask.NameToLayer("Ignore Raycast");
+					break;
+				}
+			}
+		}
+		if (!Application.isMobilePlatform && isMine)
 		{
 			if (Input.GetKey("e") && _weaponManager.currentWeaponSounds.hasAlternateShot)
 			{
