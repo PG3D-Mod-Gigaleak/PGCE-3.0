@@ -105,6 +105,8 @@ public class WeaponSounds : MonoBehaviour
 	public bool throwObject;
 
 	public int throwObjects;
+	
+	public bool isGrav;
 
 	[Header("imported stuff")]
 

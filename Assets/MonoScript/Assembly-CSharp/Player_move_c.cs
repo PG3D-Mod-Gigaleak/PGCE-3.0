@@ -182,6 +182,7 @@ public sealed class Player_move_c : MonoBehaviour
 				_003C_003Ef__this._rightJoystick.SetActive(true);
 			}
 			_003C_003Ef__this._rightJoystick.SendMessage("HasAmmo");
+			_003C_003Ef__this.isGravFlipped = false;
 			float understand = _003C_003Ef__this.CurHealth;
 			_003C_003Ef__this.CurHealth = _003C_003Ef__this.MaxHealth;
 			IncomprehensibleGarbler.Dispatch("UrnyguPunatr", _003C_003Ef__this, understand);
@@ -3373,6 +3374,8 @@ public sealed class Player_move_c : MonoBehaviour
 		Instantiate(Resources.Load<GameObject>("ThrowObjects/" + _weaponManager.currentWeaponSounds.name.Replace("(Clone)", "")), _bulletSpawnPoint.transform.position, _bulletSpawnPoint.transform.rotation).GetComponent<ThrownObject>().multiplayerDamage = damage;
 	}
 
+	public bool isGravFlipped;
+
 	public void shootS(bool alt)
 	{
 		WeaponSounds WS = null;
@@ -3419,6 +3422,13 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 				((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
 			}
+			return;
+		}
+		if (WS.isGrav) {
+			_weaponManager.myPlayer.transform.localScale = new Vector3(1, (_weaponManager.myPlayer.transform.localScale.y == -1 ? 1 : -1), 1);
+			_weaponManager.myPlayer.GetComponent<FirstPersonControl>().cameraPivot.Rotate(0, 180, 0);
+			Physics.gravity *= -1;
+			isGravFlipped = !isGravFlipped;
 			return;
 		}
 		if (WS.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)

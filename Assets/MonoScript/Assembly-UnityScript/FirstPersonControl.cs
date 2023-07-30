@@ -355,6 +355,6 @@ public class FirstPersonControl : MonoBehaviour
 		float @float = PlayerPrefs.GetFloat("SensitivitySett", 12f);
 		vector2 *= Time.deltaTime * @float;
 		thisTransform.Rotate(0f, vector2.x, 0f, Space.World);
-		cameraPivot.Rotate(0f - vector2.y, 0f, 0f);
+		cameraPivot.Rotate(0f - vector2.y * (_playerGun.GetComponent<Player_move_c>().isGravFlipped ? -1 : 1), 0f, 0f);
 	}
 }
