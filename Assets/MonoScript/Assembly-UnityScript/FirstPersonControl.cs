@@ -142,11 +142,7 @@ public class FirstPersonControl : MonoBehaviour
 		startSidestepSpeed = sidestepSpeed;
 		thisTransform = (Transform)GetComponent(typeof(Transform));
 		character = (CharacterController)GetComponent(typeof(CharacterController));
-		foreach (GameObject pgun in GameObject.FindGameObjectsWithTag("PlayerGun")) {
-			if (pgun.GetComponent<Player_move_c>().isMine) {
-				_playerGun = pgun;
-			}
-		}
+		_playerGun = Globals.PlayerMove.gameObject;
 		GameObject gameObject = GameObject.Find("PlayerSpawn");
 		if ((bool)gameObject)
 		{
