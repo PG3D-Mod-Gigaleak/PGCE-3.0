@@ -182,10 +182,12 @@ public sealed class Player_move_c : MonoBehaviour
 				_003C_003Ef__this._rightJoystick.SetActive(true);
 			}
 			_003C_003Ef__this._rightJoystick.SendMessage("HasAmmo");
-			if (_003C_003Ef__this.isGravFlipped) {
+			if (_003C_003Ef__this.isGravFlipped && _003C_003Ef__this.isMine) {
 				Physics.gravity *= -1;
 			}
-			_003C_003Ef__this.isGravFlipped = false;
+			if (_003C_003Ef__this.isMine) {
+				_003C_003Ef__this.isGravFlipped = false;
+			}
 			float understand = _003C_003Ef__this.CurHealth;
 			_003C_003Ef__this.CurHealth = _003C_003Ef__this.MaxHealth;
 			IncomprehensibleGarbler.Dispatch("UrnyguPunatr", _003C_003Ef__this, understand);
@@ -2104,7 +2106,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void Start()
 	{
-		if (Physics.gravity.y > 0) {
+		if (Physics.gravity.y > 0 && isMine) {
 			Physics.gravity *= -1;
 		}
 		widthPoduct = (float)(healthInApp.normal.background.width * Screen.height) / 768f * (320f / (float)healthInApp.normal.background.height);
@@ -3110,6 +3112,7 @@ public sealed class Player_move_c : MonoBehaviour
 						float understand = item.gameObject.GetComponent<Player_move_c>().CurHealth;
 						item.gameObject.GetComponent<Player_move_c>().CurHealth -= num;
 						IncomprehensibleGarbler.Dispatch("UrnyguPunatr", this, understand);
+						print("hey guys, " + CurHealth);
 					} else {
 						item.gameObject.GetComponent<Player_move_c>().CurHealth -= num;
 					}
