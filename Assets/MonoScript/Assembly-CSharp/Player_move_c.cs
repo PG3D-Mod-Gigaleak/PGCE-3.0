@@ -3387,6 +3387,13 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public bool isGravFlipped;
 
+	public void flipGrav() {
+		_weaponManager.myPlayer.transform.localScale = new Vector3(1, (_weaponManager.myPlayer.transform.localScale.y == -1 ? 1 : -1), 1);
+		_weaponManager.myPlayer.GetComponent<FirstPersonControl>().cameraPivot.Rotate(0, 180, 0);
+		Physics.gravity *= -1;
+		isGravFlipped = !isGravFlipped;
+	}
+
 	public void shootS(bool alt)
 	{
 		WeaponSounds WS = null;
@@ -3436,10 +3443,7 @@ public sealed class Player_move_c : MonoBehaviour
 			return;
 		}
 		if (WS.isGrav) {
-			_weaponManager.myPlayer.transform.localScale = new Vector3(1, (_weaponManager.myPlayer.transform.localScale.y == -1 ? 1 : -1), 1);
-			_weaponManager.myPlayer.GetComponent<FirstPersonControl>().cameraPivot.Rotate(0, 180, 0);
-			Physics.gravity *= -1;
-			isGravFlipped = !isGravFlipped;
+			flipGrav();
 			return;
 		}
 		if (WS.isHeal && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
