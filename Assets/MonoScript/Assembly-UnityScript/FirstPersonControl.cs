@@ -184,6 +184,11 @@ public class FirstPersonControl : MonoBehaviour
 
 	public virtual Vector2 updateKeyboardControls()
 	{
+		#if UNITY_EDITOR
+		if (Globals.PlayerMove && Globals.PlayerMove.showingAdminInput) {
+			return new Vector2(0, 0);
+		}
+		#endif
 		int num = default(int);
 		int num2 = default(int);
 		if (Input.GetKey("w"))
@@ -246,6 +251,7 @@ public class FirstPersonControl : MonoBehaviour
 	public virtual void Update()
 	{
 		time += Time.deltaTime;
+		bool can = true;
 		if (!Application.isMobilePlatform)
 		{
 			moveTouchPad.position = updateKeyboardControls();
@@ -253,17 +259,24 @@ public class FirstPersonControl : MonoBehaviour
 			{
 				rotateTouchPad.position = new Vector2(Input.GetAxis("Mouse X") * 10f, Input.GetAxis("Mouse Y") * 10f);
 			}
-			if (Input.GetKey(KeyCode.Space))
-			{
-				jumpButton.jumpPressed = true;
+			#if UNITY_EDITOR
+			if (Globals.PlayerMove && Globals.PlayerMove.showingAdminInput) {
+				can = false;
 			}
-			if (Input.GetKeyDown(KeyCode.Space))
-			{
-				timeAtLastPress = time;
-			}
-			if (Input.GetKeyUp(KeyCode.Space))
-			{
-				jumpButton.jumpPressed = false;
+			#endif
+			if (can) {
+				if (Input.GetKey(KeyCode.Space))
+				{
+					jumpButton.jumpPressed = true;
+				}
+				if (Input.GetKeyDown(KeyCode.Space))
+				{
+					timeAtLastPress = time;
+				}
+				if (Input.GetKeyUp(KeyCode.Space))
+				{
+					jumpButton.jumpPressed = false;
+				}
 			}
 			camSway.value = Mathf.Lerp(camSway.value, moveTouchPad.position.x > 0 ? -2.5f : moveTouchPad.position.x < 0 ? 2.5f : 0, Time.deltaTime * camSwaySpeed);
 		}

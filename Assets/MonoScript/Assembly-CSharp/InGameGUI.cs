@@ -56,6 +56,10 @@ public class InGameGUI : MonoBehaviour
 	{
 		get
 		{
+			#if UNITY_EDITOR
+			if (Globals.PlayerMove && Globals.PlayerMove.showingAdminInput)
+				return false;
+			#endif
 			return shootButton.state == UIButtonColor.State.Pressed;
 		}
 	}

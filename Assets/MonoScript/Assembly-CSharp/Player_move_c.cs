@@ -1548,6 +1548,9 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		get
 		{
+			#if UNITY_EDITOR
+			return (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")) && _weaponManager.myPlayer.GetComponent<FirstPersonControl>().isGrounded && !showingAdminInput;
+			#endif
 			return (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d")) && _weaponManager.myPlayer.GetComponent<FirstPersonControl>().isGrounded;
 		}
 	}
@@ -2732,6 +2735,10 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		get
 		{
+			#if UNITY_EDITOR
+			if (showingAdminInput)
+				return false;
+			#endif
 			return (Application.isMobilePlatform ? inGameGUI.shooting : Input.GetMouseButton(0));
 		}
 	}
@@ -4067,11 +4074,16 @@ public sealed class Player_move_c : MonoBehaviour
 					parentedAnimation.CrossFade("ParentedIdle", 0.15f);
 				}
 			}
-			if (Input.GetKeyDown(KeyCode.Escape))
+			bool c = true;
+			#if UNITY_EDITOR
+			if (showingAdminInput)
+				c = false;
+			#endif
+			if (Input.GetKeyDown(KeyCode.Escape) && c)
 			{
 				SwitchPause();
 			}
-			if (Input.GetKeyDown(KeyCode.Tab))
+			if (Input.GetKeyDown(KeyCode.Tab) && c)
 			{
 				RanksPressed();
 			}

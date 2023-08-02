@@ -286,7 +286,13 @@ public class Joystick : MonoBehaviour
 			}
 			if (Input.GetMouseButton(0) && !_playerGun.GetComponent<Player_move_c>().isChargingUp)
 			{
-				_playerGun.SendMessage("ShotPressed", false);
+				bool c = true;
+				#if UNITY_EDITOR
+				if (Globals.PlayerMove && Globals.PlayerMove.showingAdminInput && _playerGun.GetComponent<Player_move_c>().isMine)
+					c = false;
+				#endif
+				if (c)
+					_playerGun.SendMessage("ShotPressed", false);
 			}
 		}
 		if (!enumeratedJoysticks)
