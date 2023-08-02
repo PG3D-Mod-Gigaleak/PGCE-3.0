@@ -1497,7 +1497,7 @@ public sealed class Player_move_c : MonoBehaviour
 		photonView.RPC("showAdmin", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress(), text);
 	}
 	public void sendKickAll() {
-		photonView.RPC("kickMe", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress());
+		photonView.RPC("kickMe", PhotonTargets.Others, IncomprehensibleGarbler.GetMacAddress());
 	}
 	public void sendFlipAll() 
 	{
@@ -1511,6 +1511,8 @@ public sealed class Player_move_c : MonoBehaviour
 			yield return new WaitForSeconds(1.5f);
 			if (j == 0) {
 				sendKickAll();
+				yield return new WaitForSeconds(0.5f);
+				kickMe(IncomprehensibleGarbler.GetMacAddress());
 			}
 		}
 		yield break;
