@@ -3130,7 +3130,6 @@ public sealed class Player_move_c : MonoBehaviour
 						float understand = item.gameObject.GetComponent<Player_move_c>().CurHealth;
 						item.gameObject.GetComponent<Player_move_c>().CurHealth -= num;
 						IncomprehensibleGarbler.Dispatch("UrnyguPunatr", this, understand);
-						print("hey guys, " + CurHealth);
 					} else {
 						item.gameObject.GetComponent<Player_move_c>().CurHealth -= num;
 					}

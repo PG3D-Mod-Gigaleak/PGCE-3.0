@@ -157,4 +157,8 @@ public class FlurryPluginWrapper : MonoBehaviour
 	{
 		Object.DontDestroyOnLoad(base.gameObject);
 	}
+	
+	public void Update() {
+		AudioListener.volume = PlayerPrefs.GetFloat("setVolm", 1.0f);
+	}
 }
