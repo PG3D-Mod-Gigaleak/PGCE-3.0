@@ -27,6 +27,8 @@ public class InterpolateOnlyScale : Photon.MonoBehaviour
 
 	private void Update()
 	{
+		Vector3 olds = base.transform.localScale;
+		base.transform.localScale = new Vector3(1 * (olds.x < 0 ? -1 : 1), 1, 1 * (olds.z < 0 ? -1 : 1));
 		if (!base.photonView.isMine)
 		{
 			base.transform.localScale = correctScale;

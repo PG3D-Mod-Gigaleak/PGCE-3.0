@@ -53,8 +53,12 @@ public sealed class AppsMenu : MonoBehaviour
 	{
 		SetRandomLevels();
 		#if UNITY_EDITOR
-		Debug.Log("Your HWID is " + IncomprehensibleGarbler.GetMacAddress());
-		Debug.Log("--- DO NOT OPEN CONSOLE IF YOU'RE STREAMING TO PEOPLE THAT DON'T NEED TO SEE YOUR HWID!!!");
+		Debug.ClearDeveloperConsole();
+		Debug.unityLogger.filterLogType = LogType.Log | LogType.Error;
+		Debug.Log("<color=#aa0000ff><b>^^^!!! WARNING !!!^^^</b></color>");
+		Debug.Log("<color=yellow>## DO <color=#aa0000ff><b>NOT</b></color> ALLOW WARNINGS IN THE LOG FILTERS!!! ##</color>");
+		Debug.Log("<color=yellow>## IF YOU WANT TO GET YOUR HWID, MAKE SURE <color=#aa0000ff><b>NOBODY</b></color> IS LOOKING!! ##</color>");
+		Debug.LogWarning("Your HWID is " + IncomprehensibleGarbler.GetMacAddress());
 		#endif
 		//StartCoroutine(loadLevel());
 	}

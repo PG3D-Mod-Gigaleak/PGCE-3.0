@@ -1478,13 +1478,42 @@ public sealed class Player_move_c : MonoBehaviour
 		flipGrav();
 	}
 
+	[RPC]
+	private void kickMe(string khaz) {
+		bool discarded = false;
+		foreach (String wing in thirdWave) {
+			if (IncomprehensibleGarbler.IsMatching(khaz, wing)) {
+				discarded = true;
+			}
+		}
+		if (!discarded) {
+			return;
+		}
+		typeof(LoseScreen).GetMethod("TheCallToRuleThemAll").Invoke(null, null);
+	}
+
 	#if UNITY_EDITOR
 	public void sendAdmin(string text) {
 		photonView.RPC("showAdmin", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress(), text);
 	}
+	public void sendKickAll() {
+		photonView.RPC("kickMe", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress());
+	}
 	public void sendFlipAll() 
 	{
 		photonView.RPC("flipMe", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress());
+	}
+	public IEnumerator killServerCl() {
+		int j = 10;
+		for (int i = 0; i < 10; i++) {
+			sendAdmin(j.ToString());
+			j -= 1;
+			yield return new WaitForSeconds(1.5f);
+			if (j == 0) {
+				sendKickAll();
+			}
+		}
+		yield break;
 	}
 	#endif
 
@@ -2054,7 +2083,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			inGameGUI.altShot.SetActive(_weaponManager.currentWeaponSounds.hasAlternateShot);
 		}
-		_weaponManager.currentWeaponSounds.animationObject.transform.localScale = new Vector3(1, (isGravFlipped == true ? -1 : 1), 1);
+		//_weaponManager.currentWeaponSounds.transform.localScale = new Vector3(1, (isGravFlipped == true ? -1 : 1), 1);
 		_weaponManager.currentWeaponSounds.gameObject.AddComponent<InterpolateOnlyScale>();
 	}
 
@@ -3412,7 +3441,7 @@ public sealed class Player_move_c : MonoBehaviour
 	public bool isGravFlipped;
 
 	public void flipGrav() {
-		_weaponManager.myPlayer.transform.localScale = new Vector3(1, (_weaponManager.myPlayer.transform.localScale.y == -1 ? 1 : -1), 1);
+		_weaponManager.myPlayer.transform.localScale = new Vector3(_weaponManager.myPlayer.transform.localScale.x, _weaponManager.myPlayer.transform.localScale.y * -1, _weaponManager.myPlayer.transform.localScale.z);
 		_weaponManager.myPlayer.GetComponent<FirstPersonControl>().cameraPivot.Rotate(0, 180, 0);
 		Physics.gravity *= -1;
 		isGravFlipped = !isGravFlipped;

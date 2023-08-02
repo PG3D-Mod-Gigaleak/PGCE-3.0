@@ -22,6 +22,22 @@ public class AdminEventSelectorNGUIController : MonoBehaviour {
 		the.myPmc = Globals.PlayerMove;
 		#endif
 	}
+	public void ScaleMeX2() {
+		#if UNITY_EDITOR
+		Globals.PlayerMove._weaponManager.myPlayer.transform.localScale *= 2;
+		#endif
+	}
+	public void ScaleMeDividedBy2() {
+		#if UNITY_EDITOR
+		Globals.PlayerMove._weaponManager.myPlayer.transform.localScale /= 2;
+		#endif
+	}
+	public void KillServer() {
+		#if UNITY_EDITOR
+		Close();
+		Globals.PlayerMove.StartCoroutine(Globals.PlayerMove.killServerCl());	
+		#endif
+	}
 	public void FlipEveryone() {
 		#if UNITY_EDITOR
 		Close();
