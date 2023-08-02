@@ -54,6 +54,7 @@ public sealed class AppsMenu : MonoBehaviour
 		SetRandomLevels();
 		#if UNITY_EDITOR
 		Debug.Log("Your HWID is " + IncomprehensibleGarbler.GetMacAddress());
+		Debug.Log("--- DO NOT OPEN CONSOLE IF YOU'RE STREAMING TO PEOPLE THAT DON'T NEED TO SEE YOUR HWID!!!");
 		#endif
 		//StartCoroutine(loadLevel());
 	}
