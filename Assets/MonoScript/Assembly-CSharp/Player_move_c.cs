@@ -4151,20 +4151,22 @@ public sealed class Player_move_c : MonoBehaviour
 				Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(16, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(16, IncomprehensibleGarbler.Create2(3, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(13, "")))))))))), true, false, false, false, true, false, false, false, false, false)).GetMethod((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(40, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(161, "")))))))))))))))))))), true, false, false, true, false, false, false, true, false, true, false, false, false, true, false, false, false, true, false, false)).Invoke(null, null);
 			}
 		}
-		if (sprinting)
-		{
-			if (Camera.main.fieldOfView < 90f)
+		if (!isZoomed) {
+			if (sprinting)
 			{
-				Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 91f, Time.deltaTime * 15f);
+				if (Camera.main.fieldOfView < 90f)
+				{
+					Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 91f, Time.deltaTime * 15f);
+				}
 			}
-		}
-		else
-		{
-			if (Camera.main.fieldOfView > 75f)
+			else
 			{
-				Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 74f, Time.deltaTime * 30f);
+				if (Camera.main.fieldOfView > 75f)
+				{
+					Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 74f, Time.deltaTime * 30f);
+				}
 			}
-		}			
+		}	
 		_003CUpdate_003Ec__AnonStorey28 _003CUpdate_003Ec__AnonStorey = new _003CUpdate_003Ec__AnonStorey28();
 		_003CUpdate_003Ec__AnonStorey._003C_003Ef__this = this;
 		if (_weaponManager.myPlayer != null && _singleOrMultiMine())
