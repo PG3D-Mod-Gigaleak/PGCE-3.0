@@ -288,13 +288,13 @@ public sealed class ConnectGUI : MonoBehaviour
 
 	public static void Local()
 	{
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+		if (prefs.GetString("TypeConnect").Equals("local"))
 		{
-			PlayerPrefs.SetInt("typeConnect__", 2);
+			prefs.SetInt("typeConnect__", 2);
 		}
 		else
 		{
-			PlayerPrefs.SetInt("typeConnect__", 1);
+			prefs.SetInt("typeConnect__", 1);
 		}
 		LoadConnectScene.loading = null;
 		LoadConnectScene.sceneToLoad = "ConnectScene";
@@ -316,16 +316,16 @@ public sealed class ConnectGUI : MonoBehaviour
 
 	public static void GoToProfile()
 	{
-		//PlayerPrefs.SetInt(Defs.SkinEditorMode, 1);
+		//prefs.SetInt(Defs.SkinEditorMode, 1);
 		Application.LoadLevel("ProfileShop");
 	}
 
 	private void Awake()
 	{
-		PlayerPrefs.SetInt("CustomGame", 1);
-		typeConnect = PlayerPrefs.GetInt("typeConnect__", 0);
-		PlayerPrefs.SetString("TypeGame", "client");
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+		prefs.SetInt("CustomGame", 1);
+		typeConnect = prefs.GetInt("typeConnect__", 0);
+		prefs.SetString("TypeGame", "client");
+		if (prefs.GetString("TypeConnect").Equals("local"))
 		{
 			typeGame = 2;
 		}
@@ -416,16 +416,16 @@ public sealed class ConnectGUI : MonoBehaviour
 		showPasswordEnterForm = false;
 		if (connectGame.customProperties["pass"].Equals(string.Empty) || connectGame.customProperties["pass"].Equals(password))
 		{
-			PlayerPrefs.SetString("MaxKill", connectGame.customProperties["MaxKill"].ToString());
+			prefs.SetString("MaxKill", connectGame.customProperties["MaxKill"].ToString());
 			Debug.Log("setMaxKil client local = " + connectGame.customProperties["MaxKill"].ToString());
-			PlayerPrefs.SetString("MapName", (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[(int)connectGame.customProperties["map"]] : masMapNameCOOP[(int)connectGame.customProperties["map"]]);
-			goMapName = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[(int)connectGame.customProperties["map"]] : masMapNameCOOP[(int)connectGame.customProperties["map"]]);
+			prefs.SetString("MapName", (prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)connectGame.customProperties["map"]] : masMapNameCOOP[(int)connectGame.customProperties["map"]]);
+			goMapName = ((prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)connectGame.customProperties["map"]] : masMapNameCOOP[(int)connectGame.customProperties["map"]]);
 			showLoading = true;
 			setFonLoading(goMapName);
 			PhotonNetwork.JoinRoom(connectGame.name);
-			if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+			if (prefs.GetString("TypeConnect").Equals("local"))
 			{
-				Application.LoadLevel((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[(int)connectGame.customProperties["map"]] : masMapNameCOOP[(int)connectGame.customProperties["map"]]);
+				Application.LoadLevel((prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)connectGame.customProperties["map"]] : masMapNameCOOP[(int)connectGame.customProperties["map"]]);
 			}
 		}
 		else if (!connectGame.customProperties["pass"].Equals(password))
@@ -451,14 +451,14 @@ public sealed class ConnectGUI : MonoBehaviour
 
 	private void Start()
 	{
-		string @string = PlayerPrefs.GetString(Defs.ShouldReoeatActionSett, string.Empty);
+		string @string = prefs.GetString(Defs.ShouldReoeatActionSett, string.Empty);
 		if (@string.Equals(Defs.GoToProfileAction))
 		{
-			PlayerPrefs.SetString(Defs.ShouldReoeatActionSett, string.Empty);
-			PlayerPrefs.Save();
+			prefs.SetString(Defs.ShouldReoeatActionSett, string.Empty);
+			prefs.Save();
 		}
 		coinsPlashka.thisScript.enabled = false;
-		if (PlayerPrefs.GetInt("COOP", 0) == 0)
+		if (prefs.GetInt("COOP", 0) == 0)
 		{
 			for (int i = 0; i < masMapCOOP.Length; i++)
 			{
@@ -481,10 +481,10 @@ public sealed class ConnectGUI : MonoBehaviour
 		{
 			connectToServer();
 		}
-		name = PlayerPrefs.GetString("nameServerStart", "Enter server name");
+		name = prefs.GetString("nameServerStart", "Enter server name");
 		pointMap = new Vector2((float)Screen.width / 2f, (float)Screen.height / 2f);
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
-		myName = PlayerPrefs.GetString("NamePlayer", Defs.defaultPlayerName);
+		myName = prefs.GetString("NamePlayer", Defs.defaultPlayerName);
 	}
 
 	private void Update()
@@ -493,14 +493,14 @@ public sealed class ConnectGUI : MonoBehaviour
 		{
 			if (selectMapIndex < 1)
 			{
-				selectMapIndex = (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap.Length - 1 : masMapCOOP.Length - 1;
+				selectMapIndex = (prefs.GetInt("COOP", 0) != 1) ? masMap.Length - 1 : masMapCOOP.Length - 1;
 				return;
 			}
 			selectMapIndex--;
 		}
 		else if (Input.GetAxis("Mouse ScrollWheel") < 0f)
 		{
-			int the = (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap.Length - 1 : masMapCOOP.Length - 1;
+			int the = (prefs.GetInt("COOP", 0) != 1) ? masMap.Length - 1 : masMapCOOP.Length - 1;
 			if (selectMapIndex > the - 1)
 			{
 				selectMapIndex = 0;
@@ -514,7 +514,7 @@ public sealed class ConnectGUI : MonoBehaviour
 			Debug.Log("OnDisconnectedFromServer");
 			typeGame = 3;
 			typeConnect = 0;
-			PlayerPrefs.SetString("TypeGame", "client");
+			prefs.SetString("TypeGame", "client");
 			regimGUIClient = 0;
 			regimGUIServer = 0;
 			isSetMap = false;
@@ -544,8 +544,8 @@ public sealed class ConnectGUI : MonoBehaviour
 			{
 				_purchaseActivityIndicator.SetActive(false);
 			}
-			int[] array = new int[(PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length];
-			for (int i = 0; i < ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length); i++)
+			int[] array = new int[(prefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length];
+			for (int i = 0; i < ((prefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length); i++)
 			{
 				array[i] = 0;
 			}
@@ -560,12 +560,12 @@ public sealed class ConnectGUI : MonoBehaviour
 			GUILayout.BeginHorizontal(GUILayout.Height((float)playersWindow.normal.background.height * koofScreen));
 			GUILayout.Space((float)Screen.width * 0.5f - (float)playersWindow.normal.background.width * 0.5f * koofScreen);
 			scrollPosition = GUILayout.BeginScrollView(scrollPosition, playersWindow);
-			for (int k = 0; k < ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length); k++)
+			for (int k = 0; k < ((prefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length); k++)
 			{
 				GUILayout.Space(20f * koofScreen);
 				GUILayout.BeginHorizontal();
 				GUILayout.Space(20f * koofScreen);
-				GUILayout.Label((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[k] : masMapNameCOOP[k], playersWindow, GUILayout.Width((float)playersWindow.normal.background.width * koofScreen * 0.7f));
+				GUILayout.Label((prefs.GetInt("COOP", 0) != 1) ? masMapName[k] : masMapNameCOOP[k], playersWindow, GUILayout.Width((float)playersWindow.normal.background.width * koofScreen * 0.7f));
 				GUILayout.Label(string.Empty + array[k], playersWindow, GUILayout.Width((float)playersWindow.normal.background.width * koofScreen * 0.2f));
 				GUILayout.Space(20f * koofScreen);
 				GUILayout.EndHorizontal();
@@ -593,7 +593,7 @@ public sealed class ConnectGUI : MonoBehaviour
 		if (typeConnect == 0)
 		{
 			float top = (float)Screen.height * 0.1f - (float)head_connection.height / 2f * (float)Screen.height / 768f;
-			if (PlayerPrefs.GetInt("COOP", 0) == 1)
+			if (prefs.GetInt("COOP", 0) == 1)
 			{
 				float num = (float)Screen.height / 20f;
 				Rect position2 = new Rect((float)Screen.width / 2f - (float)gameModeHeader.width / 2f * koofScreen, top, (float)gameModeHeader.width * koofScreen, (float)gameModeHeader.height * koofScreen);
@@ -620,9 +620,9 @@ public sealed class ConnectGUI : MonoBehaviour
 				if (GUI.Button(new Rect((float)Screen.width / 2f - (float)local.active.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.6f - (float)local.active.background.height / 2f * (float)Screen.height / 768f, (float)(local.active.background.width * Screen.height) / 768f, (float)(local.active.background.height * Screen.height) / 768f), string.Empty, local) && !isFirstFrame)
 				{
 					typeConnect = 2;
-					PlayerPrefs.SetString("TypeConnect", "local");
+					prefs.SetString("TypeConnect", "local");
 					typeGame = 2;
-					PlayerPrefs.SetString("TypeGame", "client");
+					prefs.SetString("TypeGame", "client");
 					connectToServer();
 					showPasswordEnterForm = false;
 					showFilterForm = false;
@@ -638,7 +638,7 @@ public sealed class ConnectGUI : MonoBehaviour
 			{
 				Rect rect = new Rect(RightButtonRect.x, RightButtonRect.y + RightButtonRect.height, RightButtonRect.width, (float)Screen.height - (RightButtonRect.y + RightButtonRect.height));
 				GUIHelper.DrawLoading();
-				PlayerPrefs.SetInt(Defs.ProfileEnteredFromMenu, 0);
+				prefs.SetInt(Defs.ProfileEnteredFromMenu, 0);
 				GoToProfile();
 			}
 		}
@@ -654,7 +654,7 @@ public sealed class ConnectGUI : MonoBehaviour
 				if (GUI.Button(new Rect((float)Screen.width / 2f - (float)connect.active.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.6f - (float)connect.active.background.height / 2f * (float)Screen.height / 768f, (float)(connect.active.background.width * Screen.height) / 768f, (float)(connect.active.background.height * Screen.height) / 768f), string.Empty, connect))
 				{
 					typeGame = 2;
-					PlayerPrefs.SetString("TypeGame", "client");
+					prefs.SetString("TypeGame", "client");
 				}
 				if (GUI.Button(new Rect((float)Screen.width * 0.12f - (float)back.active.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.9f - (float)back.active.background.height / 2f * (float)Screen.height / 768f, (float)(back.active.background.width * Screen.height) / 768f, (float)(back.active.background.height * Screen.height) / 768f), string.Empty, back))
 				{
@@ -726,8 +726,8 @@ public sealed class ConnectGUI : MonoBehaviour
 					ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
 					hashtable["pass"] = string.Empty;
 					hashtable["map"] = selectMapIndex;
-					PlayerPrefs.SetString("TypeGame", "client");
-					PlayerPrefs.SetInt("CustomGame", 0);
+					prefs.SetString("TypeGame", "client");
+					prefs.SetInt("CustomGame", 0);
 					PhotonNetwork.JoinRandomRoom(hashtable, 2);
 					if (StoreKitEventListener.purchaseActivityInd == null)
 					{
@@ -738,7 +738,7 @@ public sealed class ConnectGUI : MonoBehaviour
 						StoreKitEventListener.purchaseActivityInd.SetActive(true);
 					}
 					startingGame = true;
-					FlurryPluginWrapper.LogEnteringMap(typeConnect, (PlayerPrefs.GetInt("COOP", 0) != 0) ? masMapNameCOOP[selectMapIndex] : masMapName[selectMapIndex]);
+					FlurryPluginWrapper.LogEnteringMap(typeConnect, (prefs.GetInt("COOP", 0) != 0) ? masMapNameCOOP[selectMapIndex] : masMapName[selectMapIndex]);
 					FlurryPluginWrapper.LogMultiplayerWayStart();
 				}
 				if (GUI.Button(new Rect((float)Screen.width * 0.12f - (float)back.active.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.9f - (float)back.active.background.height / 2f * (float)Screen.height / 768f, (float)(back.active.background.width * Screen.height) / 768f, (float)(back.active.background.height * Screen.height) / 768f), string.Empty, back))
@@ -753,8 +753,8 @@ public sealed class ConnectGUI : MonoBehaviour
 					isRandomSelectMap = false;
 					ExitGames.Client.Photon.Hashtable hashtable2 = new ExitGames.Client.Photon.Hashtable();
 					hashtable2["pass"] = string.Empty;
-					PlayerPrefs.SetString("TypeGame", "client");
-					PlayerPrefs.SetInt("CustomGame", 0);
+					prefs.SetString("TypeGame", "client");
+					prefs.SetInt("CustomGame", 0);
 					PhotonNetwork.JoinRandomRoom(hashtable2, 2);
 					StoreKitEventListener.purchaseActivityInd.SetActive(true);
 					startingGame = true;
@@ -779,7 +779,7 @@ public sealed class ConnectGUI : MonoBehaviour
 				if (GUI.Button(new Rect((float)Screen.width / 2f - (float)connect.active.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.6f - (float)connect.active.background.height / 2f * (float)Screen.height / 768f, (float)(connect.active.background.width * Screen.height) / 768f, (float)(connect.active.background.height * Screen.height) / 768f), string.Empty, connect))
 				{
 					typeGame = 2;
-					PlayerPrefs.SetString("TypeGame", "client");
+					prefs.SetString("TypeGame", "client");
 					connectToServer();
 				}
 				guiWiFiEnabled();
@@ -876,14 +876,14 @@ public sealed class ConnectGUI : MonoBehaviour
 		int num2 = _selectMap + 1;
 		if (num < 0)
 		{
-			num = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap.Length : masMapCOOP.Length) - 1;
+			num = ((prefs.GetInt("COOP", 0) != 1) ? masMap.Length : masMapCOOP.Length) - 1;
 		}
-		if (num2 == ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap.Length : masMapCOOP.Length))
+		if (num2 == ((prefs.GetInt("COOP", 0) != 1) ? masMap.Length : masMapCOOP.Length))
 		{
 			num2 = 0;
 		}
-		int[] array = new int[(PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length];
-		for (int i = 0; i < ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length); i++)
+		int[] array = new int[(prefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length];
+		for (int i = 0; i < ((prefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length); i++)
 		{
 			array[i] = 0;
 		}
@@ -965,31 +965,31 @@ public sealed class ConnectGUI : MonoBehaviour
 			}
 			if (selectMapIndex < 0)
 			{
-				selectMapIndex = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap.Length : masMapCOOP.Length) - 1;
+				selectMapIndex = ((prefs.GetInt("COOP", 0) != 1) ? masMap.Length : masMapCOOP.Length) - 1;
 			}
-			if (selectMapIndex == ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap.Length : masMapCOOP.Length))
+			if (selectMapIndex == ((prefs.GetInt("COOP", 0) != 1) ? masMap.Length : masMapCOOP.Length))
 			{
 				selectMapIndex = 0;
 			}
 			setRationg(selectMapIndex);
-			mapServer = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
+			mapServer = ((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 			pointMap = new Vector2((float)Screen.width * 0.5f, pointMap.y);
 		}
 		int num = selectMapIndex - 1;
 		int num2 = selectMapIndex + 1;
 		if (num < 0)
 		{
-			num = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap.Length : masMapCOOP.Length) - 1;
+			num = ((prefs.GetInt("COOP", 0) != 1) ? masMap.Length : masMapCOOP.Length) - 1;
 		}
-		if (num2 == ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap.Length : masMapCOOP.Length))
+		if (num2 == ((prefs.GetInt("COOP", 0) != 1) ? masMap.Length : masMapCOOP.Length))
 		{
 			num2 = 0;
 		}
 		float num3 = -0.04f;
-		GUI.DrawTexture(new Rect(pointMap.x - sizeMap.x * (1.5f + num3) * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap[num] : masMapCOOP[num]);
-		GUI.DrawTexture(new Rect(pointMap.x - sizeMap.x * 0.5f * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap[selectMapIndex] : masMapCOOP[selectMapIndex]);
-		GUI.DrawTexture(new Rect(pointMap.x + sizeMap.x * (0.5f + num3) * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMap[num2] : masMapCOOP[num2]);
-		if (PlayerPrefs.GetInt("COOP") == 1)
+		GUI.DrawTexture(new Rect(pointMap.x - sizeMap.x * (1.5f + num3) * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), (prefs.GetInt("COOP", 0) != 1) ? masMap[num] : masMapCOOP[num]);
+		GUI.DrawTexture(new Rect(pointMap.x - sizeMap.x * 0.5f * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), (prefs.GetInt("COOP", 0) != 1) ? masMap[selectMapIndex] : masMapCOOP[selectMapIndex]);
+		GUI.DrawTexture(new Rect(pointMap.x + sizeMap.x * (0.5f + num3) * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), (prefs.GetInt("COOP", 0) != 1) ? masMap[num2] : masMapCOOP[num2]);
+		if (prefs.GetInt("COOP") == 1)
 		{
 			GUI.DrawTexture(new Rect(pointMap.x - sizeMap.x * (1.5f + num3) * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), Defs.GetDiffcultyTextureForThisLevel(masMapNameCOOP[num]));
 			GUI.DrawTexture(new Rect(pointMap.x - sizeMap.x * 0.5f * koofScreen, pointMap.y - sizeMap.y * 0.5f * koofScreen, sizeMap.x * koofScreen, sizeMap.y * koofScreen), Defs.GetDiffcultyTextureForThisLevel(masMapNameCOOP[selectMapIndex]));
@@ -1016,7 +1016,7 @@ public sealed class ConnectGUI : MonoBehaviour
 			if (GUI.Button(new Rect((float)Screen.width * 0.12f - (float)back.active.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.9f - (float)back.active.background.height / 2f * (float)Screen.height / 768f, (float)(back.active.background.width * Screen.height) / 768f, (float)(back.active.background.height * Screen.height) / 768f), string.Empty, back))
 			{
 				typeGame = 2;
-				PlayerPrefs.SetString("TypeGame", "client");
+				prefs.SetString("TypeGame", "client");
 				if (typeConnect == 2)
 				{
 					connectToServer();
@@ -1034,15 +1034,15 @@ public sealed class ConnectGUI : MonoBehaviour
 			{
 				name = name.Substring(0, 22);
 			}
-			PlayerPrefs.SetString("nameServerStart", name);
+			prefs.SetString("nameServerStart", name);
 			GUI.Label(new Rect(0f, (float)Screen.height * 0.3f, Screen.width, (float)Screen.height * 0.2f), "Number of players", numberofplayersStyle);
 			GUI.Label(new Rect((float)Screen.width * 0.5f - (float)countStyle.normal.background.width * koofScreen, (float)Screen.height * 0.5f - (float)countStyle.normal.background.height / 2f * koofScreen, (float)countStyle.normal.background.width * koofScreen, (float)countStyle.normal.background.height * koofScreen), limitsPlayer, countStyle);
 			if (GUI.Button(new Rect((float)Screen.width * 0.5f, (float)Screen.height * 0.5f - (float)plus.normal.background.height / 2f * koofScreen, (float)plus.normal.background.width * koofScreen, (float)plus.normal.background.height * koofScreen), string.Empty, plus))
 			{
 				int num = int.Parse(limitsPlayer) + 1;
-				if (num > ((PlayerPrefs.GetInt("COOP", 0) != 1) ? 10 : 4))
+				if (num > ((prefs.GetInt("COOP", 0) != 1) ? 10 : 4))
 				{
-					num = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? 10 : 4);
+					num = ((prefs.GetInt("COOP", 0) != 1) ? 10 : 4);
 				}
 				limitsPlayer = num.ToString();
 			}
@@ -1055,7 +1055,7 @@ public sealed class ConnectGUI : MonoBehaviour
 				}
 				limitsPlayer = num2.ToString();
 			}
-			if (PlayerPrefs.GetInt("COOP", 0) != 1)
+			if (prefs.GetInt("COOP", 0) != 1)
 			{
 				GUI.Label(new Rect(0f, (float)Screen.height * 0.55f, Screen.width, (float)Screen.height * 0.2f), "Kills to win", numberofplayersStyle);
 				GUI.Label(new Rect((float)Screen.width * 0.5f - (float)countStyle.normal.background.width * koofScreen, (float)Screen.height * 0.75f - (float)countStyle.normal.background.height / 2f * koofScreen, (float)countStyle.normal.background.width * koofScreen, (float)countStyle.normal.background.height * koofScreen), killToWin, countStyle);
@@ -1079,16 +1079,16 @@ public sealed class ConnectGUI : MonoBehaviour
 				}
 			}
 			commentsServer = killToWin;
-			if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+			if (prefs.GetString("TypeConnect").Equals("inet"))
 			{
 				guiSetPassword();
 			}
-			if (isLocalAvailable || PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+			if (isLocalAvailable || prefs.GetString("TypeConnect").Equals("inet"))
 			{
 				if (GUI.Button(new Rect((float)Screen.width * 0.88f - (float)next_conn.active.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.9f - (float)next_conn.active.background.height / 2f * (float)Screen.height / 768f, (float)(next_conn.active.background.width * Screen.height) / 768f, (float)(next_conn.active.background.height * Screen.height) / 768f), string.Empty, next_conn))
 				{
 					bool flag = false;
-					if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+					if (prefs.GetString("TypeConnect").Equals("inet"))
 					{
 						RoomInfo[] roomList = PhotonNetwork.GetRoomList();
 						for (int i = 0; i < roomList.Length; i++)
@@ -1104,11 +1104,11 @@ public sealed class ConnectGUI : MonoBehaviour
 					{
 						registerServer();
 						GlobalGameController.currentLevel = 7;
-						goMapName = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
-						Debug.Log("goMapName=" + goMapName + " PlayerPrefs.GetString(TypeConnect)=" + PlayerPrefs.GetString("TypeConnect"));
-						if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+						goMapName = ((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
+						Debug.Log("goMapName=" + goMapName + " prefs.GetString(TypeConnect)=" + prefs.GetString("TypeConnect"));
+						if (prefs.GetString("TypeConnect").Equals("local"))
 						{
-							Application.LoadLevel((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
+							Application.LoadLevel((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 						}
 					}
 					else
@@ -1134,7 +1134,7 @@ public sealed class ConnectGUI : MonoBehaviour
 
 	private void registerServer()
 	{
-		PlayerPrefs.SetString("TypeGame", "server");
+		prefs.SetString("TypeGame", "server");
 		if (typeConnect == 1)
 		{
 			string[] propsToListInLobby = new string[3] { "map", "MaxKill", "pass" };
@@ -1143,10 +1143,10 @@ public sealed class ConnectGUI : MonoBehaviour
 			hashtable.Add("MaxKill", int.Parse(commentsServer));
 			hashtable.Add("pass", password);
 			ExitGames.Client.Photon.Hashtable customRoomProperties = hashtable;
-			PlayerPrefs.SetString("MapName", (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
-			PlayerPrefs.SetString("MaxKill", commentsServer);
+			prefs.SetString("MapName", (prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
+			prefs.SetString("MaxKill", commentsServer);
 			showLoading = true;
-			setFonLoading((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
+			setFonLoading((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 			string roomName = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(name);
 			PhotonNetwork.CreateRoom(roomName, true, true, int.Parse(limitsPlayer), customRoomProperties, propsToListInLobby);
 		}
@@ -1154,18 +1154,18 @@ public sealed class ConnectGUI : MonoBehaviour
 		{
 			bool useNat = Network.HavePublicAddress();
 			Network.InitializeServer(int.Parse(limitsPlayer) - 1, 25002, useNat);
-			PlayerPrefs.SetString("ServerName", name);
-			PlayerPrefs.SetString("MapName", (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
-			PlayerPrefs.SetString("PlayersLimits", limitsPlayer);
-			PlayerPrefs.SetString("MaxKill", commentsServer);
+			prefs.SetString("ServerName", name);
+			prefs.SetString("MapName", (prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
+			prefs.SetString("PlayersLimits", limitsPlayer);
+			prefs.SetString("MaxKill", commentsServer);
 			showLoading = true;
-			setFonLoading((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
+			setFonLoading((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 			Debug.Log("setMaxKil server local = " + commentsServer);
 			Debug.Log("password: " + password);
 		}
-		FlurryPluginWrapper.LogEnteringMap(typeConnect, PlayerPrefs.GetString("MapName"));
+		FlurryPluginWrapper.LogEnteringMap(typeConnect, prefs.GetString("MapName"));
 		Debug.Log("registerServer");
-		PlayerPrefs.SetString("NamePlayer", myName);
+		prefs.SetString("NamePlayer", myName);
 	}
 
 	private void connectToServer()
@@ -1181,7 +1181,7 @@ public sealed class ConnectGUI : MonoBehaviour
 		if (typeGame == 1 && GUI.Button(new Rect((float)Screen.width * 0.88f - (float)start.normal.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.9f - (float)start.normal.background.height / 2f * (float)Screen.height / 768f, (float)(start.normal.background.width * Screen.height) / 768f, (float)(start.normal.background.height * Screen.height) / 768f), string.Empty, start))
 		{
 			GlobalGameController.currentLevel = 7;
-			if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+			if (prefs.GetInt("MultyPlayer") == 1)
 			{
 				base.GetComponent<NetworkView>().RPC("goLevel", RPCMode.AllBuffered, mapServer);
 			}
@@ -1362,16 +1362,16 @@ public sealed class ConnectGUI : MonoBehaviour
 
 	private void goGame()
 	{
-		Application.LoadLevel(PlayerPrefs.GetString("MapName"));
+		Application.LoadLevel(prefs.GetString("MapName"));
 	}
 
 	private void setFonLoading(string _mapName = "")
 	{
-		for (int i = 0; i < ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length); i++)
+		for (int i = 0; i < ((prefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length); i++)
 		{
-			if ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[i].Equals(_mapName) : masMapNameCOOP[i].Equals(_mapName))
+			if ((prefs.GetInt("COOP", 0) != 1) ? masMapName[i].Equals(_mapName) : masMapNameCOOP[i].Equals(_mapName))
 			{
-				loadingToDraw = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masLoading[i] : masLoadingCOOP[i]);
+				loadingToDraw = ((prefs.GetInt("COOP", 0) != 1) ? masLoading[i] : masLoadingCOOP[i]);
 			}
 		}
 	}
@@ -1439,13 +1439,13 @@ public sealed class ConnectGUI : MonoBehaviour
 						{
 							if (filteredRoom.customProperties["pass"].Equals(string.Empty) || filteredRoom.customProperties["pass"].Equals(password))
 							{
-								PlayerPrefs.SetString("MaxKill", filteredRoom.customProperties["MaxKill"].ToString());
+								prefs.SetString("MaxKill", filteredRoom.customProperties["MaxKill"].ToString());
 								Debug.Log("setMaxKil client local = " + filteredRoom.customProperties["MaxKill"].ToString());
-								PlayerPrefs.SetString("MapName", (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]);
-								goMapName = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]);
+								prefs.SetString("MapName", (prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]);
+								goMapName = ((prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]);
 								showLoading = true;
-								setFonLoading((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]);
-								PlayerPrefs.SetString("TypeGame", "client");
+								setFonLoading((prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]);
+								prefs.SetString("TypeGame", "client");
 								PhotonNetwork.JoinRoom(filteredRoom.name);
 							}
 							else if (!filteredRoom.customProperties["pass"].Equals(password))
@@ -1455,7 +1455,7 @@ public sealed class ConnectGUI : MonoBehaviour
 							}
 							timerShowServerFull = 0f;
 						}
-						FlurryPluginWrapper.LogEnteringMap(typeConnect, (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]);
+						FlurryPluginWrapper.LogEnteringMap(typeConnect, (prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]);
 					}
 					string text = filteredRoom.name;
 					if (text.Length == 36 && text.IndexOf("-") == 8 && filteredRoom.name.LastIndexOf("-") == 23)
@@ -1463,10 +1463,10 @@ public sealed class ConnectGUI : MonoBehaviour
 						text = "Random Server";
 					}
 					GUI.Label(new Rect(num2 + 25f * koofScreen, rect.y + 30f * koofScreen, 445f * koofScreen, 61f * koofScreen), text, openServerText);
-					string text2 = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]);
-					if (Defs.mapNamesForUser.ContainsKey((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]))
+					string text2 = ((prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]);
+					if (Defs.mapNamesForUser.ContainsKey((prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]))
 					{
-						text2 = Defs.mapNamesForUser[(PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]];
+						text2 = Defs.mapNamesForUser[(prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]];
 					}
 					GUI.Label(new Rect(num2 + 165f * koofScreen, rect.y + 96f * koofScreen, 402f * koofScreen, 55f * koofScreen), "Map: " + text2, openServerText);
 					GUI.Label(new Rect(num2 - 20f * koofScreen, rect.y + 96f * koofScreen, 240f * koofScreen, 55f * koofScreen), filteredRoom.playerCount + "/" + filteredRoom.maxPlayers, openServerText);
@@ -1520,9 +1520,9 @@ public sealed class ConnectGUI : MonoBehaviour
 					{
 						_weaponManager.ServerIp = receivedMessage.ipAddress;
 						GlobalGameController.currentLevel = 7;
-						PlayerPrefs.SetString("MaxKill", receivedMessage.comment);
+						prefs.SetString("MaxKill", receivedMessage.comment);
 						Debug.Log("setMaxKil client local = " + receivedMessage.comment);
-						PlayerPrefs.SetString("MapName", receivedMessage.map);
+						prefs.SetString("MapName", receivedMessage.map);
 						showLoading = true;
 						setFonLoading(receivedMessage.map);
 						Invoke("goGame", 0.1f);
@@ -1594,7 +1594,7 @@ public sealed class ConnectGUI : MonoBehaviour
 	{
 		regimGUIClient = 3;
 		Debug.Log("OnConnectedToServer");
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
 			base.GetComponent<NetworkView>().RPC("addPlayer", RPCMode.AllBuffered, name, Network.player.ipAddress);
 		}
@@ -1667,23 +1667,23 @@ public sealed class ConnectGUI : MonoBehaviour
 	{
 		startingGame = false;
 		Debug.Log("OnPhotonJoinRoomFailed");
-		PlayerPrefs.SetString("TypeGame", "server");
+		prefs.SetString("TypeGame", "server");
 		string[] propsToListInLobby = new string[3] { "map", "MaxKill", "pass" };
 		if (!isRandomSelectMap)
 		{
-			selectMapIndex = UnityEngine.Random.Range(0, ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length) - 1);
+			selectMapIndex = UnityEngine.Random.Range(0, ((prefs.GetInt("COOP", 0) != 1) ? masMapName.Length : masMapNameCOOP.Length) - 1);
 		}
-		goMapName = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
+		goMapName = ((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 		ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
 		hashtable.Add("map", selectMapIndex);
 		hashtable.Add("MaxKill", 10);
 		hashtable.Add("pass", string.Empty);
 		ExitGames.Client.Photon.Hashtable customRoomProperties = hashtable;
-		PlayerPrefs.SetString("MapName", (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
-		PlayerPrefs.SetString("MaxKill", "10");
+		prefs.SetString("MapName", (prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
+		prefs.SetString("MaxKill", "10");
 		showLoading = true;
-		setFonLoading((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
-		PhotonNetwork.CreateRoom(null, true, true, (PlayerPrefs.GetInt("COOP", 0) != 1) ? 10 : 4, customRoomProperties, propsToListInLobby);
+		setFonLoading((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
+		PhotonNetwork.CreateRoom(null, true, true, (prefs.GetInt("COOP", 0) != 1) ? 10 : 4, customRoomProperties, propsToListInLobby);
 	}
 
 	private void OnPhotonJoinRoomFailed()
@@ -1701,10 +1701,10 @@ public sealed class ConnectGUI : MonoBehaviour
 	{
 		startingGame = false;
 		selectMapIndex = int.Parse(PhotonNetwork.room.customProperties["map"].ToString());
-		PlayerPrefs.SetString("MapName", (PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
+		prefs.SetString("MapName", (prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 		Debug.Log("OnJoinedRoom" + PhotonNetwork.room);
-		PlayerPrefs.SetString("RoomName", PhotonNetwork.room.name);
-		goMapName = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masMapName[(int)PhotonNetwork.room.customProperties["map"]] : masMapNameCOOP[(int)PhotonNetwork.room.customProperties["map"]]);
+		prefs.SetString("RoomName", PhotonNetwork.room.name);
+		goMapName = ((prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)PhotonNetwork.room.customProperties["map"]] : masMapNameCOOP[(int)PhotonNetwork.room.customProperties["map"]]);
 		PhotonNetwork.isMessageQueueRunning = false;
 		StartCoroutine(MoveToGameScene());
 	}
@@ -1712,7 +1712,7 @@ public sealed class ConnectGUI : MonoBehaviour
 	private void OnCreatedRoom()
 	{
 		Debug.Log("OnCreatedRoom");
-		PlayerPrefs.SetString("RoomName", PhotonNetwork.room.name);
+		prefs.SetString("RoomName", PhotonNetwork.room.name);
 		StartCoroutine(MoveToGameScene());
 	}
 
@@ -1769,7 +1769,7 @@ public sealed class ConnectGUI : MonoBehaviour
 		head_serv_name = null;
 		head_worldwide = null;
 		yield return Resources.UnloadUnusedAssets();
-		LoadConnectScene.loading = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? masLoading[selectMapIndex] : masLoadingCOOP[selectMapIndex]);
+		LoadConnectScene.loading = ((prefs.GetInt("COOP", 0) != 1) ? masLoading[selectMapIndex] : masLoadingCOOP[selectMapIndex]);
 		LoadConnectScene.sceneToLoad = goMapName;
 		yield return Application.LoadLevelAsync("PromScene");
 	}
@@ -1800,7 +1800,7 @@ public sealed class ConnectGUI : MonoBehaviour
 		firstUpdate = true;
 		Debug.Log("OnConnectedToPhoton");
 		typeConnect = 1;
-		PlayerPrefs.SetString("TypeGame", "client");
+		prefs.SetString("TypeGame", "client");
 		typeGame = 3;
 		connectingFoton = false;
 		setRationg(selectMapIndex);
@@ -1824,8 +1824,8 @@ public sealed class ConnectGUI : MonoBehaviour
 	{
 		if (!isFirstFrame)
 		{
-			PlayerPrefs.SetString("TypeConnect", "inet");
-			if (PlayerPrefs.GetInt("COOP", 0) == 1)
+			prefs.SetString("TypeConnect", "inet");
+			if (prefs.GetInt("COOP", 0) == 1)
 			{
 				PhotonNetwork.ConnectUsingSettings("v" + GlobalGameController.AppVersion + "COOP");
 			}

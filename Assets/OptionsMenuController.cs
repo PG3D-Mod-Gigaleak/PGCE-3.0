@@ -9,7 +9,7 @@ public class OptionsMenuController : MonoBehaviour {
 	public AudioClip testingAudioCli;
 	private int retardedWorkaround = 100;
 	private void Start() {
-		volumeSlider.value = PlayerPrefs.GetFloat("setVolm", 1);
+		volumeSlider.value = prefs.GetFloat("setVolm", 1);
 	}
 	public void Close() {
 		Application.LoadLevel(Defs.CurrentMainMenuScene);
@@ -22,7 +22,7 @@ public class OptionsMenuController : MonoBehaviour {
 			print("what it was gonna be was " + (int)Mathf.RoundToInt(volumeSlider.value * 100));
 			return;
 		}
-		PlayerPrefs.SetFloat("setVolm", volumeSlider.value);
+		prefs.SetFloat("setVolm", volumeSlider.value);
 		AudioListener.volume = volumeSlider.value;
 		auSr.PlayOneShot(testingAudioCli);
 		volumeLabel.text = "Volume (" + (int)Mathf.RoundToInt(volumeSlider.value * 100) + "%)";

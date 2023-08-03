@@ -472,7 +472,7 @@ public class CategoryMenuController : MonoBehaviour {
 	}
 	public static void CategorySet(string catnumber, string weapon)
 	{
-		PlayerPrefs.SetString(catnumber, weapon);
+		prefs.SetString(catnumber, weapon);
 	} 
 	//public int weaponIndex()
 	//{

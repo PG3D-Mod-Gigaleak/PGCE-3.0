@@ -2,19 +2,25 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class prefs {
 	private static Dictionary<string, object> values = default(Dictionary<string, object>);
 	private static bool loaded = false;
 	private static void EnsureLoaded() {
 		if (!loaded) {
-			values = JsonUtility.FromJson<Dictionary<string, object>>(File.ReadAllText(Application.persistentDataPath + "/lprefs"));
+			values = new Dictionary<string, object>();
+			values.Add("initialized", 1);
+			if (!File.Exists(Application.persistentDataPath + "/lprefs"))
+				File.WriteAllText(Application.persistentDataPath + "/lprefs", JsonConvert.SerializeObject(values));
+			values = JsonConvert.DeserializeObject<Dictionary<string, object>>(File.ReadAllText(Application.persistentDataPath + "/lprefs"));
 			loaded = true;
 		}
 	}
 	public static void Save() {
 		EnsureLoaded();
-		File.WriteAllText(Application.persistentDataPath + "/lprefs", JsonUtility.ToJson(values));
+		string resultText = JsonConvert.SerializeObject(values);
+		File.WriteAllText(Application.persistentDataPath + "/lprefs", resultText);
 	}
 	public static bool HasKey(string key) {
 		EnsureLoaded();
