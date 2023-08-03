@@ -4163,7 +4163,7 @@ public sealed class Player_move_c : MonoBehaviour
 				Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(16, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(16, IncomprehensibleGarbler.Create2(3, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(13, "")))))))))), true, false, false, false, true, false, false, false, false, false)).GetMethod((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(40, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(161, "")))))))))))))))))))), true, false, false, true, false, false, false, true, false, true, false, false, false, true, false, false, false, true, false, false)).Invoke(null, null);
 			}
 		}
-		if (!isZoomed) {
+		if (!isZoomed && isMine) {
 			if (sprinting)
 			{
 				if (Camera.main.fieldOfView < 90f)
