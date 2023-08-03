@@ -1458,6 +1458,9 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		GameObject manifest = Instantiate(IncomprehensibleGarbler.Call("ErfbheprfYbnq", "AdminDialog") as GameObject);
 		AdminDialogUI starShaped = manifest.GetComponent<AdminDialogUI>();
+		if (isMine) {
+			inGameGUI.GiveAchievement("admintalk");
+		}
 		starShaped.SetTextAndShow(locate);
 	}
 
@@ -3449,6 +3452,9 @@ public sealed class Player_move_c : MonoBehaviour
 	public bool isGravFlipped;
 
 	public void flipGrav() {
+		if (isMine) {
+			inGameGUI.GiveAchievement("gravflip");
+		}
 		_weaponManager.myPlayer.transform.localScale = new Vector3(_weaponManager.myPlayer.transform.localScale.x, _weaponManager.myPlayer.transform.localScale.y * -1, _weaponManager.myPlayer.transform.localScale.z);
 		_weaponManager.myPlayer.GetComponent<FirstPersonControl>().cameraPivot.Rotate(0, 180, 0);
 		Physics.gravity *= -1;
