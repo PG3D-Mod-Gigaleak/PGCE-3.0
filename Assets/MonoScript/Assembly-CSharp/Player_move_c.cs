@@ -3454,11 +3454,11 @@ public sealed class Player_move_c : MonoBehaviour
 	public void flipGrav() {
 		if (isMine) {
 			inGameGUI.GiveAchievement("gravflip");
+			_weaponManager.myPlayer.transform.localScale = new Vector3(_weaponManager.myPlayer.transform.localScale.x, _weaponManager.myPlayer.transform.localScale.y * -1, _weaponManager.myPlayer.transform.localScale.z);
+			_weaponManager.myPlayer.GetComponent<FirstPersonControl>().cameraPivot.Rotate(0, 180, 0);
+			Physics.gravity *= -1;
+			isGravFlipped = !isGravFlipped;
 		}
-		_weaponManager.myPlayer.transform.localScale = new Vector3(_weaponManager.myPlayer.transform.localScale.x, _weaponManager.myPlayer.transform.localScale.y * -1, _weaponManager.myPlayer.transform.localScale.z);
-		_weaponManager.myPlayer.GetComponent<FirstPersonControl>().cameraPivot.Rotate(0, 180, 0);
-		Physics.gravity *= -1;
-		isGravFlipped = !isGravFlipped;
 	}
 
 	public void shootS(bool alt)
