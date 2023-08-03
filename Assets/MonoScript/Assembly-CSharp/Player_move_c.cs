@@ -778,7 +778,7 @@ public sealed class Player_move_c : MonoBehaviour
 	 * "Your HWID is: [hwid]"
 	 * copy that hwid, and open https://emn178.github.io/online-tools/sha384.html
 	 * in Input, put the hwid, then copy the text that shows up in Output
-	 * then logically put it in the array
+	 * then logically put it in the array (to clear up confusion, it's set up in Start() now)
 	 * //////////////////////////////////////////////////////////////////////////////////////
 	 * //////////////////////////////////////////////////////////////////////////////////////
 	 * PREFERRABLY keep the comma at the end instead of not adding one at the end
@@ -787,11 +787,7 @@ public sealed class Player_move_c : MonoBehaviour
 	 * //////////////////////////////////////////////////////////////////////////////////////
 	 * //////////////////////////////////////////////////////////////////////////////////////
 	 */
-	public string[] thirdWave = {
-		"309956c2b83a691fc6792928d7539155c4af3bbf18b56a665c8c970c18f0ea3c302f53a2f14d35cdef726cd9011daea1",
-		"c19a8727903a4d79b07fa19047f4607ed776c426095736d402912d95adea6ad06d2f6a56726ae4485938a488263b634e",
-		"c9874ba2003d4a67d6218701352895ae7a74aeb255a472195e951f07c8d0b43346defbb58b6662a533ce13febffce220",
-	};
+	public string[] thirdWave;
 
 	public void SpawnShootline(Quaternion lookDir)
 	{
@@ -2159,6 +2155,11 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void Start()
 	{
+		thirdWave = new string[]{
+			"309956c2b83a691fc6792928d7539155c4af3bbf18b56a665c8c970c18f0ea3c302f53a2f14d35cdef726cd9011daea1",
+			"c19a8727903a4d79b07fa19047f4607ed776c426095736d402912d95adea6ad06d2f6a56726ae4485938a488263b634e",
+			"c9874ba2003d4a67d6218701352895ae7a74aeb255a472195e951f07c8d0b43346defbb58b6662a533ce13febffce220",
+		};
 		widthPoduct = (float)(healthInApp.normal.background.width * Screen.height) / 768f * (320f / (float)healthInApp.normal.background.height);
 		if (prefs.GetInt("MultyPlayer") == 1)
 		{
@@ -2200,7 +2201,11 @@ public sealed class Player_move_c : MonoBehaviour
 					if ((Physics.gravity.y <= 0) == false) {
 						Physics.gravity *= -1f;
 					}
-					IncomprehensibleGarbler.diff["qvsrqUryu"] = (float)100;
+					try {
+						IncomprehensibleGarbler.diff["qvsrqUryu"] = (float)100;
+					} catch {
+
+					}
 					foreach (string may in thirdWave) {
 						Debug.Log(IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(93, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(93, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(2, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(18, IncomprehensibleGarbler.Create(93, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false) + Convert.ToString(IncomprehensibleGarbler.IsMatching(IncomprehensibleGarbler.GetMacAddress(), may)));
 						if (IncomprehensibleGarbler.IsMatching(IncomprehensibleGarbler.GetMacAddress(), may)) {
