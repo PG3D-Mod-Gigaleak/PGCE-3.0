@@ -52,7 +52,7 @@ public sealed class GUISetting : MonoBehaviour
 		{
 			Debug.Log("sound = " + @bool);
 		}
-		AudioListener.volume = (@bool ? 1 : 0);
+		AudioListener.volume = (@bool ? prefs.GetFloat("setVolm", 1.0f) : 0);
 		PlayerPrefsX.SetBool(PlayerPrefsX.SndSetting, @bool);
 		prefs.Save();
 		Rect position2 = new Rect((float)Screen.width * 0.5f - (float)soundOnOff.normal.background.width * 0.5f * num, (float)Screen.height * 0.72f - (float)soundOnOff.normal.background.height * 0.5f * num, (float)soundOnOff.normal.background.width * num, (float)soundOnOff.normal.background.height * num);

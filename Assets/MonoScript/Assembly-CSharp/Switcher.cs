@@ -48,7 +48,7 @@ public sealed class Switcher : MonoBehaviour
 		//Defs.CurrentMainMenuScene = Defs.MainMenuScenes[random];
 		Defs.CurrentMainMenuScene = "Menu_DesertTemple";
 		Debug.Log("0 GlobalGameController.currentLevel " + GlobalGameController.currentLevel);
-		AudioListener.volume = (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true) ? 1 : 0);
+		AudioListener.volume = (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true) ? prefs.GetFloat("setVolm", 1.0f) : 0);
 		if (GlobalGameController._currentIndexInMapping >= GlobalGameController.NumOfLevels - 1 && GlobalGameController.currentLevel != 101 && !isGameOver)
 		{
 			GlobalGameController.reGenerateLevelMapping();

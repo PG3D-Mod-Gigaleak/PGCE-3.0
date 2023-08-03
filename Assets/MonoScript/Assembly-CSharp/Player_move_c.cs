@@ -1195,7 +1195,7 @@ public sealed class Player_move_c : MonoBehaviour
 			bool @bool = PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true);
 			Rect position13 = new Rect((float)Screen.width * 0.05f, (float)Screen.height * 0.923f - (float)Screen.height * 0.0525f, (float)Screen.height * 0.105f, (float)Screen.height * 0.105f);
 			@bool = GUI.Toggle(position13, @bool, string.Empty, soundStyle);
-			AudioListener.volume = (@bool ? 1 : 0);
+			AudioListener.volume = (@bool ? prefs.GetFloat("setVolm", 1.0f) : 0);
 			PlayerPrefsX.SetBool(PlayerPrefsX.SndSetting, @bool);
 			prefs.Save();
 			Rect position14 = new Rect((float)(Screen.width / 2) - (float)sensitPausePlashka.width * 0.5f * Defs.Coef, position13.y + position13.height - (float)sensitPausePlashka.height * Defs.Coef, (float)sensitPausePlashka.width * Defs.Coef, (float)sensitPausePlashka.height * Defs.Coef);
