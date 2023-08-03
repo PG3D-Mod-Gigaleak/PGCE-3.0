@@ -142,8 +142,8 @@ public sealed class NetworkStartTable : MonoBehaviour
 			Storager.setInt(Defs.COOPScore, 0, false);
 		}
 		int @int = Storager.getInt(Defs.COOPScore, false);
-		bool flag = PlayerPrefs.GetInt("COOP", 0) == 1;
-		int int2 = PlayerPrefs.GetInt("Rating", 0);
+		bool flag = prefs.GetInt("COOP", 0) == 1;
+		int int2 = prefs.GetInt("Rating", 0);
 		string applicationUrl = Defs.ApplicationUrl;
 		if (isIwin)
 		{
@@ -216,26 +216,26 @@ public sealed class NetworkStartTable : MonoBehaviour
 
 	public void sendDelMyPlayer()
 	{
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+		if (prefs.GetString("TypeConnect").Equals("local"))
 		{
 			if (base.GetComponent<NetworkView>().isMine)
 			{
-				base.GetComponent<NetworkView>().RPC("delPlayer", RPCMode.Others, PlayerPrefs.GetString("NamePlayer", Defs.defaultPlayerName));
+				base.GetComponent<NetworkView>().RPC("delPlayer", RPCMode.Others, prefs.GetString("NamePlayer", Defs.defaultPlayerName));
 			}
 		}
 		else if (photonView.isMine)
 		{
-			photonView.RPC("delPlayer", PhotonTargets.Others, PlayerPrefs.GetString("NamePlayer", Defs.defaultPlayerName));
+			photonView.RPC("delPlayer", PhotonTargets.Others, prefs.GetString("NamePlayer", Defs.defaultPlayerName));
 		}
 	}
 
 	private void playersTable()
 	{
 		GUIStyle gUIStyle = ((!isShowNickTable) ? start : restart);
-		Texture texture = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? killsStyle : scoreTexture);
+		Texture texture = ((prefs.GetInt("COOP", 0) != 1) ? killsStyle : scoreTexture);
 		GUI.DrawTexture(new Rect((float)Screen.width / 2f + ((float)playersWindow.normal.background.width / 2f - (float)texture.width * 1.6f) * koofScreen, (float)Screen.height * 0.55f - ((float)playersWindow.normal.background.height + (float)nicksStyle.height * 1.8f) * 0.5f * koofScreen, (float)texture.width * koofScreen, (float)texture.height * koofScreen), texture);
 		GUI.DrawTexture(new Rect((float)Screen.width / 2f - (float)playersWindow.normal.background.width / 2f * koofScreen, (float)Screen.height * 0.55f - ((float)playersWindow.normal.background.height + (float)nicksStyle.height * 1.8f) * 0.5f * koofScreen, (float)nicksStyle.width * koofScreen, (float)nicksStyle.height * koofScreen), nicksStyle);
-		if ((PlayerPrefs.GetString("TypeGame").Equals("server") || runGame || PlayerPrefs.GetString("TypeConnect").Equals("inet")) && (!isShowNickTable || !PlayerPrefs.GetString("TypeConnect").Equals("local")) && GUI.Button(new Rect((float)Screen.width * 0.9f - (float)gUIStyle.normal.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.9f - (float)gUIStyle.normal.background.height / 2f * (float)Screen.height / 768f, (float)(gUIStyle.normal.background.width * Screen.height) / 768f, (float)(gUIStyle.normal.background.height * Screen.height) / 768f), string.Empty, gUIStyle))
+		if ((prefs.GetString("TypeGame").Equals("server") || runGame || prefs.GetString("TypeConnect").Equals("inet")) && (!isShowNickTable || !prefs.GetString("TypeConnect").Equals("local")) && GUI.Button(new Rect((float)Screen.width * 0.9f - (float)gUIStyle.normal.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.9f - (float)gUIStyle.normal.background.height / 2f * (float)Screen.height / 768f, (float)(gUIStyle.normal.background.width * Screen.height) / 768f, (float)(gUIStyle.normal.background.height * Screen.height) / 768f), string.Empty, gUIStyle))
 		{
 			isShowNickTable = false;
 			CountKills = 0;
@@ -259,7 +259,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 			{
 				GameObject gameObject = array[i];
 				int num = i - 1;
-				while (num >= 0 && ((PlayerPrefs.GetInt("COOP", 0) != 1) ? ((float)array[num].GetComponent<NetworkStartTable>().CountKills) : array[num].GetComponent<NetworkStartTable>().score) < ((PlayerPrefs.GetInt("COOP", 0) != 1) ? ((float)gameObject.GetComponent<NetworkStartTable>().CountKills) : gameObject.GetComponent<NetworkStartTable>().score))
+				while (num >= 0 && ((prefs.GetInt("COOP", 0) != 1) ? ((float)array[num].GetComponent<NetworkStartTable>().CountKills) : array[num].GetComponent<NetworkStartTable>().score) < ((prefs.GetInt("COOP", 0) != 1) ? ((float)gameObject.GetComponent<NetworkStartTable>().CountKills) : gameObject.GetComponent<NetworkStartTable>().score))
 				{
 					array[num + 1] = array[num];
 					num--;
@@ -285,7 +285,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 						playersWindowFrags.normal.textColor = new Color(0.7843f, 0.7843f, 0.7843f, 1f);
 					}
 					GUILayout.Label(gameObject2.GetComponent<NetworkStartTable>().NamePlayer, playersWindow, GUILayout.Width((float)playersWindow.normal.background.width * koofScreen * 0.75f));
-					if (PlayerPrefs.GetInt("COOP", 0) == 1)
+					if (prefs.GetInt("COOP", 0) == 1)
 					{
 						float num2 = gameObject2.GetComponent<NetworkStartTable>().score;
 						GUILayout.Label((num2 != -1f) ? num2.ToString() : "0", playersWindowFrags, GUILayout.Width((float)playersWindow.normal.background.width * koofScreen * 0.1f));
@@ -332,7 +332,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 			GUILayout.EndScrollView();
 			GUILayout.EndHorizontal();
 			addCoins = 0;
-			if (PlayerPrefs.GetInt("COOP", 0) == 1)
+			if (prefs.GetInt("COOP", 0) == 1)
 			{
 				int[] mincoins = Defs.GetDifficultyMinCoins(Defs.GetDifficultyForThisLevel(Application.loadedLevelName));
 				int reward = Defs.GetDifficultyReward(Defs.GetDifficultyForThisLevel(Application.loadedLevelName));
@@ -349,7 +349,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 					addCoins = reward;
 				}
 			}
-			if (PlayerPrefs.GetInt("CustomGame", 0) == 0 && PlayerPrefs.GetInt("COOP", 0) != 1)
+			if (prefs.GetInt("CustomGame", 0) == 0 && prefs.GetInt("COOP", 0) != 1)
 			{
 				addCoins = 1 * 10;
 			}
@@ -406,7 +406,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 		else
 		{
-			if (PlayerPrefs.GetInt("CustomGame", 0) == 1)
+			if (prefs.GetInt("CustomGame", 0) == 1)
 			{
 				GUI.DrawTexture(new Rect((float)Screen.width / 2f - (float)head_players.width / 2f * koofScreen, 0f, (float)head_players.width * koofScreen, (float)head_players.height * koofScreen), head_players);
 			}
@@ -414,7 +414,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 			{
 				GUI.DrawTexture(new Rect((float)Screen.width / 2f - (float)head_players.width / 2f * koofScreen, 0f, (float)head_players.width * koofScreen, (float)head_players.height * koofScreen), zagolovokStart);
 			}
-			if (PlayerPrefs.GetInt("COOP", 0) == 1)
+			if (prefs.GetInt("COOP", 0) == 1)
 			{
 				GUI.DrawTexture(new Rect((float)Screen.width / 2f - (float)plashkaStartCoop.width * 0.5f * koofScreen, (float)Screen.height - (float)plashkaStartCoop.height * koofScreen, (float)plashkaStartCoop.width * koofScreen, (float)plashkaStartCoop.height * koofScreen), plashkaStartCoop);
 			}
@@ -427,10 +427,10 @@ public sealed class NetworkStartTable : MonoBehaviour
 		{
 			return;
 		}
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+		if (prefs.GetString("TypeConnect").Equals("local"))
 		{
 			sendDelMyPlayer();
-			if (PlayerPrefs.GetString("TypeGame").Equals("server"))
+			if (prefs.GetString("TypeGame").Equals("server"))
 			{
 				Network.Disconnect(200);
 				GameObject.FindGameObjectWithTag("NetworkTable").GetComponent<LANBroadcastService>().StopBroadCasting();
@@ -461,7 +461,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 			{
 				_purchaseActivityIndicator.SetActive(false);
 			}
-			PlayerPrefs.SetInt("ExitGame", 1);
+			prefs.SetInt("ExitGame", 1);
 			PhotonNetwork.LeaveRoom();
 		}
 	}
@@ -477,12 +477,12 @@ public sealed class NetworkStartTable : MonoBehaviour
 		Vector2 vector = new Vector2(component.size.x * gameObject.transform.localScale.x, component.size.z * gameObject.transform.localScale.z);
 		Rect rect = new Rect(gameObject.transform.position.x - vector.x / 2f, gameObject.transform.position.z - vector.y / 2f, vector.x, vector.y);
 		Vector3 position = new Vector3(rect.x + UnityEngine.Random.Range(0f, rect.width), gameObject.transform.position.y + 2f, rect.y + UnityEngine.Random.Range(0f, rect.height));
-		if (PlayerPrefs.GetInt("StartAfterDisconnect") == 1)
+		if (prefs.GetInt("StartAfterDisconnect") == 1)
 		{
 			position = GlobalGameController.posMyPlayer;
 		}
 		GameObject myPlayer;
-		if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+		if (prefs.GetString("TypeConnect").Equals("inet"))
 		{
 			myPlayer = PhotonNetwork.Instantiate("Player", position, base.transform.rotation, 0);
 			GameObject.FindGameObjectWithTag("GameController").GetComponent<BonusCreator>().BeginCreateBonuses();
@@ -494,7 +494,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 		currentCamera = Camera.main;
 		_weaponManager.myPlayer = myPlayer;
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local") && PlayerPrefs.GetString("TypeGame").Equals("server"))
+		if (prefs.GetString("TypeConnect").Equals("local") && prefs.GetString("TypeGame").Equals("server"))
 		{
 			Debug.Log("networkView.RPC(RunGame, RPCMode.OthersBuffered);");
 			base.GetComponent<NetworkView>().RPC("RunGame", RPCMode.OthersBuffered);
@@ -567,7 +567,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 
 	public void OnPhotonPlayerConnected(PhotonPlayer player)
 	{
-		if (PlayerPrefs.GetInt("COOP", 0) == 1 && (bool)photonView && photonView.isMine && GameObject.FindGameObjectWithTag("ZombiCreator") != null && GameObject.FindGameObjectWithTag("ZombiCreator").GetComponent<PhotonView>().owner.ID == PhotonNetwork.player.ID)
+		if (prefs.GetInt("COOP", 0) == 1 && (bool)photonView && photonView.isMine && GameObject.FindGameObjectWithTag("ZombiCreator") != null && GameObject.FindGameObjectWithTag("ZombiCreator").GetComponent<PhotonView>().owner.ID == PhotonNetwork.player.ID)
 		{
 			photonView.RPC("addZombiManagerNewClientRPC", PhotonTargets.Others, player.ID, base.transform.position, base.transform.rotation, GameObject.FindGameObjectWithTag("ZombiCreator").GetComponent<PhotonView>().viewID);
 			GameObject[] array = GameObject.FindGameObjectsWithTag("Enemy");
@@ -634,9 +634,9 @@ public sealed class NetworkStartTable : MonoBehaviour
 
 	public void synchState()
 	{
-		if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+		if (prefs.GetString("TypeConnect").Equals("inet"))
 		{
-			if (PlayerPrefs.GetInt("COOP", 0) == 0)
+			if (prefs.GetInt("COOP", 0) == 0)
 			{
 				GlobalGameController.Score = CountKills;
 			}
@@ -645,7 +645,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 				GlobalGameController.Score = Mathf.RoundToInt(score);
 			}
 			photonView.RPC("setState", PhotonTargets.Others, NamePlayer, CountKills, oldCountKills, score);
-			if (PlayerPrefs.GetInt("COOP", 0) != 1)
+			if (prefs.GetInt("COOP", 0) != 1)
 			{
 			}
 		}
@@ -847,18 +847,18 @@ public sealed class NetworkStartTable : MonoBehaviour
 			_canUserUseFacebookComposer = ServiceLocator.FacebookFacade.CanUserUseFacebookComposer();
 		}
 		photonView = PhotonView.Get(this);
-		Debug.Log("add NetworkView" + PlayerPrefs.GetString("TypeGame").Equals("server"));
-		if (PlayerPrefs.GetInt("COOP", 0) == 1 && PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine && PlayerPrefs.GetString("TypeGame").Equals("server"))
+		Debug.Log("add NetworkView" + prefs.GetString("TypeGame").Equals("server"));
+		if (prefs.GetInt("COOP", 0) == 1 && prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine && prefs.GetString("TypeGame").Equals("server"))
 		{
 			addZombiManager();
 		}
 		_purchaseActivityIndicator = StoreKitEventListener.purchaseActivityInd;
-		zoneCreatePlayer = GameObject.FindGameObjectsWithTag((PlayerPrefs.GetInt("COOP", 0) != 1) ? "MultyPlayerCreateZone" : "MultyPlayerCreateZone");
+		zoneCreatePlayer = GameObject.FindGameObjectsWithTag((prefs.GetInt("COOP", 0) != 1) ? "MultyPlayerCreateZone" : "MultyPlayerCreateZone");
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1 && ((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)))
+		if (prefs.GetInt("MultyPlayer") == 1 && ((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)))
 		{
 			Debug.Log("Start " + GlobalGameController.Score);
-			if (PlayerPrefs.GetInt("StartAfterDisconnect") == 0)
+			if (prefs.GetInt("StartAfterDisconnect") == 0)
 			{
 				showTable = true;
 			}
@@ -873,13 +873,13 @@ public sealed class NetworkStartTable : MonoBehaviour
 			currentCamera = GameObject.FindGameObjectWithTag("GameController").GetComponent<Initializer>().tc.GetComponent<Camera>();
 			tempCam.SetActive(true);
 			_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
-			string text = (NamePlayer = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(PlayerPrefs.GetString("NamePlayer", Defs.defaultPlayerName)));
-			if (PlayerPrefs.GetString("TypeGame").Equals("server"))
+			string text = (NamePlayer = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(prefs.GetString("NamePlayer", Defs.defaultPlayerName)));
+			if (prefs.GetString("TypeGame").Equals("server"))
 			{
-				addPlayer(PlayerPrefs.GetString("NamePlayer", Defs.defaultPlayerName), Network.player.ipAddress);
-				if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+				addPlayer(prefs.GetString("NamePlayer", Defs.defaultPlayerName), Network.player.ipAddress);
+				if (prefs.GetInt("MultyPlayer") == 1)
 				{
-					if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+					if (prefs.GetString("TypeConnect").Equals("local"))
 					{
 						base.GetComponent<NetworkView>().RPC("addPlayer", RPCMode.OthersBuffered, text, Network.player.ipAddress);
 					}
@@ -888,18 +888,18 @@ public sealed class NetworkStartTable : MonoBehaviour
 						photonView.RPC("addPlayer", PhotonTargets.OthersBuffered, text, Network.player.ipAddress);
 					}
 				}
-				if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+				if (prefs.GetString("TypeConnect").Equals("local"))
 				{
 					LANBroadcastService component = GetComponent<LANBroadcastService>();
-					component.serverMessage.name = PlayerPrefs.GetString("ServerName");
-					component.serverMessage.map = PlayerPrefs.GetString("MapName");
+					component.serverMessage.name = prefs.GetString("ServerName");
+					component.serverMessage.map = prefs.GetString("MapName");
 					component.serverMessage.connectedPlayers = 0;
-					component.serverMessage.playerLimit = int.Parse(PlayerPrefs.GetString("PlayersLimits"));
-					component.serverMessage.comment = PlayerPrefs.GetString("MaxKill");
+					component.serverMessage.playerLimit = int.Parse(prefs.GetString("PlayersLimits"));
+					component.serverMessage.comment = prefs.GetString("MaxKill");
 					component.StartAnnounceBroadCasting();
 				}
 			}
-			else if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+			else if (prefs.GetString("TypeConnect").Equals("local"))
 			{
 				base.GetComponent<NetworkView>().RPC("addPlayer", RPCMode.AllBuffered, text, Network.player.ipAddress);
 			}
@@ -908,7 +908,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 				Debug.Log("addPlayer client  " + photonView);
 				photonView.RPC("addPlayer", PhotonTargets.AllBuffered, text, Network.player.ipAddress);
 			}
-			if (PlayerPrefs.GetInt("StartAfterDisconnect") == 1)
+			if (prefs.GetInt("StartAfterDisconnect") == 1)
 			{
 				CountKills = GlobalGameController.Score;
 				score = GlobalGameController.Score;
@@ -952,7 +952,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		GameObject[] array2 = array;
 		foreach (GameObject gameObject in array2)
 		{
-			if ((PlayerPrefs.GetString("TypeConnect").Equals("inet") && (bool)gameObject && (bool)gameObject.GetComponent<PhotonView>() && gameObject.GetComponent<PhotonView>().owner.Equals(base.transform.GetComponent<PhotonView>().owner)) || (PlayerPrefs.GetString("TypeConnect").Equals("local") && gameObject.GetComponent<NetworkView>().owner.ipAddress.Equals(base.transform.GetComponent<NetworkView>().owner.ipAddress)))
+			if ((prefs.GetString("TypeConnect").Equals("inet") && (bool)gameObject && (bool)gameObject.GetComponent<PhotonView>() && gameObject.GetComponent<PhotonView>().owner.Equals(base.transform.GetComponent<PhotonView>().owner)) || (prefs.GetString("TypeConnect").Equals("local") && gameObject.GetComponent<NetworkView>().owner.ipAddress.Equals(base.transform.GetComponent<NetworkView>().owner.ipAddress)))
 			{
 				gameObject.GetComponent<Player_move_c>().setMyTamble(base.gameObject);
 				break;
@@ -982,7 +982,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		foreach (GameObject gameObject in array2)
 		{
 			Debug.Log(gameObject.GetComponent<PhotonView>().owner.ID + " " + base.transform.GetComponent<PhotonView>().owner.ID);
-			if ((PlayerPrefs.GetString("TypeConnect").Equals("inet") && gameObject.GetComponent<PhotonView>().owner.ID == base.transform.GetComponent<PhotonView>().owner.ID) || (PlayerPrefs.GetString("TypeConnect").Equals("local") && gameObject.GetComponent<NetworkView>().owner.ipAddress.Equals(base.transform.GetComponent<NetworkView>().owner.ipAddress)))
+			if ((prefs.GetString("TypeConnect").Equals("inet") && gameObject.GetComponent<PhotonView>().owner.ID == base.transform.GetComponent<PhotonView>().owner.ID) || (prefs.GetString("TypeConnect").Equals("local") && gameObject.GetComponent<NetworkView>().owner.ipAddress.Equals(base.transform.GetComponent<NetworkView>().owner.ipAddress)))
 			{
 				gameObject.GetComponent<Player_move_c>().setMyTamble(base.gameObject);
 				break;
@@ -995,7 +995,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		Texture2D texture2D = mySkin as Texture2D;
 		byte[] inArray = texture2D.EncodeToPNG();
 		string text = Convert.ToBase64String(inArray);
-		if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+		if (prefs.GetString("TypeConnect").Equals("inet"))
 		{
 			photonView.RPC("setMySkin", PhotonTargets.AllBuffered, text);
 			return;
@@ -1006,7 +1006,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 
 	private void sendHWID()
 	{
-		if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+		if (prefs.GetString("TypeConnect").Equals("inet"))
 		{
 			photonView.RPC("setMyHWID", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress());
 			return;
@@ -1046,11 +1046,11 @@ public sealed class NetworkStartTable : MonoBehaviour
 
 	private void Update()
 	{
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)
+		if (prefs.GetInt("MultyPlayer") == 1 && prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)
 		{
 			GlobalGameController.showTableMyPlayer = showTable;
 		}
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local") && PlayerPrefs.GetString("TypeGame").Equals("server"))
+		if (prefs.GetString("TypeConnect").Equals("local") && prefs.GetString("TypeGame").Equals("server"))
 		{
 			LANBroadcastService component = GetComponent<LANBroadcastService>();
 			if (component != null)
@@ -1058,7 +1058,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 				component.serverMessage.connectedPlayers = GameObject.FindGameObjectsWithTag("NetworkTable").Length;
 			}
 		}
-		if (PlayerPrefs.GetString("TypeConnect").Equals("inet") && PlayerPrefs.GetInt("COOP") == 1 && photonView.isMine)
+		if (prefs.GetString("TypeConnect").Equals("inet") && prefs.GetInt("COOP") == 1 && photonView.isMine)
 		{
 			GameObject gameObject = GameObject.FindGameObjectWithTag("ZombiCreator");
 			if (gameObject != null && gameObject.GetComponent<PhotonView>().owner == null)
@@ -1170,7 +1170,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		{
 			GameObject gameObject = array[i];
 			int num = i - 1;
-			while (num >= 0 && ((PlayerPrefs.GetInt("COOP", 0) != 1) ? ((float)array[num].GetComponent<NetworkStartTable>().CountKills) : array[num].GetComponent<NetworkStartTable>().score) < ((PlayerPrefs.GetInt("COOP", 0) != 1) ? ((float)gameObject.GetComponent<NetworkStartTable>().CountKills) : gameObject.GetComponent<NetworkStartTable>().score))
+			while (num >= 0 && ((prefs.GetInt("COOP", 0) != 1) ? ((float)array[num].GetComponent<NetworkStartTable>().CountKills) : array[num].GetComponent<NetworkStartTable>().score) < ((prefs.GetInt("COOP", 0) != 1) ? ((float)gameObject.GetComponent<NetworkStartTable>().CountKills) : gameObject.GetComponent<NetworkStartTable>().score))
 			{
 				array[num + 1] = array[num];
 				num--;
@@ -1185,7 +1185,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 			{
 				oldIndexMy = j;
 				addCoins = 0;
-				if (j == 0 && PlayerPrefs.GetInt("CustomGame", 0) == 0 && PlayerPrefs.GetInt("COOP", 0) == 1)
+				if (j == 0 && prefs.GetInt("CustomGame", 0) == 0 && prefs.GetInt("COOP", 0) == 1)
 				{
 					if (array[j].GetComponent<NetworkStartTable>().score >= (float)minCoin1 && array[j].GetComponent<NetworkStartTable>().score < (float)minCoin2)
 					{
@@ -1201,7 +1201,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 					}
 					FlurryPluginWrapper.LogCoinEarned_COOP();
 				}
-				if (j == 0 && PlayerPrefs.GetInt("CustomGame", 0) == 0 && PlayerPrefs.GetInt("COOP", 0) != 1)
+				if (j == 0 && prefs.GetInt("CustomGame", 0) == 0 && prefs.GetInt("COOP", 0) != 1)
 				{
 					addCoins = 1 * 10;
 					FlurryPluginWrapper.LogCoinEarned_Deathmatch();
@@ -1214,11 +1214,11 @@ public sealed class NetworkStartTable : MonoBehaviour
 					}
 					int int2 = Storager.getInt(Defs.Coins, false);
 					Storager.setInt(Defs.Coins, int2 + addCoins, false);
-					PlayerPrefs.SetInt("AddCoins", 1);
+					prefs.SetInt("AddCoins", 1);
 				}
 			}
 			oldSpisokName[j] = array[j].GetComponent<NetworkStartTable>().NamePlayer;
-			if (PlayerPrefs.GetInt("COOP", 0) == 1)
+			if (prefs.GetInt("COOP", 0) == 1)
 			{
 				oldCountLilsSpisok[j] = ((array[j].GetComponent<NetworkStartTable>().score == -1f) ? (string.Empty + array[j].GetComponent<NetworkStartTable>().scoreOld) : (string.Empty + array[j].GetComponent<NetworkStartTable>().score));
 			}
@@ -1234,14 +1234,14 @@ public sealed class NetworkStartTable : MonoBehaviour
 		CountKills = -1;
 		synchState();
 		currentCamera = GameObject.FindGameObjectWithTag("GameController").GetComponent<Initializer>().tc.GetComponent<Camera>();
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+		if (prefs.GetString("TypeConnect").Equals("local"))
 		{
 			UnityEngine.Object.DestroyObject(_weaponManager.myPlayer);
 		}
 		else
 		{
 			PhotonNetwork.Destroy(_weaponManager.myPlayer);
-			if (PlayerPrefs.GetInt("COOP", 0) == 1)
+			if (prefs.GetInt("COOP", 0) == 1)
 			{
 				GameObject[] array2 = GameObject.FindGameObjectsWithTag("Enemy");
 				for (int k = 0; k < array2.Length; k++)
@@ -1265,9 +1265,9 @@ public sealed class NetworkStartTable : MonoBehaviour
 	private void end()
 	{
 		Debug.Log("end");
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+		if (prefs.GetString("TypeConnect").Equals("local"))
 		{
-			if (PlayerPrefs.GetString("TypeGame").Equals("server"))
+			if (prefs.GetString("TypeGame").Equals("server"))
 			{
 				Network.Disconnect(200);
 				GameObject.FindGameObjectWithTag("NetworkTable").GetComponent<LANBroadcastService>().StopBroadCasting();

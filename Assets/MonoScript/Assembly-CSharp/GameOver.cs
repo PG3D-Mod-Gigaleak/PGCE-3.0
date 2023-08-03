@@ -197,8 +197,8 @@ public sealed class GameOver : MonoBehaviour
 			GlobalGameController.numOfCompletedLevels--;
 			GlobalGameController.totalNumOfCompletedLevels--;
 		}
-		PlayerPrefs.SetFloat(Defs.CurrentHealthSett, Player_move_c.MaxPlayerHealth);
-		PlayerPrefs.SetFloat(Defs.CurrentArmorSett, 0f);
+		prefs.SetFloat(Defs.CurrentHealthSett, Player_move_c.MaxPlayerHealth);
+		prefs.SetFloat(Defs.CurrentArmorSett, 0f);
 		Application.LoadLevel("Loading");
 	}
 
@@ -246,8 +246,8 @@ public sealed class GameOver : MonoBehaviour
 			GlobalGameController.ResetParameters();
 			GlobalGameController.Score = 0;
 			GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().Reset();
-			PlayerPrefs.SetFloat(Defs.CurrentHealthSett, Player_move_c.MaxPlayerHealth);
-			PlayerPrefs.SetFloat(Defs.CurrentArmorSett, 0f);
+			prefs.SetFloat(Defs.CurrentHealthSett, Player_move_c.MaxPlayerHealth);
+			prefs.SetFloat(Defs.CurrentArmorSett, 0f);
 			Application.LoadLevel("LoadingNoWait");
 		}
 		float num4 = num * ((float)quit.normal.background.width / (float)resurrect.normal.background.width);

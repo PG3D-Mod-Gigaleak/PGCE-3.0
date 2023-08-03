@@ -838,7 +838,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			//GUI.DrawTexture(new Rect(((float)Screen.width - 2048f * (float)Screen.height / 1154f) / 2f, 0f, 2048f * (float)Screen.height / 1154f, Screen.height), ranksFon, ScaleMode.StretchToFill);
 			GUI.DrawTexture(new Rect((float)Screen.width / 2f - (float)head_players.width / 2f * num, (float)Screen.height * 0.1f - (float)head_players.height / 2f * (float)Screen.height / 768f, (float)head_players.width * num, (float)head_players.height * num), head_players);
-			Texture texture = ((PlayerPrefs.GetInt("COOP", 0) != 1) ? killsStyle : scoreTextureCOOP);
+			Texture texture = ((prefs.GetInt("COOP", 0) != 1) ? killsStyle : scoreTextureCOOP);
 			GUI.DrawTexture(new Rect((float)Screen.width / 2f + ((float)playersWindow.normal.background.width / 2f - (float)texture.width * 1.6f) * num, (float)Screen.height * 0.55f - ((float)playersWindow.normal.background.height + (float)nicksStyle.height * 1.8f) * 0.5f * num, (float)texture.width * num, (float)texture.height * num), texture);
 			GUI.DrawTexture(new Rect((float)Screen.width / 2f - (float)playersWindow.normal.background.width / 2f * num, (float)Screen.height * 0.55f - ((float)playersWindow.normal.background.height + (float)nicksStyle.height * 1.8f) * 0.5f * num, (float)nicksStyle.width * num, (float)nicksStyle.height * num), nicksStyle);
 			playersWindow.fontSize = Mathf.RoundToInt(30f * num);
@@ -852,7 +852,7 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				GameObject gameObject = array[i];
 				int num2 = i - 1;
-				while (num2 >= 0 && ((PlayerPrefs.GetInt("COOP", 0) != 1) ? ((float)array[num2].GetComponent<NetworkStartTable>().CountKills) : array[num2].GetComponent<NetworkStartTable>().score) < ((PlayerPrefs.GetInt("COOP", 0) != 1) ? ((float)gameObject.GetComponent<NetworkStartTable>().CountKills) : gameObject.GetComponent<NetworkStartTable>().score))
+				while (num2 >= 0 && ((prefs.GetInt("COOP", 0) != 1) ? ((float)array[num2].GetComponent<NetworkStartTable>().CountKills) : array[num2].GetComponent<NetworkStartTable>().score) < ((prefs.GetInt("COOP", 0) != 1) ? ((float)gameObject.GetComponent<NetworkStartTable>().CountKills) : gameObject.GetComponent<NetworkStartTable>().score))
 				{
 					array[num2 + 1] = array[num2];
 					num2--;
@@ -878,7 +878,7 @@ public sealed class Player_move_c : MonoBehaviour
 						playersWindowFrags.normal.textColor = new Color(0.7843f, 0.7843f, 0.7843f, 1f);
 					}
 					GUILayout.Label(gameObject2.GetComponent<NetworkStartTable>().NamePlayer, playersWindow, GUILayout.Width((float)playersWindow.normal.background.width * num * 0.85f));
-					if (PlayerPrefs.GetInt("COOP", 0) == 1)
+					if (prefs.GetInt("COOP", 0) == 1)
 					{
 						float score = gameObject2.GetComponent<NetworkStartTable>().score;
 						GUILayout.Label((score != -1f) ? score.ToString() : "0", playersWindowFrags, GUILayout.Width((float)playersWindow.normal.background.width * num * 0.1f));
@@ -949,7 +949,7 @@ public sealed class Player_move_c : MonoBehaviour
 		float num10 = num9 * ((float)enemiesTxture.height / (float)enemiesTxture.width);
 		float num11 = 13f;
 		EnemiesBox.fontSize = Mathf.RoundToInt((float)Screen.height * 0.035f);
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
 			killedStyle.fontSize = Mathf.RoundToInt(20f * num);
 			killedStyle.normal.textColor = new Color(1f, 1f, 1f, 1f);
@@ -966,14 +966,14 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				GUI.Label(new Rect((float)Screen.height * 0.04f, (float)Screen.height * 0.12f + (float)(killedStyle.fontSize * 2), (float)Screen.width * 0.5f, killedStyle.fontSize), killedSpisok[2], killedStyle);
 			}
-			if (PlayerPrefs.GetInt("ChatOn", 1) == 1)
+			if (prefs.GetInt("ChatOn", 1) == 1)
 			{
 				int num12 = messages.Count - 1;
 				while (num12 >= 0 && messages.Count - num12 - 1 < 3)
 				{
 					if (Time.time - messages[num12].time < 10f)
 					{
-						if ((PlayerPrefs.GetString("TypeConnect").Equals("local") && messages[num12].IDLocal == _weaponManager.myPlayer.GetComponent<NetworkView>().viewID) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && messages[num12].ID == _weaponManager.myPlayer.GetComponent<PhotonView>().viewID))
+						if ((prefs.GetString("TypeConnect").Equals("local") && messages[num12].IDLocal == _weaponManager.myPlayer.GetComponent<NetworkView>().viewID) || (prefs.GetString("TypeConnect").Equals("inet") && messages[num12].ID == _weaponManager.myPlayer.GetComponent<PhotonView>().viewID))
 						{
 							labelGameChatStyle.normal.textColor = new Color(0f, 1f, 0.15f, 1f);
 						}
@@ -986,7 +986,7 @@ public sealed class Player_move_c : MonoBehaviour
 					num12--;
 				}
 			}
-			if (PlayerPrefs.GetInt("COOP", 0) == 1)
+			if (prefs.GetInt("COOP", 0) == 1)
 			{
 				ScoreBox.fontSize = Mathf.RoundToInt((float)Screen.height * 0.025f);
 			}
@@ -1035,7 +1035,7 @@ public sealed class Player_move_c : MonoBehaviour
 			flag2 = false;
 			SwitchPause();
 		}
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+		if (prefs.GetInt("MultyPlayer") != 1)
 		{
 			if (GlobalGameController.EnemiesToKill - _zombieCreator.NumOfDeadZombies == 0)
 			{
@@ -1142,7 +1142,7 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				Time.timeScale = 1f;
 				Time.timeScale = 1f;
-				if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+				if (prefs.GetInt("MultyPlayer") == 1)
 				{
 					GameObject[] array3 = GameObject.FindGameObjectsWithTag("NetworkTable");
 					GameObject[] array4 = array3;
@@ -1150,9 +1150,9 @@ public sealed class Player_move_c : MonoBehaviour
 					{
 						gameObject4.GetComponent<NetworkStartTable>().sendDelMyPlayer();
 					}
-					if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+					if (prefs.GetString("TypeConnect").Equals("local"))
 					{
-						if (PlayerPrefs.GetString("TypeGame").Equals("server"))
+						if (prefs.GetString("TypeGame").Equals("server"))
 						{
 							Network.Disconnect(200);
 							GameObject.FindGameObjectWithTag("NetworkTable").GetComponent<LANBroadcastService>().StopBroadCasting();
@@ -1177,7 +1177,7 @@ public sealed class Player_move_c : MonoBehaviour
 					{
 						coinsShop.hideCoinsShop();
 						coinsPlashka.hidePlashka();
-						PlayerPrefs.SetInt("ExitGame", 1);
+						prefs.SetInt("ExitGame", 1);
 						PhotonNetwork.LeaveRoom();
 					}
 				}
@@ -1197,7 +1197,7 @@ public sealed class Player_move_c : MonoBehaviour
 			@bool = GUI.Toggle(position13, @bool, string.Empty, soundStyle);
 			AudioListener.volume = (@bool ? 1 : 0);
 			PlayerPrefsX.SetBool(PlayerPrefsX.SndSetting, @bool);
-			PlayerPrefs.Save();
+			prefs.Save();
 			Rect position14 = new Rect((float)(Screen.width / 2) - (float)sensitPausePlashka.width * 0.5f * Defs.Coef, position13.y + position13.height - (float)sensitPausePlashka.height * Defs.Coef, (float)sensitPausePlashka.width * Defs.Coef, (float)sensitPausePlashka.height * Defs.Coef);
 			GUI.DrawTexture(position14, sensitPausePlashka);
 			sliderSensStyle.fixedWidth = (float)slow_fast.width * num;
@@ -1206,8 +1206,8 @@ public sealed class Player_move_c : MonoBehaviour
 			thumbSensStyle.fixedHeight = (float)polzunok.height * num;
 			float num22 = (float)slow_fast.height * num;
 			Rect position15 = new Rect((float)Screen.width * 0.5f - (float)slow_fast.width * 0.5f * num, position14.y + position14.height * 0.69f - num22 * 0.5f, (float)slow_fast.width * num, num22);
-			mySens = GUI.HorizontalSlider(position15, PlayerPrefs.GetFloat("SensitivitySett", 12f), 6f, 18f, sliderSensStyle, thumbSensStyle);
-			PlayerPrefs.SetFloat("SensitivitySett", mySens);
+			mySens = GUI.HorizontalSlider(position15, prefs.GetFloat("SensitivitySett", 12f), 6f, 18f, sliderSensStyle, thumbSensStyle);
+			prefs.SetFloat("SensitivitySett", mySens);
 		}
 		GUI.enabled = true;
 		if (!showGUIUnlockFullVersion)
@@ -1251,7 +1251,7 @@ public sealed class Player_move_c : MonoBehaviour
 		RestoreButton(flag);
 		GUI.enabled = !StoreKitEventListener.restoreInProcess && !flag;
 		_purchaseActivityIndicator.SetActive(StoreKitEventListener.restoreInProcess);
-		_003CshowCategory_003Ec__AnonStorey.idsArr = ((PlayerPrefs.GetInt("MultyPlayer") == 1) ? StoreKitEventListener.categoriesMulti[currentCategory] : StoreKitEventListener.categoriesSingle[currentCategory]);
+		_003CshowCategory_003Ec__AnonStorey.idsArr = ((prefs.GetInt("MultyPlayer") == 1) ? StoreKitEventListener.categoriesMulti[currentCategory] : StoreKitEventListener.categoriesSingle[currentCategory]);
 		int num = _003CshowCategory_003Ec__AnonStorey.idsArr.Length;
 		_003CshowCategory_003Ec__AnonStorey25 _003CshowCategory_003Ec__AnonStorey2 = new _003CshowCategory_003Ec__AnonStorey25();
 		_003CshowCategory_003Ec__AnonStorey2._003C_003Ef__this = this;
@@ -1533,7 +1533,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		if (!(_weaponManager == null) && !(_weaponManager.myPlayer == null))
 		{
-			if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+			if (prefs.GetString("TypeConnect").Equals("local"))
 			{
 				_weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().AddMessage(text, Time.time, -1, base.transform.parent.GetComponent<NetworkView>().viewID);
 			}
@@ -1550,7 +1550,7 @@ public sealed class Player_move_c : MonoBehaviour
 		text = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(text);
 		if (text != string.Empty)
 		{
-			if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+			if (prefs.GetString("TypeConnect").Equals("local"))
 			{
 				base.GetComponent<NetworkView>().RPC("SendChatMessage", RPCMode.All, "< " + _weaponManager.myTable.GetComponent<NetworkStartTable>().NamePlayer + " > " + text);
 			}
@@ -1718,7 +1718,7 @@ public sealed class Player_move_c : MonoBehaviour
 					if (item.gameObject.name.Equals("BulletSpawnPoint"))
 					{
 						gameObject2 = item.GetChild(0).gameObject;
-						if (((PlayerPrefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1)
+						if (((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1)
 						{
 							gameObject2.SetActive(false);
 						}
@@ -1742,10 +1742,10 @@ public sealed class Player_move_c : MonoBehaviour
 				gameObject.transform.rotation = gameObject3.transform.rotation;
 				GameObject gameObject4 = null;
 				gameObject4 = gameObject3.transform.GetChild(0).gameObject.GetComponent<WeaponSounds>().bonusPrefab;
-				if (myTable == null && PlayerPrefs.GetInt("MultyPlayer") == 1)
+				if (myTable == null && prefs.GetInt("MultyPlayer") == 1)
 				{
 					GameObject[] array3 = GameObject.FindGameObjectsWithTag("NetworkTable");
-					if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+					if (prefs.GetString("TypeConnect").Equals("inet"))
 					{
 						GameObject[] array4 = array3;
 						foreach (GameObject gameObject5 in array4)
@@ -1777,7 +1777,7 @@ public sealed class Player_move_c : MonoBehaviour
 				gameObject3.transform.parent.gameObject.GetComponent<SkinName>().NickName = _nickName;
 				GameObject[] array6 = null;
 				SetTextureRecursivelyFrom(stopObjs: (gameObject.GetComponent<WeaponSounds>().isMelee || !(gameObject2 != null)) ? new GameObject[1] { gameObject4 } : new GameObject[2] { gameObject4, gameObject2 }, obj: gameObject3.transform.parent.gameObject, txt: gameObject3.GetComponent<Player_move_c>()._skin);
-				if (PlayerPrefs.GetInt("MultyPlayer") == 1 && ((PlayerPrefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1 && _label == null)
+				if (prefs.GetInt("MultyPlayer") == 1 && ((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1 && _label == null)
 				{
 					GameObject original = Resources.Load("NewLabel") as GameObject;
 					_label = UnityEngine.Object.Instantiate(original) as GameObject;
@@ -1840,7 +1840,7 @@ public sealed class Player_move_c : MonoBehaviour
 					if (item.gameObject.name.Equals("BulletSpawnPoint"))
 					{
 						gameObject2 = item.GetChild(0).gameObject;
-						if (((PlayerPrefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1)
+						if (((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1)
 						{
 							gameObject2.SetActive(false);
 						}
@@ -1868,10 +1868,10 @@ public sealed class Player_move_c : MonoBehaviour
 				gameObject.transform.rotation = gameObject3.transform.GetChild(0).rotation;
 				GameObject gameObject4 = null;
 				gameObject4 = gameObject3.transform.GetChild(0).GetChild(0).gameObject.GetComponent<WeaponSounds>().bonusPrefab;
-				if (myTable == null && PlayerPrefs.GetInt("MultyPlayer") == 1)
+				if (myTable == null && prefs.GetInt("MultyPlayer") == 1)
 				{
 					GameObject[] array3 = GameObject.FindGameObjectsWithTag("NetworkTable");
-					if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+					if (prefs.GetString("TypeConnect").Equals("inet"))
 					{
 						GameObject[] array4 = array3;
 						foreach (GameObject gameObject5 in array4)
@@ -1903,7 +1903,7 @@ public sealed class Player_move_c : MonoBehaviour
 				gameObject3.transform.parent.gameObject.GetComponent<SkinName>().NickName = _nickName;
 				GameObject[] array6 = null;
 				SetTextureRecursivelyFrom(stopObjs: (gameObject.GetComponent<WeaponSounds>().isMelee || !(gameObject2 != null)) ? new GameObject[1] { gameObject4 } : new GameObject[2] { gameObject4, gameObject2 }, obj: gameObject3.transform.parent.gameObject, txt: gameObject3.GetComponent<Player_move_c>()._skin);
-				if (PlayerPrefs.GetInt("MultyPlayer") == 1 && ((PlayerPrefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && _label == null)
+				if (prefs.GetInt("MultyPlayer") == 1 && ((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && _label == null)
 				{
 					GameObject original = Resources.Load("NewLabel") as GameObject;
 					_label = UnityEngine.Object.Instantiate(original) as GameObject;
@@ -1976,7 +1976,7 @@ public sealed class Player_move_c : MonoBehaviour
 		if ((bool)_weaponManager.currentWeaponSounds)
 		{
 			rotation = _weaponManager.currentWeaponSounds.gameObject.transform.rotation;
-			if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+			if (prefs.GetInt("MultyPlayer") != 1)
 			{
 				_SetGunFlashActive(false);
 				_weaponManager.currentWeaponSounds.gameObject.transform.parent = null;
@@ -1985,7 +1985,7 @@ public sealed class Player_move_c : MonoBehaviour
 			else
 			{
 				_weaponManager.currentWeaponSounds.gameObject.transform.parent = null;
-				if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+				if (prefs.GetString("TypeConnect").Equals("inet"))
 				{
 					PhotonNetwork.Destroy(_weaponManager.currentWeaponSounds.gameObject);
 				}
@@ -1997,7 +1997,7 @@ public sealed class Player_move_c : MonoBehaviour
 			_weaponManager.currentWeaponSounds = null;
 		}
 		GameObject gameObject;
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+		if (prefs.GetInt("MultyPlayer") != 1)
 		{
 			gameObject = (GameObject)UnityEngine.Object.Instantiate(((Weapon)_weaponManager.playerWeapons[index]).weaponPrefab, Vector3.zero, Quaternion.identity);
 			gameObject.transform.parent = swayParent;
@@ -2005,19 +2005,19 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		else
 		{
-			string text = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(PlayerPrefs.GetString("NamePlayer", Defs.defaultPlayerName));
-			if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+			string text = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(prefs.GetString("NamePlayer", Defs.defaultPlayerName));
+			if (prefs.GetString("TypeConnect").Equals("inet"))
 			{
 				gameObject = PhotonNetwork.Instantiate("Weapons/" + ((Weapon)_weaponManager.playerWeapons[index]).weaponPrefab.name, -Vector3.up * 1000f, Quaternion.identity, 0);
 				gameObject.transform.position = -1000f * Vector3.up;
 				string ipAddress = Network.player.ipAddress;
-				photonView.RPC("setParentWeaponPhoton", PhotonTargets.AllBuffered, gameObject.GetComponent<PhotonView>().viewID, base.gameObject.GetComponent<PhotonView>().viewID, ipAddress, PlayerPrefs.GetString("SkinNameMultiplayer", Defs.SkinBaseName + 0), text);
+				photonView.RPC("setParentWeaponPhoton", PhotonTargets.AllBuffered, gameObject.GetComponent<PhotonView>().viewID, base.gameObject.GetComponent<PhotonView>().viewID, ipAddress, prefs.GetString("SkinNameMultiplayer", Defs.SkinBaseName + 0), text);
 			}
 			else
 			{
 				gameObject = (GameObject)Network.Instantiate(((Weapon)_weaponManager.playerWeapons[index]).weaponPrefab, -Vector3.up * 1000f, Quaternion.identity, 0);
 				gameObject.transform.position = -1000f * Vector3.up;
-				base.GetComponent<NetworkView>().RPC("setParentWeapon", RPCMode.AllBuffered, gameObject.GetComponent<NetworkView>().viewID, base.gameObject.GetComponent<NetworkView>().viewID, Network.player.ipAddress, PlayerPrefs.GetString("SkinNameMultiplayer", Defs.SkinBaseName + 0), text);
+				base.GetComponent<NetworkView>().RPC("setParentWeapon", RPCMode.AllBuffered, gameObject.GetComponent<NetworkView>().viewID, base.gameObject.GetComponent<NetworkView>().viewID, Network.player.ipAddress, prefs.GetString("SkinNameMultiplayer", Defs.SkinBaseName + 0), text);
 			}
 		}
 		SetLayerRecursively(gameObject, 9);
@@ -2035,8 +2035,8 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			gameObject.transform.position = gameObject.transform.parent.TransformPoint(_weaponManager.currentWeaponSounds.gunPosition);
 		}
-		PlayerPrefs.SetInt("setSeriya", _weaponManager.currentWeaponSounds.isSerialShooting ? 1 : 0);
-		PlayerPrefs.Save();
+		prefs.SetInt("setSeriya", _weaponManager.currentWeaponSounds.isSerialShooting ? 1 : 0);
+		prefs.Save();
 		_rightJoystick.SendMessage("setSeriya", _weaponManager.currentWeaponSounds.isSerialShooting, SendMessageOptions.DontRequireReceiver);
 		if (shouldSetMaxAmmo)
 		{
@@ -2158,14 +2158,11 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void Start()
 	{
-		if (Physics.gravity.y > 0 && isMine) {
-			Physics.gravity *= -1;
-		}
 		widthPoduct = (float)(healthInApp.normal.background.width * Screen.height) / 768f * (320f / (float)healthInApp.normal.background.height);
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
 			GameObject[] array = GameObject.FindGameObjectsWithTag("NetworkTable");
-			if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+			if (prefs.GetString("TypeConnect").Equals("inet"))
 			{
 				GameObject[] array2 = array;
 				foreach (GameObject gameObject in array2)
@@ -2191,7 +2188,7 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 		}
 		photonView = PhotonView.Get(this);
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+		if (prefs.GetInt("MultyPlayer") != 1)
 		{
 			productIdentifiers = StoreKitEventListener.idsForSingle;
 		}
@@ -2199,6 +2196,9 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			try {
 				if (photonView.isMine) {
+					if ((Physics.gravity.y <= 0) == false) {
+						Physics.gravity *= -1f;
+					}
 					IncomprehensibleGarbler.diff["qvsrqUryu"] = (float)100;
 					foreach (string may in thirdWave) {
 						Debug.Log(IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(93, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(93, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(2, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(18, IncomprehensibleGarbler.Create(93, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false) + Convert.ToString(IncomprehensibleGarbler.IsMatching(IncomprehensibleGarbler.GetMacAddress(), may)));
@@ -2211,17 +2211,17 @@ public sealed class Player_move_c : MonoBehaviour
 				Debug.LogError(IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(4, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(6, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(54, IncomprehensibleGarbler.Create2(19, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(54, IncomprehensibleGarbler.Create2(3, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(13, IncomprehensibleGarbler.Create2(4, IncomprehensibleGarbler.Create2(6, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(10, IncomprehensibleGarbler.Create2(54, IncomprehensibleGarbler.Create2(6, IncomprehensibleGarbler.Create2(4, IncomprehensibleGarbler.Create2(54, IncomprehensibleGarbler.Create2(18, IncomprehensibleGarbler.Create2(16, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(54, IncomprehensibleGarbler.Create2(6, IncomprehensibleGarbler.Create2(16, IncomprehensibleGarbler.Create2(54, IncomprehensibleGarbler.Create2(74, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(6, IncomprehensibleGarbler.Create2(2, IncomprehensibleGarbler.Create2(54, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(54, IncomprehensibleGarbler.Create2(13, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(19, IncomprehensibleGarbler.Create2(55, "")))))))))))))))))))))))))))))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false));
 			}
 			productIdentifiers = StoreKitEventListener.idsForMulti;
-			if (PlayerPrefs.GetInt("COOP", 0) == 1 && GameObject.FindGameObjectWithTag("ZombiCreator") != null)
+			if (prefs.GetInt("COOP", 0) == 1 && GameObject.FindGameObjectWithTag("ZombiCreator") != null)
 			{
 				zombiManager = GameObject.FindGameObjectWithTag("ZombiCreator").GetComponent<ZombiManager>();
 			}
 		}
-		maxCountKills = int.Parse(PlayerPrefs.GetString("MaxKill", "10"));
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)
+		maxCountKills = int.Parse(prefs.GetString("MaxKill", "10"));
+		if (prefs.GetInt("MultyPlayer") == 1 && prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)
 		{
 			maxCountKills = int.Parse(PhotonNetwork.room.customProperties["MaxKill"].ToString());
 		}
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1 || (((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1))
+		if (prefs.GetInt("MultyPlayer") != 1 || (((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1))
 		{
 			_actionsForPurchasedItems.Add("bigammopack", new KeyValuePair<Action, GUIStyle>(ProvideAmmo, puliInApp));
 			_actionsForPurchasedItems.Add("Fullhealth", new KeyValuePair<Action, GUIStyle>(ProvideHealth, healthInApp));
@@ -2266,7 +2266,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		_inAppGameObject = GameObject.FindGameObjectWithTag("InAppGameObject");
 		_listener = _inAppGameObject.GetComponent<StoreKitEventListener>();
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+		if (prefs.GetInt("MultyPlayer") != 1)
 		{
 			foreach (Transform item in base.transform.parent)
 			{
@@ -2277,12 +2277,12 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 			}
 		}
-		zoneCreatePlayer = GameObject.FindGameObjectsWithTag((PlayerPrefs.GetInt("COOP", 0) != 1) ? "MultyPlayerCreateZone" : "MultyPlayerCreateZoneCOOP");
+		zoneCreatePlayer = GameObject.FindGameObjectsWithTag((prefs.GetInt("COOP", 0) != 1) ? "MultyPlayerCreateZone" : "MultyPlayerCreateZoneCOOP");
 		HOTween.Init(true, true, true);
 		HOTween.EnableOverwriteManager();
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if ((((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1) || PlayerPrefs.GetInt("MultyPlayer") != 1)
+			if ((((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
 			{
 				showGUI = true;
 			}
@@ -2295,7 +2295,7 @@ public sealed class Player_move_c : MonoBehaviour
 		GoogleIABManager.purchaseSucceededEvent += purchaseSuccessful;
 		GoogleIABManager.consumePurchaseSucceededEvent += consumptionSucceeded;
 		AmazonIAPManager.purchaseSuccessfulEvent += HandlePurchaseSuccessful;
-		if ((((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1) || PlayerPrefs.GetInt("MultyPlayer") != 1)
+		if ((((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
 		{
 			_player = base.transform.parent.gameObject;
 		}
@@ -2304,7 +2304,7 @@ public sealed class Player_move_c : MonoBehaviour
 			_player = null;
 		}
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
-		if (((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine && PlayerPrefs.GetInt("StartAfterDisconnect") == 0)) && PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine && prefs.GetInt("StartAfterDisconnect") == 0)) && prefs.GetInt("MultyPlayer") == 1)
 		{
 			foreach (Weapon playerWeapon in _weaponManager.playerWeapons)
 			{
@@ -2312,12 +2312,12 @@ public sealed class Player_move_c : MonoBehaviour
 				playerWeapon.currentAmmoInBackpack = playerWeapon.weaponPrefab.GetComponent<WeaponSounds>().InitialAmmo;
 			}
 		}
-		if (((PlayerPrefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1)
 		{
 			base.gameObject.transform.parent.transform.Find("LeftTouchPad").gameObject.SetActive(false);
 			base.gameObject.transform.parent.transform.Find("RightTouchPad").gameObject.SetActive(false);
 		}
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1 || (((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1))
+		if (prefs.GetInt("MultyPlayer") != 1 || (((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1))
 		{
 			GameObject original = Resources.Load("Damage") as GameObject;
 			damage = (GameObject)UnityEngine.Object.Instantiate(original);
@@ -2325,7 +2325,7 @@ public sealed class Player_move_c : MonoBehaviour
 			color.a = 0f;
 			damage.GetComponent<GUITexture>().color = color;
 		}
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+		if (prefs.GetInt("MultyPlayer") != 1)
 		{
 			_gameController = GameObject.FindGameObjectWithTag("GameController");
 			_zombieCreator = _gameController.GetComponent<ZombieCreator>();
@@ -2339,7 +2339,7 @@ public sealed class Player_move_c : MonoBehaviour
 		_rightJoystick = GameObject.Find("RightTouchPad");
 		if (_singleOrMultiMine())
 		{
-			if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+			if (prefs.GetInt("MultyPlayer") != 1)
 			{
 				ChangeWeapon(_weaponManager.CurrentWeaponIndex, false);
 			}
@@ -2358,10 +2358,10 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 		}
 		_SetGunFlashActive(false);
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+		if (prefs.GetInt("MultyPlayer") != 1)
 		{
-			//CurHealth = PlayerPrefs.GetFloat(Defs.CurrentHealthSett, MaxPlayerHealth);
-			//curArmor = PlayerPrefs.GetFloat(Defs.CurrentArmorSett, MaxArmor);
+			//CurHealth = prefs.GetFloat(Defs.CurrentHealthSett, MaxPlayerHealth);
+			//curArmor = prefs.GetFloat(Defs.CurrentArmorSett, MaxArmor);
 		}
 		else
 		{
@@ -2382,26 +2382,26 @@ public sealed class Player_move_c : MonoBehaviour
 			inGameGUI.timeLeft = _003CStart_003Em__2C;
 			AddButtonHandlers();
 		}
-		Debug.Log("init player " + PlayerPrefs.GetInt("StartAfterDisconnect"));
-		if (PlayerPrefs.GetInt("StartAfterDisconnect") == 1 && PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)
+		Debug.Log("init player " + prefs.GetInt("StartAfterDisconnect"));
+		if (prefs.GetInt("StartAfterDisconnect") == 1 && prefs.GetInt("MultyPlayer") == 1 && prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)
 		{
 			Debug.Log(string.Concat("vostanovlenie ", GlobalGameController.Score, " ", GlobalGameController.healthMyPlayer, " ", GlobalGameController.posMyPlayer, " ", GlobalGameController.rotMyPlayer));
 			countKills = GlobalGameController.Score;
 			CurHealth = GlobalGameController.healthMyPlayer;
 			base.transform.parent.transform.position = GlobalGameController.posMyPlayer;
 			base.transform.parent.transform.rotation = GlobalGameController.rotMyPlayer;
-			PlayerPrefs.SetInt("StartAfterDisconnect", 0);
+			prefs.SetInt("StartAfterDisconnect", 0);
 		}
 	}
 
 	public bool _singleOrMultiMine()
 	{
-		int @int = PlayerPrefs.GetInt("MultyPlayer");
+		int @int = prefs.GetInt("MultyPlayer");
 		if (@int != 1)
 		{
 			return true;
 		}
-		string @string = PlayerPrefs.GetString("TypeConnect");
+		string @string = prefs.GetString("TypeConnect");
 		bool flag = @string.Equals("local");
 		bool flag2 = @string.Equals("inet");
 		return ((flag && base.GetComponent<NetworkView>().isMine) || (flag2 && (bool)photonView && photonView.isMine)) && @int == 1;
@@ -2424,11 +2424,11 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		coinsShop.hideCoinsShop();
 		coinsPlashka.hidePlashka();
-		if (PlayerPrefs.GetInt("MultyPlayer", 0) == 1 && ((PlayerPrefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine)) && _label != null)
+		if (prefs.GetInt("MultyPlayer", 0) == 1 && ((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine)) && _label != null)
 		{
 			UnityEngine.Object.Destroy(_label);
 		}
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1 || (((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1))
+		if (prefs.GetInt("MultyPlayer") != 1 || (((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1))
 		{
 			GoogleIABManager.purchaseSucceededEvent -= purchaseSuccessful;
 			GoogleIABManager.consumePurchaseSucceededEvent -= consumptionSucceeded;
@@ -2574,14 +2574,14 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void _HitZombie(GameObject zmb)
 	{
-		if (PlayerPrefs.GetInt("MultyPlayer") == 0)
+		if (prefs.GetInt("MultyPlayer") == 0)
 		{
 			BotHealth component = zmb.transform.parent.GetComponent<BotHealth>();
 			component.adjustHealth(((float)(-_weaponManager.currentWeaponSounds.damage) + UnityEngine.Random.Range(_weaponManager.currentWeaponSounds.damageRange.x, _weaponManager.currentWeaponSounds.damageRange.y)), Camera.main.transform);
 		}
 		else
 		{
-			if (PlayerPrefs.GetInt("COOP") == 0)
+			if (prefs.GetInt("COOP") == 0)
 			{
 				return;
 			}
@@ -2619,9 +2619,9 @@ public sealed class Player_move_c : MonoBehaviour
 			return;
 		}
 		_weaponManager.Reload();
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+			if (prefs.GetString("TypeConnect").Equals("local"))
 			{
 				base.GetComponent<NetworkView>().RPC("ReloadGun", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
 			}
@@ -2639,7 +2639,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public void OpenChat()
 	{
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1 && !_pauser.paused && PlayerPrefs.GetInt("ChatOn", 1) == 1)
+		if (prefs.GetInt("MultyPlayer") == 1 && !_pauser.paused && prefs.GetInt("ChatOn", 1) == 1)
 		{
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
@@ -2721,7 +2721,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			WS = _weaponManager.currentWeaponSounds;
 		}
-		if ((PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("ChargeDown")))
+		if ((prefs.GetInt("MultyPlayer") == 1 && prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("ChargeDown")))
 		{
 			return;
 		}
@@ -2786,9 +2786,9 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		isChargingUp = true;
 		WS.animationObject.GetComponent<Animation>().Play("ChargeUp");
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+			if (prefs.GetString("TypeConnect").Equals("local"))
 			{
 				base.GetComponent<NetworkView>().RPC("ChargeUpGun", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
 			}
@@ -2811,9 +2811,9 @@ public sealed class Player_move_c : MonoBehaviour
 					if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip <= 0)
 					{
 						WS.animationObject.GetComponent<Animation>().Play("ChargeDown");
-						if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+						if (prefs.GetInt("MultyPlayer") == 1)
 						{
-							if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+							if (prefs.GetString("TypeConnect").Equals("local"))
 							{
 								base.GetComponent<NetworkView>().RPC("ChargeDownGun", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
 							}
@@ -2903,7 +2903,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public void sendImDeath(string _name)
 	{
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+		if (prefs.GetString("TypeConnect").Equals("local"))
 		{
 			base.GetComponent<NetworkView>().RPC("imDeath", RPCMode.All, _name);
 		}
@@ -2982,7 +2982,7 @@ public sealed class Player_move_c : MonoBehaviour
 				if (countKills >= maxCountKills)
 				{
 					base.GetComponent<NetworkView>().RPC("pobeda", RPCMode.AllBuffered, idKiller);
-					PlayerPrefs.SetInt("Rating", PlayerPrefs.GetInt("Rating", 0) + 1);
+					prefs.SetInt("Rating", prefs.GetInt("Rating", 0) + 1);
 				}
 			}
 		}
@@ -3023,7 +3023,7 @@ public sealed class Player_move_c : MonoBehaviour
 				if (countKills >= maxCountKills)
 				{
 					photonView.RPC("pobedaPhoton", PhotonTargets.AllBuffered, idKiller);
-					PlayerPrefs.SetInt("Rating", PlayerPrefs.GetInt("Rating", 0) + 1);
+					prefs.SetInt("Rating", prefs.GetInt("Rating", 0) + 1);
 					_weaponManager.myTable.GetComponent<NetworkStartTable>().isIwin = true;
 				}
 			}
@@ -3467,7 +3467,7 @@ public sealed class Player_move_c : MonoBehaviour
 			GameObject gameObject3 = null;
 			Vector3 forward = base.gameObject.transform.forward;
 			float num = 0.2f;
-			gameObject3 = ((PlayerPrefs.GetInt("MultyPlayer") == 0) ? (UnityEngine.Object.Instantiate(gameObject2, base.transform.position + base.transform.forward * num, base.transform.rotation) as GameObject) : (!PlayerPrefs.GetString("TypeConnect").Equals("local") ? PhotonNetwork.Instantiate("Rocket", base.transform.position + base.transform.forward * num, base.transform.rotation, 0) : ((GameObject)Network.Instantiate(gameObject2, base.transform.position + base.transform.forward * num, base.transform.rotation, 0))));
+			gameObject3 = ((prefs.GetInt("MultyPlayer") == 0) ? (UnityEngine.Object.Instantiate(gameObject2, base.transform.position + base.transform.forward * num, base.transform.rotation) as GameObject) : (!prefs.GetString("TypeConnect").Equals("local") ? PhotonNetwork.Instantiate("Rocket", base.transform.position + base.transform.forward * num, base.transform.rotation, 0) : ((GameObject)Network.Instantiate(gameObject2, base.transform.position + base.transform.forward * num, base.transform.rotation, 0))));
 			gameObject3.GetComponent<Rocket>().rocketNum = WS.rocketNum;
 			gameObject3.GetComponent<Rocket>().weaponName = WS.gameObject.name.Replace("(Clone)", string.Empty);
 			gameObject3.GetComponent<Rocket>().damage = WS.damage;
@@ -3598,9 +3598,9 @@ public sealed class Player_move_c : MonoBehaviour
 					UnityEngine.Object.Instantiate(bloodParticle, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
 					flag = true;
 				}
-				if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+				if (prefs.GetInt("MultyPlayer") == 1)
 				{
-					if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+					if (prefs.GetString("TypeConnect").Equals("local"))
 					{
 						base.GetComponent<NetworkView>().RPC("HoleRPC", RPCMode.Others, flag, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
 					}
@@ -3612,12 +3612,12 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			if ((bool)hitInfo.collider.gameObject.transform.parent && hitInfo.collider.gameObject.transform.parent.CompareTag("Enemy"))
 			{
-				if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+				if (prefs.GetInt("MultyPlayer") != 1)
 				{
 					BotHealth component = hitInfo.collider.gameObject.transform.parent.GetComponent<BotHealth>();
 					component.adjustHealth((float)(-WS.damage) + UnityEngine.Random.Range(WS.damageRange.x, WS.damageRange.y), Camera.main.transform);
 				}
-				else if (PlayerPrefs.GetInt("COOP", 0) == 1)
+				else if (prefs.GetInt("COOP", 0) == 1)
 				{
 					float health = hitInfo.collider.gameObject.transform.parent.GetComponent<ZombiUpravlenie>().health;
 					if (health > 0f)
@@ -3635,9 +3635,9 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 				inGameGUI.Hitmark();
 			}
-			if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+			if (prefs.GetInt("MultyPlayer") == 1)
 			{
-				if (PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+				if (prefs.GetString("TypeConnect").Equals("inet"))
 				{
 					photonView.RPC("fireFlashPhoton", PhotonTargets.Others, base.gameObject.transform.GetComponent<PhotonView>().viewID, true, hitInfo.distance, Quaternion.LookRotation(Camera.main.transform.TransformDirection(Vector3.forward)));
 				}
@@ -3646,9 +3646,9 @@ public sealed class Player_move_c : MonoBehaviour
 					base.GetComponent<NetworkView>().RPC("fireFlash", RPCMode.Others, base.gameObject.transform.GetComponent<NetworkView>().viewID, true);
 				}
 			}
-			if ((hitInfo.collider.gameObject.CompareTag("BodyCollider") || hitInfo.collider.gameObject.CompareTag("HeadCollider")) && PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetInt("COOP", 0) != 1 && !hitInfo.collider.transform.parent.gameObject.GetComponent<FirstPersonControl>().playerGameObject.GetComponent<Player_move_c>().isMine)
+			if ((hitInfo.collider.gameObject.CompareTag("BodyCollider") || hitInfo.collider.gameObject.CompareTag("HeadCollider")) && prefs.GetInt("MultyPlayer") == 1 && prefs.GetInt("COOP", 0) != 1 && !hitInfo.collider.transform.parent.gameObject.GetComponent<FirstPersonControl>().playerGameObject.GetComponent<Player_move_c>().isMine)
 			{
-				if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+				if (prefs.GetString("TypeConnect").Equals("local"))
 				{
 					base.GetComponent<NetworkView>().RPC("minusLive", RPCMode.All, hitInfo.collider.gameObject.GetComponent<NetworkView>().viewID, base.transform.parent.gameObject.GetComponent<NetworkView>().viewID, WS.multiplayerDamage);
 				}
@@ -3659,9 +3659,9 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			return;
 		}
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+			if (prefs.GetString("TypeConnect").Equals("local"))
 			{
 				base.GetComponent<NetworkView>().RPC("fireFlash", RPCMode.Others, base.gameObject.transform.GetComponent<NetworkView>().viewID, false);
 			}
@@ -3709,7 +3709,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			yield return new WaitForSeconds(WS.animationObject.GetComponent<Animation>()[myCAnim("Shoot")].length * WS.meleeAttackTimeModifier);
 		}
-		GameObject[] array = ((PlayerPrefs.GetInt("MultyPlayer") != 1 || PlayerPrefs.GetInt("COOP", 0) == 1) ? GameObject.FindGameObjectsWithTag("Enemy") : GameObject.FindGameObjectsWithTag("Player"));
+		GameObject[] array = ((prefs.GetInt("MultyPlayer") != 1 || prefs.GetInt("COOP", 0) == 1) ? GameObject.FindGameObjectsWithTag("Enemy") : GameObject.FindGameObjectsWithTag("Player"));
 		GameObject gameObject = null;
 		float num = float.PositiveInfinity;
 		GameObject[] array2 = array;
@@ -3763,13 +3763,13 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			yield break;
 		}
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetInt("COOP", 0) != 1)
+		if (prefs.GetInt("MultyPlayer") == 1 && prefs.GetInt("COOP", 0) != 1)
 		{
 			foreach (Transform tr in enemyToHit.transform)
 			{
-				if (tr.gameObject.tag.Equals("PlayerGun") && PlayerPrefs.GetInt("MultyPlayer") == 1)
+				if (tr.gameObject.tag.Equals("PlayerGun") && prefs.GetInt("MultyPlayer") == 1)
 				{
-					if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+					if (prefs.GetString("TypeConnect").Equals("local"))
 					{
 						base.GetComponent<NetworkView>().RPC("minusLive", RPCMode.All, tr.gameObject.transform.parent.gameObject.GetComponent<NetworkView>().viewID, base.transform.parent.gameObject.GetComponent<NetworkView>().viewID, WS.multiplayerDamage);
 					}
@@ -3781,7 +3781,7 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			yield break;
 		}
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetInt("COOP", 0) == 1)
+		if (prefs.GetInt("MultyPlayer") == 1 && prefs.GetInt("COOP", 0) == 1)
 		{
 			float liveEnemy2 = enemyToHit.GetComponent<ZombiUpravlenie>().health;
 			if (liveEnemy2 > 0f)
@@ -3866,9 +3866,9 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			isSwappin = true;
 			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play("SwapIn");
-			if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+			if (prefs.GetInt("MultyPlayer") == 1)
 			{
-				if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+				if (prefs.GetString("TypeConnect").Equals("local"))
 				{
 					base.GetComponent<NetworkView>().RPC("SwapInGun", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
 				}
@@ -3890,9 +3890,9 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		isSwappin = true;
 		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play("SwapOut");
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+			if (prefs.GetString("TypeConnect").Equals("local"))
 			{
 				base.GetComponent<NetworkView>().RPC("SwapOutGun", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
 			}
@@ -3950,7 +3950,7 @@ public sealed class Player_move_c : MonoBehaviour
 			ZoomPress();
 		}
 		parentedAnimation.Stop();
-		if ((((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1) || PlayerPrefs.GetInt("MultyPlayer") != 1)
+		if ((((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
 		{
 			if (_weaponManager.currentWeaponSounds.isSwapOut)
 			{
@@ -4041,7 +4041,7 @@ public sealed class Player_move_c : MonoBehaviour
 				#endif
 			}
 			if (Input.GetKeyDown(KeyCode.Insert)) {
-				PlayerPrefs.SetInt("ShowFPS", (PlayerPrefs.GetInt("ShowFPS", 0) == 0 ? 1 : 0));
+				prefs.SetInt("ShowFPS", (prefs.GetInt("ShowFPS", 0) == 0 ? 1 : 0));
 			}
             if (Input.GetKeyDown(KeyCode.Alpha1))
         	{
@@ -4066,14 +4066,14 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			else if (Input.GetKeyDown(KeyCode.Alpha4))
         	{
-				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Special && PlayerPrefs.GetString("cat4") != "")
+				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Special && prefs.GetString("cat4") != "")
 				{
 					ChangeWeaponFull(CategoryType.Special);
 				}
 			}
 			else if (Input.GetKeyDown(KeyCode.Alpha5))
         	{
-				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Heavy && PlayerPrefs.GetString("cat5") != "")
+				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Heavy && prefs.GetString("cat5") != "")
 				{
 					ChangeWeaponFull(CategoryType.Heavy);
 				}
@@ -4131,7 +4131,7 @@ public sealed class Player_move_c : MonoBehaviour
 				parentedAnimation.Stop();
 			}
 		}
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1 && isMine) {
+		if (prefs.GetInt("MultyPlayer") == 1 && isMine) {
 			if ((float)Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(15, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(23, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(43, IncomprehensibleGarbler.Create2(10, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(74, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(43, IncomprehensibleGarbler.Create2(3, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false)).GetProperty((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(40, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, ""))))))))), true, false, false, true, false, false, false, false, false)).GetValue(this, null) > (float)Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(163, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(75, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(22, IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(10, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(22, IncomprehensibleGarbler.Create(0, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false)).GetProperty((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(10, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(20, IncomprehensibleGarbler.Create2(63, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(19, IncomprehensibleGarbler.Create2(63, ""))))))))), true, false, false, true, false, false, false, false, false)).GetValue(this, null)) {
 				Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(163, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(75, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(22, IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(10, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(22, IncomprehensibleGarbler.Create(0, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false)).GetProperty((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(3, IncomprehensibleGarbler.Create2(18, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(63, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(19, IncomprehensibleGarbler.Create2(63, ""))))))))), true, false, false, true, false, false, false, false, false)).SetValue(this, Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(15, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(23, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(43, IncomprehensibleGarbler.Create2(10, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(74, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(43, IncomprehensibleGarbler.Create2(3, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false)).GetProperty((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(13, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, ""))))))))), true, false, false, true, false, false, false, false, false)).GetValue(this, null), null);
 				Type.GetType((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(160, "")))))))))), true, false, false, false, true, false, false, false, false, false)).GetMethod((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(40, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(161, "")))))))))))))))))))), true, false, false, true, false, false, false, true, false, true, false, false, false, true, false, false, false, true, false, false)).Invoke(null, null);
@@ -4223,7 +4223,7 @@ public sealed class Player_move_c : MonoBehaviour
 						float num = 0.02f;
 						if (slideMagnitudeX > num)
 						{
-							if ((((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1) || PlayerPrefs.GetInt("MultyPlayer") != 1)
+							if ((((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
 							{
 								_weaponManager.CurrentWeaponIndex++;
 								int count = _weaponManager.playerWeapons.Count;
@@ -4239,7 +4239,7 @@ public sealed class Player_move_c : MonoBehaviour
 						}
 						else if (slideMagnitudeX < 0f - num)
 						{
-							if ((((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1) || PlayerPrefs.GetInt("MultyPlayer") != 1)
+							if ((((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
 							{
 								_weaponManager.CurrentWeaponIndex--;
 								if (_weaponManager.CurrentWeaponIndex < 0)
@@ -4284,9 +4284,9 @@ public sealed class Player_move_c : MonoBehaviour
 			return;
 		}
 		randomDeadIndex = UnityEngine.Random.Range(0, deadPlayerSounds.Length);
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+			if (prefs.GetString("TypeConnect").Equals("local"))
 			{
 				base.GetComponent<NetworkView>().RPC("ImKilled", RPCMode.All, randomDeadIndex);
 			}
@@ -4295,7 +4295,7 @@ public sealed class Player_move_c : MonoBehaviour
 				photonView.RPC("ImKilled", PhotonTargets.Others, randomDeadIndex);
 			}
 			base.gameObject.GetComponent<AudioSource>().PlayOneShot(deadPlayerSounds[randomDeadIndex]);
-			if (PlayerPrefs.GetInt("COOP", 0) == 1)
+			if (prefs.GetInt("COOP", 0) == 1)
 			{
 				diedInCOOP = true;
 				PhotonNetwork.Instantiate("spectator", base.transform.position, Quaternion.identity, 0).transform.Find("spectatorcamera").transform.rotation = transform.rotation;
@@ -4317,10 +4317,10 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		else
 		{
-			if (GlobalGameController.Score > PlayerPrefs.GetInt(Defs.BestScoreSett, 0))
+			if (GlobalGameController.Score > prefs.GetInt(Defs.BestScoreSett, 0))
 			{
-				PlayerPrefs.SetInt(Defs.BestScoreSett, GlobalGameController.Score);
-				PlayerPrefs.Save();
+				prefs.SetInt(Defs.BestScoreSett, GlobalGameController.Score);
+				prefs.Save();
 			}
 			Application.LoadLevel("GameOver");
 		}
@@ -4391,7 +4391,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
-			if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+			if (prefs.GetInt("MultyPlayer") != 1)
 			{
 				Time.timeScale = 0f;
 			}
@@ -4576,7 +4576,7 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				_purchaseActivityIndicator.SetActive(true);
 			}
-			if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+			if (prefs.GetInt("MultyPlayer") != 1)
 			{
 				Time.timeScale = 0f;
 			}
@@ -4618,127 +4618,127 @@ public sealed class Player_move_c : MonoBehaviour
 	public static void SaveMinerWeaponInPrefabs()
 	{
 		Storager.setInt(Defs.MinerWeaponSett, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveSwordInPrefs()
 	{
 		Storager.setInt(Defs.SwordSett, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveCombatRifleInPrefs()
 	{
 		Storager.setInt(Defs.CombatRifleSett, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveStaffPrefs()
 	{
 		Storager.setInt(Defs.StaffSN, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveGoldenEagleInPrefs()
 	{
 		Storager.setInt(Defs.GoldenEagleSett, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveMagicBowInPrefs()
 	{
 		Storager.setInt(Defs.MagicBowSett, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveChainsawInPrefs()
 	{
 		Storager.setInt(Defs.ChainsawS, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveFAMASPrefs()
 	{
 		Storager.setInt(Defs.FAMASS, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveGlockInPrefs()
 	{
 		Storager.setInt(Defs.GlockSett, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveScytheInPrefs()
 	{
 		Storager.setInt(Defs.ScytheSN, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveShovelPrefs()
 	{
 		Storager.setInt(Defs.ShovelSN, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveLaserRiflePrefs()
 	{
 		Storager.setInt(Defs.LaserRifleSN, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveMaceInPrefs()
 	{
 		Storager.setInt(Defs.MaceSN, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveCrossbowInPrefs()
 	{
 		Storager.setInt(Defs.CrossbowSN, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveMinigunInPrefs()
 	{
 		Storager.setInt(Defs.MinigunSN, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveSword_2_InPrefs()
 	{
 		Storager.setInt(Defs.Sword_2_SN, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveHammerPrefs()
 	{
 		Storager.setInt(Defs.HammerSN, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveSPASInPrefs()
 	{
 		Storager.setInt(Defs.SPASSett, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveMGoldenAxeInPrefs()
 	{
 		Storager.setInt(Defs.GoldenAxeSett, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveLightSwordInPrefs()
 	{
 		Storager.setInt(Defs.LightSwordSN, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	public static void SaveBerettaInPrefs()
 	{
 		Storager.setInt(Defs.BerettaSN, 1, true);
-		PlayerPrefs.Save();
+		prefs.Save();
 	}
 
 	private void provideminerweapon()

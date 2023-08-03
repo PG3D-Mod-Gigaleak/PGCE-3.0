@@ -10,7 +10,7 @@ public class NetworkInterpolatedTransform : MonoBehaviour
 
 	private void Awake()
 	{
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1 || PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+		if (prefs.GetInt("MultyPlayer") != 1 || prefs.GetString("TypeConnect").Equals("inet"))
 		{
 			base.enabled = false;
 		}
@@ -43,7 +43,7 @@ public class NetworkInterpolatedTransform : MonoBehaviour
 
 	private void Update()
 	{
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine)
+		if (prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine)
 		{
 			base.transform.position = Vector3.Lerp(base.transform.position, correctPlayerPos, Time.deltaTime * 5f);
 			base.transform.rotation = Quaternion.Lerp(base.transform.rotation, correctPlayerRot, Time.deltaTime * 5f);

@@ -474,31 +474,31 @@ public sealed class WeaponManager : MonoBehaviour
 
 	public void WeaponCatNullCheck()
 	{
-		if (PlayerPrefs.GetString("cat1") == String.Empty || PlayerPrefs.GetInt("refreshWeaponSystem") == 0)
+		if (prefs.GetString("cat1") == String.Empty || prefs.GetInt("refreshWeaponSystem") == 0)
 		{
-			PlayerPrefs.SetString("cat1", "Weapon1");
+			prefs.SetString("cat1", "Weapon1");
 		}
-		if (PlayerPrefs.GetString("cat2") == String.Empty || PlayerPrefs.GetInt("refreshWeaponSystem") == 0)
+		if (prefs.GetString("cat2") == String.Empty || prefs.GetInt("refreshWeaponSystem") == 0)
 		{
-			PlayerPrefs.SetString("cat2", "Weapon2");
+			prefs.SetString("cat2", "Weapon2");
 		}
-		if (PlayerPrefs.GetString("cat3") == String.Empty || PlayerPrefs.GetInt("refreshWeaponSystem") == 0)
+		if (prefs.GetString("cat3") == String.Empty || prefs.GetInt("refreshWeaponSystem") == 0)
 		{
-			PlayerPrefs.SetString("cat3", "Weapon9");
+			prefs.SetString("cat3", "Weapon9");
 		}
-		if (PlayerPrefs.GetInt("refreshWeaponSystem") == 0)
+		if (prefs.GetInt("refreshWeaponSystem") == 0)
 		{
-			PlayerPrefs.SetInt("refreshWeaponSystem", 1);
+			prefs.SetInt("refreshWeaponSystem", 1);
 		}
 	}
 
 	public void Reset()
 	{
-		Debug.LogWarning("cat1 is " + PlayerPrefs.GetString("cat1"));
-		Debug.LogWarning("cat1 is " + PlayerPrefs.GetString("cat2"));
-		Debug.LogWarning("cat1 is " + PlayerPrefs.GetString("cat3"));
-		Debug.LogWarning("cat1 is " + PlayerPrefs.GetString("cat4"));
-		Debug.LogWarning("cat1 is " + PlayerPrefs.GetString("cat5"));
+		Debug.LogWarning("cat1 is " + prefs.GetString("cat1"));
+		Debug.LogWarning("cat1 is " + prefs.GetString("cat2"));
+		Debug.LogWarning("cat1 is " + prefs.GetString("cat3"));
+		Debug.LogWarning("cat1 is " + prefs.GetString("cat4"));
+		Debug.LogWarning("cat1 is " + prefs.GetString("cat5"));
 		WeaponCatNullCheck();
 		_playerWeapons.Clear();
 		CurrentWeaponIndex = 0;
@@ -506,7 +506,7 @@ public sealed class WeaponManager : MonoBehaviour
 		for (int i = 0; i < array.Length; i++)
 		{
 			GameObject gameObject = array[i] as GameObject;
-			if (/*gameObject.CompareTag(_initialWeaponName) || gameObject.CompareTag("Knife") */ /*Array.IndexOf(_initialMultiplayerWeaponTags, gameObject.tag) >= 0 || (PlayerPrefs.GetInt("MultyPlayer") == 1 && Array.IndexOf(_initialMultiplayerWeaponTags, gameObject.tag) >= 0)*/gameObject.name.Replace("(Clone)", "") == (PlayerPrefs.GetString("cat1")) || gameObject.name.Replace("(Clone)", "") == (PlayerPrefs.GetString("cat2")) || gameObject.name.Replace("(Clone)", "") == (PlayerPrefs.GetString("cat3")) || gameObject.name.Replace("(Clone)", "") == (PlayerPrefs.GetString("cat4")) || gameObject.name.Replace("(Clone)", "") == (PlayerPrefs.GetString("cat5")))
+			if (/*gameObject.CompareTag(_initialWeaponName) || gameObject.CompareTag("Knife") */ /*Array.IndexOf(_initialMultiplayerWeaponTags, gameObject.tag) >= 0 || (prefs.GetInt("MultyPlayer") == 1 && Array.IndexOf(_initialMultiplayerWeaponTags, gameObject.tag) >= 0)*/gameObject.name.Replace("(Clone)", "") == (prefs.GetString("cat1")) || gameObject.name.Replace("(Clone)", "") == (prefs.GetString("cat2")) || gameObject.name.Replace("(Clone)", "") == (prefs.GetString("cat3")) || gameObject.name.Replace("(Clone)", "") == (prefs.GetString("cat4")) || gameObject.name.Replace("(Clone)", "") == (prefs.GetString("cat5")))
 			{
 				Weapon weapon = new Weapon();
 				weapon.weaponPrefab = gameObject;

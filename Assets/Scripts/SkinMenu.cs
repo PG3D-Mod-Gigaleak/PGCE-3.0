@@ -52,7 +52,7 @@ public class SkinMenu : MonoBehaviour
 
 	public void SetSkin(Skins.Skin skin)
 	{
-		PlayerPrefs.SetString("base64_multskin", Convert.ToBase64String(ImageConversion.EncodeToPNG((Texture2D)skin.skinTexture)));
+		prefs.SetString("base64_multskin", Convert.ToBase64String(ImageConversion.EncodeToPNG((Texture2D)skin.skinTexture)));
 	}
 
 	public IEnumerator SetBack(Transform transform)

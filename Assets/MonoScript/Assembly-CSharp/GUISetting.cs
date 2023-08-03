@@ -54,12 +54,12 @@ public sealed class GUISetting : MonoBehaviour
 		}
 		AudioListener.volume = (@bool ? 1 : 0);
 		PlayerPrefsX.SetBool(PlayerPrefsX.SndSetting, @bool);
-		PlayerPrefs.Save();
+		prefs.Save();
 		Rect position2 = new Rect((float)Screen.width * 0.5f - (float)soundOnOff.normal.background.width * 0.5f * num, (float)Screen.height * 0.72f - (float)soundOnOff.normal.background.height * 0.5f * num, (float)soundOnOff.normal.background.width * num, (float)soundOnOff.normal.background.height * num);
-		bool value = PlayerPrefs.GetInt("ChatOn", 1) == 1;
+		bool value = prefs.GetInt("ChatOn", 1) == 1;
 		value = GUI.Toggle(position2, value, string.Empty, soundOnOff);
-		PlayerPrefs.SetInt("ChatOn", value ? 1 : 0);
-		PlayerPrefs.Save();
+		prefs.SetInt("ChatOn", value ? 1 : 0);
+		prefs.Save();
 		if (GUI.Button(new Rect((float)Screen.width / 2f - (float)settingPlashka.width * num * 0.5f, (float)Screen.height * 0.9f - (float)back.normal.background.height * 0.5f * num, (float)back.normal.background.width * num, (float)back.normal.background.height * num), string.Empty, back))
 		{
 			Application.LoadLevel(Defs.CurrentMainMenuScene);
@@ -80,8 +80,8 @@ public sealed class GUISetting : MonoBehaviour
 		thumbStyle.fixedWidth = (float)polzunok.width * num;
 		thumbStyle.fixedHeight = (float)polzunok.height * num;
 		Rect position4 = new Rect((float)Screen.width * 0.5f - (float)slow_fast.width * 0.5f * num, (float)Screen.height * 0.36f - (float)slow_fast.height * 0.5f * num, (float)slow_fast.width * num, (float)slow_fast.height * num);
-		mySens = GUI.HorizontalSlider(position4, PlayerPrefs.GetFloat("SensitivitySett", 12f), 6f, 18f, sliderStyle, thumbStyle);
-		PlayerPrefs.SetFloat("SensitivitySett", mySens);
+		mySens = GUI.HorizontalSlider(position4, prefs.GetFloat("SensitivitySett", 12f), 6f, 18f, sliderStyle, thumbStyle);
+		prefs.SetFloat("SensitivitySett", mySens);
 	}
 
 	private void OnDestroy()

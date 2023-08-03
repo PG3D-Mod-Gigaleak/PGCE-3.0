@@ -15,7 +15,7 @@ public class HealthItem : MonoBehaviour
 	private void Start()
 	{
 		photonView = PhotonView.Get(this);
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
 			if (GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>() != null && GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().myGun != null)
 			{
@@ -95,7 +95,7 @@ public class HealthItem : MonoBehaviour
 		}
 		if (test == null || player == null)
 		{
-			if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+			if (prefs.GetInt("MultyPlayer") == 1)
 			{
 				if (GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>() != null && GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().myGun != null)
 				{
@@ -138,9 +138,9 @@ public class HealthItem : MonoBehaviour
 			test.gameObject.GetComponent<AudioSource>().PlayOneShot(HealthItemUp);
 		}
 		isKilled = true;
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+			if (prefs.GetString("TypeConnect").Equals("local"))
 			{
 				base.GetComponent<NetworkView>().RPC("delBonus", RPCMode.All, GetComponent<NetworkView>().viewID, player.GetComponent<NetworkView>().viewID);
 			}

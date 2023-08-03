@@ -37,7 +37,7 @@ static public class NGUITools
 			if (!mLoaded)
 			{
 				mLoaded = true;
-				mGlobalVolume = PlayerPrefs.GetFloat("Sound", 1f);
+				mGlobalVolume = prefs.GetFloat("Sound", 1f);
 			}
 			return mGlobalVolume;
 		}
@@ -47,7 +47,7 @@ static public class NGUITools
 			{
 				mLoaded = true;
 				mGlobalVolume = value;
-				PlayerPrefs.SetFloat("Sound", value);
+				prefs.SetFloat("Sound", value);
 			}
 		}
 	}

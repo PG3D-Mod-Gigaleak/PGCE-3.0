@@ -17,6 +17,8 @@ public class PlayerPrefsX
 
 	public static bool GetBool(string name)
 	{
+		Debug.Log(name);
+		Debug.Log(prefs.GetInt(name) == 1);
 		return prefs.GetInt(name) == 1;
 	}
 

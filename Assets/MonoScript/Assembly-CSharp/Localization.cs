@@ -78,7 +78,7 @@ static public class Localization
 	{
 		get
 		{
-			if (!localizationHasBeenSet) LoadDictionary(PlayerPrefs.GetString("Language", "English"));
+			if (!localizationHasBeenSet) LoadDictionary(prefs.GetString("Language", "English"));
 			return mDictionary;
 		}
 		set
@@ -96,7 +96,7 @@ static public class Localization
 	{
 		get
 		{
-			if (!localizationHasBeenSet) LoadDictionary(PlayerPrefs.GetString("Language", "English"));
+			if (!localizationHasBeenSet) LoadDictionary(prefs.GetString("Language", "English"));
 			return mLanguages;
 		}
 	}
@@ -111,7 +111,7 @@ static public class Localization
 		{
 			if (string.IsNullOrEmpty(mLanguage))
 			{
-				mLanguage = PlayerPrefs.GetString("Language", "English");
+				mLanguage = prefs.GetString("Language", "English");
 				LoadAndSelect(mLanguage);
 			}
 			return mLanguage;
@@ -187,7 +187,7 @@ static public class Localization
 		// Either the language is null, or it wasn't found
 		mOldDictionary.Clear();
 		mDictionary.Clear();
-		if (string.IsNullOrEmpty(value)) PlayerPrefs.DeleteKey("Language");
+		if (string.IsNullOrEmpty(value)) prefs.DeleteKey("Language");
 		return false;
 	}
 
@@ -279,7 +279,7 @@ static public class Localization
 
 			if (!localizationHasBeenSet)
 			{
-				mLanguage = PlayerPrefs.GetString("Language", header[0]);
+				mLanguage = prefs.GetString("Language", header[0]);
 				localizationHasBeenSet = true;
 			}
 
@@ -432,7 +432,7 @@ static public class Localization
 				mOldDictionary.Clear();
 				mLanguageIndex = i;
 				mLanguage = language;
-				PlayerPrefs.SetString("Language", mLanguage);
+				prefs.SetString("Language", mLanguage);
 				if (onLocalize != null) onLocalize();
 				UIRoot.Broadcast("OnLocalize");
 				return true;
@@ -448,7 +448,7 @@ static public class Localization
 	static public void Set (string languageName, Dictionary<string, string> dictionary)
 	{
 		mLanguage = languageName;
-		PlayerPrefs.SetString("Language", mLanguage);
+		prefs.SetString("Language", mLanguage);
 		mOldDictionary = dictionary;
 		localizationHasBeenSet = true;
 		mLanguageIndex = -1;
@@ -479,7 +479,7 @@ static public class Localization
 		if (string.IsNullOrEmpty(key)) return null;
 
 		// Ensure we have a language to work with
-		if (!localizationHasBeenSet) LoadDictionary(PlayerPrefs.GetString("Language", "English"));
+		if (!localizationHasBeenSet) LoadDictionary(prefs.GetString("Language", "English"));
 
 		if (mLanguages == null)
 		{
@@ -577,7 +577,7 @@ static public class Localization
 	static public bool Exists (string key)
 	{
 		// Ensure we have a language to work with
-		if (!localizationHasBeenSet) language = PlayerPrefs.GetString("Language", "English");
+		if (!localizationHasBeenSet) language = prefs.GetString("Language", "English");
 
 #if UNITY_IPHONE || UNITY_ANDROID
 		string mobKey = key + " Mobile";

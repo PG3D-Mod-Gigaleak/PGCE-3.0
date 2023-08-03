@@ -19,9 +19,9 @@ public class PingCloudRegions : MonoBehaviour
 	private void Awake()
 	{
 		SP = this;
-		if (PlayerPrefs.GetString("PUNCloudBestRegion", string.Empty) != string.Empty)
+		if (prefs.GetString("PUNCloudBestRegion", string.Empty) != string.Empty)
 		{
-			string @string = PlayerPrefs.GetString("PUNCloudBestRegion", string.Empty);
+			string @string = prefs.GetString("PUNCloudBestRegion", string.Empty);
 			closestRegion = (CloudServerRegion)(int)Enum.Parse(typeof(CloudServerRegion), @string, true);
 		}
 		else
@@ -110,7 +110,7 @@ public class PingCloudRegions : MonoBehaviour
 	private static void SetRegion(CloudServerRegion region)
 	{
 		closestRegion = region;
-		PlayerPrefs.SetString("PUNCloudBestRegion", region.ToString());
+		prefs.SetString("PUNCloudBestRegion", region.ToString());
 	}
 
 	private IEnumerator ConnectToBestRegionInternal(string gameVersion)

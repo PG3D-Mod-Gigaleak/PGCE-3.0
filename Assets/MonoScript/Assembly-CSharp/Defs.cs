@@ -1036,7 +1036,7 @@ public sealed class Defs
 	{
 		get
 		{
-			return PlayerPrefs.GetInt("MultyPlayer") == 1;
+			return prefs.GetInt("MultyPlayer") == 1;
 		}
 	}
 
@@ -1044,7 +1044,7 @@ public sealed class Defs
 	{
 		get
 		{
-			return PlayerPrefs.GetInt("COOP") == 1;
+			return prefs.GetInt("COOP") == 1;
 		}
 	}
 

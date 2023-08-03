@@ -88,7 +88,7 @@ public class ZombieCreator : MonoBehaviour
 
 	private void Awake()
 	{
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+		if (prefs.GetInt("MultyPlayer") != 1)
 		{
 			//for (int i = 0; i < Defs.numOfLevels; i++)
 			//{
@@ -110,7 +110,7 @@ public class ZombieCreator : MonoBehaviour
 
 	private void Start()
 	{
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
 			_isMultiplayer = true;
 		}

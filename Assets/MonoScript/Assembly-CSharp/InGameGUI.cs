@@ -97,10 +97,10 @@ public class InGameGUI : MonoBehaviour
 
 	private void Start()
 	{
-		if (PlayerPrefs.GetInt("AddCoins", 0) == 1)
+		if (prefs.GetInt("AddCoins", 0) == 1)
 		{
 			Invoke("GenerateMiganie", 1f);
-			PlayerPrefs.SetInt("AddCoins", 0);
+			prefs.SetInt("AddCoins", 0);
 		}
 	}
 
@@ -161,7 +161,7 @@ public class InGameGUI : MonoBehaviour
 			pingLabel.alpha = 0;
 			fpsLabel.alpha = 0;
 		}
-		if (PlayerPrefs.GetInt("ShowFPS", 0) == 0) {
+		if (prefs.GetInt("ShowFPS", 0) == 0) {
 			pingLabel.alpha = 0;
 			fpsLabel.alpha = 0;
 		}

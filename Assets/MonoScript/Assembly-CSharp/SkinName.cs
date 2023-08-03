@@ -113,7 +113,7 @@ public class SkinName : MonoBehaviour
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
 		character = base.transform.GetComponent<CharacterController>();
 		photonView = PhotonView.Get(this);
-		if (((PlayerPrefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1)
 		{
 			camPlayer.active = false;
 			character.enabled = false;
@@ -122,7 +122,7 @@ public class SkinName : MonoBehaviour
 		{
 			base.transform.Find("FPS_Player").gameObject.SetActive(false);
 		}
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1 || (PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine))
+		if (prefs.GetInt("MultyPlayer") != 1 || (prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine))
 		{
 			base.gameObject.layer = 11;
 		}
@@ -130,7 +130,7 @@ public class SkinName : MonoBehaviour
 
 	private void Update()
 	{
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1 || ((!PlayerPrefs.GetString("TypeConnect").Equals("local") || !base.GetComponent<NetworkView>().isMine) && (!PlayerPrefs.GetString("TypeConnect").Equals("inet") || !photonView || !photonView.isMine)))
+		if (prefs.GetInt("MultyPlayer") != 1 || ((!prefs.GetString("TypeConnect").Equals("local") || !base.GetComponent<NetworkView>().isMine) && (!prefs.GetString("TypeConnect").Equals("inet") || !photonView || !photonView.isMine)))
 		{
 			return;
 		}
@@ -146,12 +146,12 @@ public class SkinName : MonoBehaviour
 		if (num != typeAnim)
 		{
 			typeAnim = num;
-			if (PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine)
+			if (prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine)
 			{
 				Debug.Log("send setAnim " + typeAnim);
 				base.GetComponent<NetworkView>().RPC("setAnim", RPCMode.All, GetComponent<NetworkView>().viewID, typeAnim);
 			}
-			if (PlayerPrefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)
+			if (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)
 			{
 				photonView.RPC("setAnimPhoton", PhotonTargets.All, GetComponent<PhotonView>().viewID, typeAnim);
 			}
@@ -174,7 +174,7 @@ public class SkinName : MonoBehaviour
 
 	private void OnControllerColliderHit(ControllerColliderHit col)
 	{
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1 && col.collider.gameObject.name.Equals("DeadCollider"))
+		if (prefs.GetInt("MultyPlayer") != 1 && col.collider.gameObject.name.Equals("DeadCollider"))
 		{
 			if (playerGameObject.GetComponent<Player_move_c>().CurHealth > 0f)
 			{
@@ -182,7 +182,7 @@ public class SkinName : MonoBehaviour
 				playerGameObject.GetComponent<Player_move_c>().curArmor = 0f;
 			}
 		}
-		else if (PlayerPrefs.GetInt("MultyPlayer") == 1 && ((PlayerPrefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (PlayerPrefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && photonView.isMine)) && col.collider.gameObject.name.Equals("DeadCollider") && playerGameObject.GetComponent<Player_move_c>().CurHealth > 0f)
+		else if (prefs.GetInt("MultyPlayer") == 1 && ((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && photonView.isMine)) && col.collider.gameObject.name.Equals("DeadCollider") && playerGameObject.GetComponent<Player_move_c>().CurHealth > 0f)
 		{
 			_weaponManager.lastEnemyHitBy = null;
 			playerGameObject.GetComponent<Player_move_c>().curArmor = 0f;

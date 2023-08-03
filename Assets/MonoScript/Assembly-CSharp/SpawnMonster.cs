@@ -56,7 +56,7 @@ public class SpawnMonster : MonoBehaviour
 
 	private void Awake()
 	{
-		if (PlayerPrefs.GetInt("COOP") == 1)
+		if (prefs.GetInt("COOP") == 1)
 		{
 			base.enabled = false;
 		}

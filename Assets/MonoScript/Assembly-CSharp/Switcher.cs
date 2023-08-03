@@ -173,39 +173,39 @@ public sealed class Switcher : MonoBehaviour
 					Storager.setInt(value.Value, 0, false);
 				}
 			}
-			if (PlayerPrefs.GetInt(Defs.SwordSett, 0) > 0)
+			if (prefs.GetInt(Defs.SwordSett, 0) > 0)
 			{
-				Storager.setInt(Defs.SwordSett, PlayerPrefs.GetInt(Defs.SwordSett, 0), true);
+				Storager.setInt(Defs.SwordSett, prefs.GetInt(Defs.SwordSett, 0), true);
 			}
-			if (PlayerPrefs.GetInt(Defs.MinerWeaponSett, 0) > 0)
+			if (prefs.GetInt(Defs.MinerWeaponSett, 0) > 0)
 			{
-				Storager.setInt(Defs.MinerWeaponSett, PlayerPrefs.GetInt(Defs.MinerWeaponSett, 0), true);
+				Storager.setInt(Defs.MinerWeaponSett, prefs.GetInt(Defs.MinerWeaponSett, 0), true);
 			}
-			if (PlayerPrefs.GetInt(Defs.CombatRifleSett, 0) > 0)
+			if (prefs.GetInt(Defs.CombatRifleSett, 0) > 0)
 			{
-				Storager.setInt(Defs.CombatRifleSett, PlayerPrefs.GetInt(Defs.CombatRifleSett, 0), true);
+				Storager.setInt(Defs.CombatRifleSett, prefs.GetInt(Defs.CombatRifleSett, 0), true);
 			}
-			if (PlayerPrefs.GetInt(Defs.GoldenEagleSett, 0) > 0)
+			if (prefs.GetInt(Defs.GoldenEagleSett, 0) > 0)
 			{
-				Storager.setInt(Defs.GoldenEagleSett, PlayerPrefs.GetInt(Defs.GoldenEagleSett, 0), true);
+				Storager.setInt(Defs.GoldenEagleSett, prefs.GetInt(Defs.GoldenEagleSett, 0), true);
 			}
-			if (PlayerPrefs.GetInt(Defs.MagicBowSett, 0) > 0)
+			if (prefs.GetInt(Defs.MagicBowSett, 0) > 0)
 			{
-				Storager.setInt(Defs.MagicBowSett, PlayerPrefs.GetInt(Defs.MagicBowSett, 0), true);
+				Storager.setInt(Defs.MagicBowSett, prefs.GetInt(Defs.MagicBowSett, 0), true);
 			}
-			if (PlayerPrefs.GetInt(Defs.SPASSett, 0) > 0)
+			if (prefs.GetInt(Defs.SPASSett, 0) > 0)
 			{
-				Storager.setInt(Defs.SPASSett, PlayerPrefs.GetInt(Defs.SPASSett, 0), true);
+				Storager.setInt(Defs.SPASSett, prefs.GetInt(Defs.SPASSett, 0), true);
 			}
-			if (PlayerPrefs.GetInt(Defs.GoldenAxeSett, 0) > 0)
+			if (prefs.GetInt(Defs.GoldenAxeSett, 0) > 0)
 			{
-				Storager.setInt(Defs.GoldenAxeSett, PlayerPrefs.GetInt(Defs.GoldenAxeSett, 0), true);
+				Storager.setInt(Defs.GoldenAxeSett, prefs.GetInt(Defs.GoldenAxeSett, 0), true);
 			}
 			foreach (KeyValuePair<string, string> value2 in InAppData.inAppData.Values)
 			{
-				if (PlayerPrefs.GetInt(value2.Value, 0) > 0)
+				if (prefs.GetInt(value2.Value, 0) > 0)
 				{
-					Storager.setInt(value2.Value, PlayerPrefs.GetInt(value2.Value, 0), true);
+					Storager.setInt(value2.Value, prefs.GetInt(value2.Value, 0), true);
 				}
 			}
 		}
@@ -428,7 +428,7 @@ public sealed class Switcher : MonoBehaviour
 		}
 		if (GlobalGameController.currentLevel == -1)
 		{
-			int @int = PlayerPrefs.GetInt(Defs.TrainingComplSett, 0);
+			int @int = prefs.GetInt(Defs.TrainingComplSett, 0);
 			GlobalGameController.currentLevel = ((@int != 1) ? 101 : GlobalGameController.levelMapping[0]);
 		}
 		else if (GlobalGameController.currentLevel == 101)
@@ -437,8 +437,8 @@ public sealed class Switcher : MonoBehaviour
 		}
 		else
 		{
-			PlayerPrefs.SetInt(Defs.TrainingComplSett, 1);
-			PlayerPrefs.Save();
+			prefs.SetInt(Defs.TrainingComplSett, 1);
+			prefs.Save();
 			GlobalGameController.incrementLevel();
 		}
 		Debug.Log("3 GlobalGameController.currentLevel " + GlobalGameController.currentLevel);

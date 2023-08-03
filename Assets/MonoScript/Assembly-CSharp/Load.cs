@@ -5,62 +5,62 @@ public class Load : MonoBehaviour
 {
 	public static void LoadPos(string name, GameObject gameObject)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			gameObject.transform.position = new Vector3(0f, 0f, 0f);
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("&"[0]);
+		string[] array = prefs.GetString(name).Split("&"[0]);
 		Vector3 position = new Vector3(float.Parse(array[0]), float.Parse(array[1]), float.Parse(array[2]));
 		gameObject.transform.position = position;
 	}
 
 	public static string LoadString(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return string.Empty;
 		}
-		return PlayerPrefs.GetString(name);
+		return prefs.GetString(name);
 	}
 
 	public static string[] LoadStringArray(string name)
 	{
 		Debug.Log("LoadStringArray  name: " + name);
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			Debug.Log("LoadStringArray HasKey ret fakse");
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		Debug.Log("LoadStringArray ret: a.Length: " + array.Length + "  a: " + array.ToString());
 		return array;
 	}
 
 	public static string[] LoadStringArray(string name, char separator)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		return PlayerPrefs.GetString(name).Split(separator);
+		return prefs.GetString(name).Split(separator);
 	}
 
 	public static int LoadInt(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return 0;
 		}
-		return PlayerPrefs.GetInt(name);
+		return prefs.GetInt(name);
 	}
 
 	public static int[] LoadIntArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		int[] array2 = new int[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -71,20 +71,20 @@ public class Load : MonoBehaviour
 
 	public static uint LoadUInt(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return 0u;
 		}
-		return uint.Parse(PlayerPrefs.GetString(name));
+		return uint.Parse(prefs.GetString(name));
 	}
 
 	public static uint[] LoadUIntArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		uint[] array2 = new uint[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -95,20 +95,20 @@ public class Load : MonoBehaviour
 
 	public static long LoadLong(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return 0L;
 		}
-		return long.Parse(PlayerPrefs.GetString(name));
+		return long.Parse(prefs.GetString(name));
 	}
 
 	public static long[] LoadLongArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		long[] array2 = new long[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -119,20 +119,20 @@ public class Load : MonoBehaviour
 
 	public static ulong LoadULong(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return 0uL;
 		}
-		return ulong.Parse(PlayerPrefs.GetString(name));
+		return ulong.Parse(prefs.GetString(name));
 	}
 
 	public static ulong[] LoadULongArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		ulong[] array2 = new ulong[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -143,20 +143,20 @@ public class Load : MonoBehaviour
 
 	public static short LoadShort(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return 0;
 		}
-		return short.Parse(PlayerPrefs.GetString(name));
+		return short.Parse(prefs.GetString(name));
 	}
 
 	public static short[] LoadShortArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		short[] array2 = new short[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -167,20 +167,20 @@ public class Load : MonoBehaviour
 
 	public static ushort LoadUShort(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return 0;
 		}
-		return ushort.Parse(PlayerPrefs.GetString(name));
+		return ushort.Parse(prefs.GetString(name));
 	}
 
 	public static ushort[] LoadUShortArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		ushort[] array2 = new ushort[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -191,20 +191,20 @@ public class Load : MonoBehaviour
 
 	public static float LoadFloat(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return 0f;
 		}
-		return PlayerPrefs.GetFloat(name);
+		return prefs.GetFloat(name);
 	}
 
 	public static float[] LoadFloatArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		float[] array2 = new float[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -215,20 +215,20 @@ public class Load : MonoBehaviour
 
 	public static double LoadDouble(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return 0.0;
 		}
-		return double.Parse(PlayerPrefs.GetString(name));
+		return double.Parse(prefs.GetString(name));
 	}
 
 	public static double[] LoadDoubleArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		double[] array2 = new double[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -239,21 +239,21 @@ public class Load : MonoBehaviour
 
 	public static bool LoadBool(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return false;
 		}
-		string @string = PlayerPrefs.GetString(name);
+		string @string = prefs.GetString(name);
 		return bool.Parse(@string);
 	}
 
 	public static bool[] LoadBoolArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		bool[] array2 = new bool[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -264,20 +264,20 @@ public class Load : MonoBehaviour
 
 	public static char LoadChar(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return char.Parse(string.Empty);
 		}
-		return char.Parse(PlayerPrefs.GetString(name));
+		return char.Parse(prefs.GetString(name));
 	}
 
 	public static char[] LoadCharArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		char[] array2 = new char[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -288,20 +288,20 @@ public class Load : MonoBehaviour
 
 	public static decimal LoadDecimal(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return 0m;
 		}
-		return decimal.Parse(PlayerPrefs.GetString(name));
+		return decimal.Parse(prefs.GetString(name));
 	}
 
 	public static decimal[] LoadDecimalArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		decimal[] array2 = new decimal[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -312,20 +312,20 @@ public class Load : MonoBehaviour
 
 	public static byte LoadByte(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return 0;
 		}
-		return byte.Parse(PlayerPrefs.GetString(name));
+		return byte.Parse(prefs.GetString(name));
 	}
 
 	public static byte[] LoadByteArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		byte[] array2 = new byte[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -336,20 +336,20 @@ public class Load : MonoBehaviour
 
 	public static sbyte LoadSByte(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return 0;
 		}
-		return sbyte.Parse(PlayerPrefs.GetString(name));
+		return sbyte.Parse(prefs.GetString(name));
 	}
 
 	public static sbyte[] LoadSByteArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		sbyte[] array2 = new sbyte[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -360,21 +360,21 @@ public class Load : MonoBehaviour
 
 	public static Vector4 LoadVector4(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return new Vector4(0f, 0f, 0f, 0f);
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("&"[0]);
+		string[] array = prefs.GetString(name).Split("&"[0]);
 		return new Vector4(float.Parse(array[0]), float.Parse(array[1]), float.Parse(array[2]), float.Parse(array[3]));
 	}
 
 	public static Vector4[] LoadVector4Array(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		Vector4[] array2 = new Vector4[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -386,21 +386,21 @@ public class Load : MonoBehaviour
 
 	public static Vector3 LoadVector3(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return new Vector3(0f, 0f, 0f);
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("&"[0]);
+		string[] array = prefs.GetString(name).Split("&"[0]);
 		return new Vector3(float.Parse(array[0]), float.Parse(array[1]), float.Parse(array[2]));
 	}
 
 	public static Vector3[] LoadVector3Array(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		Vector3[] array2 = new Vector3[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -412,21 +412,21 @@ public class Load : MonoBehaviour
 
 	public static Vector2 LoadVector2(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return new Vector2(0f, 0f);
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("&"[0]);
+		string[] array = prefs.GetString(name).Split("&"[0]);
 		return new Vector2(float.Parse(array[0]), float.Parse(array[1]));
 	}
 
 	public static Vector2[] LoadVector2Array(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		Vector2[] array2 = new Vector2[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -438,21 +438,21 @@ public class Load : MonoBehaviour
 
 	public static Quaternion LoadQuaternion(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return new Quaternion(0f, 0f, 0f, 0f);
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("&"[0]);
+		string[] array = prefs.GetString(name).Split("&"[0]);
 		return new Quaternion(float.Parse(array[0]), float.Parse(array[1]), float.Parse(array[2]), float.Parse(array[3]));
 	}
 
 	public static Quaternion[] LoadQuaternionArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		Quaternion[] array2 = new Quaternion[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -464,21 +464,21 @@ public class Load : MonoBehaviour
 
 	public static Color LoadColor(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return new Color(0f, 0f, 0f, 0f);
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("&"[0]);
+		string[] array = prefs.GetString(name).Split("&"[0]);
 		return new Color(float.Parse(array[0]), float.Parse(array[1]), float.Parse(array[2]), float.Parse(array[3]));
 	}
 
 	public static Color[] LoadColorArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		Color[] array2 = new Color[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -490,20 +490,20 @@ public class Load : MonoBehaviour
 
 	public static KeyCode LoadKeyCode(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return KeyCode.Space;
 		}
-		return (KeyCode)(int)Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString(name));
+		return (KeyCode)(int)Enum.Parse(typeof(KeyCode), prefs.GetString(name));
 	}
 
 	public static KeyCode[] LoadKeyCodeArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		KeyCode[] array2 = new KeyCode[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -514,21 +514,21 @@ public class Load : MonoBehaviour
 
 	public static Rect LoadRect(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return new Rect(0f, 0f, 0f, 0f);
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("&"[0]);
+		string[] array = prefs.GetString(name).Split("&"[0]);
 		return new Rect(float.Parse(array[0]), float.Parse(array[1]), float.Parse(array[2]), float.Parse(array[3]));
 	}
 
 	public static Rect[] LoadRectArray(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("#"[0]);
+		string[] array = prefs.GetString(name).Split("#"[0]);
 		Rect[] array2 = new Rect[array.Length - 1];
 		for (int i = 0; i < array.Length - 1; i++)
 		{
@@ -540,11 +540,11 @@ public class Load : MonoBehaviour
 
 	public static Texture2D LoadTexture2D(string name)
 	{
-		if (!PlayerPrefs.HasKey(name))
+		if (!prefs.HasKey(name))
 		{
 			return null;
 		}
-		string[] array = PlayerPrefs.GetString(name).Split("&"[0]);
+		string[] array = prefs.GetString(name).Split("&"[0]);
 		byte[] data = Convert.FromBase64String(array[2]);
 		Texture2D texture2D = new Texture2D(int.Parse(array[0]), int.Parse(array[1]));
 		texture2D.LoadImage(data);

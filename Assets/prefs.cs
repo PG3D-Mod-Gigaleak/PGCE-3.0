@@ -42,21 +42,21 @@ public class prefs {
 	public static float GetFloat(string key, float defaultValue = 0) {
 		EnsureLoaded();
 		if (prefs.HasKey(key)) {
-			return (float)values[key];
+			return System.Convert.ToSingle(values[key]);
 		}
 		return defaultValue;
 	}
 	public static int GetInt(string key, int defaultValue = 0) {
 		EnsureLoaded();
 		if (prefs.HasKey(key)) {
-			return (int)values[key];
+			return System.Convert.ToInt32(values[key]);
 		}
 		return defaultValue;
 	}
 	public static string GetString(string key, string defaultValue = "") {
 		EnsureLoaded();
 		if (prefs.HasKey(key)) {
-			return (string)values[key];
+			return System.Convert.ToString(values[key]);
 		}
 		return defaultValue;
 	}

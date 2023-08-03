@@ -60,9 +60,9 @@ public sealed class Initializer : MonoBehaviour
 
 	private void Awake()
 	{
-		PlayerPrefs.SetInt("ExitGame", 0);
+		prefs.SetInt("ExitGame", 0);
 		GameObject gameObject = null;
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+		if (prefs.GetInt("MultyPlayer") != 1)
 		{
 			gameObject = ((GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]) ? (Resources.Load("BackgroundMusic/BackgroundMusic_Level" + (Defs.GetBGMNumberFromRandomByIndex(GlobalGameController.previousLevel))) as GameObject) : (Resources.Load("BackgroundMusic/BackgroundMusic_Level0") as GameObject));
 		}
@@ -75,7 +75,7 @@ public sealed class Initializer : MonoBehaviour
 			gameObject = Resources.Load("BackgroundMusic/BackgroundMusic_Level" + GlobalGameController.currentLevel) as GameObject;
 		}
 		UnityEngine.Object.Instantiate(gameObject);
-		if (PlayerPrefs.GetInt("MultyPlayer") != 1)
+		if (prefs.GetInt("MultyPlayer") != 1)
 		{
 			GameObject gameObject2 = GameObject.FindGameObjectWithTag("Configurator");
 			CoinConfigurator component = gameObject2.GetComponent<CoinConfigurator>();
@@ -90,9 +90,9 @@ public sealed class Initializer : MonoBehaviour
 	private void Start()
 	{
 		_purchaseActivityIndicator = StoreKitEventListener.purchaseActivityInd;
-		PlayerPrefs.SetInt("StartAfterDisconnect", 0);
+		prefs.SetInt("StartAfterDisconnect", 0);
 		PhotonNetwork.isMessageQueueRunning = true;
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
 			_isMultiplayer = true;
 		}
@@ -135,296 +135,296 @@ public sealed class Initializer : MonoBehaviour
 		}
 		Vector3 position = new Vector3(17f, 11f, 17f);
 		Quaternion rotation = Quaternion.Euler(new Vector3(39f, 226f, 0f));
-		if (PlayerPrefs.GetString("MapName").Equals("Maze"))
+		if (prefs.GetString("MapName").Equals("Maze"))
 		{
 			position = new Vector3(23f, 5.25f, -20.5f);
 			rotation = Quaternion.Euler(new Vector3(33f, -50f, 0f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Cementery"))
+		if (prefs.GetString("MapName").Equals("Cementery"))
 		{
 			position = new Vector3(17f, 11f, 17f);
 			rotation = Quaternion.Euler(new Vector3(39f, 226f, 0f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Hospital"))
+		if (prefs.GetString("MapName").Equals("Hospital"))
 		{
 			position = new Vector3(9.5f, 3.2f, 9.5f);
 			rotation = Quaternion.Euler(new Vector3(25f, -140f, 0f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("City"))
+		if (prefs.GetString("MapName").Equals("City"))
 		{
 			position = new Vector3(17f, 11f, 17f);
 			rotation = Quaternion.Euler(new Vector3(39f, 226f, 0f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Jail"))
+		if (prefs.GetString("MapName").Equals("Jail"))
 		{
 			position = new Vector3(13.5f, 2.9f, 3.1f);
 			rotation = Quaternion.Euler(new Vector3(11f, -66f, 0f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Gluk"))
+		if (prefs.GetString("MapName").Equals("Gluk"))
 		{
 			position = new Vector3(17f, 11f, 17f);
 			rotation = Quaternion.Euler(new Vector3(39f, 226f, 0f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Pool"))
+		if (prefs.GetString("MapName").Equals("Pool"))
 		{
 			position = new Vector3(-17.36495f, 5.448204f, -5.605346f);
 			rotation = Quaternion.Euler(new Vector3(31.34471f, 31.34471f, 0.2499542f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Slender"))
+		if (prefs.GetString("MapName").Equals("Slender"))
 		{
 			position = new Vector3(31.82355f, 5.959687f, 37.378f);
 			rotation = Quaternion.Euler(new Vector3(36.08264f, -110.1159f, 2.307983f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Castle"))
+		if (prefs.GetString("MapName").Equals("Castle"))
 		{
 			position = new Vector3(-12.3107f, 4.9f, 0.2716838f);
 			rotation = Quaternion.Euler(new Vector3(26.89935f, 89.99986f, 0f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Bridge"))
+		if (prefs.GetString("MapName").Equals("Bridge"))
 		{
 			position = new Vector3(-14.22702f, 14.6011f, -74.93485f);
 			rotation = Quaternion.Euler(new Vector3(24.68127f, -151.4293f, 0.2789154f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Farm"))
+		if (prefs.GetString("MapName").Equals("Farm"))
 		{
 			position = new Vector3(22.4933f, 16.03175f, -35.17904f);
 			rotation = Quaternion.Euler(new Vector3(29.99995f, -28.62347f, 0f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("School"))
+		if (prefs.GetString("MapName").Equals("School"))
 		{
 			position = new Vector3(-19.52079f, 2.868755f, -19.50274f);
 			rotation = Quaternion.Euler(new Vector3(14.96701f, 40.79106f, 1.266037f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Sky_islands"))
+		if (prefs.GetString("MapName").Equals("Sky_islands"))
 		{
 			position = new Vector3(-3.111776f, 21.94557f, 25.31594f);
 			rotation = Quaternion.Euler(new Vector3(41.94537f, -143.1731f, 6.383652f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Dust"))
+		if (prefs.GetString("MapName").Equals("Dust"))
 		{
 			position = new Vector3(-12.67253f, 6.92115f, 28.89415f);
 			rotation = Quaternion.Euler(new Vector3(28.46265f, 147.2818f, 0.2389221f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Utopia"))
+		if (prefs.GetString("MapName").Equals("Utopia"))
 		{
 			position = new Vector3(-10.62854f, 10.01794f, -51.20456f);
 			rotation = Quaternion.Euler(new Vector3(13.26845f, 16.31204f, 1.440735f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Assault"))
+		if (prefs.GetString("MapName").Equals("Assault"))
 		{
 			position = new Vector3(19.36158f, 19.61019f, -24.24763f);
 			rotation = Quaternion.Euler(new Vector3(35.9299f, -11.80757f, -1.581451f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Town"))
+		if (prefs.GetString("MapName").Equals("Town"))
 		{
 			position = new Vector3(-52.1f, 14f, -146.5f);
 			rotation = Quaternion.Euler(new Vector3(4.136f, 10.833f, 0f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Abandoned_Pool"))
+		if (prefs.GetString("MapName").Equals("Abandoned_Pool"))
 		{
 			position = new Vector3(19.36158f, 19.61019f, -24.24763f);
 			rotation = Quaternion.Euler(new Vector3(35.9299f, -11.80757f, -1.581451f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("campaignsuperreal"))
+		if (prefs.GetString("MapName").Equals("campaignsuperreal"))
 		{
 			position = new Vector3(19.36158f, 19.61019f, -24.24763f);
 			rotation = Quaternion.Euler(new Vector3(35.9299f, -11.80757f, -1.581451f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Hills"))
+		if (prefs.GetString("MapName").Equals("Hills"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("desert temple"))
+		if (prefs.GetString("MapName").Equals("desert temple"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("EndersHouse"))
+		if (prefs.GetString("MapName").Equals("EndersHouse"))
 		{
 			position = new Vector3(8.49f, 1.14f, 0.05f);
 			rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("minecraft_church"))
+		if (prefs.GetString("MapName").Equals("minecraft_church"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("weird"))
+		if (prefs.GetString("MapName").Equals("weird"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("main_menu_but_how"))
+		if (prefs.GetString("MapName").Equals("main_menu_but_how"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("ants_life_warehouse"))
+		if (prefs.GetString("MapName").Equals("ants_life_warehouse"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("PiratIsland"))
+		if (prefs.GetString("MapName").Equals("PiratIsland"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("buntu"))
+		if (prefs.GetString("MapName").Equals("buntu"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("DripDust"))
+		if (prefs.GetString("MapName").Equals("DripDust"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Slender_but_bad"))
+		if (prefs.GetString("MapName").Equals("Slender_but_bad"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Training_11.2.4"))
+		if (prefs.GetString("MapName").Equals("Training_11.2.4"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("rupture_of_time"))
+		if (prefs.GetString("MapName").Equals("rupture_of_time"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("northpolebut"))
+		if (prefs.GetString("MapName").Equals("northpolebut"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Stupid52"))
+		if (prefs.GetString("MapName").Equals("Stupid52"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("COMZ_older_village"))
+		if (prefs.GetString("MapName").Equals("COMZ_older_village"))
 		{
 			position = new Vector3(30.15f, 24.47f, -34.01f);
 			rotation = Quaternion.Euler(new Vector3(19.248f, -39.168f, 22.026f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("COMZ_unused_hospital"))
+		if (prefs.GetString("MapName").Equals("COMZ_unused_hospital"))
 		{
 			position = new Vector3(11.2f, 2.71f, 9.9f);
 			rotation = Quaternion.Euler(new Vector3(0f, -45.053f, 0f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("COMZ_test"))
+		if (prefs.GetString("MapName").Equals("COMZ_test"))
 		{
 			position = new Vector3(10.78f, 2.6f, -0.8f);
 			rotation = Quaternion.Euler(new Vector3(8.966001f, -99.898f, -1.191f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("COMZ_unused_parkingspace"))
+		if (prefs.GetString("MapName").Equals("COMZ_unused_parkingspace"))
 		{
 			position = new Vector3(3f, 2.18f, -2.15f);
 			rotation = Quaternion.Euler(new Vector3(5.661f, -131.569f, -1.738f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("SandboxSmall"))
+		if (prefs.GetString("MapName").Equals("SandboxSmall"))
 		{
 			position = new Vector3(-20.2f, 10f, -28.4f);
 			rotation = Quaternion.Euler(new Vector3(12.826f, 51.444f, 3.004f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("noobite_map"))
+		if (prefs.GetString("MapName").Equals("noobite_map"))
 		{
 			position = new Vector3(-20.2f, 10f, -28.4f);
 			rotation = Quaternion.Euler(new Vector3(12.826f, 51.444f, 3.004f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("GardenSmall"))
+		if (prefs.GetString("MapName").Equals("GardenSmall"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Utopia Castle"))
+		if (prefs.GetString("MapName").Equals("Utopia Castle"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Hell Utopia"))
+		if (prefs.GetString("MapName").Equals("Hell Utopia"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("wholeblockmaphelpme"))
+		if (prefs.GetString("MapName").Equals("wholeblockmaphelpme"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("CRScene2"))
+		if (prefs.GetString("MapName").Equals("CRScene2"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("SWF_Level17"))
+		if (prefs.GetString("MapName").Equals("SWF_Level17"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("COMZ_unused_church"))
+		if (prefs.GetString("MapName").Equals("COMZ_unused_church"))
 		{
 			position = new Vector3(-26.1f, 10.7f, 36f);
 			rotation = Quaternion.Euler(new Vector3(16.286f, 129.54f, -0.033f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("the truth"))
+		if (prefs.GetString("MapName").Equals("the truth"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Zombie3D_Desert3"))
+		if (prefs.GetString("MapName").Equals("Zombie3D_Desert3"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("UniBuilder_Map2"))
+		if (prefs.GetString("MapName").Equals("UniBuilder_Map2"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("PSky_islands"))
+		if (prefs.GetString("MapName").Equals("PSky_islands"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("UtopiaWavy"))
+		if (prefs.GetString("MapName").Equals("UtopiaWavy"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("FajitaSky_islands"))
+		if (prefs.GetString("MapName").Equals("FajitaSky_islands"))
 		{
 			position = new Vector3(-25.14f, 13.22f, 19.2f);
 			rotation = Quaternion.Euler(new Vector3(17.454f, -219.103f, 1.253f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("Abandoned_Pool_old"))
+		if (prefs.GetString("MapName").Equals("Abandoned_Pool_old"))
 		{
 			position = new Vector3(19.36158f, 19.61019f, -24.24763f);
 			rotation = Quaternion.Euler(new Vector3(35.9299f, -11.80757f, -1.581451f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("MapBuilder_Map2"))
+		if (prefs.GetString("MapName").Equals("MapBuilder_Map2"))
 		{
 			position = new Vector3(8.7f, 2.9f, 22.663f);
 			rotation = Quaternion.Euler(new Vector3(14.04074f, -167.451f, 0.002079598f));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("carpark"))
+		if (prefs.GetString("MapName").Equals("carpark"))
 		{
 			position = new Vector3(-42.79f, 2.757015f, -28.97f);
 			rotation = Quaternion.Euler(new Vector3(0, -60, 0));
 		}
-		if (PlayerPrefs.GetString("MapName").Equals("SOUP09-Sup01"))
+		if (prefs.GetString("MapName").Equals("SOUP09-Sup01"))
 		{
 			position = new Vector3(-15.51f, 13.5f, -15.49f);
 			rotation = Quaternion.Euler(new Vector3(10.3f, 45, -1.865679e-05f));
 		}
 		tc = UnityEngine.Object.Instantiate(tempCam, position, rotation) as GameObject;
 
-		if (PlayerPrefs.GetString("TypeConnect").Equals("local"))
+		if (prefs.GetString("TypeConnect").Equals("local"))
 		{
-			if (PlayerPrefs.GetString("TypeGame").Equals("client"))
+			if (prefs.GetString("TypeGame").Equals("client"))
 			{
 				bool useNat = !Network.HavePublicAddress();
 				Network.useNat = useNat;
@@ -461,7 +461,7 @@ public sealed class Initializer : MonoBehaviour
 
 	public void SetupObjectThatNeedsPlayer()
 	{
-		if (PlayerPrefs.GetInt("MultyPlayer") == 1)
+		if (prefs.GetInt("MultyPlayer") == 1)
 		{
 			Initializer.PlayerAddedEvent();
 			return;
@@ -523,7 +523,7 @@ public sealed class Initializer : MonoBehaviour
 		messagesStyle.fontSize = Mathf.RoundToInt(60f * (float)Screen.height / 768f);
 		messagesStyle.normal.textColor = Color.white;
 		Rect position = new Rect(0f, (float)Screen.height * 0.15f, Screen.width, (float)Screen.height * 0.2f);
-		if (showLoading && PlayerPrefs.GetInt("MultyPlayer") == 1 && PlayerPrefs.GetString("TypeConnect").Equals("inet"))
+		if (showLoading && prefs.GetInt("MultyPlayer") == 1 && prefs.GetString("TypeConnect").Equals("inet"))
 		{
 			if (_weaponManager.myTable != null)
 			{
@@ -589,7 +589,7 @@ public sealed class Initializer : MonoBehaviour
 	public void OnLeftRoom()
 	{
 		Debug.Log("OnLeftRoom (local) init");
-		if (PlayerPrefs.GetInt("ExitGame") == 1)
+		if (prefs.GetInt("ExitGame") == 1)
 		{
 			showLoading = true;
 			Invoke("goToConnect", 0.1f);
@@ -612,7 +612,7 @@ public sealed class Initializer : MonoBehaviour
 		isCancelReConnect = false;
 		isNotConnectRoom = false;
 		countConnectToRoom = 0;
-		PlayerPrefs.SetString("TypeGame", "client");
+		prefs.SetString("TypeGame", "client");
 		Debug.Log("OnConnectionFail " + GlobalGameController.Score);
 		Debug.Log("OnConnectionFail " + cause);
 		tc.SetActive(true);
@@ -646,7 +646,7 @@ public sealed class Initializer : MonoBehaviour
 		if (!isCancelReConnect)
 		{
 			Debug.Log("ConnectToPhoton ");
-			if (PlayerPrefs.GetInt("COOP", 0) == 1)
+			if (prefs.GetInt("COOP", 0) == 1)
 			{
 				PhotonNetwork.ConnectUsingSettings("v" + GlobalGameController.AppVersion + "COOP");
 			}
@@ -673,10 +673,10 @@ public sealed class Initializer : MonoBehaviour
 
 	private void ConnectToRoom()
 	{
-		Debug.Log("OnJoinedLobby " + PlayerPrefs.GetString("RoomName"));
+		Debug.Log("OnJoinedLobby " + prefs.GetString("RoomName"));
 		if (!isCancelReConnect)
 		{
-			PhotonNetwork.JoinRoom(PlayerPrefs.GetString("RoomName"));
+			PhotonNetwork.JoinRoom(prefs.GetString("RoomName"));
 		}
 	}
 
@@ -701,7 +701,7 @@ public sealed class Initializer : MonoBehaviour
 		Debug.Log("OnJoinedRoom - init");
 		if (isDisconnect)
 		{
-			PlayerPrefs.SetInt("StartAfterDisconnect", 1);
+			prefs.SetInt("StartAfterDisconnect", 1);
 			_weaponManager.myTable = PhotonNetwork.Instantiate("NetworkTable", base.transform.position, base.transform.rotation, 0);
 		}
 		isDisconnect = false;
