@@ -774,7 +774,7 @@ public sealed class Player_move_c : MonoBehaviour
 	 * REMINDER TO ADD YOUR HWID HASH HERE!
 	 * //////////////////////////////////////////////////////////////////////////////////////
 	 * //////////////////////////////////////////////////////////////////////////////////////
-	 * load the game from AppCenter, a log will appear in console with the format
+	 * load the game from AppCenter, a log will appear in console (WARNINGS) with the format
 	 * "Your HWID is: [hwid]"
 	 * copy that hwid, and open https://emn178.github.io/online-tools/sha384.html
 	 * in Input, put the hwid, then copy the text that shows up in Output
