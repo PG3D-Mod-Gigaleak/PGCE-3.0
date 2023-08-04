@@ -41,6 +41,54 @@ public class ThrownObject : MonoBehaviour
 		Destroy(gameObject);
 	}
 
+	public Vector3 oldForward, oldPosition;
+
+	public void FixedUpdate() {
+		Vector3 fwd = oldForward;
+		RaycastHit otherHit;
+        if (Physics.Raycast(oldPosition, fwd, out otherHit, Vector3.Distance(oldPosition, transform.position))) {
+			Collider other = otherHit.collider;
+			if (other.gameObject == gameObject)
+				return;
+			if (other.transform.tag == "HeadCollider" || other.transform.tag == "BodyCollider")
+			{
+				Globals.PlayerMove.inGameGUI.Hitmark();
+				Globals.PlayerMove.MinusLivePlayerManual(damageSender, other.transform.parent.GetComponent<PhotonView>().viewID, multiplayerDamage * (other.transform.tag == "HeadCollider" ? 1.5f : 1f));
+			}
+			else if (other.transform.tag == "Enemy")
+			{
+				if (!Defs.isMulti)
+				{
+					Globals.PlayerMove.inGameGUI.Hitmark();
+					other.transform.GetComponent<BotHealth>().adjustHealth(multiplayerDamage, Camera.main.transform);
+				}
+				else
+				{
+					ZombiUpravlenie controller = other.transform.GetComponent<ZombiUpravlenie>();
+					float health = controller.health;
+					health -= multiplayerDamage;
+					controller.setHealth(health, true);
+					if (health <= 0f)
+					{
+						GlobalGameController.Score += controller.transform.GetChild(0).GetComponent<Sounds>().scorePerKill;
+					}
+					WeaponManager.sharedManager.myTable.GetComponent<NetworkStartTable>().score = GlobalGameController.Score;
+					WeaponManager.sharedManager.myTable.GetComponent<NetworkStartTable>().synchState();
+				}
+			}
+			if (Defs.isMulti)
+			{
+				mView.RPC("DestroyThrownObject", PhotonTargets.All);
+			}
+			else
+			{
+				DestroyThrownObjectOffline();
+			}
+		}
+		oldForward = transform.forward;
+		oldPosition = transform.position;
+	}
+
 	void OnCollisionEnter(Collision other)
 	{
 		if (other.transform.tag == "HeadCollider" || other.transform.tag == "BodyCollider")
