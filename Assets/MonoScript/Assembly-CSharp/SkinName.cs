@@ -179,6 +179,10 @@ public class SkinName : MonoBehaviour
 			if (playerGameObject.GetComponent<Player_move_c>().CurHealth > 0f)
 			{
 				Achievements.Give("fall");
+				if (Application.loadedLevelName == "EndersHouse")
+				{
+					Achievements.Give("steppedon");
+				}
 				playerGameObject.GetComponent<Player_move_c>().CurHealth = 0f;
 				playerGameObject.GetComponent<Player_move_c>().curArmor = 0f;
 			}
@@ -186,6 +190,10 @@ public class SkinName : MonoBehaviour
 		else if (prefs.GetInt("MultyPlayer") == 1 && ((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && photonView.isMine)) && col.collider.gameObject.name.Equals("DeadCollider") && playerGameObject.GetComponent<Player_move_c>().CurHealth > 0f)
 		{
 			Achievements.Give("fall");
+			if (Application.loadedLevelName == "EndersHouse")
+			{
+				Achievements.Give("steppedon");
+			}
 			_weaponManager.lastEnemyHitBy = null;
 			playerGameObject.GetComponent<Player_move_c>().curArmor = 0f;
 			float understand = playerGameObject.GetComponent<Player_move_c>().CurHealth;
