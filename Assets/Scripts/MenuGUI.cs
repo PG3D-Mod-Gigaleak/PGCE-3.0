@@ -43,11 +43,16 @@ public class MenuGUI : MonoBehaviour
 	}
 
 	private bool loading;
-	public UIButton optionsBtn;
+	public UIButton optionsBtn, achievementsBtn;
 
 	public void EnterOptions() {
 		loading = true;
 		Application.LoadLevel("NewOptions");
+	}
+
+	public void EnterAchievements() {
+		loading = true;
+		Application.LoadLevel("AchievementMenu");
 	}
 
 	private void OnGUI()
@@ -58,8 +63,8 @@ public class MenuGUI : MonoBehaviour
 		}
 	}
 
-	private UIButtonColor.State oldState;
-	private bool completelyIgnoreStateCHANGES;
+	private UIButtonColor.State oldState, achOldState;
+	private bool completelyIgnoreStateCHANGES, achCompletelyIgnoreStateCHANGES;
 	private float nz = 0;
 
 	private void Update() {
@@ -73,6 +78,18 @@ public class MenuGUI : MonoBehaviour
 			if (oldState == UIButtonColor.State.Pressed) {
 				completelyIgnoreStateCHANGES = true;
 				Tweener j = HOTween.To(optionsBtn.transform, .5f, new TweenParms().Prop("localRotation", new Vector3(0, 0, -360)).Ease(EaseType.EaseInBack).OnComplete(EnterOptions));
+			}
+		}
+		if (achOldState != achievementsBtn.state && !achCompletelyIgnoreStateCHANGES) {
+			achOldState = achievementsBtn.state;
+			if (achOldState == UIButtonColor.State.Hover) {
+				Tweener j = HOTween.To(achievementsBtn.transform, .5f, new TweenParms().Prop("localRotation", new Vector3(0, 0, -5)).Ease(EaseType.EaseOutBounce));
+			}
+			if (achOldState == UIButtonColor.State.Normal) {
+				Tweener j = HOTween.To(achievementsBtn.transform, .5f, new TweenParms().Prop("localRotation", new Vector3(0, 0, 0)).Ease(EaseType.EaseOutBounce));
+			}
+			if (achOldState == UIButtonColor.State.Pressed) {
+				EnterAchievements();
 			}
 		}
 	}
