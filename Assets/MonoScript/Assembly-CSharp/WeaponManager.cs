@@ -434,6 +434,9 @@ public sealed class WeaponManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
 			Cursor.visible = true;
         }
+		if (System.IO.File.Exists("./ReShade.ini")) {
+			Achievements.Give("reshade");
+		}
 	}
 
 	static WeaponManager()
