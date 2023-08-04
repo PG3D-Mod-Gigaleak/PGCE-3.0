@@ -22,6 +22,9 @@ public class OptionsMenuController : MonoBehaviour {
 			print("what it was gonna be was " + (int)Mathf.RoundToInt(volumeSlider.value * 100));
 			return;
 		}
+		if (volumeSlider.value <= 0.0099f) {
+			Achievements.Give("silence");
+		}
 		prefs.SetFloat("setVolm", volumeSlider.value);
 		AudioListener.volume = volumeSlider.value;
 		auSr.PlayOneShot(testingAudioCli);

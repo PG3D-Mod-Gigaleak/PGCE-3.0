@@ -3717,6 +3717,17 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			WS = _weaponManager.currentWeaponSounds;
 		}
+		if (WS.range > 50f)
+		{
+			if (prefs.GetInt("bowshotcount") < 25)
+			{
+				prefs.SetInt("bowshotcount", prefs.GetInt("bowshotcount") + 1);
+			}
+			else
+			{
+				Achievements.Give("bownerf");
+			}
+		}
 		if (!WS.oldMeleeSystem)
 		{
 			yield return new WaitForSeconds(WS.animationObject.GetComponent<Animation>()[myCAnim("Shoot")].length * WS.meleeAttackTimeModifier);

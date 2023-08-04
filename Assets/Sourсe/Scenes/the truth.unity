@@ -1031,6 +1031,37 @@ MonoBehaviour:
   isDouble: 0
   price: 0
   weaponName: 
+  oldMeleeSystem: 0
+  emptyState: 0
+  throwObject: 0
+  throwObjects: 0
+  isGrav: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
+  secondBulletSpawn: {fileID: 0}
+  shootLineColor: {r: 1, g: 1, b: 0, a: 1}
+  bulletIndex: 0
 --- !u!4 &385691651
 Transform:
   m_ObjectHideFlags: 0
@@ -1089,10 +1120,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7549fb7f8e4dfce4aa66f7668a2e8707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 200
-  lifeS: 500
-  startPos: {x: 0, y: 0, z: 0}
-  endPos: {x: 0, y: 0, z: 0}
+  speed: 0
+  lifetime: 0
+  changeColor: 0
+  destroySelfOnImpact: 1
+  destroyEffect: 0
+  effect: {fileID: 0}
+  pointLight: {fileID: 0}
 --- !u!96 &386442874
 TrailRenderer:
   serializedVersion: 2
@@ -1471,6 +1505,37 @@ MonoBehaviour:
   isDouble: 0
   price: 0
   weaponName: 
+  oldMeleeSystem: 0
+  emptyState: 0
+  throwObject: 0
+  throwObjects: 0
+  isGrav: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
+  secondBulletSpawn: {fileID: 0}
+  shootLineColor: {r: 1, g: 1, b: 0, a: 1}
+  bulletIndex: 0
 --- !u!1 &438380317
 GameObject:
   m_ObjectHideFlags: 0
@@ -6528,6 +6593,37 @@ MonoBehaviour:
   isDouble: 0
   price: 0
   weaponName: 
+  oldMeleeSystem: 0
+  emptyState: 0
+  throwObject: 0
+  throwObjects: 0
+  isGrav: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
+  secondBulletSpawn: {fileID: 0}
+  shootLineColor: {r: 1, g: 1, b: 0, a: 1}
+  bulletIndex: 0
 --- !u!1 &902353042
 GameObject:
   m_ObjectHideFlags: 0
@@ -7306,6 +7402,60 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &1176783334
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1176783337}
+  - component: {fileID: 1176783336}
+  - component: {fileID: 1176783335}
+  m_Layer: 0
+  m_Name: floor (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1176783335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1176783334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c4be32035869ed4c83597098a741538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  achievement: truth
+--- !u!65 &1176783336
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1176783334}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1176783337
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1176783334}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9122.9, y: 324.7, z: -350}
+  m_LocalScale: {x: 41.22327, y: 83.95639, z: 86.5458}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1188196263
 GameObject:
   m_ObjectHideFlags: 0
@@ -8154,6 +8304,37 @@ MonoBehaviour:
   isDouble: 0
   price: 0
   weaponName: 
+  oldMeleeSystem: 0
+  emptyState: 0
+  throwObject: 0
+  throwObjects: 0
+  isGrav: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
+  secondBulletSpawn: {fileID: 0}
+  shootLineColor: {r: 1, g: 1, b: 0, a: 1}
+  bulletIndex: 0
 --- !u!4 &1414681205
 Transform:
   m_ObjectHideFlags: 0
@@ -12679,6 +12860,37 @@ MonoBehaviour:
   isDouble: 0
   price: 0
   weaponName: 
+  oldMeleeSystem: 0
+  emptyState: 0
+  throwObject: 0
+  throwObjects: 0
+  isGrav: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
+  secondBulletSpawn: {fileID: 0}
+  shootLineColor: {r: 1, g: 1, b: 0, a: 1}
+  bulletIndex: 0
 --- !u!4 &1724106130
 Transform:
   m_ObjectHideFlags: 0
@@ -13274,6 +13486,37 @@ MonoBehaviour:
   isDouble: 0
   price: 0
   weaponName: 
+  oldMeleeSystem: 0
+  emptyState: 0
+  throwObject: 0
+  throwObjects: 0
+  isGrav: 0
+  startZone: {x: 3, y: 3}
+  tekKoof: 3
+  upKoofFire: 0.4
+  maxKoof: 5
+  downKoofFirst: 0.2
+  downKoof: 0.3
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 1, y: 1, z: 1}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 0
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
+  secondBulletSpawn: {fileID: 0}
+  shootLineColor: {r: 1, g: 1, b: 0, a: 1}
+  bulletIndex: 0
 --- !u!1 &1892248895
 GameObject:
   m_ObjectHideFlags: 0
