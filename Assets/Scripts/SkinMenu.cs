@@ -34,6 +34,7 @@ public class SkinMenu : MonoBehaviour
 
 	public void EnterMenu()
 	{
+		AchievementNGUI.instance.gameObject.SetActive(false);
 		Application.LoadLevel("ProfileShop");
 	}
 

@@ -317,6 +317,7 @@ public sealed class ConnectGUI : MonoBehaviour
 	public static void GoToProfile()
 	{
 		//prefs.SetInt(Defs.SkinEditorMode, 1);
+		AchievementNGUI.instance.gameObject.SetActive(false);
 		Application.LoadLevel("ProfileShop");
 	}
 

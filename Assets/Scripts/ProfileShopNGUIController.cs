@@ -6,7 +6,7 @@ public class ProfileShopNGUIController : MonoBehaviour {
 	public UIInput usernameInput;
 	public SkinButton button;
 	private WeaponManager _weaponManager;
-	public void Start() {
+	public IEnumerator Start() {
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
 		string skinB64 = CustomPrefs.CurrentSkin;
 		byte[] B64byteData = System.Convert.FromBase64String(skinB64); 
@@ -18,6 +18,8 @@ public class ProfileShopNGUIController : MonoBehaviour {
 		button.skin.sharedMaterial = new Material(Shader.Find("Mobile/Diffuse"));
 		button.skin.sharedMaterial.SetTexture("_MainTex", skinTex);
 		usernameInput.onValidate += Validate;
+		yield return null;
+		AchievementNGUI.instance.gameObject.SetActive(true);
 	}
 	public char Validate(string text, int charIndex, char addedChar) {
 		if ("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz?!^\"',.-_[]{} ".IndexOf(addedChar) == -1) {
