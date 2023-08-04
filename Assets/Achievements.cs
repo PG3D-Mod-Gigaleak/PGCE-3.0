@@ -5,8 +5,9 @@ using UnityEngine;
 public class Achievements : ScriptableObject {
 	[System.Serializable]
 	public struct Achievement {
-		public string name, id;
+		public string name, id, description;
 		public Texture2D icon;
+		public bool hideName, hideDescription, hideIcon, hideAchievement;
 	}
 	public Achievement[] achievements;
 	public Achievement GetAchievement(string name) {
@@ -16,5 +17,10 @@ public class Achievements : ScriptableObject {
 			}
 		}
 		return default(Achievement);
+	}
+
+	public static void Give(string achievement)
+	{
+		AchievementNGUI.instance.GiveAchievement(achievement);
 	}
 }

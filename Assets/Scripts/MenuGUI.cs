@@ -81,6 +81,11 @@ public class MenuGUI : MonoBehaviour
 		completelyIgnoreStateCHANGES = false;
 		HOTween.Init(true, true, true);
 		HOTween.EnableOverwriteManager();
+		Achievements.Give("opengame");
+
+		#if UNITY_EDITOR
+			Achievements.Give("devteam");
+		#endif
 	}
 
 	public void ClickTitle()

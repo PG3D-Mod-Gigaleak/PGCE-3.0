@@ -42,7 +42,7 @@ public class InGameGUI : MonoBehaviour
 
 	public UIButtonColor altShootButton;
 
-	public GameObject entryPopup, achievementPopup;
+	public GameObject entryPopup;
 
 	private bool jumping
 	{
@@ -76,14 +76,13 @@ public class InGameGUI : MonoBehaviour
 
 	public UITexture zoomTex;
 
-	public UITexture healthBar, armorBar, achievementIcon;
+	public UITexture healthBar, armorBar;
 
-	public UILabel healthAmount, armorAmount, pingLabel, fpsLabel, achievementName;
+	public UILabel healthAmount, armorAmount, pingLabel, fpsLabel;
 
 	private bool zoomed;
 
 	public Animation hitmarker;
-	public AudioClip achievementSound;
 
 	public void Zoom(bool onOff, int index = 0)
 	{
@@ -133,17 +132,6 @@ public class InGameGUI : MonoBehaviour
 	public void newEntryPopup(string name)
 	{
 		entryPopup.GetComponent<Animation>().PlayQueued("UnlockedNewThing");
-	}
-
-	public void GiveAchievement(string ach)
-	{
-		if (Storager.hasKey(ach + (string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(179, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(10, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(160, IncomprehensibleGarbler.Create(11, "")))))))))))), false, true, true, true, true, true, true, true, true, true, true, true)))
-			return;
-		Storager.setInt(ach + (string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create3(80, IncomprehensibleGarbler.Create3(-9968, IncomprehensibleGarbler.Create3(2, IncomprehensibleGarbler.Create3(12, IncomprehensibleGarbler.Create3(15, IncomprehensibleGarbler.Create3(6, IncomprehensibleGarbler.Create3(36, IncomprehensibleGarbler.Create3(6, IncomprehensibleGarbler.Create3(20, IncomprehensibleGarbler.Create3(6, IncomprehensibleGarbler.Create3(22, IncomprehensibleGarbler.Create3(32, "")))))))))))), false, true, true, true, true, true, true, true, true, true, true, true), 1, false);
-		achievementIcon.mainTexture = Resources.Load<Achievements>("Achievements").GetAchievement(ach).icon;
-		achievementName.text = Resources.Load<Achievements>("Achievements").GetAchievement(ach).name;
-		achievementPopup.GetComponent<Animation>().Play("AchievementGet");
-		achievementPopup.GetComponent<AudioSource>().PlayOneShot(achievementSound);
 	}
 
 	private void Update()

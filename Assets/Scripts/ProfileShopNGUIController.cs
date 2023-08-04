@@ -8,7 +8,7 @@ public class ProfileShopNGUIController : MonoBehaviour {
 	private WeaponManager _weaponManager;
 	public void Start() {
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
-		string skinB64 = prefs.GetString("base64_multskin");
+		string skinB64 = CustomPrefs.CurrentSkin;
 		byte[] B64byteData = System.Convert.FromBase64String(skinB64); 
 		Texture2D skinTex = new Texture2D(1,1);
 		skinTex.LoadImage(B64byteData);

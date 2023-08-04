@@ -11,4 +11,12 @@ public class Globals
 			return WeaponManager.sharedManager.myPlayer.GetComponent<SkinName>().playerMoveC;
 		}
 	}
+
+	public static GameObject Player
+	{
+		get
+		{
+			return WeaponManager.sharedManager.myPlayer;
+		}
+	}
 }
