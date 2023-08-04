@@ -1458,9 +1458,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		GameObject manifest = Instantiate(IncomprehensibleGarbler.Call("ErfbheprfYbnq", "AdminDialog") as GameObject);
 		AdminDialogUI starShaped = manifest.GetComponent<AdminDialogUI>();
-		if (isMine) {
-			Achievements.Give("admintalk");
-		}
+		Achievements.Give("admintalk");
 		starShaped.SetTextAndShow(locate);
 	}
 
