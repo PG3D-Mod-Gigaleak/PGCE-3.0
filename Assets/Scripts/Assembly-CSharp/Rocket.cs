@@ -297,6 +297,9 @@ public class Rocket : MonoBehaviour
 							}
 							if (gameObject4.GetComponent<SkinName>().playerMoveC.CurHealth <= 0f)
 							{
+								if (isMine && gameObject4.GetComponent<SkinName>().playerMoveC.isMine) {
+									Achievements.Give("suicidebomber");
+								}
 								gameObject4.GetComponent<SkinName>().playerMoveC.sendImDeath(gameObject4.GetComponent<SkinName>().NickName);
 							}
 						}
