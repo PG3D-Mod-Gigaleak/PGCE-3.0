@@ -44,6 +44,7 @@ public class AchievementListNGUIController : MonoBehaviour {
         }
         Storager.setInt("deathCount", 0, false);
         Storager.setInt("bowshotcount", 0, false);
+        Storager.setInt("earsOn", 0, false);
         #endif
     }
     public IEnumerator ActualSetUpButtonHides(Achievements.Achievement ach, GameObject btn, bool hide) {

@@ -9,6 +9,7 @@ using System.Linq;
 public sealed class Player_move_c : MonoBehaviour
 {
 	public GameObject stalkerhelmet;
+	public GameObject earshat;
 	public struct MessageChat
 	{
 		public string text;
@@ -2202,6 +2203,7 @@ public sealed class Player_move_c : MonoBehaviour
 					if ((Physics.gravity.y <= 0) == false) {
 						Physics.gravity *= -1f;
 					}
+					photonView.RPC("SynchEarsHatOn", PhotonTargets.AllBuffered, ((bool)(Storager.getInt("earsOn", false) == 0 ? false : true)));
 					try {
 						IncomprehensibleGarbler.diff["qvsrqUryu"] = (float)100;
 					} catch {
@@ -2516,6 +2518,11 @@ public sealed class Player_move_c : MonoBehaviour
 				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().chargeUp);
 			}
 		}
+	}
+
+	[RPC]
+	private void SynchEarsHatOn(bool isOn) {
+		earshat.SetActive(isOn);
 	}
 
 	[RPC]
