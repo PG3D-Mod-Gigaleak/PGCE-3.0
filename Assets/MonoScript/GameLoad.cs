@@ -70,6 +70,7 @@ public class GameLoad : MonoBehaviour
 	}
 	public IEnumerator CacheAllPhotonViewItems() {
 		#if UNITY_EDITOR
+		// tysm ender
 		currentTask.text = "Caching PhotonView Objects (might take a while!)";
 		GameObject[] allObjects = Resources.LoadAll<GameObject>("");
 		yield return allObjects;
