@@ -282,7 +282,9 @@ public class Joystick : MonoBehaviour
 		{
 			if (Input.GetKeyDown("r"))
 			{
-				_playerGun.SendMessage("ReloadPressed");
+				if ((Globals.PlayerMove && Globals.PlayerMove.isMine) && !Globals.PlayerMove.showChat) {
+					_playerGun.SendMessage("ReloadPressed");
+				}
 			}
 			if (Input.GetMouseButton(0) && !_playerGun.GetComponent<Player_move_c>().isChargingUp)
 			{
@@ -291,6 +293,8 @@ public class Joystick : MonoBehaviour
 				if (Globals.PlayerMove && Globals.PlayerMove.showingAdminInput && _playerGun.GetComponent<Player_move_c>().isMine)
 					c = false;
 				#endif
+				if (Globals.PlayerMove && Globals.PlayerMove.showChat)
+					c = false;
 				if (c)
 					_playerGun.SendMessage("ShotPressed", false);
 			}

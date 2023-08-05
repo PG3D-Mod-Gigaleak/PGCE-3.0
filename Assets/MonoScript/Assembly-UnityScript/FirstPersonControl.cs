@@ -189,6 +189,9 @@ public class FirstPersonControl : MonoBehaviour
 			return new Vector2(0, 0);
 		}
 		#endif
+		if (Globals.PlayerMove && Globals.PlayerMove.showChat) {
+			return new Vector2(0, 0);
+		}
 		int num = default(int);
 		int num2 = default(int);
 		if (Input.GetKey("w"))
@@ -264,6 +267,9 @@ public class FirstPersonControl : MonoBehaviour
 				can = false;
 			}
 			#endif
+			if (Globals.PlayerMove && Globals.PlayerMove.showChat) {
+				can = false;
+			}
 			if (can) {
 				if (Input.GetKey(KeyCode.Space))
 				{

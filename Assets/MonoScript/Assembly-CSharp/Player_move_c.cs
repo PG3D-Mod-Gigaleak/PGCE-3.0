@@ -814,21 +814,21 @@ public sealed class Player_move_c : MonoBehaviour
 		float num = (float)Screen.height / 768f;
 		if (showChat)
 		{
-			if (!showChatOld)
+			/*if (!showChatOld)
 			{
 				inGameGUI.gameObject.SetActive(false);
 			}
 			_leftJoystick.SetActive(false);
-			_rightJoystick.SetActive(false);
+			_rightJoystick.SetActive(false);*/
 			showChatOld = showChat;
-			return;
+			//return;
 		}
 		if (showChatOld)
 		{
-			inGameGUI.gameObject.SetActive(true);
+			/*inGameGUI.gameObject.SetActive(true);
 			_leftJoystick.SetActive(true);
 			_rightJoystick.SetActive(true);
-			_weaponManager.currentWeaponSounds.gameObject.SetActive(true);
+			_weaponManager.currentWeaponSounds.gameObject.SetActive(true);*/
 		}
 		showChatOld = showChat;
 		if (showRanks)
@@ -3180,12 +3180,33 @@ public sealed class Player_move_c : MonoBehaviour
 					}
 					if (item.gameObject.GetComponent<Player_move_c>().CurHealth <= 0f)
 					{
+						if (item.gameObject.GetComponent<Player_move_c>().isMine) {
+							item.gameObject.GetComponent<Player_move_c>().DispatchDie();
+						}
 						photonView.RPC("KilledPhoton", PhotonTargets.All, idKiller, id);
 					}
 				}
 				break;
 			}
 			StartCoroutine(Flash(gameObject));
+		}
+	}
+
+	public void DispatchDie() {
+		Storager.setInt("deathCount", Storager.getInt("deathCount", false) + 1, false);
+		int x = Storager.getInt("deathCount", false);
+		print(x + " deaths total");
+		if (x >= 1) {
+			print("1 death");
+			Achievements.Give("1death");
+		}
+		if (x >= 10) {
+			print("10 death");
+			Achievements.Give("10deaths");
+		}
+		if (x >= 100) {
+			print("100 death");
+			Achievements.Give("100deaths");
 		}
 	}
 
@@ -4067,44 +4088,52 @@ public sealed class Player_move_c : MonoBehaviour
 			if (Input.GetKeyDown(KeyCode.Insert)) {
 				prefs.SetInt("ShowFPS", (prefs.GetInt("ShowFPS", 0) == 0 ? 1 : 0));
 			}
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-        	{
-				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Primary)
+			if (isMine && !showChat) {
+				if (Input.GetKeyDown(KeyCode.Alpha1))
 				{
-					ChangeWeaponFull(CategoryType.Primary);
+					if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Primary)
+					{
+						ChangeWeaponFull(CategoryType.Primary);
+					}
 				}
-			}
-			else if (Input.GetKeyDown(KeyCode.Alpha2))
-        	{
-				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Backup)
+				else if (Input.GetKeyDown(KeyCode.Alpha2))
 				{
-					ChangeWeaponFull(CategoryType.Backup);
+					if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Backup)
+					{
+						ChangeWeaponFull(CategoryType.Backup);
+					}
 				}
-			}
-			else if (Input.GetKeyDown(KeyCode.Alpha3))
-        	{
-				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Melee)
+				else if (Input.GetKeyDown(KeyCode.Alpha3))
 				{
-					ChangeWeaponFull(CategoryType.Melee);
+					if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Melee)
+					{
+						ChangeWeaponFull(CategoryType.Melee);
+					}
 				}
-			}
-			else if (Input.GetKeyDown(KeyCode.Alpha4))
-        	{
-				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Special && prefs.GetString("cat4") != "")
+				else if (Input.GetKeyDown(KeyCode.Alpha4))
 				{
-					ChangeWeaponFull(CategoryType.Special);
+					if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Special && prefs.GetString("cat4") != "")
+					{
+						ChangeWeaponFull(CategoryType.Special);
+					}
 				}
-			}
-			else if (Input.GetKeyDown(KeyCode.Alpha5))
-        	{
-				if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Heavy && prefs.GetString("cat5") != "")
+				else if (Input.GetKeyDown(KeyCode.Alpha5))
 				{
-					ChangeWeaponFull(CategoryType.Heavy);
+					if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Heavy && prefs.GetString("cat5") != "")
+					{
+						ChangeWeaponFull(CategoryType.Heavy);
+					}
 				}
-			}
-			if (Input.GetMouseButtonDown(1))
-			{
-				ZoomPress();
+				if (Input.GetMouseButtonDown(1))
+				{
+					ZoomPress();
+				}
+			} else if (isMine && showChat) {
+				if (Input.GetMouseButtonDown(0))
+				{
+					inGameGUI.chatInput.isSelected = false;
+					showChat = false;
+				}
 			}
 			if (walking)
 			{
@@ -4146,10 +4175,11 @@ public sealed class Player_move_c : MonoBehaviour
 				AddButtonHandlers();
 				showRanks = false;
 			}
-			/*if (Input.GetKeyDown(KeyCode.T) && !showChat)
+			if (Input.GetKeyDown(KeyCode.T) && !showChat && isMine)
 			{
-				OpenChat();
-			}*/
+				inGameGUI.chatInput.isSelected = true;
+				showChat = true;
+			}
 			if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift))
 			{
 				parentedAnimation.Stop();
@@ -4339,6 +4369,9 @@ public sealed class Player_move_c : MonoBehaviour
 			StartCoroutine(FlashWhenDead());
 			_leftJoystick.SetActive(false);
 			_rightJoystick.SetActive(false);
+			if (isMine) {
+				DispatchDie();
+			}
 			HOTween.From(base.transform.parent.transform, 2f, new TweenParms().Prop("localRotation", new Vector3(0f, 2520f, 0f)).Ease(EaseType.EaseInCubic).OnComplete(_003CUpdate_003Ec__AnonStorey._003C_003Em__2E));
 		}
 		else

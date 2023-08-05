@@ -183,6 +183,7 @@ public class SkinName : MonoBehaviour
 				{
 					Achievements.Give("steppedon");
 				}
+				playerGameObject.GetComponent<Player_move_c>().DispatchDie();
 				playerGameObject.GetComponent<Player_move_c>().CurHealth = 0f;
 				playerGameObject.GetComponent<Player_move_c>().curArmor = 0f;
 			}
@@ -199,6 +200,7 @@ public class SkinName : MonoBehaviour
 			float understand = playerGameObject.GetComponent<Player_move_c>().CurHealth;
 			playerGameObject.GetComponent<Player_move_c>().CurHealth = 0f;
 			IncomprehensibleGarbler.Dispatch("UrnyguPunatr", playerGameObject.GetComponent<Player_move_c>(), understand);
+			playerGameObject.GetComponent<Player_move_c>().DispatchDie();
 			if (playerGameObject.GetComponent<Player_move_c>().countKills > 0)
 			{
 				playerGameObject.GetComponent<Player_move_c>().countKills--;
@@ -206,7 +208,6 @@ public class SkinName : MonoBehaviour
 			_weaponManager.myTable.GetComponent<NetworkStartTable>().CountKills = playerGameObject.GetComponent<Player_move_c>().countKills;
 			_weaponManager.myTable.GetComponent<NetworkStartTable>().synchState();
 			playerGameObject.GetComponent<Player_move_c>().sendImDeath(NickName);
-			Debug.Log("DeadCollider");
 		}
 	}
 }

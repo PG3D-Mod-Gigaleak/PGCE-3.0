@@ -60,6 +60,8 @@ public class InGameGUI : MonoBehaviour
 			if (Globals.PlayerMove && Globals.PlayerMove.showingAdminInput)
 				return false;
 			#endif
+			if (Globals.PlayerMove && Globals.PlayerMove.showChat)
+				return false;
 			return shootButton.state == UIButtonColor.State.Pressed;
 		}
 	}
@@ -83,7 +85,7 @@ public class InGameGUI : MonoBehaviour
 	private bool zoomed;
 
 	public Animation hitmarker;
-
+	public UIInput chatInput;
 	public void Zoom(bool onOff, int index = 0)
 	{
 		zoomTex.gameObject.SetActive(onOff);
@@ -122,6 +124,16 @@ public class InGameGUI : MonoBehaviour
 	public void OpenChat()
 	{
 		playerMoveC.OpenChat();
+	}
+
+	public void SENDcHAT() {
+		string chatInputVal = chatInput.value;
+		if (string.IsNullOrEmpty(chatInputVal.Trim()))
+			return;
+		chatInput.isSelected = false;
+		playerMoveC.showChat = false;
+		chatInput.value = "";
+		playerMoveC.SendChat(chatInputVal);
 	}
 
 	private void GenerateMiganie()
