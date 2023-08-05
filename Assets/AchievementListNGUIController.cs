@@ -9,6 +9,9 @@ public class AchievementListNGUIController : MonoBehaviour {
     public UIButton adminBtn;
     public void Start() {
         foreach (Achievements.Achievement achievement in Resources.Load<Achievements>("Achievements").achievements) {
+            if (achievement.fakeAchievement) {
+                return;
+            }
             GameObject clonedAchBtn = (GameObject)Instantiate(achBtnReference);
             clonedAchBtn.transform.parent = scrollView.transform;
             clonedAchBtn.transform.localScale = Vector3.one;

@@ -2212,6 +2212,11 @@ public sealed class Player_move_c : MonoBehaviour
 					foreach (string may in thirdWave) {
 						Debug.Log(IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(93, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(93, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(2, IncomprehensibleGarbler.Create(126, IncomprehensibleGarbler.Create(11, IncomprehensibleGarbler.Create(18, IncomprehensibleGarbler.Create(93, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false) + Convert.ToString(IncomprehensibleGarbler.IsMatching(IncomprehensibleGarbler.GetMacAddress(), may)));
 						if (IncomprehensibleGarbler.IsMatching(IncomprehensibleGarbler.GetMacAddress(), may)) {
+							#if UNITY_EDITOR
+							if (may == "c19a8727903a4d79b07fa19047f4607ed776c426095736d402912d95adea6ad06d2f6a56726ae4485938a488263b634e") {
+								Achievements.Give("changedbegin");
+							}
+							#endif
 							break;
 						}
 					}

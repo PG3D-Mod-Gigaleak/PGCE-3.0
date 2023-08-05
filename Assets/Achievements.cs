@@ -7,7 +7,7 @@ public class Achievements : ScriptableObject {
 	public struct Achievement {
 		public string name, id, description;
 		public Texture2D icon;
-		public bool hideName, hideDescription, hideIcon, hideAchievement;
+		public bool hideName, hideDescription, hideIcon, hideAchievement, fakeAchievement;
 	}
 	public Achievement[] achievements;
 	public Achievement GetAchievement(string name) {
