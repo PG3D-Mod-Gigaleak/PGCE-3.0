@@ -11,7 +11,7 @@ public class FilterBadWorld : MonoBehaviour
 
 	private string[] badWords = new string[]
 	{
-		"dashcat", "nigger", "nigga", "niga", "igga", "igger", "iga", "iger", "nigea"
+		"dashcat", "nigger", "nigga", "niga", "igga", "igger", "iga", "iger", "nigea", "cunt", "bitch", "fag", "faggot", "retard", "retarded"
 	};
 
 	public string FilterString(string inputStr)
