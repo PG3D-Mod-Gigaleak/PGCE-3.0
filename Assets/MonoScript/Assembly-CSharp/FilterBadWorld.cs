@@ -60,6 +60,9 @@ public class FilterBadWorld : MonoBehaviour
 		{
 			if (text.Equals(str))
 			{
+				Achievements.Give("censored");
+				if (text.Trim().ToLower() == "dashcat")
+					Achievements.Give("dashcat");
 				return true;
 			}
 		}
