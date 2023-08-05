@@ -54,10 +54,10 @@ public class AchievementListNGUIController : MonoBehaviour {
                 scrollView.Reposition();
             }
             if (ach.hideDescription) {
-                btn.GetComponent<AchBtnRef>().desc.text = "Unlock this achievement to view it's description";
+                btn.GetComponent<AchBtnRef>().desc.text = "[ff0000]Unlock this achievement to view it's description";
             }
             if (ach.hideName) {
-                btn.GetComponent<AchBtnRef>().name.text = "Locked";
+                btn.GetComponent<AchBtnRef>().name.text = "[ff0000]Locked!";
             }
             if (ach.hideIcon) {
                 btn.GetComponent<AchBtnRef>().icon.mainTexture = blankTex;
