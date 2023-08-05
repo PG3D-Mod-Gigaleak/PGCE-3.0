@@ -112,7 +112,11 @@ public class BotMovement : MonoBehaviour
 			Vector3 vector = new Vector3(target.position.x, base.transform.position.y, target.position.z);
 			if (num >= _soundClips.attackDistance)
 			{
-				_nma.SetDestination(vector);
+				try {
+					_nma.SetDestination(vector);
+				} catch {
+
+				}
 				_nma.speed = _soundClips.attackingSpeed * Mathf.Pow(1.05f, GlobalGameController.AllLevelsCompleted);
 				CurLifeTime = timeToRemoveLive;
 				PlayZombieRun();
@@ -120,7 +124,9 @@ public class BotMovement : MonoBehaviour
 			}
 			if (_nma.path != null)
 			{
-				_nma.ResetPath();
+				try {
+					_nma.ResetPath();
+				}catch{}
 			}
 			CurLifeTime -= Time.deltaTime;
 			base.transform.LookAt(vector);
@@ -162,7 +168,9 @@ public class BotMovement : MonoBehaviour
 		Agression = agression;
 		if ((bool)_target && target != _target)
 		{
+			try {
 			_nma.ResetPath();
+			}catch{}
 			if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
 			{
 				base.GetComponent<AudioSource>().PlayOneShot(_soundClips.voice);
@@ -171,7 +179,11 @@ public class BotMovement : MonoBehaviour
 		}
 		else if (!_target && target != _target)
 		{
+			try {
 			_nma.ResetPath();
+			} catch {
+
+			}
 			Walk();
 		}
 		target = _target;

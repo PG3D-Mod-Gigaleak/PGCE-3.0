@@ -22,6 +22,15 @@ public class AdminEventSelectorNGUIController : MonoBehaviour {
 		the.myPmc = Globals.PlayerMove;
 		#endif
 	}
+	public void OpenSpawn() {
+		#if UNITY_EDITOR
+		Close();
+		Globals.PlayerMove.showingAdminInput = true;
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+		GameObject j = Instantiate(Resources.Load<GameObject>("AdminResourceSpawner"));
+		#endif
+	}
 	public void ScaleMeX2() {
 		#if UNITY_EDITOR
 		Globals.PlayerMove._weaponManager.myPlayer.transform.localScale *= 2;

@@ -44,11 +44,13 @@ public class GameLoad : MonoBehaviour
 		}
 		else
 		{
-			currentTask.text = "done! loading into the menu...";
-			Application.LoadLevel("Loading");
+			StartCoroutine(CacheAllPhotonViewItems());
 		}
 	}
-
+	public void Done() {
+		currentTask.text = "done! loading into the menu...";
+		Application.LoadLevel("Loading");
+	}
 	public IEnumerator LoadEnemies()
 	{
 		int i = 1;
@@ -66,8 +68,29 @@ public class GameLoad : MonoBehaviour
 		}
 		StartCoroutine(LoadBosses());
 	}
+	public IEnumerator CacheAllPhotonViewItems() {
+		#if UNITY_EDITOR
+		currentTask.text = "Caching PhotonView Objects (might take a while!)";
+		GameObject[] allObjects = Resources.LoadAll<GameObject>("");
+		yield return allObjects;
+		yield return null;
+		GameObject[] photonObjects = (from go in allObjects where go.GetComponent<PhotonView>() != null select go).ToArray();
+		yield return photonObjects;
+		yield return null;
+		int i = 0;
+		foreach (GameObject photonObject in photonObjects) {
+			MiscCache.photonViewGameObjects.Add(photonObject);
+			currentTask.text = "Adding to cache (" + i + "/" + photonObjects.Length + ")";
+			i++;
+			yield return null;
+		}
+		#endif
+		yield return null;
+		Done();
+		yield break;
+	}
 
-	public static IEnumerator LoadEnemiesIntoDictionary(UILabel currentTask)
+	public IEnumerator LoadEnemiesIntoDictionary()
 	{
 	    List<SurvivalConfig.Enemy> foundEnemies = new List<SurvivalConfig.Enemy>();
 		currentTask.text = "Sorting Enemies Into Dictionary";
@@ -96,8 +119,7 @@ public class GameLoad : MonoBehaviour
 	        }
 	    }
 	    Encyclopedia.parsedEnemies.AddRange(foundEnemies);
-		currentTask.text = "done! loading into the menu...";
-		Application.LoadLevel("Loading");
+		StartCoroutine(CacheAllPhotonViewItems());
 		yield return null;
 	}
 
@@ -116,6 +138,6 @@ public class GameLoad : MonoBehaviour
 			Encyclopedia.storedEntities.Add(obj as GameObject);
 			yield return null;
 		}
-		StartCoroutine(LoadEnemiesIntoDictionary(currentTask));
+		StartCoroutine(LoadEnemiesIntoDictionary());
 	}
 }

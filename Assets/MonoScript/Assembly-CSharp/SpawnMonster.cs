@@ -100,7 +100,11 @@ public class SpawnMonster : MonoBehaviour
 			_targetPoint = new Vector3(0f - halbLength + UnityEngine.Random.Range(0f, halbLength * 2f), base.transform.position.y, 0f - halbLength + UnityEngine.Random.Range(0f, halbLength * 2f));
 			_lastTimeGo = Time.time + Vector3.Distance(base.transform.position, _targetPoint) / _soundClips.notAttackingSpeed + _timeForIdle;
 			base.transform.LookAt(_targetPoint);
-			_nma.SetDestination(_targetPoint);
+			try {
+				_nma.SetDestination(_targetPoint);
+			}catch{
+				
+			}
 			_nma.speed = _soundClips.notAttackingSpeed;
 		}
 	}

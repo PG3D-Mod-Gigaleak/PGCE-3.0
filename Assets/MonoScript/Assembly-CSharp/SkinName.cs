@@ -156,8 +156,9 @@ public class SkinName : MonoBehaviour
 				photonView.RPC("setAnimPhoton", PhotonTargets.All, GetComponent<PhotonView>().viewID, typeAnim);
 			}
 		}
-		if (playerGameObject.GetComponent<Player_move_c>().isMine && playerGameObject.transform.position.y > 1000000 && playerGameObject.GetComponent<Player_move_c>().CurHealth != 0) {
+		if (playerGameObject.GetComponent<Player_move_c>().isMine && playerGameObject.transform.position.y < -4000 && playerGameObject.GetComponent<Player_move_c>().CurHealth != 0) {
 			_weaponManager.lastEnemyHitBy = null;
+			Achievements.Give("falloutmap");
 			playerGameObject.GetComponent<Player_move_c>().curArmor = 0f;
 			float understand = playerGameObject.GetComponent<Player_move_c>().CurHealth;
 			playerGameObject.GetComponent<Player_move_c>().CurHealth = 0f;
