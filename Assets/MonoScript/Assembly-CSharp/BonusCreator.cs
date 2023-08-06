@@ -182,21 +182,6 @@ public class BonusCreator : MonoBehaviour
 		gameObject.GetComponent<SettingBonus>().typeOfMass = _type;
 	}
 
-	[RPC]
-	private void delBonus(NetworkViewID id)
-	{
-		GameObject[] array = GameObject.FindGameObjectsWithTag("Bonus");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
-			{
-				Object.Destroy(gameObject);
-				break;
-			}
-		}
-	}
-
 	private IEnumerator AddWeapon()
 	{
 		while (true)

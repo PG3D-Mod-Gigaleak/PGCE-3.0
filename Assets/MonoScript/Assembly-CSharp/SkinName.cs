@@ -27,47 +27,6 @@ public class SkinName : MonoBehaviour
 	}
 
 	[RPC]
-	private void setAnim(NetworkViewID id, int _typeAnim)
-	{
-		GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			if (!id.Equals(gameObject.GetComponent<NetworkView>().viewID))
-			{
-				continue;
-			}
-			{
-				foreach (Transform item in gameObject.transform)
-				{
-					if (item.gameObject.name.Equals("FPS_Player"))
-					{
-						string text;
-						switch (_typeAnim)
-						{
-						case 0:
-							text = "Idle";
-							break;
-						case 1:
-							text = "Walk";
-							break;
-						case 2:
-							text = "Jump";
-							break;
-						default:
-							text = "Dead";
-							break;
-						}
-						item.GetComponent<Animation>().Play(text);
-						break;
-					}
-				}
-				break;
-			}
-		}
-	}
-
-	[RPC]
 	private void setAnimPhoton(int id, int _typeAnim)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
@@ -113,7 +72,7 @@ public class SkinName : MonoBehaviour
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
 		character = base.transform.GetComponent<CharacterController>();
 		photonView = PhotonView.Get(this);
-		if (((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1)
+		if (((prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1)
 		{
 			camPlayer.active = false;
 			character.enabled = false;
@@ -122,7 +81,7 @@ public class SkinName : MonoBehaviour
 		{
 			base.transform.Find("FPS_Player").gameObject.SetActive(false);
 		}
-		if (prefs.GetInt("MultyPlayer") != 1 || (prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine))
+		if (prefs.GetInt("MultyPlayer") != 1 || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine))
 		{
 			base.gameObject.layer = 11;
 		}
@@ -130,7 +89,7 @@ public class SkinName : MonoBehaviour
 
 	private void Update()
 	{
-		if (prefs.GetInt("MultyPlayer") != 1 || ((!prefs.GetString("TypeConnect").Equals("local") || !base.GetComponent<NetworkView>().isMine) && (!prefs.GetString("TypeConnect").Equals("inet") || !photonView || !photonView.isMine)))
+		if (prefs.GetInt("MultyPlayer") != 1 || ((!prefs.GetString("TypeConnect").Equals("inet") || !photonView || !photonView.isMine)))
 		{
 			return;
 		}
@@ -146,15 +105,7 @@ public class SkinName : MonoBehaviour
 		if (num != typeAnim)
 		{
 			typeAnim = num;
-			if (prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine)
-			{
-				Debug.Log("send setAnim " + typeAnim);
-				base.GetComponent<NetworkView>().RPC("setAnim", RPCMode.All, GetComponent<NetworkView>().viewID, typeAnim);
-			}
-			if (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)
-			{
-				photonView.RPC("setAnimPhoton", PhotonTargets.All, GetComponent<PhotonView>().viewID, typeAnim);
-			}
+			photonView.RPC("setAnimPhoton", PhotonTargets.All, GetComponent<PhotonView>().viewID, typeAnim);
 		}
 		if (playerGameObject.GetComponent<Player_move_c>().isMine && playerGameObject.transform.position.y < -4000 && playerGameObject.GetComponent<Player_move_c>().CurHealth != 0) {
 			_weaponManager.lastEnemyHitBy = null;
@@ -189,7 +140,7 @@ public class SkinName : MonoBehaviour
 				playerGameObject.GetComponent<Player_move_c>().curArmor = 0f;
 			}
 		}
-		else if (prefs.GetInt("MultyPlayer") == 1 && ((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && photonView.isMine)) && col.collider.gameObject.name.Equals("DeadCollider") && playerGameObject.GetComponent<Player_move_c>().CurHealth > 0f)
+		else if (prefs.GetInt("MultyPlayer") == 1 && ((prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && photonView.isMine)) && col.collider.gameObject.name.Equals("DeadCollider") && playerGameObject.GetComponent<Player_move_c>().CurHealth > 0f)
 		{
 			Achievements.Give("fall");
 			if (Application.loadedLevelName == "EndersHouse")

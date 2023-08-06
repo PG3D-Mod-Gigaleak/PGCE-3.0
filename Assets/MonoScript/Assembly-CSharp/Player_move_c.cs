@@ -17,8 +17,6 @@ public sealed class Player_move_c : MonoBehaviour
 		public float time;
 
 		public int ID;
-
-		public NetworkViewID IDLocal;
 	}
 
 	public string myCAnim(string a){
@@ -971,7 +969,7 @@ public sealed class Player_move_c : MonoBehaviour
 				{
 					if (Time.time - messages[num12].time < 10f)
 					{
-						if ((prefs.GetString("TypeConnect").Equals("local") && messages[num12].IDLocal == _weaponManager.myPlayer.GetComponent<NetworkView>().viewID) || (prefs.GetString("TypeConnect").Equals("inet") && messages[num12].ID == _weaponManager.myPlayer.GetComponent<PhotonView>().viewID))
+						if ((prefs.GetString("TypeConnect").Equals("inet") && messages[num12].ID == _weaponManager.myPlayer.GetComponent<PhotonView>().viewID))
 						{
 							labelGameChatStyle.normal.textColor = new Color(0f, 1f, 0.15f, 1f);
 						}
@@ -1532,14 +1530,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		if (!(_weaponManager == null) && !(_weaponManager.myPlayer == null))
 		{
-			if (prefs.GetString("TypeConnect").Equals("local"))
-			{
-				_weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().AddMessage(text, Time.time, -1, base.transform.parent.GetComponent<NetworkView>().viewID);
-			}
-			else
-			{
-				_weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().AddMessage(text, Time.time, base.transform.parent.GetComponent<PhotonView>().viewID, base.transform.parent.GetComponent<NetworkView>().viewID);
-			}
+			_weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().AddMessage(text, Time.time, base.transform.parent.GetComponent<PhotonView>().viewID);
 			GameObject gameObject = GameObject.FindGameObjectWithTag("ChatViewer");
 		}
 	}
@@ -1549,24 +1540,16 @@ public sealed class Player_move_c : MonoBehaviour
 		text = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(text);
 		if (text != string.Empty)
 		{
-			if (prefs.GetString("TypeConnect").Equals("local"))
-			{
-				base.GetComponent<NetworkView>().RPC("SendChatMessage", RPCMode.All, "< " + _weaponManager.myTable.GetComponent<NetworkStartTable>().NamePlayer + " > " + text);
-			}
-			else
-			{
-				photonView.RPC("SendChatMessage", PhotonTargets.All, "< " + _weaponManager.myTable.GetComponent<NetworkStartTable>().NamePlayer + " > " + text);
-			}
+			photonView.RPC("SendChatMessage", PhotonTargets.All, "< " + _weaponManager.myTable.GetComponent<NetworkStartTable>().NamePlayer + " > " + text);
 		}
 	}
 
-	public void AddMessage(string text, float time, int ID, NetworkViewID IDLocal)
+	public void AddMessage(string text, float time, int ID)
 	{
 		MessageChat item = default(MessageChat);
 		item.text = text;
 		item.time = time;
 		item.ID = ID;
-		item.IDLocal = IDLocal;
 		messages.Add(item);
 		if (messages.Count > 20)
 		{
@@ -1697,118 +1680,6 @@ public sealed class Player_move_c : MonoBehaviour
 		StartCoroutine(Flash(base.gameObject.transform.parent.gameObject));
 	}
 
-	public void setParentWeaponHelp(string _name, GameObject[] players, NetworkViewID idWeapon, NetworkViewID idParent, string _ip, string nameSkin, string _nickName)
-	{
-		GameObject[] array = (from weapon in Resources.FindObjectsOfTypeAll<WeaponSounds>() where weapon.gameObject.activeInHierarchy && weapon.name == _name.Replace("(Clone)", "") select weapon.gameObject).ToArray();
-		Debug.LogError(array.Length);
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			GameObject gameObject2 = null;
-			if (!idWeapon.Equals(gameObject.GetComponent<NetworkView>().viewID))
-			{
-				continue;
-			}
-			gameObject.transform.position = Vector3.zero;
-			if (!gameObject.GetComponent<WeaponSounds>().isMelee)
-			{
-				foreach (Transform item in gameObject.transform)
-				{
-					if (item.gameObject.name.Equals("BulletSpawnPoint"))
-					{
-						gameObject2 = item.GetChild(0).gameObject;
-						if (((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1)
-						{
-							gameObject2.SetActive(false);
-						}
-						break;
-					}
-				}
-			}
-			foreach (GameObject gameObject3 in players)
-			{
-				if (!idParent.Equals(gameObject3.GetComponent<NetworkView>().viewID))
-				{
-					continue;
-				}
-				foreach (Transform item2 in gameObject3.transform)
-				{
-					item2.parent = null;
-					item2.position += -Vector3.up * 1000f;
-				}
-				gameObject.transform.parent = gameObject3.transform;
-				gameObject.transform.position = Vector3.zero;
-				gameObject.transform.rotation = gameObject3.transform.rotation;
-				GameObject gameObject4 = null;
-				gameObject4 = gameObject3.transform.GetChild(0).gameObject.GetComponent<WeaponSounds>().bonusPrefab;
-				if (myTable == null && prefs.GetInt("MultyPlayer") == 1)
-				{
-					GameObject[] array3 = GameObject.FindGameObjectsWithTag("NetworkTable");
-					if (prefs.GetString("TypeConnect").Equals("inet"))
-					{
-						GameObject[] array4 = array3;
-						foreach (GameObject gameObject5 in array4)
-						{
-							if (gameObject5.GetComponent<PhotonView>().owner == base.transform.GetComponent<PhotonView>().owner)
-							{
-								myTable = gameObject5;
-								break;
-							}
-						}
-					}
-					else
-					{
-						GameObject[] array5 = array3;
-						foreach (GameObject gameObject6 in array5)
-						{
-							if (gameObject6.GetComponent<NetworkView>().owner == base.transform.GetComponent<NetworkView>().owner)
-							{
-								myTable = gameObject6;
-								break;
-							}
-						}
-					}
-				}
-				if (myTable != null && myTable.GetComponent<NetworkStartTable>().mySkin != null)
-				{
-					gameObject3.GetComponent<Player_move_c>()._skin = myTable.GetComponent<NetworkStartTable>().mySkin;
-				}
-				gameObject3.transform.parent.gameObject.GetComponent<SkinName>().NickName = _nickName;
-				GameObject[] array6 = null;
-				SetTextureRecursivelyFrom(stopObjs: (gameObject.GetComponent<WeaponSounds>().isMelee || !(gameObject2 != null)) ? new GameObject[1] { gameObject4 } : new GameObject[2] { gameObject4, gameObject2 }, obj: gameObject3.transform.parent.gameObject, txt: gameObject3.GetComponent<Player_move_c>()._skin);
-				if (prefs.GetInt("MultyPlayer") == 1 && ((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1 && _label == null)
-				{
-					GameObject original = Resources.Load("NewLabel") as GameObject;
-					_label = UnityEngine.Object.Instantiate(original) as GameObject;
-					_label.GetComponent<NewLabel>().target = base.transform;
-					_label.GetComponent<TextMesh>().text = _nickName;
-					_label.transform.parent = base.transform;
-					_label.transform.localPosition = original.transform.position;
-				}
-			}
-		}
-	}
-
-	[RPC]
-	public void setParentWeapon(NetworkViewID idWeapon, NetworkViewID idParent, string _ip, string nameSkin, string _nickName)
-	{
-		string[] multiplayerWeaponTags = WeaponManager.multiplayerWeaponTags;
-		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
-		string[] array2 = multiplayerWeaponTags;
-		foreach (string text in array2)
-		{
-			setParentWeaponHelp(text, array, idWeapon, idParent, _ip, nameSkin, _nickName);
-		}
-		GameObject[] array3 = array;
-		foreach (GameObject gameObject in array3)
-		{
-			if (idParent.Equals(gameObject.GetComponent<NetworkView>().viewID))
-			{
-				gameObject.transform.GetComponent<Player_move_c>().myIp = _ip;
-			}
-		}
-	}
-
 	public bool isMine 
 	{
 		get {
@@ -1839,7 +1710,7 @@ public sealed class Player_move_c : MonoBehaviour
 					if (item.gameObject.name.Equals("BulletSpawnPoint"))
 					{
 						gameObject2 = item.GetChild(0).gameObject;
-						if (((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1)
+						if (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine && prefs.GetInt("MultyPlayer") == 1)
 						{
 							gameObject2.SetActive(false);
 						}
@@ -1870,28 +1741,13 @@ public sealed class Player_move_c : MonoBehaviour
 				if (myTable == null && prefs.GetInt("MultyPlayer") == 1)
 				{
 					GameObject[] array3 = GameObject.FindGameObjectsWithTag("NetworkTable");
-					if (prefs.GetString("TypeConnect").Equals("inet"))
+					GameObject[] array4 = array3;
+					foreach (GameObject gameObject5 in array4)
 					{
-						GameObject[] array4 = array3;
-						foreach (GameObject gameObject5 in array4)
+						if (gameObject5.GetComponent<PhotonView>().owner == base.transform.GetComponent<PhotonView>().owner)
 						{
-							if (gameObject5.GetComponent<PhotonView>().owner == base.transform.GetComponent<PhotonView>().owner)
-							{
-								myTable = gameObject5;
-								break;
-							}
-						}
-					}
-					else
-					{
-						GameObject[] array5 = array3;
-						foreach (GameObject gameObject6 in array5)
-						{
-							if (gameObject6.GetComponent<NetworkView>().owner == base.transform.GetComponent<NetworkView>().owner)
-							{
-								myTable = gameObject6;
-								break;
-							}
+							myTable = gameObject5;
+							break;
 						}
 					}
 				}
@@ -1902,7 +1758,7 @@ public sealed class Player_move_c : MonoBehaviour
 				gameObject3.transform.parent.gameObject.GetComponent<SkinName>().NickName = _nickName;
 				GameObject[] array6 = null;
 				SetTextureRecursivelyFrom(stopObjs: (gameObject.GetComponent<WeaponSounds>().isMelee || !(gameObject2 != null)) ? new GameObject[1] { gameObject4 } : new GameObject[2] { gameObject4, gameObject2 }, obj: gameObject3.transform.parent.gameObject, txt: gameObject3.GetComponent<Player_move_c>()._skin);
-				if (prefs.GetInt("MultyPlayer") == 1 && ((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && _label == null)
+				if (prefs.GetInt("MultyPlayer") == 1 && (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine) && _label == null)
 				{
 					GameObject original = Resources.Load("NewLabel") as GameObject;
 					_label = UnityEngine.Object.Instantiate(original) as GameObject;
@@ -2005,19 +1861,10 @@ public sealed class Player_move_c : MonoBehaviour
 		else
 		{
 			string text = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(prefs.GetString("NamePlayer", Defs.defaultPlayerName));
-			if (prefs.GetString("TypeConnect").Equals("inet"))
-			{
-				gameObject = PhotonNetwork.Instantiate("Weapons/" + ((Weapon)_weaponManager.playerWeapons[index]).weaponPrefab.name, -Vector3.up * 1000f, Quaternion.identity, 0);
-				gameObject.transform.position = -1000f * Vector3.up;
-				string ipAddress = Network.player.ipAddress;
-				photonView.RPC("setParentWeaponPhoton", PhotonTargets.AllBuffered, gameObject.GetComponent<PhotonView>().viewID, base.gameObject.GetComponent<PhotonView>().viewID, ipAddress, prefs.GetString("SkinNameMultiplayer", Defs.SkinBaseName + 0), text);
-			}
-			else
-			{
-				gameObject = (GameObject)Network.Instantiate(((Weapon)_weaponManager.playerWeapons[index]).weaponPrefab, -Vector3.up * 1000f, Quaternion.identity, 0);
-				gameObject.transform.position = -1000f * Vector3.up;
-				base.GetComponent<NetworkView>().RPC("setParentWeapon", RPCMode.AllBuffered, gameObject.GetComponent<NetworkView>().viewID, base.gameObject.GetComponent<NetworkView>().viewID, Network.player.ipAddress, prefs.GetString("SkinNameMultiplayer", Defs.SkinBaseName + 0), text);
-			}
+			gameObject = PhotonNetwork.Instantiate("Weapons/" + ((Weapon)_weaponManager.playerWeapons[index]).weaponPrefab.name, -Vector3.up * 1000f, Quaternion.identity, 0);
+			gameObject.transform.position = -1000f * Vector3.up;
+			string ipAddress = Network.player.ipAddress;
+			photonView.RPC("setParentWeaponPhoton", PhotonTargets.AllBuffered, gameObject.GetComponent<PhotonView>().viewID, base.gameObject.GetComponent<PhotonView>().viewID, ipAddress, prefs.GetString("SkinNameMultiplayer", Defs.SkinBaseName + 0), text);
 		}
 		SetLayerRecursively(gameObject, 9);
 		_weaponManager.CurrentWeaponIndex = index;
@@ -2166,28 +2013,13 @@ public sealed class Player_move_c : MonoBehaviour
 		if (prefs.GetInt("MultyPlayer") == 1)
 		{
 			GameObject[] array = GameObject.FindGameObjectsWithTag("NetworkTable");
-			if (prefs.GetString("TypeConnect").Equals("inet"))
+			GameObject[] array2 = array;
+			foreach (GameObject gameObject in array2)
 			{
-				GameObject[] array2 = array;
-				foreach (GameObject gameObject in array2)
+				if (gameObject.GetComponent<PhotonView>().owner == base.transform.GetComponent<PhotonView>().owner)
 				{
-					if (gameObject.GetComponent<PhotonView>().owner == base.transform.GetComponent<PhotonView>().owner)
-					{
-						myTable = gameObject;
-						break;
-					}
-				}
-			}
-			else
-			{
-				GameObject[] array3 = array;
-				foreach (GameObject gameObject2 in array3)
-				{
-					if (gameObject2.GetComponent<NetworkView>().owner == base.transform.GetComponent<NetworkView>().owner)
-					{
-						myTable = gameObject2;
-						break;
-					}
+					myTable = gameObject;
+					break;
 				}
 			}
 		}
@@ -2230,7 +2062,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			maxCountKills = int.Parse(PhotonNetwork.room.customProperties["MaxKill"].ToString());
 		}
-		if (prefs.GetInt("MultyPlayer") != 1 || (((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1))
+		if (prefs.GetInt("MultyPlayer") != 1 || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine && prefs.GetInt("MultyPlayer") == 1))
 		{
 			_actionsForPurchasedItems.Add("bigammopack", new KeyValuePair<Action, GUIStyle>(ProvideAmmo, puliInApp));
 			_actionsForPurchasedItems.Add("Fullhealth", new KeyValuePair<Action, GUIStyle>(ProvideHealth, healthInApp));
@@ -2291,7 +2123,7 @@ public sealed class Player_move_c : MonoBehaviour
 		HOTween.EnableOverwriteManager();
 		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if ((((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
+			if ((((prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
 			{
 				showGUI = true;
 			}
@@ -2304,7 +2136,7 @@ public sealed class Player_move_c : MonoBehaviour
 		GoogleIABManager.purchaseSucceededEvent += purchaseSuccessful;
 		GoogleIABManager.consumePurchaseSucceededEvent += consumptionSucceeded;
 		AmazonIAPManager.purchaseSuccessfulEvent += HandlePurchaseSuccessful;
-		if ((((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
+		if ((((prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
 		{
 			_player = base.transform.parent.gameObject;
 		}
@@ -2313,7 +2145,7 @@ public sealed class Player_move_c : MonoBehaviour
 			_player = null;
 		}
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
-		if (((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine && prefs.GetInt("StartAfterDisconnect") == 0)) && prefs.GetInt("MultyPlayer") == 1)
+		if (((prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine && prefs.GetInt("StartAfterDisconnect") == 0)) && prefs.GetInt("MultyPlayer") == 1)
 		{
 			foreach (Weapon playerWeapon in _weaponManager.playerWeapons)
 			{
@@ -2321,12 +2153,12 @@ public sealed class Player_move_c : MonoBehaviour
 				playerWeapon.currentAmmoInBackpack = playerWeapon.weaponPrefab.GetComponent<WeaponSounds>().InitialAmmo;
 			}
 		}
-		if (((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1)
+		if (((prefs.GetString("TypeConnect").Equals("inet") && !photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1)
 		{
 			base.gameObject.transform.parent.transform.Find("LeftTouchPad").gameObject.SetActive(false);
 			base.gameObject.transform.parent.transform.Find("RightTouchPad").gameObject.SetActive(false);
 		}
-		if (prefs.GetInt("MultyPlayer") != 1 || (((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1))
+		if (prefs.GetInt("MultyPlayer") != 1 || (((prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1))
 		{
 			GameObject original = Resources.Load("Damage") as GameObject;
 			damage = (GameObject)UnityEngine.Object.Instantiate(original);
@@ -2411,9 +2243,8 @@ public sealed class Player_move_c : MonoBehaviour
 			return true;
 		}
 		string @string = prefs.GetString("TypeConnect");
-		bool flag = @string.Equals("local");
 		bool flag2 = @string.Equals("inet");
-		return ((flag && base.GetComponent<NetworkView>().isMine) || (flag2 && (bool)photonView && photonView.isMine)) && @int == 1;
+		return (flag2 && (bool)photonView && photonView.isMine) && @int == 1;
 	}
 
 	private void OnDestroy()
@@ -2433,11 +2264,11 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		coinsShop.hideCoinsShop();
 		coinsPlashka.hidePlashka();
-		if (prefs.GetInt("MultyPlayer", 0) == 1 && ((prefs.GetString("TypeConnect").Equals("local") && !base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine)) && _label != null)
+		if (prefs.GetInt("MultyPlayer", 0) == 1 && ((prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine)) && _label != null)
 		{
 			UnityEngine.Object.Destroy(_label);
 		}
-		if (prefs.GetInt("MultyPlayer") != 1 || (((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1))
+		if (prefs.GetInt("MultyPlayer") != 1 || (((prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1))
 		{
 			GoogleIABManager.purchaseSucceededEvent -= purchaseSuccessful;
 			GoogleIABManager.consumePurchaseSucceededEvent -= consumptionSucceeded;
@@ -2477,21 +2308,6 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 
 	[RPC]
-	private void ReloadGun(NetworkViewID id)
-	{
-		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
-			{
-				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "Reload"));
-				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().reload);
-			}
-		}
-	}
-
-	[RPC]
 	private void ReloadGunPhoton(int id)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
@@ -2502,20 +2318,6 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "Reload"));
 				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().reload);
-			}
-		}
-	}
-	 	[RPC]
-	private void ChargeUpGun(NetworkViewID id)
-	{
-		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
-			{
-				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "ChargeUp"));
-				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().chargeUp);
 			}
 		}
 	}
@@ -2536,21 +2338,6 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "ChargeUp"));
 				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().chargeUp);
-			}
-		}
-	}
-
-	[RPC]
-	private void ChargeDownGun(NetworkViewID id)
-	{
-		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
-			{
-				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "ChargeDown"));
-				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().chargeDown);
 			}
 		}
 	}
@@ -2635,14 +2422,7 @@ public sealed class Player_move_c : MonoBehaviour
 		_weaponManager.Reload();
 		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if (prefs.GetString("TypeConnect").Equals("local"))
-			{
-				base.GetComponent<NetworkView>().RPC("ReloadGun", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
-			}
-			else
-			{
-				photonView.RPC("ReloadGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
-			}
+			photonView.RPC("ReloadGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
 		}
 		if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
 		{
@@ -2663,19 +2443,6 @@ public sealed class Player_move_c : MonoBehaviour
 			gameObject3.GetComponent<ChatViewrController>().PlayerObject = base.gameObject;
 		}
 	}
-	
-	private void SwapInGun(NetworkViewID id)
-	{
-		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
-			{
-				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "SwapIn"));
-			}
-		}
-	}
 
 	[RPC]
 	private void SwapInGunPhoton(int id)
@@ -2687,19 +2454,6 @@ public sealed class Player_move_c : MonoBehaviour
 			if (id == gameObject.GetComponent<PhotonView>().viewID)
 			{
 				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "SwapIn"));
-			}
-		}
-	}
-
-	private void SwapOutGun(NetworkViewID id)
-	{
-		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
-			{
-				gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "SwapOut"));
 			}
 		}
 	}
@@ -2802,14 +2556,7 @@ public sealed class Player_move_c : MonoBehaviour
 		WS.animationObject.GetComponent<Animation>().Play("ChargeUp");
 		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if (prefs.GetString("TypeConnect").Equals("local"))
-			{
-				base.GetComponent<NetworkView>().RPC("ChargeUpGun", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
-			}
-			else
-			{
-				photonView.RPC("ChargeUpGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
-			}
+			photonView.RPC("ChargeUpGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
 		}
 		if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
 		{
@@ -2827,14 +2574,7 @@ public sealed class Player_move_c : MonoBehaviour
 						WS.animationObject.GetComponent<Animation>().Play("ChargeDown");
 						if (prefs.GetInt("MultyPlayer") == 1)
 						{
-							if (prefs.GetString("TypeConnect").Equals("local"))
-							{
-								base.GetComponent<NetworkView>().RPC("ChargeDownGun", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
-							}
-							else
-							{
-								photonView.RPC("ChargeDownGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
-							}
+							photonView.RPC("ChargeDownGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
 						}
 						if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
 						{
@@ -2917,14 +2657,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public void sendImDeath(string _name)
 	{
-		if (prefs.GetString("TypeConnect").Equals("local"))
-		{
-			base.GetComponent<NetworkView>().RPC("imDeath", RPCMode.All, _name);
-		}
-		else
-		{
-			photonView.RPC("imDeath", PhotonTargets.All, _name);
-		}
+		photonView.RPC("imDeath", PhotonTargets.All, _name);
 	}
 
 	public void setInString(string nick)
@@ -2965,47 +2698,6 @@ public sealed class Player_move_c : MonoBehaviour
 			_weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().timerShow[1] = _weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().timerShow[0];
 			_weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().timerShow[0] = 3f;
 		}
-	}
-
-	[RPC]
-	public void Killed(NetworkViewID idKiller, NetworkViewID id)
-	{
-		if (_weaponManager == null || _weaponManager.myPlayer == null)
-		{
-			return;
-		}
-		string text = string.Empty;
-		string text2 = string.Empty;
-		GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			if (gameObject.GetComponent<NetworkView>().viewID.Equals(idKiller))
-			{
-				text = gameObject.GetComponent<SkinName>().NickName;
-			}
-			if (gameObject.GetComponent<NetworkView>().viewID.Equals(id))
-			{
-				text2 = gameObject.GetComponent<SkinName>().NickName;
-			}
-			if (gameObject.GetComponent<NetworkView>().viewID.Equals(idKiller) && gameObject == _weaponManager.myPlayer)
-			{
-				countKills++;
-				_weaponManager.myTable.GetComponent<NetworkStartTable>().CountKills = countKills;
-				_weaponManager.myTable.GetComponent<NetworkStartTable>().synchState();
-				if (countKills >= maxCountKills)
-				{
-					base.GetComponent<NetworkView>().RPC("pobeda", RPCMode.AllBuffered, idKiller);
-					prefs.SetInt("Rating", prefs.GetInt("Rating", 0) + 1);
-				}
-			}
-		}
-		_weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().killedSpisok[2] = _weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().killedSpisok[1];
-		_weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().killedSpisok[1] = _weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().killedSpisok[0];
-		_weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().killedSpisok[0] = text + " killed " + text2;
-		_weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().timerShow[2] = _weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().timerShow[1];
-		_weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().timerShow[1] = _weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().timerShow[0];
-		_weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().timerShow[0] = 4f;
 	}
 
 	[RPC]
@@ -3054,21 +2746,6 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 
 	[RPC]
-	public void pobeda(NetworkViewID idKiller)
-	{
-		GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			if (idKiller.Equals(gameObject.GetComponent<NetworkView>().viewID))
-			{
-				nickPobeditel = gameObject.GetComponent<SkinName>().NickName;
-			}
-		}
-		GameObject.FindGameObjectWithTag("NetworkTable").GetComponent<NetworkStartTable>().win(nickPobeditel);
-	}
-
-	[RPC]
 	public void pobedaPhoton(int idKiller)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
@@ -3081,57 +2758,6 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 		}
 		GameObject.FindGameObjectWithTag("NetworkTable").GetComponent<NetworkStartTable>().win(nickPobeditel);
-	}
-
-	[RPC]
-	public void minusLive(NetworkViewID id, NetworkViewID idKiller, float minus)
-	{
-		if (_weaponManager == null || _weaponManager.myPlayer == null || id.Equals(base.transform.parent.transform.GetComponent<NetworkView>().viewID))
-		{
-			return;
-		}
-		GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			if (!id.Equals(gameObject.GetComponent<NetworkView>().viewID))
-			{
-				continue;
-			}
-			foreach (Transform item in gameObject.transform)
-			{
-				if (!item.gameObject.name.Equals("GameObject"))
-				{
-					continue;
-				}
-				item.gameObject.GetComponent<AudioSource>().PlayOneShot(damagePlayerSound);
-				Debug.Log("------minus live------ " + item.gameObject.GetComponent<Player_move_c>().CurHealth);
-				if (!gameObject.Equals(_weaponManager.myPlayer) || gameObject.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().isKilled)
-				{
-					break;
-				}
-				float num = minus - item.gameObject.GetComponent<Player_move_c>().curArmor;
-				if (num < 0f)
-				{
-					item.gameObject.GetComponent<Player_move_c>().curArmor -= minus;
-					num = 0f;
-				}
-				else
-				{
-					item.gameObject.GetComponent<Player_move_c>().curArmor = 0f;
-				}
-				if (item.gameObject.GetComponent<Player_move_c>().CurHealth > 0f)
-				{
-					item.gameObject.GetComponent<Player_move_c>().CurHealth -= num;
-					if (item.gameObject.GetComponent<Player_move_c>().CurHealth <= 0f)
-					{
-						base.GetComponent<NetworkView>().RPC("Killed", RPCMode.All, idKiller, id);
-					}
-				}
-				break;
-			}
-			StartCoroutine(Flash(gameObject));
-		}
 	}
 
 	public AudioClip[] headshotSounds;
@@ -3313,44 +2939,6 @@ public sealed class Player_move_c : MonoBehaviour
 			rocketToLaunch.GetComponent<Rigidbody>().AddForce(83.75f * rocketToLaunch.transform.forward * extraSpeed);
 			extraSpeed = 1f;
 			rocketToLaunch = null;
-		}
-	}
-
-	[RPC]
-	private void fireFlash(NetworkViewID id, bool isFlash)
-	{
-		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			if (id.Equals(gameObject.GetComponent<NetworkView>().viewID))
-			{
-				if (isFlash)
-				{
-					if (!gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().isDouble)
-					{
-						gameObject.transform.GetChild(0).GetChild(0).GetComponent<FlashFire>().fire();
-					}
-					else
-					{
-						gameObject.transform.GetChild(0).GetChild(0).GetComponent<FlashFire>().fire(doubleShotIndex);
-					}
-				}
-				if (!gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().isDouble)
-				{
-					gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "Shoot"));
-				}
-				else
-				{
-					if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")))
-					{
-						gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
-						gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetComponent<WeaponSounds>().animationObject, "Shoot" + doubleShotIndex));
-						DoDoubleShot();
-					}
-				}
-				gameObject.GetComponent<AudioSource>().PlayOneShot(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().shoot);
-			}
 		}
 	}
 
@@ -3645,14 +3233,7 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 				if (prefs.GetInt("MultyPlayer") == 1)
 				{
-					if (prefs.GetString("TypeConnect").Equals("local"))
-					{
-						base.GetComponent<NetworkView>().RPC("HoleRPC", RPCMode.Others, flag, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
-					}
-					else
-					{
-						photonView.RPC("HoleRPC", PhotonTargets.Others, flag, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
-					}
+					photonView.RPC("HoleRPC", PhotonTargets.Others, flag, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
 				}
 			}
 			if ((bool)hitInfo.collider.gameObject.transform.parent && hitInfo.collider.gameObject.transform.parent.CompareTag("Enemy"))
@@ -3682,38 +3263,17 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			if (prefs.GetInt("MultyPlayer") == 1)
 			{
-				if (prefs.GetString("TypeConnect").Equals("inet"))
-				{
-					photonView.RPC("fireFlashPhoton", PhotonTargets.Others, base.gameObject.transform.GetComponent<PhotonView>().viewID, true, hitInfo.distance, Quaternion.LookRotation(Camera.main.transform.TransformDirection(Vector3.forward)));
-				}
-				else
-				{
-					base.GetComponent<NetworkView>().RPC("fireFlash", RPCMode.Others, base.gameObject.transform.GetComponent<NetworkView>().viewID, true);
-				}
+				photonView.RPC("fireFlashPhoton", PhotonTargets.Others, base.gameObject.transform.GetComponent<PhotonView>().viewID, true, hitInfo.distance, Quaternion.LookRotation(Camera.main.transform.TransformDirection(Vector3.forward)));
 			}
 			if ((hitInfo.collider.gameObject.CompareTag("BodyCollider") || hitInfo.collider.gameObject.CompareTag("HeadCollider")) && prefs.GetInt("MultyPlayer") == 1 && prefs.GetInt("COOP", 0) != 1 && !hitInfo.collider.transform.parent.gameObject.GetComponent<FirstPersonControl>().playerGameObject.GetComponent<Player_move_c>().isMine)
 			{
-				if (prefs.GetString("TypeConnect").Equals("local"))
-				{
-					base.GetComponent<NetworkView>().RPC("minusLive", RPCMode.All, hitInfo.collider.gameObject.GetComponent<NetworkView>().viewID, base.transform.parent.gameObject.GetComponent<NetworkView>().viewID, WS.multiplayerDamage);
-				}
-				else
-				{
-					MinusLivePlayer(hitInfo.collider.transform.parent.gameObject.GetComponent<PhotonView>().viewID, WS.multiplayerDamage, hitInfo.collider.gameObject.CompareTag("HeadCollider"));
-				}
+				MinusLivePlayer(hitInfo.collider.transform.parent.gameObject.GetComponent<PhotonView>().viewID, WS.multiplayerDamage, hitInfo.collider.gameObject.CompareTag("HeadCollider"));
 			}
 			return;
 		}
 		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if (prefs.GetString("TypeConnect").Equals("local"))
-			{
-				base.GetComponent<NetworkView>().RPC("fireFlash", RPCMode.Others, base.gameObject.transform.GetComponent<NetworkView>().viewID, false);
-			}
-			else
-			{
-				photonView.RPC("fireFlashPhoton", PhotonTargets.Others, base.gameObject.transform.GetComponent<PhotonView>().viewID, false, 0f, Quaternion.identity);
-			}
+			photonView.RPC("fireFlashPhoton", PhotonTargets.Others, base.gameObject.transform.GetComponent<PhotonView>().viewID, false, 0f, Quaternion.identity);
 		}
 		StartCoroutine(CheckHitByMelee(alt));
 	}
@@ -3825,14 +3385,7 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				if (tr.gameObject.tag.Equals("PlayerGun") && prefs.GetInt("MultyPlayer") == 1)
 				{
-					if (prefs.GetString("TypeConnect").Equals("local"))
-					{
-						base.GetComponent<NetworkView>().RPC("minusLive", RPCMode.All, tr.gameObject.transform.parent.gameObject.GetComponent<NetworkView>().viewID, base.transform.parent.gameObject.GetComponent<NetworkView>().viewID, WS.multiplayerDamage);
-					}
-					else
-					{
-						MinusLivePlayer(tr.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().viewID, WS.multiplayerDamage);
-					}
+					MinusLivePlayer(tr.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().viewID, WS.multiplayerDamage);
 				}
 			}
 			yield break;
@@ -3924,14 +3477,7 @@ public sealed class Player_move_c : MonoBehaviour
 			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play("SwapIn");
 			if (prefs.GetInt("MultyPlayer") == 1)
 			{
-				if (prefs.GetString("TypeConnect").Equals("local"))
-				{
-					base.GetComponent<NetworkView>().RPC("SwapInGun", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
-				}
-				else
-				{
-					photonView.RPC("SwapInGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
-				}
+				photonView.RPC("SwapInGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
 			}
 			yield return new WaitForSeconds(_weaponManager.currentWeaponSounds.swapTime);
 			isSwappin = false;
@@ -3948,14 +3494,7 @@ public sealed class Player_move_c : MonoBehaviour
 		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play("SwapOut");
 		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if (prefs.GetString("TypeConnect").Equals("local"))
-			{
-				base.GetComponent<NetworkView>().RPC("SwapOutGun", RPCMode.Others, base.gameObject.GetComponent<NetworkView>().viewID);
-			}
-			else
-			{
-				photonView.RPC("SwapOutGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
-			}
+			photonView.RPC("SwapOutGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
 		}
 		yield return new WaitForSeconds(_weaponManager.currentWeaponSounds.swapTime);
 		isSwappin = false;
@@ -4006,7 +3545,7 @@ public sealed class Player_move_c : MonoBehaviour
 			ZoomPress();
 		}
 		parentedAnimation.Stop();
-		if ((((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
+		if ((((prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
 		{
 			if (_weaponManager.currentWeaponSounds.isSwapOut)
 			{
@@ -4290,7 +3829,7 @@ public sealed class Player_move_c : MonoBehaviour
 						float num = 0.02f;
 						if (slideMagnitudeX > num)
 						{
-							if ((((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
+							if ((((prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
 							{
 								_weaponManager.CurrentWeaponIndex++;
 								int count = _weaponManager.playerWeapons.Count;
@@ -4306,7 +3845,7 @@ public sealed class Player_move_c : MonoBehaviour
 						}
 						else if (slideMagnitudeX < 0f - num)
 						{
-							if ((((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
+							if ((((prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)) && prefs.GetInt("MultyPlayer") == 1) || prefs.GetInt("MultyPlayer") != 1)
 							{
 								_weaponManager.CurrentWeaponIndex--;
 								if (_weaponManager.CurrentWeaponIndex < 0)
@@ -4353,14 +3892,7 @@ public sealed class Player_move_c : MonoBehaviour
 		randomDeadIndex = UnityEngine.Random.Range(0, deadPlayerSounds.Length);
 		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if (prefs.GetString("TypeConnect").Equals("local"))
-			{
-				base.GetComponent<NetworkView>().RPC("ImKilled", RPCMode.All, randomDeadIndex);
-			}
-			else
-			{
-				photonView.RPC("ImKilled", PhotonTargets.Others, randomDeadIndex);
-			}
+			photonView.RPC("ImKilled", PhotonTargets.Others, randomDeadIndex);
 			base.gameObject.GetComponent<AudioSource>().PlayOneShot(deadPlayerSounds[randomDeadIndex]);
 			if (prefs.GetInt("COOP", 0) == 1)
 			{

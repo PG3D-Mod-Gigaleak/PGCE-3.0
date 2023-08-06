@@ -174,14 +174,6 @@ public class FirstPersonControl : MonoBehaviour
 		Debug.Log("firstPesonControl=" + Network.player.ipAddress + " myIp=" + _ip);
 	}
 
-	public virtual void popal(NetworkViewID id)
-	{
-		if (prefs.GetInt("MultyPlayer") == 1)
-		{
-			GetComponent<NetworkView>().RPC("minusLive", RPCMode.All, id);
-		}
-	}
-
 	public virtual Vector2 updateKeyboardControls()
 	{
 		#if UNITY_EDITOR

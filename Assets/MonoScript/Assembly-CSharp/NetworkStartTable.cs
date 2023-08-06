@@ -216,17 +216,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 
 	public void sendDelMyPlayer()
 	{
-		if (prefs.GetString("TypeConnect").Equals("local"))
-		{
-			if (base.GetComponent<NetworkView>().isMine)
-			{
-				base.GetComponent<NetworkView>().RPC("delPlayer", RPCMode.Others, prefs.GetString("NamePlayer", Defs.defaultPlayerName));
-			}
-		}
-		else if (photonView.isMine)
-		{
-			photonView.RPC("delPlayer", PhotonTargets.Others, prefs.GetString("NamePlayer", Defs.defaultPlayerName));
-		}
+		photonView.RPC("delPlayer", PhotonTargets.Others, prefs.GetString("NamePlayer", Defs.defaultPlayerName));
 	}
 
 	private void playersTable()
@@ -494,12 +484,6 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 		currentCamera = Camera.main;
 		_weaponManager.myPlayer = myPlayer;
-		if (prefs.GetString("TypeConnect").Equals("local") && prefs.GetString("TypeGame").Equals("server"))
-		{
-			Debug.Log("networkView.RPC(RunGame, RPCMode.OthersBuffered);");
-			base.GetComponent<NetworkView>().RPC("RunGame", RPCMode.OthersBuffered);
-			GameObject.FindGameObjectWithTag("GameController").GetComponent<BonusCreator>().BeginCreateBonuses();
-		}
 		GameObject.FindGameObjectWithTag("GameController").GetComponent<Initializer>().SetupObjectThatNeedsPlayer();
 		showTable = false;
 	}
@@ -634,24 +618,17 @@ public sealed class NetworkStartTable : MonoBehaviour
 
 	public void synchState()
 	{
-		if (prefs.GetString("TypeConnect").Equals("inet"))
+		if (prefs.GetInt("COOP", 0) == 0)
 		{
-			if (prefs.GetInt("COOP", 0) == 0)
-			{
-				GlobalGameController.Score = CountKills;
-			}
-			else
-			{
-				GlobalGameController.Score = Mathf.RoundToInt(score);
-			}
-			photonView.RPC("setState", PhotonTargets.Others, NamePlayer, CountKills, oldCountKills, score);
-			if (prefs.GetInt("COOP", 0) != 1)
-			{
-			}
+			GlobalGameController.Score = CountKills;
 		}
 		else
 		{
-			base.GetComponent<NetworkView>().RPC("setState", RPCMode.OthersBuffered, NamePlayer, CountKills, oldCountKills, 0f);
+			GlobalGameController.Score = Mathf.RoundToInt(score);
+		}
+		photonView.RPC("setState", PhotonTargets.Others, NamePlayer, CountKills, oldCountKills, score);
+		if (prefs.GetInt("COOP", 0) != 1)
+		{
 		}
 	}
 
@@ -847,6 +824,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 			_canUserUseFacebookComposer = ServiceLocator.FacebookFacade.CanUserUseFacebookComposer();
 		}
 		photonView = PhotonView.Get(this);
+		// yeah i'm not 100% sure why this says "networkview" but it doesn't matter
 		Debug.Log("add NetworkView" + prefs.GetString("TypeGame").Equals("server"));
 		if (prefs.GetInt("COOP", 0) == 1 && prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine && prefs.GetString("TypeGame").Equals("server"))
 		{
@@ -855,7 +833,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		_purchaseActivityIndicator = StoreKitEventListener.purchaseActivityInd;
 		zoneCreatePlayer = GameObject.FindGameObjectsWithTag((prefs.GetInt("COOP", 0) != 1) ? "MultyPlayerCreateZone" : "MultyPlayerCreateZone");
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
-		if (prefs.GetInt("MultyPlayer") == 1 && ((prefs.GetString("TypeConnect").Equals("local") && base.GetComponent<NetworkView>().isMine) || (prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)))
+		if (prefs.GetInt("MultyPlayer") == 1 && ((prefs.GetString("TypeConnect").Equals("inet") && photonView.isMine)))
 		{
 			Debug.Log("Start " + GlobalGameController.Score);
 			if (prefs.GetInt("StartAfterDisconnect") == 0)
@@ -879,29 +857,8 @@ public sealed class NetworkStartTable : MonoBehaviour
 				addPlayer(prefs.GetString("NamePlayer", Defs.defaultPlayerName), Network.player.ipAddress);
 				if (prefs.GetInt("MultyPlayer") == 1)
 				{
-					if (prefs.GetString("TypeConnect").Equals("local"))
-					{
-						base.GetComponent<NetworkView>().RPC("addPlayer", RPCMode.OthersBuffered, text, Network.player.ipAddress);
-					}
-					else
-					{
-						photonView.RPC("addPlayer", PhotonTargets.OthersBuffered, text, Network.player.ipAddress);
-					}
+					photonView.RPC("addPlayer", PhotonTargets.OthersBuffered, text, Network.player.ipAddress);
 				}
-				if (prefs.GetString("TypeConnect").Equals("local"))
-				{
-					LANBroadcastService component = GetComponent<LANBroadcastService>();
-					component.serverMessage.name = prefs.GetString("ServerName");
-					component.serverMessage.map = prefs.GetString("MapName");
-					component.serverMessage.connectedPlayers = 0;
-					component.serverMessage.playerLimit = int.Parse(prefs.GetString("PlayersLimits"));
-					component.serverMessage.comment = prefs.GetString("MaxKill");
-					component.StartAnnounceBroadCasting();
-				}
-			}
-			else if (prefs.GetString("TypeConnect").Equals("local"))
-			{
-				base.GetComponent<NetworkView>().RPC("addPlayer", RPCMode.AllBuffered, text, Network.player.ipAddress);
 			}
 			else
 			{
@@ -952,7 +909,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		GameObject[] array2 = array;
 		foreach (GameObject gameObject in array2)
 		{
-			if ((prefs.GetString("TypeConnect").Equals("inet") && (bool)gameObject && (bool)gameObject.GetComponent<PhotonView>() && gameObject.GetComponent<PhotonView>().owner.Equals(base.transform.GetComponent<PhotonView>().owner)) || (prefs.GetString("TypeConnect").Equals("local") && gameObject.GetComponent<NetworkView>().owner.ipAddress.Equals(base.transform.GetComponent<NetworkView>().owner.ipAddress)))
+			if (prefs.GetString("TypeConnect").Equals("inet") && (bool)gameObject && (bool)gameObject.GetComponent<PhotonView>() && gameObject.GetComponent<PhotonView>().owner.Equals(base.transform.GetComponent<PhotonView>().owner))
 			{
 				gameObject.GetComponent<Player_move_c>().setMyTamble(base.gameObject);
 				break;
@@ -967,50 +924,17 @@ public sealed class NetworkStartTable : MonoBehaviour
 		myHWID = hwid;
 	}
 
-	[RPC]
-	private void setMySkinLocal(string str1, string str2)
-	{
-		Debug.Log("setMySkin");
-		byte[] data = Convert.FromBase64String(str1 + str2);
-		Texture2D texture2D = new Texture2D(64, 32);
-		texture2D.LoadImage(data);
-		texture2D.filterMode = FilterMode.Point;
-		texture2D.Apply();
-		mySkin = texture2D;
-		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			Debug.Log(gameObject.GetComponent<PhotonView>().owner.ID + " " + base.transform.GetComponent<PhotonView>().owner.ID);
-			if ((prefs.GetString("TypeConnect").Equals("inet") && gameObject.GetComponent<PhotonView>().owner.ID == base.transform.GetComponent<PhotonView>().owner.ID) || (prefs.GetString("TypeConnect").Equals("local") && gameObject.GetComponent<NetworkView>().owner.ipAddress.Equals(base.transform.GetComponent<NetworkView>().owner.ipAddress)))
-			{
-				gameObject.GetComponent<Player_move_c>().setMyTamble(base.gameObject);
-				break;
-			}
-		}
-	}
-
 	private void sendMySkin()
 	{
 		Texture2D texture2D = mySkin as Texture2D;
 		byte[] inArray = texture2D.EncodeToPNG();
 		string text = Convert.ToBase64String(inArray);
-		if (prefs.GetString("TypeConnect").Equals("inet"))
-		{
-			photonView.RPC("setMySkin", PhotonTargets.AllBuffered, text);
-			return;
-		}
-		Debug.Log(text.Length + " " + text.Length / 2 + " " + (text.Length / 2 + text.Length / 2));
-		base.GetComponent<NetworkView>().RPC("setMySkinLocal", RPCMode.AllBuffered, text.Substring(0, text.Length / 2), text.Substring(text.Length / 2, text.Length / 2));
+		photonView.RPC("setMySkin", PhotonTargets.AllBuffered, text);
 	}
 
 	private void sendHWID()
 	{
-		if (prefs.GetString("TypeConnect").Equals("inet"))
-		{
-			photonView.RPC("setMyHWID", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress());
-			return;
-		}
+		photonView.RPC("setMyHWID", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress());
 	}
 
 	[RPC]

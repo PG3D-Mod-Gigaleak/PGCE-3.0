@@ -29,7 +29,14 @@ public class PersConfigurator : MonoBehaviour
 		weapon = gameObject;
 		weapon.transform.localPosition = Vector3.zero;
 		weapon.transform.localRotation = Quaternion.identity;
-		weapon.GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(myCAnim("Profile"));
+		try {
+			string cAnim = myCAnim("Profile");
+			if (!string.IsNullOrEmpty(cAnim)) {
+				weapon.GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(cAnim);
+			}
+		} catch {
+			Debug.Log("?????");
+		}
 		gun = gameObject.GetComponent<WeaponSounds>().bonusPrefab;
 		Texture texture = SkinsManager.currentMultiplayerSkin();
 		texture.filterMode = FilterMode.Point;

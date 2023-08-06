@@ -288,14 +288,7 @@ public sealed class ConnectGUI : MonoBehaviour
 
 	public static void Local()
 	{
-		if (prefs.GetString("TypeConnect").Equals("local"))
-		{
-			prefs.SetInt("typeConnect__", 2);
-		}
-		else
-		{
-			prefs.SetInt("typeConnect__", 1);
-		}
+		prefs.SetInt("typeConnect__", 1);
 		LoadConnectScene.loading = null;
 		LoadConnectScene.sceneToLoad = "ConnectScene";
 		Application.LoadLevel("PromScene");
@@ -326,14 +319,7 @@ public sealed class ConnectGUI : MonoBehaviour
 		prefs.SetInt("CustomGame", 1);
 		typeConnect = prefs.GetInt("typeConnect__", 0);
 		prefs.SetString("TypeGame", "client");
-		if (prefs.GetString("TypeConnect").Equals("local"))
-		{
-			typeGame = 2;
-		}
-		else
-		{
-			typeGame = 3;
-		}
+		typeGame = 3;
 		if (typeConnect == 1 && PhotonNetwork.connected)
 		{
 			updateFilteredRoomList(string.Empty);
@@ -424,10 +410,6 @@ public sealed class ConnectGUI : MonoBehaviour
 			showLoading = true;
 			setFonLoading(goMapName);
 			PhotonNetwork.JoinRoom(connectGame.name);
-			if (prefs.GetString("TypeConnect").Equals("local"))
-			{
-				Application.LoadLevel((prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)connectGame.customProperties["map"]] : masMapNameCOOP[(int)connectGame.customProperties["map"]]);
-			}
 		}
 		else if (!connectGame.customProperties["pass"].Equals(password))
 		{
@@ -620,16 +602,6 @@ public sealed class ConnectGUI : MonoBehaviour
 				{
 					_initializeWorldwide();
 				}
-				if (GUI.Button(new Rect((float)Screen.width / 2f - (float)local.active.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.6f - (float)local.active.background.height / 2f * (float)Screen.height / 768f, (float)(local.active.background.width * Screen.height) / 768f, (float)(local.active.background.height * Screen.height) / 768f), string.Empty, local) && !isFirstFrame)
-				{
-					typeConnect = 2;
-					prefs.SetString("TypeConnect", "local");
-					typeGame = 2;
-					prefs.SetString("TypeGame", "client");
-					connectToServer();
-					showPasswordEnterForm = false;
-					showFilterForm = false;
-				}
 			}
 			if (GUI.RepeatButton(LeftButtonRect, string.Empty, back))
 			{
@@ -674,7 +646,7 @@ public sealed class ConnectGUI : MonoBehaviour
 				}
 				if (regimGUIServer == 1)
 				{
-					playersTable();
+					//playersTable();
 				}
 			}
 			if (typeGame == 2)
@@ -716,7 +688,7 @@ public sealed class ConnectGUI : MonoBehaviour
 				}
 				if (regimGUIClient == 3)
 				{
-					playersTable();
+					//playersTable();
 				}
 			}
 			if (typeGame == 3)
@@ -802,7 +774,7 @@ public sealed class ConnectGUI : MonoBehaviour
 				}
 				if (regimGUIServer == 1)
 				{
-					playersTable();
+					//playersTable();
 				}
 			}
 			if (typeGame == 2)
@@ -833,7 +805,7 @@ public sealed class ConnectGUI : MonoBehaviour
 				}
 				if (regimGUIClient == 3)
 				{
-					playersTable();
+					//playersTable();
 				}
 			}
 		}
@@ -1109,10 +1081,6 @@ public sealed class ConnectGUI : MonoBehaviour
 						GlobalGameController.currentLevel = 7;
 						goMapName = ((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 						Debug.Log("goMapName=" + goMapName + " prefs.GetString(TypeConnect)=" + prefs.GetString("TypeConnect"));
-						if (prefs.GetString("TypeConnect").Equals("local"))
-						{
-							Application.LoadLevel((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
-						}
 					}
 					else
 					{
@@ -1176,72 +1144,6 @@ public sealed class ConnectGUI : MonoBehaviour
 		LANBroadcastService component = GetComponent<LANBroadcastService>();
 		component.StartSearchBroadCasting(seachServer, isNotServer);
 		Invoke("checkConSuccess", 1f);
-	}
-
-	private void playersTable()
-	{
-		GUI.DrawTexture(new Rect((float)Screen.width / 2f - (float)head_players.width / 2f * koofScreen, (float)Screen.height * 0.1f - (float)head_players.height / 2f * (float)Screen.height / 768f, (float)head_players.width * koofScreen, (float)head_players.height * koofScreen), head_players);
-		if (typeGame == 1 && GUI.Button(new Rect((float)Screen.width * 0.88f - (float)start.normal.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.9f - (float)start.normal.background.height / 2f * (float)Screen.height / 768f, (float)(start.normal.background.width * Screen.height) / 768f, (float)(start.normal.background.height * Screen.height) / 768f), string.Empty, start))
-		{
-			GlobalGameController.currentLevel = 7;
-			if (prefs.GetInt("MultyPlayer") == 1)
-			{
-				base.GetComponent<NetworkView>().RPC("goLevel", RPCMode.AllBuffered, mapServer);
-			}
-		}
-		playersWindow.fontSize = Mathf.RoundToInt(30f * koofScreen);
-		GUILayout.Space((float)Screen.height * 0.5f - (float)playersWindow.normal.background.height * 0.5f * koofScreen);
-		GUILayout.BeginHorizontal(GUILayout.Height((float)playersWindow.normal.background.height * koofScreen));
-		GUILayout.Space((float)Screen.width * 0.5f - (float)playersWindow.normal.background.width * 0.5f * koofScreen);
-		scrollPosition = GUILayout.BeginScrollView(scrollPosition, playersWindow);
-		if (players.Count > 0)
-		{
-			foreach (infoClient player in players)
-			{
-				GUILayout.Space(20f * koofScreen);
-				GUILayout.BeginHorizontal();
-				GUILayout.Space(20f * koofScreen);
-				GUILayout.Label(player.name, playersWindow, GUILayout.Width((float)playersWindow.normal.background.width * koofScreen * 0.8f));
-				GUILayout.Space(20f * koofScreen);
-				GUILayout.EndHorizontal();
-			}
-		}
-		GUILayout.EndScrollView();
-		GUILayout.EndHorizontal();
-		if (GUI.Button(new Rect((float)Screen.width * 0.12f - (float)back.active.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.9f - (float)back.active.background.height / 2f * (float)Screen.height / 768f, (float)(back.active.background.width * Screen.height) / 768f, (float)(back.active.background.height * Screen.height) / 768f), string.Empty, back))
-		{
-			disconnectGame();
-		}
-	}
-
-	[RPC]
-	private void addPlayer(string _name, string _ip, NetworkMessageInfo info)
-	{
-		infoClient item = default(infoClient);
-		item.name = _name;
-		item.ipAddress = _ip;
-		players.Add(item);
-		Debug.Log("playerCount " + players.Count);
-	}
-
-	[RPC]
-	private void goLevel(string _mapName, NetworkMessageInfo info)
-	{
-		Application.LoadLevel(_mapName);
-	}
-
-	[RPC]
-	private void delPlayer(string _ip, NetworkMessageInfo info)
-	{
-		Debug.Log("delPlayer " + _ip);
-		for (int i = 0; i < players.Count; i++)
-		{
-			if (players[i].ipAddress.Equals(_ip))
-			{
-				players.RemoveAt(i);
-				break;
-			}
-		}
 	}
 
 	private void disconnectGame()
@@ -1583,73 +1485,6 @@ public sealed class ConnectGUI : MonoBehaviour
 		else
 		{
 			GUI.Window(0, new Rect((float)Screen.width * 0.5f - windowWidth * 0.5f, (float)Screen.height * 0.5f - (float)playersWindow.normal.background.height * 0.5f * koofScreen, windowWidth, (float)playersWindow.normal.background.height * koofScreen), DoWindow, string.Empty);
-		}
-	}
-
-	private void connectTo(string _serverIP)
-	{
-		bool useNat = !Network.HavePublicAddress();
-		Network.useNat = useNat;
-		Network.Connect(_serverIP, 25002);
-	}
-
-	private void OnConnectedToServer()
-	{
-		regimGUIClient = 3;
-		Debug.Log("OnConnectedToServer");
-		if (prefs.GetInt("MultyPlayer") == 1)
-		{
-			base.GetComponent<NetworkView>().RPC("addPlayer", RPCMode.AllBuffered, name, Network.player.ipAddress);
-		}
-		isConSuccess = true;
-	}
-
-	private void OnDisconnectedFromServer(NetworkDisconnection info)
-	{
-		Debug.Log("OnDisconnectedFromServer");
-		regimGUIClient = 0;
-		regimGUIServer = 0;
-		isSetMap = false;
-		servers.Clear();
-		players.Clear();
-	}
-
-	private void OnPlayerDisconnected(NetworkPlayer player)
-	{
-		Debug.Log("Clean up after player " + player.ipAddress);
-		Network.RemoveRPCs(player);
-		Network.DestroyPlayerObjects(player);
-		base.GetComponent<NetworkView>().RPC("delPlayer", RPCMode.All, player.ipAddress);
-	}
-
-	private void OnFailedToConnectToMasterServer(NetworkConnectionError info)
-	{
-		Debug.Log("Could not connect to master server: " + info);
-		typeConnect = 0;
-		typeGame = 0;
-		regimGUIClient = 0;
-		regimGUIServer = 0;
-		isSetMap = false;
-	}
-
-	private void OnMasterServerEvent(MasterServerEvent msEvent)
-	{
-		if (msEvent == MasterServerEvent.RegistrationSucceeded)
-		{
-			Debug.Log("Server registered");
-		}
-		if (msEvent == MasterServerEvent.RegistrationFailedNoServer)
-		{
-			Debug.Log("Server RegistrationFailedNoServer");
-			typeConnect = 0;
-			typeGame = 0;
-			regimGUIClient = 0;
-			regimGUIServer = 0;
-			isSetMap = false;
-		}
-		if (msEvent == MasterServerEvent.RegistrationFailedGameName)
-		{
-			Debug.Log("Server RegistrationFailedGameName");
 		}
 	}
 

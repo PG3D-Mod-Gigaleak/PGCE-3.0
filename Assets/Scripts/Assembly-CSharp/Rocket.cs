@@ -49,25 +49,11 @@ public class Rocket : MonoBehaviour
 		photonView = PhotonView.Get(this);
 		if (isMulti)
 		{
-			if (!isInet)
-			{
-				isMine = base.GetComponent<NetworkView>().isMine;
-			}
-			else
-			{
-				isMine = photonView.isMine;
-			}
+			isMine = photonView.isMine;
 		}
 		if (isMulti && isMine)
 		{
-			if (!isInet)
-			{
-				base.GetComponent<NetworkView>().RPC("SetRocketActive", RPCMode.AllBuffered, rocketNum, radiusImpulse);
-			}
-			else
-			{
-				photonView.RPC("SetRocketActive", PhotonTargets.AllBuffered, rocketNum, radiusImpulse);
-			}
+			photonView.RPC("SetRocketActive", PhotonTargets.AllBuffered, rocketNum, radiusImpulse);
 		}
 		else if (!isMulti)
 		{
@@ -88,11 +74,6 @@ public class Rocket : MonoBehaviour
 		if (!isMulti)
 		{
 			Object.Destroy(base.gameObject);
-		}
-		else if (!isInet)
-		{
-			Network.RemoveRPCs(base.GetComponent<NetworkView>().viewID);
-			Network.Destroy(base.gameObject);
 		}
 		else
 		{
@@ -127,11 +108,7 @@ public class Rocket : MonoBehaviour
 		isKilled = true;
 		if (isMulti)
 		{
-			if (!isInet)
-			{
-				base.GetComponent<NetworkView>().RPC("Collide", RPCMode.All, weaponName);
-			}
-			else if (photonView != null)
+			if (photonView != null)
 			{
 				photonView.RPC("Collide", PhotonTargets.All, weaponName);
 			}
@@ -171,15 +148,7 @@ public class Rocket : MonoBehaviour
 	[Obfuscation(Exclude = true)]
 	private void DestroyRocket()
 	{
-		if (!isInet)
-		{
-			Network.RemoveRPCs(base.GetComponent<NetworkView>().viewID);
-			Network.Destroy(base.gameObject);
-		}
-		else
-		{
-			PhotonNetwork.Destroy(base.gameObject);
-		}
+		PhotonNetwork.Destroy(base.gameObject);
 	}
 
 	public Vector3 oldPosition;
@@ -265,7 +234,7 @@ public class Rocket : MonoBehaviour
 				foreach (GameObject gameObject4 in array4)
 				{
 					bool flag = false;
-					flag = (isInet ? gameObject4.GetComponent<PhotonView>().isMine : gameObject4.GetComponent<NetworkView>().isMine);
+					flag = gameObject4.GetComponent<PhotonView>().isMine;
 					if (((!isCOOP || !flag) && (isCOOP || (!flag && (isCompany) && ((!isCompany))))) || !((gameObject4.transform.position - position).magnitude < ((!flag) ? radiusDamage : radiusDamageSelf)))
 					{
 						continue;

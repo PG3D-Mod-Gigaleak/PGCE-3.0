@@ -38,31 +38,6 @@ public class HealthItem : MonoBehaviour
 	}
 
 	[RPC]
-	private void delBonus(NetworkViewID id, NetworkViewID idPlayer)
-	{
-		GameObject[] array = GameObject.FindGameObjectsWithTag("Bonus");
-		GameObject[] array2 = array;
-		foreach (GameObject gameObject in array2)
-		{
-			if (!id.Equals(gameObject.GetComponent<NetworkView>().viewID))
-			{
-				continue;
-			}
-			GameObject[] array3 = GameObject.FindGameObjectsWithTag("Player");
-			GameObject[] array4 = array3;
-			foreach (GameObject gameObject2 in array4)
-			{
-				if (idPlayer.Equals(gameObject2.GetComponent<NetworkView>().viewID) && gameObject2 != null)
-				{
-					gameObject2.transform.Find("GameObject").GetComponent<AudioSource>().PlayOneShot(gameObject.GetComponent<HealthItem>().HealthItemUp);
-				}
-			}
-			Object.Destroy(gameObject, 0.3f);
-			break;
-		}
-	}
-
-	[RPC]
 	private void delBonusPhoton(int id, int idPlayer)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("Bonus");
@@ -140,14 +115,7 @@ public class HealthItem : MonoBehaviour
 		isKilled = true;
 		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			if (prefs.GetString("TypeConnect").Equals("local"))
-			{
-				base.GetComponent<NetworkView>().RPC("delBonus", RPCMode.All, GetComponent<NetworkView>().viewID, player.GetComponent<NetworkView>().viewID);
-			}
-			else
-			{
-				photonView.RPC("delBonusPhoton", PhotonTargets.All, GetComponent<PhotonView>().viewID, player.GetComponent<PhotonView>().viewID);
-			}
+			photonView.RPC("delBonusPhoton", PhotonTargets.All, GetComponent<PhotonView>().viewID, player.GetComponent<PhotonView>().viewID);
 		}
 		else
 		{
