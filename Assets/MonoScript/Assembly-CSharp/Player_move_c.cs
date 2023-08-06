@@ -3480,8 +3480,10 @@ public sealed class Player_move_c : MonoBehaviour
 	public void flipGrav() {
 		if (isMine) {
 			Achievements.Give("gravflip");
+			ImpactReceiver impactReceiver = _weaponManager.myPlayer.GetComponent<ImpactReceiver>();
 			_weaponManager.myPlayer.transform.localScale = new Vector3(_weaponManager.myPlayer.transform.localScale.x, _weaponManager.myPlayer.transform.localScale.y * -1, _weaponManager.myPlayer.transform.localScale.z);
 			_weaponManager.myPlayer.GetComponent<FirstPersonControl>().cameraPivot.Rotate(0, 180, 0);
+			impactReceiver.AddImpact(Vector3.up, Mathf.Abs(Physics.gravity.y)*-4f);
 			Physics.gravity *= -1;
 			isGravFlipped = !isGravFlipped;
 		}
