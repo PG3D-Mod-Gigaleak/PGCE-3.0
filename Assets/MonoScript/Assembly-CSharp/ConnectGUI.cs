@@ -490,6 +490,8 @@ public sealed class ConnectGUI : MonoBehaviour
 
 	private void Update()
 	{
+		windowWidth = (float)playersWindow.normal.background.width * koofScreen;
+		koofScreen = (float)Screen.height / 768f;
 		if (Input.GetAxis("Mouse ScrollWheel") > 0f)
 		{
 			if (selectMapIndex < 1)
