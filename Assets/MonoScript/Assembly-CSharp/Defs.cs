@@ -1225,6 +1225,7 @@ public sealed class Defs
 		mapNamesForUser.Add("MapBuilder_Map2", "Dark Cave");
 		mapNamesForUser.Add("carpark", "CAR PARK");
 		mapNamesForUser.Add("SOUP09-Sup01", "Sup01");
+		mapNamesForUser.Add("demise", "Demise");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -1292,6 +1293,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("MapBuilder_Map2", 4021);
 		levelNumsForMusicInMult.Add("carpark", 4022);
 		levelNumsForMusicInMult.Add("SOUP09-Sup01", 4023);
+		levelNumsForMusicInMult.Add("demise", 4024);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
