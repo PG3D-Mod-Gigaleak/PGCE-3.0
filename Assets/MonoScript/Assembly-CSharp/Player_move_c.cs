@@ -3725,7 +3725,7 @@ public sealed class Player_move_c : MonoBehaviour
 				AddButtonHandlers();
 				showRanks = false;
 			}
-			if (Input.GetKeyDown(KeyCode.T) && !showChat && isMine)
+			if (Input.GetKeyDown(KeyCode.T) && !showChat && isMine && c)
 			{
 				inGameGUI.chatInput.isSelected = true;
 				showChat = true;
