@@ -7,6 +7,8 @@ public class PersConfigurator : MonoBehaviour
 
 	public GameObject gun;
 
+	public GameObject ears;
+
 	private GameObject weapon;
 
 	public string myCAnim(string a){
@@ -45,6 +47,7 @@ public class PersConfigurator : MonoBehaviour
 
 	private void Update()
 	{
+		ears.SetActive((Storager.getInt("earsOn", false) == 0 ? false : true));
 		Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0f));
 		Touch[] touches = Input.touches;
 		foreach (Touch touch in touches)
