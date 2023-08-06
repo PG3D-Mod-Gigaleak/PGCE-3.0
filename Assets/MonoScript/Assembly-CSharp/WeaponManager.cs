@@ -1163,9 +1163,23 @@ public sealed class WeaponManager : MonoBehaviour
 
 	public void Reload()
 	{
+		StartCoroutine(RealReload());
+	}
+	public IEnumerator RealReload() {
+		WeaponSounds bkp = currentWeaponSounds;
 		currentWeaponSounds.animationObject.GetComponent<Animation>().Stop(myCAnim("Empty"));
 		currentWeaponSounds.animationObject.GetComponent<Animation>().CrossFade(myCAnim("Shoot"));
 		currentWeaponSounds.animationObject.GetComponent<Animation>().Play(myCAnim("Reload"));
+		float timeToWait = 1f;
+		foreach (AnimationState state in currentWeaponSounds.animationObject.GetComponent<Animation>())
+        {
+			if (state.name.Contains("Reload")) {
+				timeToWait = state.length;
+			}
+		}
+		yield return new WaitForSeconds(timeToWait);
+		if (currentWeaponSounds != bkp)
+			yield break;
 		int num = currentWeaponSounds.ammoInClip - ((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInClip;
 		if (((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInBackpack >= num)
 		{
@@ -1177,5 +1191,6 @@ public sealed class WeaponManager : MonoBehaviour
 			((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInClip += ((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInBackpack;
 			((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInBackpack = 0;
 		}
+		yield break;
 	}
 }
