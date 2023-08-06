@@ -2826,7 +2826,11 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 
 	public void DispatchDie() {
-		Storager.setInt("deathCount", Storager.getInt("deathCount", false) + 1, false);
+		if (!isMine) {
+			return;
+		}
+		int xm1 = Storager.getInt("deathCount", false);
+		Storager.setInt("deathCount", xm1 + 1, false);
 		int x = Storager.getInt("deathCount", false);
 		print(x + " deaths total");
 		if (x >= 1) {
