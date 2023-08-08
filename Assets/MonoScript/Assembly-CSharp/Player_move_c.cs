@@ -2825,10 +2825,18 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	public int frameSinceLastDie = 0;
+	public bool deadForDispatch = false;
+
 	public void DispatchDie() {
 		if (!isMine) {
 			return;
 		}
+		if (frameSinceLastDie < 8) {
+			return;
+		}
+		deadForDispatch = true;
+		frameSinceLastDie = 8;
 		int xm1 = Storager.getInt("deathCount", false);
 		Storager.setInt("deathCount", xm1 + 1, false);
 		int x = Storager.getInt("deathCount", false);
@@ -3620,6 +3628,14 @@ public sealed class Player_move_c : MonoBehaviour
 					bodyCollider.layer = LayerMask.NameToLayer("Ignore Raycast");
 					break;
 				}
+			}
+			if (deadForDispatch) {
+				frameSinceLastDie--;
+				if (frameSinceLastDie < 0) {
+					deadForDispatch = false;
+				}
+			} else {
+				frameSinceLastDie = 8;
 			}
 		}
 		if (!Application.isMobilePlatform && isMine)

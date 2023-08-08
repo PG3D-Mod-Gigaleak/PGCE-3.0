@@ -585,6 +585,7 @@ public sealed class ConnectGUI : MonoBehaviour
 				Rect position3 = new Rect((float)Screen.width * 0.5f - (float)timeSurvivalCoop.normal.background.width * Defs.Coef * 0.5f, (float)Screen.height / 2f - num - num2 * 1.5f, (float)timeSurvivalCoop.normal.background.width * Defs.Coef, num2);
 				if (GUI.Button(position3, string.Empty, timeSurvivalCoop))
 				{
+					EditorOnlyDebug.Log("prefs coop == 1");
 					_initializeWorldwide();
 				}
 				position3.y += num2 + num;
@@ -598,6 +599,7 @@ public sealed class ConnectGUI : MonoBehaviour
 				GUI.DrawTexture(position4, head_connection);
 				if (GUI.Button(new Rect((float)Screen.width / 2f - (float)worldwide.active.background.width / 2f * (float)Screen.height / 768f, (float)Screen.height * 0.4f - (float)worldwide.active.background.height / 2f * (float)Screen.height / 768f, (float)(worldwide.active.background.width * Screen.height) / 768f, (float)(worldwide.active.background.height * Screen.height) / 768f), string.Empty, worldwide))
 				{
+					EditorOnlyDebug.Log("prefs coop == 0");
 					_initializeWorldwide();
 				}
 			}
@@ -1109,10 +1111,10 @@ public sealed class ConnectGUI : MonoBehaviour
 			string[] propsToListInLobby = new string[3] { "map", "MaxKill", "pass" };
 			ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
 			hashtable.Add("map", selectMapIndex);
-			hashtable.Add("MaxKill", int.Parse(commentsServer));
+			hashtable.Add("MaxKill", int.Parse(killToWin));
 			hashtable.Add("pass", password);
 			prefs.SetString("MapName", (prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
-			prefs.SetString("MaxKill", commentsServer);
+			prefs.SetString("MaxKill", killToWin);
 			showLoading = true;
 			setFonLoading((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 			string roomName = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(name);
@@ -1133,10 +1135,10 @@ public sealed class ConnectGUI : MonoBehaviour
 			prefs.SetString("ServerName", name);
 			prefs.SetString("MapName", (prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 			prefs.SetString("PlayersLimits", limitsPlayer);
-			prefs.SetString("MaxKill", commentsServer);
+			prefs.SetString("MaxKill", killToWin);
 			showLoading = true;
 			setFonLoading((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
-			Debug.Log("setMaxKil server local = " + commentsServer);
+			Debug.Log("setMaxKil server local = " + killToWin);
 			Debug.Log("password: " + password);
 		}
 		FlurryPluginWrapper.LogEnteringMap(typeConnect, prefs.GetString("MapName"));
@@ -1519,10 +1521,10 @@ public sealed class ConnectGUI : MonoBehaviour
 		goMapName = ((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 		ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
 		hashtable.Add("map", selectMapIndex);
-		hashtable.Add("MaxKill", int.Parse(commentsServer));
+		hashtable.Add("MaxKill", int.Parse(killToWin));
 		hashtable.Add("pass", password);
 		prefs.SetString("MapName", (prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
-		prefs.SetString("MaxKill", commentsServer);
+		prefs.SetString("MaxKill", killToWin);
 		showLoading = true;
 		setFonLoading((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 		string roomName = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(name);
@@ -1646,7 +1648,7 @@ public sealed class ConnectGUI : MonoBehaviour
 		}
 	}
 
-	public void OnJoinedLobby()
+	public void OnConnectedToMaster()
 	{
 		firstUpdate = true;
 		Debug.Log("OnConnectedToPhoton");
@@ -1675,15 +1677,19 @@ public sealed class ConnectGUI : MonoBehaviour
 	{
 		if (!isFirstFrame)
 		{
+			EditorOnlyDebug.Log("isnt first frame");
 			prefs.SetString("TypeConnect", "inet");
 			if (prefs.GetInt("COOP", 0) == 1)
 			{
+				EditorOnlyDebug.Log("connecting 2 coop");
 				PhotonNetwork.ConnectUsingSettings("v" + GlobalGameController.AppVersion + "COOP");
 			}
 			else
 			{
+				EditorOnlyDebug.Log("connecting 2 normal");
 				PhotonNetwork.ConnectUsingSettings("v" + GlobalGameController.AppVersion);
 			}
+			EditorOnlyDebug.Log("ok");
 			connectingFoton = true;
 			showPasswordEnterForm = false;
 			showFilterForm = false;
