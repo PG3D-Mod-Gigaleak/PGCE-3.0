@@ -2840,17 +2840,17 @@ public sealed class Player_move_c : MonoBehaviour
 		int xm1 = Storager.getInt("deathCount", false);
 		Storager.setInt("deathCount", xm1 + 1, false);
 		int x = Storager.getInt("deathCount", false);
-		print(x + " deaths total");
+		EditorOnlyDebug.Log(x + " deaths total");
 		if (x >= 1) {
-			print("1 death");
+			EditorOnlyDebug.Log("1 death");
 			Achievements.Give("1death");
 		}
 		if (x >= 10) {
-			print("10 death");
+			EditorOnlyDebug.Log("10 death");
 			Achievements.Give("10deaths");
 		}
 		if (x >= 100) {
-			print("100 death");
+			EditorOnlyDebug.Log("100 death");
 			Achievements.Give("100deaths");
 		}
 	}

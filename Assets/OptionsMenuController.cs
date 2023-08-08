@@ -16,10 +16,10 @@ public class OptionsMenuController : MonoBehaviour {
 	}
 	public void VolumeValueCHANGED() {
 		if (retardedWorkaround != (int)Mathf.RoundToInt(volumeSlider.value * 100)) {
-			print("it's been set to " + (int)Mathf.RoundToInt(volumeSlider.value * 100));
+			EditorOnlyDebug.Log("it's been set to " + (int)Mathf.RoundToInt(volumeSlider.value * 100));
 			retardedWorkaround = (int)Mathf.RoundToInt(volumeSlider.value * 100);
 		} else {
-			print("what it was gonna be was " + (int)Mathf.RoundToInt(volumeSlider.value * 100));
+			EditorOnlyDebug.Log("what it was gonna be was " + (int)Mathf.RoundToInt(volumeSlider.value * 100));
 			return;
 		}
 		if (volumeSlider.value <= 0.0099f) {
