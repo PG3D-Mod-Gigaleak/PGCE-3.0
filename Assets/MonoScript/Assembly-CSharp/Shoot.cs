@@ -17,30 +17,29 @@ public class Shoot : MonoBehaviour
 		_bulletSpawnPoint = GameObject.Find("BulletSpawnPoint");
 	}
 
-	[RPC]
-	private void Popal(NetworkViewID Popal, NetworkMessageInfo info)
-	{
-		Debug.Log(string.Concat(Popal, " ", base.gameObject.transform.GetComponent<NetworkView>().viewID, " ", info.sender));
-	}
+	//[PunRPC]
+	//private void Popal(NetworkViewID Popal, NetworkMessageInfo info)
+	//{
+	//	Debug.Log(string.Concat(Popal, " ", base.gameObject.transform.GetComponent<NetworkView>().viewID, " ", info.sender));
+	//}
 
 	public void shootS()
 	{
-		Debug.Log("Shot!!" + base.transform.position);
-		Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0f));
-		RaycastHit hitInfo;
-		if (!Physics.Raycast(ray, out hitInfo, 100f, -5))
-		{
-			return;
-		}
-		Debug.Log("Hit!");
-		if (hitInfo.collider.gameObject.transform.CompareTag("Enemy"))
-		{
-			Debug.Log("popal " + hitInfo.collider.gameObject.transform.GetComponent<NetworkView>().viewID);
-			if (prefs.GetInt("MultyPlayer") == 1)
-			{
-				base.GetComponent<NetworkView>().RPC("Popal", RPCMode.All, hitInfo.collider.gameObject.transform.GetComponent<NetworkView>().viewID);
-			}
-		}
+		//Debug.Log("Shot!!" + base.transform.position);
+		//Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0f));
+		//RaycastHit hitInfo;
+		//if (!Physics.Raycast(ray, out hitInfo, 100f, -5))
+		//{
+		//	return;
+		//}
+		//Debug.Log("Hit!");
+		//if (hitInfo.collider.gameObject.transform.CompareTag("Enemy"))
+		//{
+		//	if (prefs.GetInt("MultyPlayer") == 1)
+		//	{
+		//		base.GetComponent<NetworkView>().RPC("Popal", RPCMode.All, hitInfo.collider.gameObject.transform.GetComponent<NetworkView>().viewID);
+		//	}
+		//}
 	}
 
 	private void OnGUI()

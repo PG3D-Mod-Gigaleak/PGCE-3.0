@@ -24,7 +24,7 @@ public class EnderAIPhoton : Photon.MonoBehaviour
 
 	private float blinkTimer;
 
-	[RPC]
+	[PunRPC]
 	public void EnderBlink() { PlayEyeAnimation("Blink"); }
 
 	public void EyesLookAround() { PlayEyeAnimation("LookAround"); }
@@ -116,7 +116,7 @@ public class EnderAIPhoton : Photon.MonoBehaviour
 		moving = false;
 	}
 
-	[RPC]
+	[PunRPC]
 	public void EnderOnFinishAction(int randIndex)
 	{
 		Debug.LogError("hi");
@@ -132,7 +132,7 @@ public class EnderAIPhoton : Photon.MonoBehaviour
 		currentPoint = randomPoint;
 	}
 
-	[RPC]
+	[PunRPC]
 	public void EnderOnReachCheckpoint(string action, bool actioned, int randIndex)
 	{
 		if (actioned)

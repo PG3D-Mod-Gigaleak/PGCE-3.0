@@ -41,7 +41,7 @@ public class ZombiManager : MonoBehaviour
 		photonView = PhotonView.Get(this);
 	}
 
-	[RPC]
+	[PunRPC]
 	private void synchTime(float _time)
 	{
 		timeGame = _time;
@@ -123,7 +123,7 @@ public class ZombiManager : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void win(string _winer)
 	{
 		GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().myTable.GetComponent<NetworkStartTable>().win(_winer);
@@ -175,7 +175,7 @@ public class ZombiManager : MonoBehaviour
 		photonView.RPC("addBossRPC", PhotonTargets.All, boss, vector2, PhotonNetwork.AllocateViewID());
 	}
 
-	[RPC]
+	[PunRPC]
 	private void addBossRPC(int boss, Vector3 pos, int _id)
 	{
 		GameObject gameObject = (GameObject)Object.Instantiate(Resources.Load<GameObject>("bosses/boss" + boss), pos, Quaternion.identity);
@@ -184,7 +184,7 @@ public class ZombiManager : MonoBehaviour
 		component.viewID = _id;
 	}
 
-	[RPC]
+	[PunRPC]
 	private void addZombiRPC(int typeOfZomb, Vector3 pos, int _id)
 	{
 		GameObject gameObject = (GameObject)Object.Instantiate(zombiePrefabs[typeOfZomb].prefab, pos, Quaternion.identity);

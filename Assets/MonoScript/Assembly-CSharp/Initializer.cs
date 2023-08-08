@@ -431,13 +431,13 @@ public sealed class Initializer : MonoBehaviour
 		{
 			if (prefs.GetString("TypeGame").Equals("client"))
 			{
-				bool useNat = !Network.HavePublicAddress();
-				Network.useNat = useNat;
-				Debug.Log(_weaponManager.ServerIp + " " + Network.Connect(_weaponManager.ServerIp, 25002));
+				//bool useNat = !PhotonNetwork.HavePublicAddress();
+				//Network.useNat = useNat;
+				//Debug.Log(_weaponManager.ServerIp + " " + Network.Connect(_weaponManager.ServerIp, 25002));
 			}
 			else
 			{
-				_weaponManager.myTable = (GameObject)Network.Instantiate(networkTablePref, base.transform.position, base.transform.rotation, 0);
+				//_weaponManager.myTable = (GameObject)Network.Instantiate(networkTablePref, base.transform.position, base.transform.rotation, 0);
 			}
 		}
 		else
@@ -446,7 +446,7 @@ public sealed class Initializer : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void SpawnOnNetwork(Vector3 pos, Quaternion rot, int id1, PhotonPlayer np)
 	{
 		Transform transform = UnityEngine.Object.Instantiate(networkTablePref, pos, rot).transform;
@@ -562,18 +562,18 @@ public sealed class Initializer : MonoBehaviour
 
 	private void OnConnectedToServer()
 	{
-		_weaponManager.myTable = (GameObject)Network.Instantiate(networkTablePref, base.transform.position, base.transform.rotation, 0);
+		_weaponManager.myTable = (GameObject)PhotonNetwork.Instantiate("NetworkTable", base.transform.position, base.transform.rotation, 0);
 		Debug.Log("OnConnectedToServer");
 	}
 
-	private void OnFailedToConnect(NetworkConnectionError error)
+	private void OnFailedToConnect(DisconnectCause error)
 	{
 		Debug.Log("Could not connect to server: " + error);
-		if (error == NetworkConnectionError.TooManyConnectedPlayers)
+		if (error == DisconnectCause.MaxCcuReached)
 		{
 			showMaxPlayer = true;
 		}
-		if (error == NetworkConnectionError.ConnectionFailed)
+		if (error == DisconnectCause.ExceptionOnConnect)
 		{
 			showDisconnect = true;
 		}

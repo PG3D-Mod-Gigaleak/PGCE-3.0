@@ -180,17 +180,16 @@ public sealed class NetworkStartTable : MonoBehaviour
 		synchState();
 	}
 
-	[RPC]
-	private void addPlayer(string _name, string _ip)
+	[PunRPC]
+	private void addPlayer(string _name)
 	{
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
 		WeaponManager.infoClient item = default(WeaponManager.infoClient);
 		item.name = _name;
-		item.ipAddress = _ip;
 		_weaponManager.players.Add(item);
 	}
 
-	[RPC]
+	[PunRPC]
 	private void RunGame()
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("NetworkTable");
@@ -201,7 +200,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void delPlayer(string _name)
 	{
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
@@ -419,26 +418,26 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 		if (prefs.GetString("TypeConnect").Equals("local"))
 		{
-			sendDelMyPlayer();
-			if (prefs.GetString("TypeGame").Equals("server"))
-			{
-				Network.Disconnect(200);
-				GameObject.FindGameObjectWithTag("NetworkTable").GetComponent<LANBroadcastService>().StopBroadCasting();
-			}
-			else if (Network.connections.Length == 1)
-			{
-				Debug.Log("Disconnecting: " + Network.connections[0].ipAddress + ":" + Network.connections[0].port);
-				Network.CloseConnection(Network.connections[0], true);
-			}
-			if (_purchaseActivityIndicator == null)
-			{
-				Debug.LogWarning("_purchaseActivityIndicator == null");
-			}
-			else
-			{
-				_purchaseActivityIndicator.SetActive(false);
-			}
-			ConnectGUI.Local();
+			//sendDelMyPlayer();
+			//if (prefs.GetString("TypeGame").Equals("server"))
+			//{
+			//	PhotonNetwork.Disconnect();
+			//	GameObject.FindGameObjectWithTag("NetworkTable").GetComponent<LANBroadcastService>().StopBroadCasting();
+			//}
+			//else if (Network.connections.Length == 1)
+			//{
+			//	Debug.Log("Disconnecting: " + Network.connections[0].ipAddress + ":" + Network.connections[0].port);
+			//	Network.CloseConnection(Network.connections[0], true);
+			//}
+			//if (_purchaseActivityIndicator == null)
+			//{
+			//	Debug.LogWarning("_purchaseActivityIndicator == null");
+			//}
+			//else
+			//{
+			//	_purchaseActivityIndicator.SetActive(false);
+			//}
+			//ConnectGUI.Local();
 		}
 		else
 		{
@@ -471,7 +470,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		{
 			position = GlobalGameController.posMyPlayer;
 		}
-		GameObject myPlayer;
+		GameObject myPlayer = null;
 		if (prefs.GetString("TypeConnect").Equals("inet"))
 		{
 			myPlayer = PhotonNetwork.Instantiate("Player", position, base.transform.rotation, 0);
@@ -480,7 +479,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		else
 		{
 			_playerPrefab = Resources.Load("Player") as GameObject;
-			myPlayer = (GameObject)Network.Instantiate(_playerPrefab, position, base.transform.rotation, 0);
+			//myPlayer = (GameObject)Network.Instantiate(_playerPrefab, position, base.transform.rotation, 0);
 		}
 		currentCamera = Camera.main;
 		_weaponManager.myPlayer = myPlayer;
@@ -490,7 +489,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 
 	public static Camera currentCamera;
 
-	[RPC]
+	[PunRPC]
 	private void setState(string _namePlayer, int _countKills, int _oldCountLills, float _score)
 	{
 		NamePlayer = _namePlayer;
@@ -505,7 +504,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		photonView.RPC("addZombiManagerRPC", PhotonTargets.All, base.transform.position, base.transform.rotation, num);
 	}
 
-	[RPC]
+	[PunRPC]
 	private void addZombiManagerRPC(Vector3 pos, Quaternion rot, int id1)
 	{
 		GameObject gameObject = (GameObject)UnityEngine.Object.Instantiate(zombieManagerPrefab, pos, rot);
@@ -518,13 +517,13 @@ public sealed class NetworkStartTable : MonoBehaviour
 		photonView.RPC("addBonusPhoton", PhotonTargets.Others, _id, _type, _pos, rot);
 	}
 
-	[RPC]
+	[PunRPC]
 	public void addBonusPhoton(int _id, int _type, Vector3 _pos, Quaternion rot)
 	{
 		GameObject.FindGameObjectWithTag("GameController").GetComponent<BonusCreator>().addBonusFromPhotonRPC(_id, _type, _pos, rot);
 	}
 
-	[RPC]
+	[PunRPC]
 	private void addBonusPhotonNewClientRPC(int playerId, int _id, int _type, Vector3 _pos, Quaternion rot)
 	{
 		if (playerId == PhotonNetwork.player.ID)
@@ -534,7 +533,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void addZombiManagerNewClientRPC(int playerId, Vector3 pos, Quaternion rot, int id1)
 	{
 		if (playerId == PhotonNetwork.player.ID)
@@ -576,7 +575,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void addZombiNewClientRPC(int _playerId, int typeOfZomb, Vector3 pos, int _id)
 	{
 		Debug.Log(string.Empty + GetComponent<PhotonView>().owner.ID + " " + PhotonNetwork.player.ID);
@@ -854,16 +853,16 @@ public sealed class NetworkStartTable : MonoBehaviour
 			string text = (NamePlayer = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(prefs.GetString("NamePlayer", Defs.defaultPlayerName)));
 			if (prefs.GetString("TypeGame").Equals("server"))
 			{
-				addPlayer(prefs.GetString("NamePlayer", Defs.defaultPlayerName), Network.player.ipAddress);
+				addPlayer(prefs.GetString("NamePlayer", Defs.defaultPlayerName));
 				if (prefs.GetInt("MultyPlayer") == 1)
 				{
-					photonView.RPC("addPlayer", PhotonTargets.OthersBuffered, text, Network.player.ipAddress);
+					photonView.RPC("addPlayer", PhotonTargets.OthersBuffered, text);
 				}
 			}
 			else
 			{
 				Debug.Log("addPlayer client  " + photonView);
-				photonView.RPC("addPlayer", PhotonTargets.AllBuffered, text, Network.player.ipAddress);
+				photonView.RPC("addPlayer", PhotonTargets.AllBuffered, text);
 			}
 			if (prefs.GetInt("StartAfterDisconnect") == 1)
 			{
@@ -888,7 +887,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void setMySkin(string str)
 	{
 		if (base.transform.GetComponent<PhotonView>() == null)
@@ -919,7 +918,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 
 	public string myHWID = string.Empty;
 
-	[RPC]
+	[PunRPC]
 	private void setMyHWID(string hwid) {
 		myHWID = hwid;
 	}
@@ -937,7 +936,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		photonView.RPC("setMyHWID", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress());
 	}
 
-	[RPC]
+	[PunRPC]
 	private void ZombiManagerZamenaIdRPC(int _id)
 	{
 		if (GameObject.FindGameObjectWithTag("ZombiCreator") == null)
@@ -952,7 +951,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void ZombiZamenaIdRPC(int _idOld, int _idNew)
 	{
 		Debug.Log("ZombiZamenaIdRPC  " + _idOld + " " + _idNew);
@@ -1036,23 +1035,22 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
-	private void OnDisconnectedFromServer(NetworkDisconnection info)
+	private void OnDisconnectedFromServer(DisconnectCause info)
 	{
 		Debug.Log("OnDisconnectedFromServer");
 		showDisconnectFromServer = true;
 		timerShow = 3f;
 	}
 
-	private void OnPlayerDisconnected(NetworkPlayer player)
+	private void OnPlayerDisconnected(PhotonPlayer player)
 	{
-		Debug.Log("Clean up after player " + player.ipAddress);
-		Network.RemoveRPCs(player);
-		Network.DestroyPlayerObjects(player);
+		PhotonNetwork.RemoveRPCs(player);
+		PhotonNetwork.DestroyPlayerObjects(player);
 		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
 		GameObject[] array2 = array;
 		foreach (GameObject gameObject in array2)
 		{
-			if (!player.ipAddress.Equals(gameObject.GetComponent<Player_move_c>().myIp))
+			if (!player.ID.Equals(gameObject.GetComponent<Player_move_c>().ID))
 			{
 				continue;
 			}
@@ -1070,7 +1068,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
-	private void OnFailedToConnectToMasterServer(NetworkConnectionError info)
+	private void OnFailedToConnectToMasterServer(DisconnectCause info)
 	{
 		Debug.Log("Could not connect to master server: " + info);
 		showDisconnectFromMasterServer = true;
@@ -1193,13 +1191,8 @@ public sealed class NetworkStartTable : MonoBehaviour
 		{
 			if (prefs.GetString("TypeGame").Equals("server"))
 			{
-				Network.Disconnect(200);
+				PhotonNetwork.Disconnect();
 				GameObject.FindGameObjectWithTag("NetworkTable").GetComponent<LANBroadcastService>().StopBroadCasting();
-			}
-			else if (Network.connections.Length == 1)
-			{
-				Debug.Log("Disconnecting: " + Network.connections[0].ipAddress + ":" + Network.connections[0].port);
-				Network.CloseConnection(Network.connections[0], true);
 			}
 			_purchaseActivityIndicator.SetActive(false);
 			ConnectGUI.Local();

@@ -81,7 +81,7 @@ public class Rocket : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	public void SetRocketActive(int rn, float _radiusImpulse)
 	{
 		radiusImpulse = _radiusImpulse;
@@ -131,7 +131,7 @@ public class Rocket : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void Collide(string _weaponName)
 	{
 		BazookaExplosion(_weaponName);

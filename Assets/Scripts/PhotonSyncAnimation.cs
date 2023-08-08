@@ -31,7 +31,7 @@ public class PhotonSyncAnimation : MonoBehaviour
         photonView.RPC("SyncAnimationTime", PhotonTargets.All, animationTime);
     }
 
-    [RPC]
+    [PunRPC]
     private void SyncAnimationTime(float time)
     {
 		if (synced)

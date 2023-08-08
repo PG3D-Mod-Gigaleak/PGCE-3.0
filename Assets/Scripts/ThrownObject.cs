@@ -28,7 +28,7 @@ public class ThrownObject : MonoBehaviour
 		transform.position += (transform.forward) * Time.deltaTime * speed;
 	}
 
-	[RPC]
+	[PunRPC]
 	public void DestroyThrownObject()
 	{
 		Instantiate(Resources.Load<GameObject>("ThrownDestruct/" + name.Replace("(Clone)", "")), transform.position, transform.rotation);

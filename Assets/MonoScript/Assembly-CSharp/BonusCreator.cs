@@ -158,7 +158,7 @@ public class BonusCreator : MonoBehaviour
 			}
 			else if (prefs.GetString("TypeConnect").Equals("local"))
 			{
-				GameObject newBonus3 = (GameObject)Network.Instantiate(bonusPrefabs[(type >= 9) ? 1u : 0u], pos, Quaternion.identity, 0);
+				GameObject newBonus3 = (GameObject)PhotonNetwork.Instantiate(bonusPrefabs[(type >= 9) ? 1u : 0u].name, pos, Quaternion.identity, 0);
 			}
 			else
 			{

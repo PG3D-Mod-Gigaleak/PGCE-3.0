@@ -167,11 +167,11 @@ public class FirstPersonControl : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	public virtual void setIp(string _ip)
 	{
 		myIp = _ip;
-		Debug.Log("firstPesonControl=" + Network.player.ipAddress + " myIp=" + _ip);
+		//Debug.Log("firstPesonControl=" + Network.player.ipAddress + " myIp=" + _ip);
 	}
 
 	public virtual Vector2 updateKeyboardControls()

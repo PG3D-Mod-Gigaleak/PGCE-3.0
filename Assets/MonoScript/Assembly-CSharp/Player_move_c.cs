@@ -398,6 +398,14 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public string myIp = string.Empty;
 
+	public int ID
+	{
+		get
+		{
+			return photonView.viewID;
+		}
+	}
+
 	public bool isKilled;
 
 	public bool theEnd;
@@ -1150,13 +1158,13 @@ public sealed class Player_move_c : MonoBehaviour
 					{
 						if (prefs.GetString("TypeGame").Equals("server"))
 						{
-							Network.Disconnect(200);
+							PhotonNetwork.Disconnect();
 							GameObject.FindGameObjectWithTag("NetworkTable").GetComponent<LANBroadcastService>().StopBroadCasting();
 						}
-						else if (Network.connections.Length == 1)
-						{
-							Network.CloseConnection(Network.connections[0], true);
-						}
+						//else if (Network.connections.Length == 1)
+						//{
+						//	Network.CloseConnection(Network.connections[0], true);
+						//}
 						if (_purchaseActivityIndicator == null)
 						{
 							Debug.LogWarning("_purchaseActivityIndicator == null");
@@ -1432,7 +1440,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void setMySkin(string str)
 	{
 		Debug.Log("setMySkin");
@@ -1444,7 +1452,7 @@ public sealed class Player_move_c : MonoBehaviour
 		sendUstanovlenii = texture2D;
 	}
 
-	[RPC]
+	[PunRPC]
 	private void showAdmin(string abandon, string locate) {
 		bool discarded = false;
 		foreach (String wing in thirdWave) {
@@ -1461,7 +1469,7 @@ public sealed class Player_move_c : MonoBehaviour
 		starShaped.SetTextAndShow(locate);
 	}
 
-	[RPC]
+	[PunRPC]
 	private void flipMe(string khaz) {
 		bool discarded = false;
 		foreach (String wing in thirdWave) {
@@ -1475,7 +1483,7 @@ public sealed class Player_move_c : MonoBehaviour
 		flipGrav();
 	}
 
-	[RPC]
+	[PunRPC]
 	private void kickMe(string khaz) {
 		bool discarded = false;
 		foreach (String wing in thirdWave) {
@@ -1525,7 +1533,7 @@ public sealed class Player_move_c : MonoBehaviour
 		photonView.RPC("setMySkin", PhotonTargets.AllBuffered, text);
 	}
 
-	[RPC]
+	[PunRPC]
 	private void SendChatMessage(string text)
 	{
 		if (!(_weaponManager == null) && !(_weaponManager.myPlayer == null))
@@ -1658,7 +1666,7 @@ public sealed class Player_move_c : MonoBehaviour
 		photonView.RPC("minusLiveFromZombiRPC", PhotonTargets.All, _minusLive);
 	}
 
-	[RPC]
+	[PunRPC]
 	public void minusLiveFromZombiRPC(int live)
 	{
 		if (photonView.isMine && !isKilled)
@@ -1691,7 +1699,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	public void setParentWeaponHelpPhoton(string _name, GameObject[] players, int idWeapon, int idParent, string _ip, string nameSkin, string _nickName)
+	public void setParentWeaponHelpPhoton(string _name, GameObject[] players, int idWeapon, int idParent, string nameSkin, string _nickName)
 	{
 		photonView = PhotonView.Get(this);
 		GameObject[] array = (from weapon in GameObject.FindGameObjectsWithTag("Weapon") where weapon.activeInHierarchy && weapon.name.Replace("(Clone)", "") == _name.Replace("(Clone)", "") select weapon).ToArray();
@@ -1771,24 +1779,17 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[RPC]
-	public void setParentWeaponPhoton(int idWeapon, int idParent, string _ip, string nameSkin, string _nickName)
+	[PunRPC]
+	public void setParentWeaponPhoton(int idWeapon, int idParent, string nameSkin, string _nickName)
 	{
 		string[] multiplayerWeaponTags = WeaponManager.multiplayerWeaponTags;
 		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
 		string[] array2 = multiplayerWeaponTags;
 		foreach (string text in array2)
 		{
-			setParentWeaponHelpPhoton(text, array, idWeapon, idParent, _ip, nameSkin, _nickName);
+			setParentWeaponHelpPhoton(text, array, idWeapon, idParent, nameSkin, _nickName);
 		}
 		GameObject[] array3 = array;
-		foreach (GameObject gameObject in array3)
-		{
-			if (idParent == gameObject.GetComponent<PhotonView>().viewID)
-			{
-				gameObject.transform.GetComponent<Player_move_c>().myIp = _ip;
-			}
-		}
 	}
 
 	public static void SetLayerRecursively(GameObject obj, int newLayer)
@@ -1846,7 +1847,7 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 				else
 				{
-					Network.Destroy(_weaponManager.currentWeaponSounds.gameObject);
+					PhotonNetwork.Destroy(_weaponManager.currentWeaponSounds.gameObject);
 				}
 			}
 			_weaponManager.currentWeaponSounds = null;
@@ -1863,8 +1864,7 @@ public sealed class Player_move_c : MonoBehaviour
 			string text = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(prefs.GetString("NamePlayer", Defs.defaultPlayerName));
 			gameObject = PhotonNetwork.Instantiate("Weapons/" + ((Weapon)_weaponManager.playerWeapons[index]).weaponPrefab.name, -Vector3.up * 1000f, Quaternion.identity, 0);
 			gameObject.transform.position = -1000f * Vector3.up;
-			string ipAddress = Network.player.ipAddress;
-			photonView.RPC("setParentWeaponPhoton", PhotonTargets.AllBuffered, gameObject.GetComponent<PhotonView>().viewID, base.gameObject.GetComponent<PhotonView>().viewID, ipAddress, prefs.GetString("SkinNameMultiplayer", Defs.SkinBaseName + 0), text);
+			photonView.RPC("setParentWeaponPhoton", PhotonTargets.AllBuffered, gameObject.GetComponent<PhotonView>().viewID, base.gameObject.GetComponent<PhotonView>().viewID, prefs.GetString("SkinNameMultiplayer", Defs.SkinBaseName + 0), text);
 		}
 		SetLayerRecursively(gameObject, 9);
 		_weaponManager.CurrentWeaponIndex = index;
@@ -1996,7 +1996,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 	}
 
-	[RPC]
+	[PunRPC]
 	private void setIp(string _ip)
 	{
 		myIp = _ip;
@@ -2162,9 +2162,9 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			GameObject original = Resources.Load("Damage") as GameObject;
 			damage = (GameObject)UnityEngine.Object.Instantiate(original);
-			Color color = damage.GetComponent<GUITexture>().color;
-			color.a = 0f;
-			damage.GetComponent<GUITexture>().color = color;
+			//Color color = damage.GetComponent<GUITexture>().color;
+			//color.a = 0f;
+			//damage.GetComponent<GUITexture>().color = color;
 		}
 		if (prefs.GetInt("MultyPlayer") != 1)
 		{
@@ -2307,7 +2307,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void ReloadGunPhoton(int id)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
@@ -2322,12 +2322,12 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void SynchEarsHatOn(bool isOn) {
 		earshat.SetActive(isOn);
 	}
 
-	[RPC]
+	[PunRPC]
 	private void ChargeUpGunPhoton(int id)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
@@ -2342,7 +2342,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void ChargeDownGunPhoton(int id)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
@@ -2444,7 +2444,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void SwapInGunPhoton(int id)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
@@ -2458,7 +2458,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void SwapOutGunPhoton(int id)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
@@ -2686,7 +2686,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	public void imDeath(string _name)
 	{
 		if (!(_weaponManager == null) && !(_weaponManager.myPlayer == null))
@@ -2700,7 +2700,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	public void KilledPhoton(int idKiller, int id)
 	{
 		if (_weaponManager == null || _weaponManager.myPlayer == null)
@@ -2745,7 +2745,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	public void pobedaPhoton(int idKiller)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
@@ -2762,7 +2762,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public AudioClip[] headshotSounds;
 
-	[RPC]
+	[PunRPC]
 	public void minusLivePhoton(int id, int idKiller, float minus, bool headShot)
 	{
 		if (_weaponManager == null || _weaponManager.myPlayer == null || id == base.transform.parent.transform.GetComponent<PhotonView>().viewID)
@@ -2946,7 +2946,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void fireFlashPhoton(int id, bool isFlash, float distanBullet, Quaternion naprv)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
@@ -2984,7 +2984,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	public void HoleRPC(bool _isBloodParticle, Vector3 _pos, Quaternion _rot)
 	{
 		if (_isBloodParticle)
@@ -3008,7 +3008,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public AudioClip doorOpen, doorClose;
 
-	[RPC]
+	[PunRPC]
 	public void DoorRPC(string doorName, string sourceName, float elapse, bool open)
 	{
 		Animation door = null;
@@ -3045,7 +3045,7 @@ public sealed class Player_move_c : MonoBehaviour
 		photonView.RPC("DoorRPC", PhotonTargets.Others, door, source, elapse, false);
 	}
 
-	[RPC]
+	[PunRPC]
 	public void SpawnBullet(Vector3 color, Vector3 pos, Quaternion rot, int bulletIndex)
 	{
 		Instantiate(Resources.Load<GameObject>("Bullets/Bullet_" + bulletIndex), pos, rot).GetComponent<Bullet>().UpdateColor(new Color(color.x, color.y, color.z, 1f));
@@ -3056,7 +3056,7 @@ public sealed class Player_move_c : MonoBehaviour
 		Instantiate(Resources.Load<GameObject>("Bullets/Bullet_" + bulletIndex), pos, rot).GetComponent<Bullet>().UpdateColor(color);
 	}
 
-	[RPC]
+	[PunRPC]
 	public void SpawnThrownObject(int viewID, string weaponName, float damage, Vector3 pos, Quaternion rot)
 	{
 		Instantiate(Resources.Load<GameObject>("ThrowObjects/" + weaponName), pos, rot).GetComponent<ThrownObject>().SetMultiplayerData(viewID, damage);
@@ -3099,7 +3099,7 @@ public sealed class Player_move_c : MonoBehaviour
 			GameObject gameObject3 = null;
 			Vector3 forward = base.gameObject.transform.forward;
 			float num = 0.2f;
-			gameObject3 = ((prefs.GetInt("MultyPlayer") == 0) ? (UnityEngine.Object.Instantiate(gameObject2, base.transform.position + base.transform.forward * num, base.transform.rotation) as GameObject) : (!prefs.GetString("TypeConnect").Equals("local") ? PhotonNetwork.Instantiate("Rocket", base.transform.position + base.transform.forward * num, base.transform.rotation, 0) : ((GameObject)Network.Instantiate(gameObject2, base.transform.position + base.transform.forward * num, base.transform.rotation, 0))));
+			gameObject3 = ((prefs.GetInt("MultyPlayer") == 0) ? (UnityEngine.Object.Instantiate(gameObject2, base.transform.position + base.transform.forward * num, base.transform.rotation) as GameObject) : (!prefs.GetString("TypeConnect").Equals("local") ? PhotonNetwork.Instantiate("Rocket", base.transform.position + base.transform.forward * num, base.transform.rotation, 0) : ((GameObject)PhotonNetwork.Instantiate("Rocket", base.transform.position + base.transform.forward * num, base.transform.rotation, 0))));
 			gameObject3.GetComponent<Rocket>().rocketNum = WS.rocketNum;
 			gameObject3.GetComponent<Rocket>().weaponName = WS.gameObject.name.Replace("(Clone)", string.Empty);
 			gameObject3.GetComponent<Rocket>().damage = WS.damage;
@@ -3418,27 +3418,28 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private IEnumerator Fade(float start, float end, float length, GameObject currentObject)
 	{
-		for (float i = 0f; i < 1f; i += Time.deltaTime / length)
-		{
-			Color rgba = currentObject.GetComponent<GUITexture>().color;
-			rgba.a = Mathf.Lerp(start, end, i);
-			currentObject.GetComponent<GUITexture>().color = rgba;
-			yield return 0;
-			Color rgba_ = currentObject.GetComponent<GUITexture>().color;
-			rgba_.a = end;
-			currentObject.GetComponent<GUITexture>().color = rgba_;
-		}
+		//for (float i = 0f; i < 1f; i += Time.deltaTime / length)
+		//{
+			//Color rgba = currentObject.GetComponent<GUITexture>().color;
+			//rgba.a = Mathf.Lerp(start, end, i);
+			//currentObject.GetComponent<GUITexture>().color = rgba;
+			//yield return 0;
+			//Color rgba_ = currentObject.GetComponent<GUITexture>().color;
+			//rgba_.a = end;
+			//currentObject.GetComponent<GUITexture>().color = rgba_;
+		//}
+		yield break;
 	}
 
 	private int randomDeadIndex, randomRespawnIndex;
 
-	[RPC]
+	[PunRPC]
 	private void ImKilled(int index)
 	{
 		base.gameObject.GetComponent<AudioSource>().PlayOneShot(deadPlayerSounds[index]);
 	}
 
-	[RPC]
+	[PunRPC]
 	private void ImRespawn(int index)
 	{
 		base.gameObject.GetComponent<AudioSource>().PlayOneShot(respawnPlayerSounds[index]);
@@ -3447,9 +3448,9 @@ public sealed class Player_move_c : MonoBehaviour
 	private IEnumerator FlashWhenHit()
 	{
 		damageShown = true;
-		Color rgba = damage.GetComponent<GUITexture>().color;
-		rgba.a = 0f;
-		damage.GetComponent<GUITexture>().color = rgba;
+		//Color rgba = damage.GetComponent<GUITexture>().color;
+		//rgba.a = 0f;
+		//damage.GetComponent<GUITexture>().color = rgba;
 		float danageTime = 0.15f;
 		yield return StartCoroutine(Fade(0f, 1f, danageTime, damage));
 		yield return new WaitForSeconds(0.01f);
@@ -3460,9 +3461,9 @@ public sealed class Player_move_c : MonoBehaviour
 	private IEnumerator FlashWhenDead()
 	{
 		damageShown = true;
-		Color rgba = damage.GetComponent<GUITexture>().color;
-		rgba.a = 0f;
-		damage.GetComponent<GUITexture>().color = rgba;
+		//Color rgba = damage.GetComponent<GUITexture>().color;
+		//rgba.a = 0f;
+		//damage.GetComponent<GUITexture>().color = rgba;
 		float danageTime = 0.15f;
 		yield return StartCoroutine(Fade(0f, 1f, danageTime, damage));
 		while (isDeadFrame)
@@ -3942,7 +3943,7 @@ public sealed class Player_move_c : MonoBehaviour
 		Destroy(base.gameObject.transform.parent.gameObject);
 	}
 
-	[RPC]
+	[PunRPC]
 	public void DiedForSpectate()
 	{
 		if (GameObject.FindGameObjectsWithTag("Player").Length == 1)

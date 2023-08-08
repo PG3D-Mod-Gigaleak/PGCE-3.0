@@ -26,7 +26,7 @@ public class SkinName : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void setAnimPhoton(int id, int _typeAnim)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("Player");

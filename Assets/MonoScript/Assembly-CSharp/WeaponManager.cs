@@ -41,8 +41,6 @@ public sealed class WeaponManager : MonoBehaviour
 
 	private static string[] _initialMultiplayerWeaponTags;
 
-	public HostData hostDataServer;
-
 	public string ServerIp;
 
 	public GameObject myPlayer;

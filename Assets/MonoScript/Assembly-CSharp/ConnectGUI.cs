@@ -258,8 +258,6 @@ public sealed class ConnectGUI : MonoBehaviour
 
 	public Texture head_first;
 
-	private HostData[] hostData;
-
 	public WeaponManager _weaponManager;
 
 	private bool showLoading;
@@ -1113,18 +1111,25 @@ public sealed class ConnectGUI : MonoBehaviour
 			hashtable.Add("map", selectMapIndex);
 			hashtable.Add("MaxKill", int.Parse(commentsServer));
 			hashtable.Add("pass", password);
-			ExitGames.Client.Photon.Hashtable customRoomProperties = hashtable;
 			prefs.SetString("MapName", (prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 			prefs.SetString("MaxKill", commentsServer);
 			showLoading = true;
 			setFonLoading((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 			string roomName = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(name);
-			PhotonNetwork.CreateRoom(roomName, true, true, int.Parse(limitsPlayer), customRoomProperties, propsToListInLobby);
+			RoomOptions roomOptions = new RoomOptions
+			{
+			    IsVisible = true,
+			    IsOpen = true,
+			    MaxPlayers = byte.Parse(limitsPlayer),
+			    CustomRoomProperties = hashtable,
+			    CustomRoomPropertiesForLobby = propsToListInLobby
+			};
+			PhotonNetwork.CreateRoom(roomName, roomOptions, TypedLobby.Default);
 		}
 		if (typeConnect == 2)
 		{
-			bool useNat = Network.HavePublicAddress();
-			Network.InitializeServer(int.Parse(limitsPlayer) - 1, 25002, useNat);
+			//bool useNat = Network.HavePublicAddress();
+			//Network.InitializeServer(int.Parse(limitsPlayer) - 1, 25002, useNat);
 			prefs.SetString("ServerName", name);
 			prefs.SetString("MapName", (prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 			prefs.SetString("PlayersLimits", limitsPlayer);
@@ -1152,13 +1157,13 @@ public sealed class ConnectGUI : MonoBehaviour
 		{
 			if (typeGame == 1)
 			{
-				Network.Disconnect(200);
+				PhotonNetwork.Disconnect();
 			}
-			if (typeGame == 2 && Network.connections.Length == 1)
-			{
-				Debug.Log("Disconnecting: " + Network.connections[0].ipAddress + ":" + Network.connections[0].port);
-				Network.CloseConnection(Network.connections[0], true);
-			}
+			//if (typeGame == 2 && Network.connections.Length == 1)
+			//{
+			//	Debug.Log("Disconnecting: " + Network.connections[0].ipAddress + ":" + Network.connections[0].port);
+			//	Network.CloseConnection(Network.connections[0], true);
+			//}
 			typeGame = 0;
 			typeConnect = 0;
 			regimGUIClient = 0;
@@ -1172,13 +1177,13 @@ public sealed class ConnectGUI : MonoBehaviour
 			{
 				LANBroadcastService component = GetComponent<LANBroadcastService>();
 				component.StopBroadCasting();
-				Network.Disconnect(200);
+				PhotonNetwork.Disconnect();
 			}
-			if (typeGame == 2 && Network.connections.Length == 1)
-			{
-				Debug.Log("Disconnecting: " + Network.connections[0].ipAddress + ":" + Network.connections[0].port);
-				Network.CloseConnection(Network.connections[0], true);
-			}
+			//if (typeGame == 2 && Network.connections.Length == 1)
+			//{
+			//	Debug.Log("Disconnecting: " + Network.connections[0].ipAddress + ":" + Network.connections[0].port);
+			//	Network.CloseConnection(Network.connections[0], true);
+			//}
 			typeGame = 0;
 			regimGUIClient = 0;
 			regimGUIServer = 0;
@@ -1228,22 +1233,22 @@ public sealed class ConnectGUI : MonoBehaviour
 		}
 	}
 
-	private int hostDataComparison(HostData host1, HostData host2)
-	{
-		string text = string.Empty;
-		string text2 = string.Empty;
-		string[] ip = host1.ip;
-		foreach (string text3 in ip)
-		{
-			text += text3;
-		}
-		string[] ip2 = host2.ip;
-		foreach (string text4 in ip2)
-		{
-			text2 += text4;
-		}
-		return text.CompareTo(text2);
-	}
+	//private int hostDataComparison(HostData host1, HostData host2)
+	//{
+		//string text = string.Empty;
+		//string text2 = string.Empty;
+		//string[] ip = host1.ip;
+		//foreach (string text3 in ip)
+		//{
+		//	text += text3;
+		//}
+		//string[] ip2 = host2.ip;
+		//foreach (string text4 in ip2)
+		//{
+		//	text2 += text4;
+		//}
+		//return text.CompareTo(text2);
+	//}
 
 	private int localServerComparison(LANBroadcastService.ReceivedMessage msg1, LANBroadcastService.ReceivedMessage msg2)
 	{
@@ -1514,14 +1519,22 @@ public sealed class ConnectGUI : MonoBehaviour
 		goMapName = ((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
 		ExitGames.Client.Photon.Hashtable hashtable = new ExitGames.Client.Photon.Hashtable();
 		hashtable.Add("map", selectMapIndex);
-		hashtable.Add("MaxKill", 10);
-		hashtable.Add("pass", string.Empty);
-		ExitGames.Client.Photon.Hashtable customRoomProperties = hashtable;
+		hashtable.Add("MaxKill", int.Parse(commentsServer));
+		hashtable.Add("pass", password);
 		prefs.SetString("MapName", (prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
-		prefs.SetString("MaxKill", "10");
+		prefs.SetString("MaxKill", commentsServer);
 		showLoading = true;
 		setFonLoading((prefs.GetInt("COOP", 0) != 1) ? masMapName[selectMapIndex] : masMapNameCOOP[selectMapIndex]);
-		PhotonNetwork.CreateRoom(null, true, true, (prefs.GetInt("COOP", 0) != 1) ? 10 : 4, customRoomProperties, propsToListInLobby);
+		string roomName = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(name);
+		RoomOptions roomOptions = new RoomOptions
+		{
+		    IsVisible = true,
+		    IsOpen = true,
+		    MaxPlayers = byte.Parse(limitsPlayer),
+		    CustomRoomProperties = hashtable,
+		    CustomRoomPropertiesForLobby = propsToListInLobby
+		};
+		PhotonNetwork.CreateRoom(roomName, roomOptions, TypedLobby.Default);
 	}
 
 	private void OnPhotonJoinRoomFailed()

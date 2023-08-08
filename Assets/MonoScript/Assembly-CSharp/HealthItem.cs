@@ -37,7 +37,7 @@ public class HealthItem : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void delBonusPhoton(int id, int idPlayer)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("Bonus");

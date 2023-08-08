@@ -37,7 +37,7 @@ public class AmmoItem : MonoBehaviour
 		}
 	}
 
-	[RPC]
+	[PunRPC]
 	private void delBonusPhoton(int id, int idPlayer)
 	{
 		Debug.Log("get del rpc " + id);
