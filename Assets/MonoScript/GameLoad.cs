@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using handler.crash;
+using handler.logger;
 using UnityEngine;
 
 public class GameLoad : MonoBehaviour
  {
 	void Start() 
 	{
+		Log.Init();
+		CrashHandler.Init();
 		BeginLoading();
 	}
 

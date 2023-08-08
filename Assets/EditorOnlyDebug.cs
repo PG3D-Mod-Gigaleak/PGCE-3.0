@@ -7,7 +7,19 @@ public class EditorOnlyDebug : MonoBehaviour
     public static void Log(object text)
     {
         #if UNITY_EDITOR
-        Debug.Log($"[EditorOnlyDebug::Log] {text}");
+        handler.logger.Log.AddLine($"[EditorOnlyDebug::Log] {text}");
+        #endif
+    }
+    public static void LogWarning(object text)
+    {
+        #if UNITY_EDITOR
+        Debug.LogWarning($"[EditorOnlyDebug::LogWarning] {text}");
+        #endif
+    }
+    public static void LogError(object text)
+    {
+        #if UNITY_EDITOR
+        Debug.LogError($"[EditorOnlyDebug::LogError] {text}");
         #endif
     }
 }
