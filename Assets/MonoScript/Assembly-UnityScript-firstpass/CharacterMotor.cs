@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Boo.Lang;
 using UnityEngine;
 
 [Serializable]
@@ -10,79 +9,6 @@ using UnityEngine;
 [AddComponentMenu("Character/Character Motor")]
 public class CharacterMotor : MonoBehaviour
 {
-	[Serializable]
-	[CompilerGenerated]
-	internal sealed class _0024SubtractNewPlatformVelocity_002459 : GenericGenerator<object>
-	{
-		[Serializable]
-		[CompilerGenerated]
-		internal sealed class _0024 : GenericGeneratorEnumerator<object>, IEnumerator
-		{
-			internal Transform _0024platform_002460;
-
-			internal CharacterMotor _0024self__002461;
-
-			public _0024(CharacterMotor self_)
-			{
-				_0024self__002461 = self_;
-			}
-
-			public override bool MoveNext()
-			{
-				int result;
-				switch (_state)
-				{
-				default:
-					if (_0024self__002461.movingPlatform.enabled && (_0024self__002461.movingPlatform.movementTransfer == MovementTransferOnJump.InitTransfer || _0024self__002461.movingPlatform.movementTransfer == MovementTransferOnJump.PermaTransfer))
-					{
-						if (_0024self__002461.movingPlatform.newPlatform)
-						{
-							_0024platform_002460 = _0024self__002461.movingPlatform.activePlatform;
-							result = (Yield(2, new WaitForFixedUpdate()) ? 1 : 0);
-							break;
-						}
-						goto case 4;
-					}
-					goto IL_0124;
-				case 2:
-					result = (Yield(3, new WaitForFixedUpdate()) ? 1 : 0);
-					break;
-				case 3:
-					if (_0024self__002461.grounded && _0024platform_002460 == _0024self__002461.movingPlatform.activePlatform)
-					{
-						result = (Yield(4, 1) ? 1 : 0);
-						break;
-					}
-					goto case 4;
-				case 4:
-					_0024self__002461.movement.velocity = _0024self__002461.movement.velocity - _0024self__002461.movingPlatform.platformVelocity;
-					goto IL_0124;
-				case 1:
-					{
-						result = 0;
-						break;
-					}
-					IL_0124:
-					YieldDefault(1);
-					goto case 1;
-				}
-				return (byte)result != 0;
-			}
-		}
-
-		internal CharacterMotor _0024self__002462;
-
-		public _0024SubtractNewPlatformVelocity_002459(CharacterMotor self_)
-		{
-			_0024self__002462 = self_;
-		}
-
-		public override IEnumerator<object> GetEnumerator()
-		{
-			return new _0024(_0024self__002462);
-		}
-	}
-
 	public bool canControl;
 
 	public bool useFixedUpdate;
@@ -381,7 +307,8 @@ public class CharacterMotor : MonoBehaviour
 
 	private IEnumerator SubtractNewPlatformVelocity()
 	{
-		return new _0024SubtractNewPlatformVelocity_002459(this).GetEnumerator();
+		yield break;
+		//return new _0024SubtractNewPlatformVelocity_002459(this).GetEnumerator();
 	}
 
 	private bool MoveWithPlatform()

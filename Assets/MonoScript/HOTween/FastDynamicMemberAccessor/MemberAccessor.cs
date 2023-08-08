@@ -102,19 +102,20 @@ namespace FastDynamicMemberAccessor
 		{
 			AssemblyName assemblyName = new AssemblyName();
 			assemblyName.Name = "PropertyAccessorAssembly";
-			AssemblyBuilder assemblyBuilder = Thread.GetDomain().DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
-			ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule("Module");
-			TypeBuilder typeBuilder = moduleBuilder.DefineType("Member", TypeAttributes.Public | TypeAttributes.Sealed);
-			typeBuilder.AddInterfaceImplementation(typeof(IMemberAccessor));
-			typeBuilder.DefineDefaultConstructor(MethodAttributes.Public);
-			_EmitGetter(typeBuilder);
-			_EmitSetter(typeBuilder);
-			typeBuilder.CreateType();
-			return assemblyBuilder;
+			//AssemblyBuilder assemblyBuilder = Thread.GetDomain().DefineDynamicAssembly(assemblyName, AssemblyBuilderAccess.Run);
+			//ModuleBuilder moduleBuilder = assemblyBuilder.DefineDynamicModule("Module");
+			//TypeBuilder typeBuilder = moduleBuilder.DefineType("Member", TypeAttributes.Public | TypeAttributes.Sealed);
+			//typeBuilder.AddInterfaceImplementation(typeof(IMemberAccessor));
+			//typeBuilder.DefineDefaultConstructor(MethodAttributes.Public);
+			//_EmitGetter(typeBuilder);
+			//_EmitSetter(typeBuilder);
+			//typeBuilder.CreateType();
+			//return assemblyBuilder;
+			return default;
 		}
 
-		protected abstract void _EmitGetter(TypeBuilder type);
-
-		protected abstract void _EmitSetter(TypeBuilder type);
+		//protected abstract void _EmitGetter(TypeBuilder type);
+//
+		//protected abstract void _EmitSetter(TypeBuilder type);
 	}
 }

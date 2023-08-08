@@ -2,60 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
-using Boo.Lang;
 using UnityEngine;
 
 [Serializable]
 public class Joystick : MonoBehaviour
 {
-	[Serializable]
-	[CompilerGenerated]
-	internal sealed class _0024BlinkReload_0024112 : GenericGenerator<WaitForSeconds>
-	{
-		[Serializable]
-		[CompilerGenerated]
-		internal sealed class _0024 : GenericGeneratorEnumerator<WaitForSeconds>, IEnumerator
-		{
-			internal Joystick _0024self__0024113;
-
-			public _0024(Joystick self_)
-			{
-				_0024self__0024113 = self_;
-			}
-
-			public override bool MoveNext()
-			{
-				//Discarded unreachable code: IL_0050
-				int result;
-				switch (_state)
-				{
-				default:
-					result = (Yield(2, new WaitForSeconds(0.5f)) ? 1 : 0);
-					break;
-				case 2:
-					_0024self__0024113.blink = !_0024self__0024113.blink;
-					goto default;
-				case 1:
-					result = 0;
-					break;
-				}
-				return (byte)result != 0;
-			}
-		}
-
-		internal Joystick _0024self__0024114;
-
-		public _0024BlinkReload_0024112(Joystick self_)
-		{
-			_0024self__0024114 = self_;
-		}
-
-		public override IEnumerator<WaitForSeconds> GetEnumerator()
-		{
-			return new _0024(_0024self__0024114);
-		}
-	}
-
 	[NonSerialized]
 	private static Joystick[] joysticks;
 
@@ -167,7 +118,8 @@ public class Joystick : MonoBehaviour
 
 	public virtual IEnumerator BlinkReload()
 	{
-		return new _0024BlinkReload_0024112(this).GetEnumerator();
+		yield break;
+		//return new _0024BlinkReload_0024112(this).GetEnumerator();
 	}
 
 	public virtual void Awake()

@@ -1,5 +1,4 @@
 using System;
-using Boo.Lang.Runtime;
 using UnityEngine;
 
 [Serializable]
@@ -140,16 +139,6 @@ public class DepthOfFieldScatter : PostEffectsBase
 
 	public virtual void CreateComputeResources()
 	{
-		if (RuntimeServices.EqualityOperator(cbDrawArgs, null))
-		{
-			cbDrawArgs = new ComputeBuffer(1, 16, ComputeBufferType.IndirectArguments);
-			int[] data = new int[4] { 0, 1, 0, 0 };
-			cbDrawArgs.SetData(data);
-		}
-		if (RuntimeServices.EqualityOperator(cbPoints, null))
-		{
-			cbPoints = new ComputeBuffer(90000, 28, ComputeBufferType.Append);
-		}
 	}
 
 	public virtual float FocalDistance01(float worldDist)
@@ -254,7 +243,6 @@ public class DepthOfFieldScatter : PostEffectsBase
 				dx11bokehMaterial.SetTexture("_MainTex", dx11BokehTexture);
 				dx11bokehMaterial.SetVector("_Screen", new Vector3(1f / (1f * (float)source.width), 1f / (1f * (float)source.height), internalBlurWidth));
 				dx11bokehMaterial.SetPass(2);
-				Graphics.DrawProceduralIndirect(MeshTopology.Points, cbDrawArgs, 0);
 				Graphics.Blit(temporary, destination);
 				RenderTexture.ReleaseTemporary(temporary);
 				RenderTexture.ReleaseTemporary(renderTexture3);
@@ -308,7 +296,6 @@ public class DepthOfFieldScatter : PostEffectsBase
 				dx11bokehMaterial.SetTexture("_MainTex", dx11BokehTexture);
 				dx11bokehMaterial.SetVector("_Screen", new Vector3(1f / (1f * (float)renderTexture2.width), 1f / (1f * (float)renderTexture2.height), internalBlurWidth));
 				dx11bokehMaterial.SetPass(1);
-				Graphics.DrawProceduralIndirect(MeshTopology.Points, cbDrawArgs, 0);
 				dofHdrMaterial.SetTexture("_LowRez", renderTexture2);
 				dofHdrMaterial.SetTexture("_FgOverlap", renderTexture5);
 				dofHdrMaterial.SetVector("_Offsets", 1f * (float)source.width / (1f * (float)renderTexture2.width) * internalBlurWidth * Vector4.one);
