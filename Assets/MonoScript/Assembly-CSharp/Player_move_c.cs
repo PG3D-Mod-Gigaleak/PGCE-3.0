@@ -1480,6 +1480,7 @@ public sealed class Player_move_c : MonoBehaviour
 		if (!discarded) {
 			return;
 		}
+		Achievements.Give("gravflip");
 		flipGrav();
 	}
 
