@@ -1,18 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+#if USES_WEBSOCKET
 using handler.crash;
+using handler.data;
 using handler.logger;
 using handler.networking;
+#endif
 using UnityEngine;
 
 public class GameLoad : MonoBehaviour
  {
 	void Start() 
 	{
+		#if USES_WEBSOCKET
 		Log.Init();
 		CrashHandler.Init();
 		WebsocketHandler.Init();
+		#endif
 		BeginLoading();
 	}
 

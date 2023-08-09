@@ -6,8 +6,12 @@ public class EditorOnlyDebug : MonoBehaviour
 {
     public static void Log(object text)
     {
+        #if USES_WEBSOCKET
         #if UNITY_EDITOR
         handler.logger.Log.AddLine($"[EditorOnlyDebug::Log] {text}");
+        #endif
+        #else
+        Debug.LogWarning($"[EditorOnlyDebug::Log] {text}");
         #endif
     }
     public static void LogWarning(object text)

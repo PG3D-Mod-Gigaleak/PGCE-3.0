@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using ExitGames.Client.Photon;
+#if USES_WEBSOCKET
 using handler.logger;
+#endif
 using UnityEngine;
 
 public sealed class ConnectGUI : MonoBehaviour
@@ -1655,7 +1657,9 @@ public sealed class ConnectGUI : MonoBehaviour
 	public void OnJoinedLobby()
 	{
 		firstUpdate = true;
+		#if USES_WEBSOCKET
 		Log.AddLine("[ConnectGUI::OnJoinedLobby] OnConnectedToPhoton");
+		#endif
 		typeConnect = 1;
 		prefs.SetString("TypeGame", "client");
 		typeGame = 3;
@@ -1681,19 +1685,27 @@ public sealed class ConnectGUI : MonoBehaviour
 	{
 		if (!isFirstFrame)
 		{
+			#if USES_WEBSOCKET
 			Log.AddLine("[ConnectGUI::_initializeWorldwide] Initializing Worldwide");
+			#endif
 			prefs.SetString("TypeConnect", "inet");
 			if (prefs.GetInt("COOP", 0) == 1)
 			{
+				#if USES_WEBSOCKET
 				Log.AddLine("[ConnectGUI::_initializeWorldwide] Connecting to COOP");
+				#endif
 				PhotonNetwork.ConnectUsingSettings("v" + GlobalGameController.AppVersion + "COOP");
 			}
 			else
 			{
+				#if USES_WEBSOCKET
 				Log.AddLine("[ConnectGUI::_initializeWorldwide] Connecting to Deathmatch");
+				#endif
 				PhotonNetwork.ConnectUsingSettings("v" + GlobalGameController.AppVersion);
 			}
+			#if USES_WEBSOCKET
 			Log.AddLine("[ConnectGUI::_initializeWorldwide] Connected without exceptions");
+			#endif
 			connectingFoton = true;
 			showPasswordEnterForm = false;
 			showFilterForm = false;
