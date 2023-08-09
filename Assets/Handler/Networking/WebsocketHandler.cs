@@ -37,6 +37,13 @@ namespace handler.networking
             }, default);
             yield return WSIsAlive;
             Debug.Log("[WebsocketHandler::Init] Websocket completely initialized");
+            if (WSIsAlive)
+            {
+                Dictionary<string, object> initArgs = new Dictionary<string, object>();
+                if (Storager.hasKey("plr_uid") && Storager.hasKey("plr_nhguXrl"))
+                {
+                }
+            }
             yield break;
         }
         #region Websocket Actions

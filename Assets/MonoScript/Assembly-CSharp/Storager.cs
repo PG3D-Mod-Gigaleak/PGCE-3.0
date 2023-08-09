@@ -69,6 +69,12 @@ public static class Storager
 		CryptoPlayerPrefs.SetInt(key, val);
 	}
 
+	public static void setString(string key, string val, bool useICloud)
+	{
+		_writeCount++;
+		CryptoPlayerPrefs.SetString(key, val);
+	}
+
 	public static int getInt(string key, bool useICloud)
 	{
 		_readCount++;

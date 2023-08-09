@@ -30,19 +30,22 @@ public class ThirdPersonNetwork : Photon.MonoBehaviour
 		if (stream.isWriting)
 		{
 			iskilled = GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().isKilled;
-			stream.SendNext(base.transform.position);
-			stream.SendNext(base.transform.rotation);
-			stream.SendNext(base.transform.localScale);
-			stream.SendNext(iskilled);
+			Vector3 position = base.transform.localPosition;
+			Quaternion rotation = base.transform.localRotation;
+			Vector3 scale = base.transform.localScale;
+			stream.Serialize(ref position);
+			stream.Serialize(ref rotation);
+			stream.Serialize(ref scale);
+			stream.Serialize(ref iskilled);
 			GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().isKilled = iskilled;
 		}
 		else
 		{
-			correctPlayerPos = (Vector3)stream.ReceiveNext();
-			correctPlayerRot = (Quaternion)stream.ReceiveNext();
-			correctPlayerScale = (Vector3)stream.ReceiveNext();
+			stream.Serialize(ref correctPlayerPos);
+			stream.Serialize(ref correctPlayerRot);
+			stream.Serialize(ref correctPlayerScale);
 			oldIsKilled = iskilled;
-			iskilled = (bool)stream.ReceiveNext();
+			stream.Serialize(ref iskilled);
 		}
 	}
 
