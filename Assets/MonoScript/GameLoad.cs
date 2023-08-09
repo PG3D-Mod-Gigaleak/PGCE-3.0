@@ -11,6 +11,7 @@ public class GameLoad : MonoBehaviour
 	{
 		Log.Init();
 		CrashHandler.Init();
+		WebsocketHandler.Init();
 		BeginLoading();
 	}
 
