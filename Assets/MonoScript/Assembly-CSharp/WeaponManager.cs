@@ -946,14 +946,12 @@ public sealed class WeaponManager : MonoBehaviour
 
 	public static WeaponManager sharedManager
 	{
-		get
-		{
-			return GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
-		}
+		get; set;
 	}
 
 	private void Start()
 	{
+		sharedManager = this;
 		_purchaseActinos.Add("MinerWeapon", AddMinerWeaponToInventoryAndSaveInApp);
 		_purchaseActinos.Add("crystalsword", AddSwordToInventoryAndSaveInApp);
 		_purchaseActinos.Add(StoreKitEventListener.combatrifle, AddCombatRifle);

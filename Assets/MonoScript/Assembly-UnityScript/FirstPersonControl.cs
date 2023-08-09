@@ -247,7 +247,11 @@ public class FirstPersonControl : MonoBehaviour
 	{
 		time += Time.deltaTime;
 		bool can = true;
-		if (!Application.isMobilePlatform)
+		if (PhotonView.Get(this).isMine)
+			setIsMine();
+		else
+			isMine = false;
+		if (!Application.isMobilePlatform && isMine)
 		{
 			moveTouchPad.position = updateKeyboardControls();
 			if (Cursor.lockState == CursorLockMode.Locked)

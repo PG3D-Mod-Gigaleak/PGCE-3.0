@@ -1693,7 +1693,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		get {
 			try {
-				return photonView.isMine;
+				return PhotonView.Get(this).isMine;
 			} catch {
 				return false;
 			}
