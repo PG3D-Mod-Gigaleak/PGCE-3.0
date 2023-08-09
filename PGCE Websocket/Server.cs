@@ -10,13 +10,20 @@ namespace PGCE
     {
         protected override void OnMessage(MessageEventArgs e)
         {
+            Console.WriteLine($"------------------------------------------------------------");
+            Console.WriteLine($"[Action::OnMessage] Received message");
             Dictionary<string, object> givenInput = JsonConvert.DeserializeObject<Dictionary<string, object>>(e.Data);
             if (givenInput == null) {
                 Send("-X-");
             }
             string action = (string)givenInput["action"];
+            Console.WriteLine($"[Action::OnMessage] Received request for action {action}");
             Dictionary<string, object> output = new Dictionary<string, object>();
-            if (action == "create_user")
+            if (action == "ensure_ws_alive")
+            {
+                output["response"] = "success";
+            }
+            else if (action == "create_user")
             {
                 try
                 {
@@ -33,7 +40,14 @@ namespace PGCE
                     output["cause"] = $"{exception.Message}";
                 }
             }
+            else
+            {
+                output["response"] = "failed";
+                output["cause"] = $"Unimplemented action {action}";
+            }
             Send(JsonConvert.SerializeObject(output));
+            Console.WriteLine($"[Action::OnMessage] Finalized request for action {action}");
+            Console.WriteLine($"[Action::OnMessage] Output: {JsonConvert.SerializeObject(output)}");
         }
     }
 
@@ -70,12 +84,12 @@ namespace PGCE
             var wssv = new WebSocketServer(8083);
             wssv.AddWebSocketService<Action>("/action");
             wssv.Start();
-            Console.WriteLine("Started server successfully");
+            Console.WriteLine("[Server] Started server successfully");
             Console.ReadKey(true);
-            Console.WriteLine("Stopping server");
+            Console.WriteLine("[Server] Stopping server");
             wssv.Stop();
             DB.Close();
-            Console.WriteLine("Server stopped");
+            Console.WriteLine("[Server] Server stopped");
         }
     }
 }
