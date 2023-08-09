@@ -35,6 +35,8 @@ namespace handler.networking
                     Debug.Log("[WebsocketHandler::Init] " + data);
                 }
             }, default);
+            yield return WSIsAlive;
+            Debug.Log("[WebsocketHandler::Init] Websocket completely initialized");
             yield break;
         }
         #region Websocket Actions

@@ -1315,13 +1315,16 @@ public sealed class ConnectGUI : MonoBehaviour
 			RoomInfo[] roomList = PhotonNetwork.GetRoomList();
 			if (roomList.Length <= 0)
 			{
+				Debug.Log("roomlist is empty");
 				return;
+			} else {
+				Debug.Log("roomlist isn't empty");
 			}
 			float num = (float)playersWindow.normal.background.width * koofScreen;
 			rScrollFrame = new Rect(0f, 0f, (float)playersWindow.normal.background.width * koofScreen, (float)playersWindow.normal.background.height * koofScreen);
 			Vector2 vector = new Vector2((float)openServer.normal.background.width * koofScreen, (float)(openServer.normal.background.height + 3) * koofScreen);
 			Vector2 vector2 = new Vector2((float)openServer.normal.background.width * koofScreen * 0.97f, (float)(openServer.normal.background.height + 3) * koofScreen);
-			Rect viewRect = new Rect(0f, 0f, rowSize.x, (float)filteredRoomList.Count * rowSize.y);
+			Rect viewRect = new Rect(0f, 0f, rowSize.x, (float)roomList.Length * rowSize.y);
 			if (viewRect.height > rScrollFrame.height)
 			{
 				rowSize = vector2;
@@ -1333,7 +1336,7 @@ public sealed class ConnectGUI : MonoBehaviour
 			scrollPosition = GUI.BeginScrollView(rScrollFrame, scrollPosition, viewRect, false, false);
 			Rect rect = new Rect(0f, 0f, rowSize.x, rowSize.y);
 			float num2 = (windowWidth - num) * 0.5f;
-			foreach (RoomInfo filteredRoom in filteredRoomList)
+			foreach (RoomInfo filteredRoom in roomList)
 			{
 				if (rect.yMax >= scrollPosition.y && rect.yMin <= scrollPosition.y + rScrollFrame.height)
 				{
@@ -1649,10 +1652,10 @@ public sealed class ConnectGUI : MonoBehaviour
 		}
 	}
 
-	public void OnConnectedToMaster()
+	public void OnJoinedLobby()
 	{
 		firstUpdate = true;
-		Log.AddLine("[ConnectGUI::OnConnectedToMaster] OnConnectedToPhoton");
+		Log.AddLine("[ConnectGUI::OnJoinedLobby] OnConnectedToPhoton");
 		typeConnect = 1;
 		prefs.SetString("TypeGame", "client");
 		typeGame = 3;
