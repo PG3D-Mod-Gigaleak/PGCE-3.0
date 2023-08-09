@@ -421,6 +421,7 @@ public sealed class WeaponManager : MonoBehaviour
 
 	void Update()
 	{
+		sharedManager = this;
 		bool islocked = Cursor.lockState == CursorLockMode.Locked;
         if (Input.GetKeyDown(KeyCode.F1) && !islocked)
         {

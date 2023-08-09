@@ -8,7 +8,7 @@ public class Globals
 	{
 		get
 		{
-			return WeaponManager.sharedManager.myGun.GetComponent<Player_move_c>();
+			return WeaponManager.sharedManager.myPlayer.GetComponent<SkinName>().playerMoveC;
 		}
 	}
 
