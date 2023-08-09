@@ -37,8 +37,8 @@ namespace handler.data
 					if ((string)resultDictionary["response"] == "success")
 					{
 						userIsValid = true;
-						validChecked = true;
 					}
+					validChecked = true;
 				}, checkArgs);
 				yield return new WaitUntil(() => validChecked);
 				if (!userIsValid)

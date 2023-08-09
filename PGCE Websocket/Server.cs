@@ -85,6 +85,30 @@ namespace PGCE
 					output["cause"] = $"{exception.Message}";
 				}
 			}
+			else if (action == "request_connection")
+			{
+				try
+				{
+					AccountParameters? result = Helpers.GetAccountInfo(givenInput["uid"]);
+					if (result == null) {
+						throw new Exception("User does not exist!");
+					}
+					AccountParameters confirmedResult = (AccountParameters)result;
+					if (!Helpers.MatchingHash2Nonhash((string)givenInput["ak"], confirmedResult.AuthKey))
+						throw new Exception("Authkey invalid");
+					// TEMPORARY!!! HAVE TO SWITCH TO DYNAMIC SETTINGS AT ONE POINT FOR MORE SECURITY I GUESS
+					if (Convert.ToString((string)givenInput["coop"]) == "1")
+						output["settings"] = "v3.11COOP";
+					else
+						output["settings"] = "v3.11";
+					output["response"] = "success";
+				}
+				catch (Exception exception)
+				{
+					output["response"] = "failed";
+					output["cause"] = $"{exception.Message}";
+				}
+			}
 			else
 			{
 				output["response"] = "failed";

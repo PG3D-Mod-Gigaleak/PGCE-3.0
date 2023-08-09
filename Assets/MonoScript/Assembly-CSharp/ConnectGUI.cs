@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using ExitGames.Client.Photon;
 #if USES_WEBSOCKET
 using handler.logger;
+using handler.networking;
+using Newtonsoft.Json;
 #endif
 using UnityEngine;
 
@@ -1315,13 +1317,6 @@ public sealed class ConnectGUI : MonoBehaviour
 		if (typeConnect == 1)
 		{
 			RoomInfo[] roomList = PhotonNetwork.GetRoomList();
-			if (roomList.Length <= 0)
-			{
-				Debug.Log("roomlist is empty");
-				return;
-			} else {
-				Debug.Log("roomlist isn't empty");
-			}
 			float num = (float)playersWindow.normal.background.width * koofScreen;
 			rScrollFrame = new Rect(0f, 0f, (float)playersWindow.normal.background.width * koofScreen, (float)playersWindow.normal.background.height * koofScreen);
 			Vector2 vector = new Vector2((float)openServer.normal.background.width * koofScreen, (float)(openServer.normal.background.height + 3) * koofScreen);
@@ -1685,26 +1680,28 @@ public sealed class ConnectGUI : MonoBehaviour
 	{
 		if (!isFirstFrame)
 		{
-			#if USES_WEBSOCKET
-			Log.AddLine("[ConnectGUI::_initializeWorldwide] Initializing Worldwide");
-			#endif
 			prefs.SetString("TypeConnect", "inet");
+			#if USES_WEBSOCKET
+			Dictionary<string, object> connectionArgs = new Dictionary<string, object>();
+			connectionArgs["uid"] = System.Convert.ToInt64(Storager.getString("plr_uid", false));
+			connectionArgs["ak"] = (string)Storager.getString("plr_nhguXrl", false);
+			connectionArgs["coop"] = prefs.GetInt("COOP", 0);
+			WebsocketHandler.CallAction("request_connection", (string data) => {
+				Dictionary<string, object> resultDictionary = WebsocketHandler.Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
+				if ((string)resultDictionary["response"] == "success")
+				{
+					PhotonNetwork.ConnectUsingSettings((string)resultDictionary["settings"]);
+				}
+			}, connectionArgs);
+			#else
 			if (prefs.GetInt("COOP", 0) == 1)
 			{
-				#if USES_WEBSOCKET
-				Log.AddLine("[ConnectGUI::_initializeWorldwide] Connecting to COOP");
-				#endif
 				PhotonNetwork.ConnectUsingSettings("v" + GlobalGameController.AppVersion + "COOP");
 			}
 			else
 			{
-				#if USES_WEBSOCKET
-				Log.AddLine("[ConnectGUI::_initializeWorldwide] Connecting to Deathmatch");
-				#endif
 				PhotonNetwork.ConnectUsingSettings("v" + GlobalGameController.AppVersion);
 			}
-			#if USES_WEBSOCKET
-			Log.AddLine("[ConnectGUI::_initializeWorldwide] Connected without exceptions");
 			#endif
 			connectingFoton = true;
 			showPasswordEnterForm = false;
