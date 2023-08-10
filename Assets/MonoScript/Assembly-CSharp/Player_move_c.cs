@@ -2739,6 +2739,10 @@ public sealed class Player_move_c : MonoBehaviour
 			if (gameObject.GetComponent<PhotonView>().viewID == idKiller && gameObject == _weaponManager.myPlayer)
 			{
 				countKills++;
+				if (_weaponManager.currentWeaponSounds.weaponName == "Tom Cube")
+				{
+					Achievements.Give("tom");
+				}
 				_weaponManager.myTable.GetComponent<NetworkStartTable>().CountKills = countKills;
 				_weaponManager.myTable.GetComponent<NetworkStartTable>().synchState();
 				if (countKills >= maxCountKills)

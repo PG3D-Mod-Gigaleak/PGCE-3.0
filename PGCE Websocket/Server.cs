@@ -123,6 +123,28 @@ namespace PGCE
 					output["cause"] = $"{exception.Message}";
 				}
 			}
+			else if (action == "get_my_player_info")
+			{
+				try
+				{
+					AccountParameters? result = Helpers.GetAccountInfo(givenInput["uid"]);
+					if (result == null) {
+						throw new Exception("User does not exist!");
+					}
+					AccountParameters confirmedResult = (AccountParameters)result;
+					if (!Helpers.MatchingHash2Nonhash((string)givenInput["ak"], confirmedResult.AuthKey))
+						throw new Exception("Authkey invalid");
+					output["name_set"] = confirmedResult.Name;
+					output["coins_set"] = confirmedResult.Coins;
+					output["catears_set"] = confirmedResult.CatEars;
+					output["response"] = "success";
+				}
+				catch (Exception exception)
+				{
+					output["response"] = "failed";
+					output["cause"] = $"{exception.Message}";
+				}
+			}
 			else if (action == "request_connection")
 			{
 				try
