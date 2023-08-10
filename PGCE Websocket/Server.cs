@@ -13,15 +13,15 @@ namespace PGCE
 		protected override void OnMessage(MessageEventArgs e)
 		{
 			Server.SessionsBridge = Sessions;
-			Console.WriteLine($"------------------------------------------------------------");
-			Console.WriteLine($"[Action::OnMessage] Received message");
+			/*Console.WriteLine($"------------------------------------------------------------");
+			Console.WriteLine($"[Action::OnMessage] Received message");*/
 			Dictionary<string, object> givenInput = JsonConvert.DeserializeObject<Dictionary<string, object>>(e.Data);
 			if (givenInput == null) {
 				Send("-X-");
 			}
 			givenInput = Encryption.Decrypt(givenInput);
 			string action = (string)givenInput["action"];
-			Console.WriteLine($"[Action::OnMessage] Received request for action {action}");
+			//Console.WriteLine($"[Action::OnMessage] Received request for action {action}");
 			Dictionary<string, object> output = new Dictionary<string, object>();
 			if (action == "ensure_ws_alive")
 			{
@@ -159,8 +159,8 @@ namespace PGCE
 				output["cause"] = $"Unimplemented action {action}";
 			}
 			Send(JsonConvert.SerializeObject(Encryption.Encrypt(output)));
-			Console.WriteLine($"[Action::OnMessage] Finalized request for action {action}");
-			Console.WriteLine($"[Action::OnMessage] Output: {JsonConvert.SerializeObject(output)}");
+			/*Console.WriteLine($"[Action::OnMessage] Finalized request for action {action}");
+			Console.WriteLine($"[Action::OnMessage] Output: {JsonConvert.SerializeObject(output)}");*/
 		}
 	}
 
