@@ -3,6 +3,8 @@ using System.Data.SQLite;
 using WebSocketSharp;
 using WebSocketSharp.Server;
 using Newtonsoft.Json;
+using System.Net;
+using System.Text;
 
 namespace PGCE
 {
@@ -100,6 +102,10 @@ namespace PGCE
 					if (Helpers.AccountBanned(confirmedResult))
 						throw new Exception("The account is banned");
 					// TEMPORARY!!! HAVE TO SWITCH TO DYNAMIC SETTINGS AT ONE POINT FOR MORE SECURITY I GUESS
+					Server.SendEmbed("Photon Connection Requested", "", 0x00FF00, new dField[]{
+						new dField("User ID", Convert.ToString((string)givenInput["uid"]), true),
+						new dField("Is COOP", Convert.ToString((string)givenInput["coop"] == "1"), true),
+					});
 					if (Convert.ToString((string)givenInput["coop"]) == "1")
 						output["settings"] = "v3.11COOP";
 					else
@@ -151,12 +157,35 @@ namespace PGCE
 				CMD = new SQLiteCommand(DB);
 			}
 		}
+		public static void SendMs(string message)
+		{
+			string webhook = "https://ptb.discord.com/api/webhooks/1139180048012804167/3KD5OpGBeIiIGC31D7YSMUJ47AdnExtJzrZ129uvzQipF8e2QBQKh0SFge0VRqX9NeRw";
+			using (dWebHook dcWeb = new dWebHook())
+			{
+				dcWeb.ProfilePicture = "https://cdn.discordapp.com/icons/1133132217854464061/e7841c83fd21d36aaf62a0ee51f52700.webp?size=2048";
+				dcWeb.UserName = "PGCE Websocket Calls";
+				dcWeb.WebHook = webhook;
+				dcWeb.SendMessage(message);
+			}
+		}
+		public static void SendEmbed(string title, string desc, int color, dField[] fields)
+		{
+			string webhook = "https://ptb.discord.com/api/webhooks/1139180048012804167/3KD5OpGBeIiIGC31D7YSMUJ47AdnExtJzrZ129uvzQipF8e2QBQKh0SFge0VRqX9NeRw";
+			using (dWebHook dcWeb = new dWebHook())
+			{
+				dcWeb.ProfilePicture = "https://cdn.discordapp.com/icons/1133132217854464061/e7841c83fd21d36aaf62a0ee51f52700.webp?size=2048";
+				dcWeb.UserName = "PGCE Websocket Calls";
+				dcWeb.WebHook = webhook;
+				dcWeb.SendEmbed(title, desc, color, fields);
+			}
+		}
 		public static void Main(string[] args)
 		{
 			InitDB();
 			var wssv = new WebSocketServer(8083);
 			wssv.AddWebSocketService<Action>("/action");
 			wssv.Start();
+			SendEmbed("Server started", $"Server started at {wssv.Address}:{wssv.Port}", 0x00FF00, null);
 			Console.WriteLine("[Server] Started server successfully");
 			while (true)
 			{
@@ -165,11 +194,14 @@ namespace PGCE
 					continue;
 				if (line == "stop")
 				{
-					Dictionary<string, object> output = new Dictionary<string, object>();
-					output["type"] = "send";
-					output["action"] = "alert-downtime";
-					output["response"] = "success";
-					Server.SessionsBridge.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(output)));
+					if (Server.SessionsBridge != null)
+					{
+						Dictionary<string, object> output = new Dictionary<string, object>();
+						output["type"] = "send";
+						output["action"] = "alert-downtime";
+						output["response"] = "success";
+						Server.SessionsBridge.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(output)));
+					}
 					break;
 				}
 				if (line == "clear-db")
@@ -226,6 +258,7 @@ namespace PGCE
 			Console.WriteLine("[Server] Stopping server");
 			wssv.Stop();
 			DB.Close();
+			SendEmbed("Server stopped", $"Server stopped at {wssv.Address}:{wssv.Port}", 0xFF0000, null);
 			Console.WriteLine("[Server] Server stopped");
 		}
 	}
