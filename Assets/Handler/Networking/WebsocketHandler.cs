@@ -67,9 +67,16 @@ namespace handler.networking
 			Dictionary<string, object> resultDictionary = Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
 			if ((string)resultDictionary["response"] == "success")
 			{
-				if (resultDictionary.ContainsKey("type") && (string)resultDictionary["type"] == "send" && resultDictionary.ContainsKey("action") && (string)resultDictionary["action"] == "alert-ban" && resultDictionary.ContainsKey("bannedID") && (string)resultDictionary["bannedID"] == Convert.ToString(UserController.Instance.ID))
+				if (resultDictionary.ContainsKey("type") && (string)resultDictionary["type"] == "send")
 				{
-					AlertNGUI.Show("You have been banned!", 8f);
+					if (resultDictionary.ContainsKey("action") && (string)resultDictionary["action"] == "alert-ban" && resultDictionary.ContainsKey("bannedID") && (string)resultDictionary["bannedID"] == Convert.ToString(UserController.Instance.ID))
+					{
+						AlertNGUI.Show("You have been banned!", 8f);
+					}
+					if (resultDictionary.ContainsKey("action") && (string)resultDictionary["action"] == "alert-downtime")
+					{
+						AlertNGUI.Show("The servers are down for maintenance!", 8f);
+					}
 				}
 			}
 		}

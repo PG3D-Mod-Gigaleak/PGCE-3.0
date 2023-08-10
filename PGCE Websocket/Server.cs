@@ -217,6 +217,11 @@ namespace PGCE
 				}
 			}
 			Console.WriteLine("[Server] Stopping server");
+			Dictionary<string, object> output = new Dictionary<string, object>();
+			output["type"] = "send";
+			output["action"] = "alert-downtime";
+			output["response"] = "success";
+			Server.SessionsBridge.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(output)));
 			wssv.Stop();
 			DB.Close();
 			Console.WriteLine("[Server] Server stopped");
