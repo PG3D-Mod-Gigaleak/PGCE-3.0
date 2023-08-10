@@ -251,6 +251,10 @@ public class FirstPersonControl : MonoBehaviour
 			setIsMine();
 		else
 			isMine = false;
+		if (isMine && bhopSpeedMult > 2.911)
+		{
+			Achievements.Give("speed");
+		}
 		if (!Application.isMobilePlatform && isMine)
 		{
 			moveTouchPad.position = updateKeyboardControls();
