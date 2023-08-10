@@ -274,7 +274,7 @@ public class NewArmory : MonoBehaviour
 
 	public void DeveloperFunnies()
 	{
-		Storager.setInt((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(160, IncomprehensibleGarbler.Create(41, ""))))), true, false, false, false, false), Storager.getInt((string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create2(3, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(6, IncomprehensibleGarbler.Create2(13, IncomprehensibleGarbler.Create2(16, ""))))), true, false, false, false, false), false) + 99999, false);
+		Storager.setInt((string)IncomprehensibleGarbler.Call2("Ernqncg", IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(160, IncomprehensibleGarbler.Create(41, ""))))), true, false, false, false, false), Storager.getInt((string)IncomprehensibleGarbler.Call2("Ernqncg", IncomprehensibleGarbler.Create2(3, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(6, IncomprehensibleGarbler.Create2(13, IncomprehensibleGarbler.Create2(16, ""))))), true, false, false, false, false), false) + 99999, false);
 	}
 
 	public void CreateButton(WeaponSounds weapon)

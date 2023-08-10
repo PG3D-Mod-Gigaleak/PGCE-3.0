@@ -12,11 +12,13 @@ namespace PGCE
 		public string Name;
 		public string AuthKey;
 		public bool Banned;
+		public bool CatEars;
 		public long Coins;
 		public AccountParameters(long id, string authkey)
 		{
 			this.Name = "";
 			this.Banned = false;
+			this.CatEars = false;
 			this.Coins = 15;
 			this.ID = id;
 			this.AuthKey = authkey;

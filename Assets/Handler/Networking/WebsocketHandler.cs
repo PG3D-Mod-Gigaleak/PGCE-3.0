@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using UnityEngine;
 using handler.data;
 using System.Text;
+using System.Threading;
 
 // ACTUALLY GET WEBSOCKET FIRST????
 namespace handler.networking
@@ -17,6 +18,7 @@ namespace handler.networking
 		private const string WS = "ws://127.0.0.1:8083/action";
 		public static bool WSIsAlive = false;
 		private static WebsocketHandler Instance;
+		private static WebSocket Listener;
 		public static void Init()
 		{
 			GameObject websocket = new GameObject("WebsocketHandler");
@@ -43,7 +45,7 @@ namespace handler.networking
 			Debug.Log("[WebsocketHandler::Init] Websocket completely initialized");
 			if (WSIsAlive)
 			{
-				WebSocket Listener = new WebSocket(WS);
+				Listener = new WebSocket(WS);
 				Listener.OnMessage += (sender, e) => {
 					try
 					{
@@ -82,10 +84,11 @@ namespace handler.networking
 		}
 		private void OnApplicationQuit()
 		{
+			Listener.Close();
 			CallAction("close_session", null, default);
 		}
 		#region Websocket Actions
-		private static void HandleAnswered(ActionAnswered callback, string data)
+		private static void HandleAnswered(WebSocket connection, ActionAnswered callback, string data)
 		{
 			Dictionary<string, object> resultDictionary = Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
 			Debug.Log($"[WebsocketHandler::CallAction] Returned {data}");
@@ -101,6 +104,7 @@ namespace handler.networking
 			catch (Exception e)
 			{
 				Debug.Log($"[WebsocketHandler::HandleAnswered] ERROR! {e.Message}");
+				connection.Close();
 			}
 		}
 		// this code looks so fucking bad please i can't
@@ -122,12 +126,15 @@ namespace handler.networking
 				{
 					MainThreadDispatcher.Instance.QueueOnMainThread(() =>
 					{
-						HandleAnswered(callback, e.Data);
+						HandleAnswered(CurrentConnection, callback, e.Data);
 					});
+					Thread.Sleep(2000);
+					CurrentConnection.Close();
 				}
 				catch (Exception e22)
 				{
 					Debug.Log($"[WebsocketHandler::CallAction] ERROR! {e22.Message}");
+					CurrentConnection.Close();
 				}
 			};
 			string sargs = JsonConvert.SerializeObject(Encrypt(args));

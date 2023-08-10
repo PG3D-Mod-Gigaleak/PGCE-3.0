@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class ProfileShopNGUIController : MonoBehaviour {
@@ -39,18 +41,60 @@ public class ProfileShopNGUIController : MonoBehaviour {
 	public UIToggle catEarsToggle;
 	private bool canActuallySet = false;
 	public void OnCatEarsToggled() {
+		// inverted cause retarded
+		if (catEarsToggle.value == (Storager.getInt("earsOn", false) == 0 ? true : false))
+			return;
 		if (canActuallySet) {
-			print(!catEarsToggle.value);
+			#if USES_WEBSOCKET
+			handler.networking.WebsocketHandler.CallAction("update_player", (string data) => {
+				Dictionary<string, object> resultDictionary = handler.networking.WebsocketHandler.Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
+				if ((string)resultDictionary["response"] == "success")
+				{
+					catEarsToggle.value = !Convert.ToBoolean((string)resultDictionary["catears_set"]);
+					if (!catEarsToggle.value) {
+						Achievements.Give("catears");
+						Storager.setInt("earsOn", 1, false);
+					} else {
+						Storager.setInt("earsOn", 0, false);
+					}
+				}
+			}, new Dictionary<string, object>(){
+				{"uid", handler.data.UserController.Instance.ID},
+				{"ak", handler.data.UserController.Instance.AuthKey},
+				{"newcatears", !catEarsToggle.value},
+			});
+			#else
 			if (!catEarsToggle.value) {
 				Achievements.Give("catears");
 				Storager.setInt("earsOn", 1, false);
 			} else {
 				Storager.setInt("earsOn", 0, false);
 			}
+			#endif
 		}
 		canActuallySet = true;
 	}
 	public void OnUsernameInputCHANGED() {
+		if (usernameInput.value == prefs.GetString("NamePlayer", "Player"))
+			return;
+		usernameInput.gameObject.SetActive(false);
+		#if USES_WEBSOCKET
+		handler.networking.WebsocketHandler.CallAction("update_player", (string data) => {
+			Dictionary<string, object> resultDictionary = handler.networking.WebsocketHandler.Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
+			if ((string)resultDictionary["response"] == "success")
+			{
+				prefs.SetString("NamePlayer", (string)resultDictionary["name_set"]);
+				usernameInput.value = (string)resultDictionary["name_set"];
+				usernameInput.gameObject.SetActive(true);
+			}
+		}, new Dictionary<string, object>(){
+			{"uid", handler.data.UserController.Instance.ID},
+			{"ak", handler.data.UserController.Instance.AuthKey},
+			{"newname", _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(usernameInput.value)},
+		});
+		#else
 		prefs.SetString("NamePlayer", _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(usernameInput.value));
+		usernameInput.gameObject.SetActive(true);
+		#endif
 	}
 }

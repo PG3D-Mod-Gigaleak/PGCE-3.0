@@ -800,7 +800,7 @@ public sealed class Defs
 	{
 		get
 		{
-			return (string)IncomprehensibleGarbler.Call("Ernqncg", IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(160, IncomprehensibleGarbler.Create(41, ""))))), true, false, false, false, false);
+			return (string)IncomprehensibleGarbler.Call2("Ernqncg", IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(160, IncomprehensibleGarbler.Create(41, ""))))), true, false, false, false, false);
 		}
 	}
 

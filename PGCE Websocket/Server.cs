@@ -88,6 +88,41 @@ namespace PGCE
 					output["cause"] = $"{exception.Message}";
 				}
 			}
+			else if (action == "update_player")
+			{
+				try
+				{
+					AccountParameters? result = Helpers.GetAccountInfo(givenInput["uid"]);
+					if (result == null) {
+						throw new Exception("User does not exist!");
+					}
+					AccountParameters confirmedResult = (AccountParameters)result;
+					if (!Helpers.MatchingHash2Nonhash((string)givenInput["ak"], confirmedResult.AuthKey))
+						throw new Exception("Authkey invalid");
+					if (givenInput.ContainsKey("newname"))
+						confirmedResult.Name = (string)givenInput["newname"];
+					if (givenInput.ContainsKey("newcoins"))
+						confirmedResult.Coins = Convert.ToInt64((string)givenInput["newcoins"]);
+					if (givenInput.ContainsKey("newcatears"))
+						confirmedResult.CatEars = Convert.ToBoolean((string)givenInput["newcatears"]);
+					Helpers.UpdateParameters(Convert.ToInt64((string)givenInput["uid"]), confirmedResult);
+					if (givenInput.ContainsKey("newname"))
+					{
+						string r = PG3D.FilterBadWorld.FilterString((string)givenInput["newname"]);
+						output["name_set"] = r.Substring(0, Math.Clamp(r.Length, 0, 20));
+					}
+					if (givenInput.ContainsKey("newcoins"))
+						output["coins_set"] = confirmedResult.Coins;
+					if (givenInput.ContainsKey("newcatears"))
+						output["catears_set"] = confirmedResult.CatEars;
+					output["response"] = "success";
+				}
+				catch (Exception exception)
+				{
+					output["response"] = "failed";
+					output["cause"] = $"{exception.Message}";
+				}
+			}
 			else if (action == "request_connection")
 			{
 				try
@@ -145,7 +180,7 @@ namespace PGCE
 				DB = new SQLiteConnection(connectionString);
 				DB.Open();
 				CMD = new SQLiteCommand(DB);
-				CMD.CommandText = "CREATE TABLE Users(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, authkey TEXT, coins INTEGER, banned INTEGER)";
+				CMD.CommandText = "CREATE TABLE Users(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, authkey TEXT, coins INTEGER, banned INTEGER, catears INTEGER)";
 				CMD.ExecuteNonQuery();
 			}
 			else 
@@ -185,7 +220,7 @@ namespace PGCE
 			var wssv = new WebSocketServer(8083);
 			wssv.AddWebSocketService<Action>("/action");
 			wssv.Start();
-			SendEmbed("Server started", $"Server started at {wssv.Address}:{wssv.Port}", 0x00FF00, null);
+			//SendEmbed("Server started", $"Server started at {wssv.Address}:{wssv.Port}", 0x00FF00, null);
 			Console.WriteLine("[Server] Started server successfully");
 			while (true)
 			{
@@ -230,6 +265,10 @@ namespace PGCE
 							newCmd.CommandText = "UPDATE Users SET banned = 0 WHERE id = @id";
 							newCmd.Parameters.Add(new SQLiteParameter("@id", id));
 							newCmd.ExecuteNonQuery();
+							Server.SendEmbed("Unbanned user", "The user was unbanned via console:", 0x00FF00, new dField[]{
+								new dField("User ID", Convert.ToString(id), false),
+								new dField("Username", Helpers.GetAccountInfo(id).Value.Name, false),
+							});
 							Console.WriteLine($"[COMMAND::UNBAN_USER] Unbanned user {Helpers.GetAccountInfo(id).Value.Name}");
 						}
 					}
@@ -245,6 +284,10 @@ namespace PGCE
 							}
 							if (Helpers.BanAccount(id))
 							{
+								Server.SendEmbed("Banned user", "The user was banned via console:", 0x00FF00, new dField[]{
+									new dField("User ID", Convert.ToString(id), false),
+									new dField("Username", Helpers.GetAccountInfo(id).Value.Name, false),
+								});
 								Console.WriteLine($"[COMMAND::BAN_USER] Banned user {Helpers.GetAccountInfo(id).Value.Name}");
 							}
 							else
@@ -253,12 +296,34 @@ namespace PGCE
 							}
 						}
 					}
+					if (command == ".get_user_info")
+					{
+						if (commandWArgs.Count > 1)
+						{
+							long id = 0;
+							if (!long.TryParse(commandWArgs[1], out id))
+							{
+								Console.WriteLine("[COMMAND::GET_USER_INFO] Given User ID is invalid!");
+								continue;
+							}
+							if (Helpers.AccountExists(id))
+							{
+								Console.WriteLine($"[COMMAND::GET_USER_INFO] Username: {Helpers.GetAccountInfo(id).Value.Name}");
+								Console.WriteLine($"[COMMAND::GET_USER_INFO] Coins: {Helpers.GetAccountInfo(id).Value.Coins}");
+								Console.WriteLine($"[COMMAND::GET_USER_INFO] Has cat ears: {Helpers.GetAccountInfo(id).Value.CatEars}");
+							}
+							else
+							{
+								Console.WriteLine($"[COMMAND::GET_USER_INFO] User going by that ID doesn't exist!");
+							}
+						}
+					}
 				}
 			}
 			Console.WriteLine("[Server] Stopping server");
 			wssv.Stop();
 			DB.Close();
-			SendEmbed("Server stopped", $"Server stopped at {wssv.Address}:{wssv.Port}", 0xFF0000, null);
+			//SendEmbed("Server stopped", $"Server stopped at {wssv.Address}:{wssv.Port}", 0xFF0000, null);
 			Console.WriteLine("[Server] Server stopped");
 		}
 	}

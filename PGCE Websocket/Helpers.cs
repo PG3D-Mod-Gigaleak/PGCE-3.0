@@ -84,6 +84,33 @@ namespace PGCE
 				return false;
 			}
 		}
+		public static bool UpdateParameters(long id, AccountParameters newParameters)
+		{
+			if (GetAccountInfo(id) == null)
+				return false;
+			try 
+			{
+				SQLiteCommand newCmd = new SQLiteCommand(Server.DB);
+				// expand this once we have more parameters
+				newCmd.CommandText = "UPDATE Users SET name = @newname, coins = @newcoins, catears = @newcatears WHERE id = @id";
+				newCmd.Parameters.Add(new SQLiteParameter("@id", id));
+				newCmd.Parameters.Add(new SQLiteParameter("@newname", newParameters.Name));
+				newCmd.Parameters.Add(new SQLiteParameter("@newcoins", newParameters.Coins));
+				newCmd.Parameters.Add(new SQLiteParameter("@newcatears", newParameters.CatEars));
+				Server.SendEmbed("Player Parameters Updated", $"The ID {id} is updating account parameters", 0xFFFF00, new dField[]{
+					new dField("New username", newParameters.Name, false),
+					new dField("New coin count", Convert.ToString(newParameters.Coins), false),
+					new dField("Has cat ears?", Convert.ToString(newParameters.CatEars), false),
+				});
+				newCmd.ExecuteNonQuery();
+				return true;
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine($"[Helpers::BanAccount] Error while banning: {e.Message}");
+				return false;
+			}
+		}
 		public static AccountParameters? GetAccountInfo(object id)
 		{
 			return GetAccountInfo(Convert.ToInt64(Convert.ToString(id)));
@@ -91,7 +118,7 @@ namespace PGCE
 		public static AccountParameters? GetAccountInfo(long id)
 		{
 			SQLiteCommand newCmd = new SQLiteCommand(Server.DB);
-			newCmd.CommandText = "SELECT name, authkey, coins, banned FROM Users WHERE id = @id";
+			newCmd.CommandText = "SELECT name, authkey, coins, banned, catears FROM Users WHERE id = @id";
 			newCmd.Parameters.Add(new SQLiteParameter("@id", id));
 			SQLiteDataReader result = newCmd.ExecuteReader();
 			if (result.Read())
@@ -100,6 +127,7 @@ namespace PGCE
 				foundUserData.Coins = (long)result["coins"];
 				foundUserData.Name = (string)result["name"];
 				foundUserData.Banned = ((long)result["banned"] == 0 ? false : true);
+				foundUserData.CatEars = ((long)result["catears"] == 0 ? false : true);
 				return foundUserData;
 			}
 			else
