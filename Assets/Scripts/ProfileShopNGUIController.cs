@@ -42,10 +42,11 @@ public class ProfileShopNGUIController : MonoBehaviour {
 	private bool canActuallySet = false;
 	public void OnCatEarsToggled() {
 		// inverted cause retarded
-		if (catEarsToggle.value == (Storager.getInt("earsOn", false) == 0 ? true : false))
-			return;
 		if (canActuallySet) {
 			#if USES_WEBSOCKET
+			if (catEarsToggle.value == (Storager.getInt("earsOn", false) == 0 ? true : false))
+				return;
+			catEarsToggle.gameObject.SetActive(false);
 			handler.networking.WebsocketHandler.CallAction("update_player", (string data) => {
 				Dictionary<string, object> resultDictionary = handler.networking.WebsocketHandler.Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
 				if ((string)resultDictionary["response"] == "success")
@@ -57,6 +58,7 @@ public class ProfileShopNGUIController : MonoBehaviour {
 					} else {
 						Storager.setInt("earsOn", 0, false);
 					}
+					catEarsToggle.gameObject.SetActive(true);
 				}
 			}, new Dictionary<string, object>(){
 				{"uid", handler.data.UserController.Instance.ID},
