@@ -1544,9 +1544,22 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	private bool saidInterlope;
+	private bool saidGetSInterlopePull27015;
+
 	public void SendChat(string text)
 	{
 		text = _weaponManager.gameObject.GetComponent<FilterBadWorld>().FilterString(text);
+		if (text == "INTERLOPE")
+			saidInterlope = true;
+		if (text == "get s.interlope.pull:27015")
+		{
+			if (saidInterlope && !saidGetSInterlopePull27015)
+			{
+				saidGetSInterlopePull27015 = true;
+				Achievements.Give("interloper");
+			}
+		}
 		if (text != string.Empty)
 		{
 			photonView.RPC("SendChatMessage", PhotonTargets.All, "< " + _weaponManager.myTable.GetComponent<NetworkStartTable>().NamePlayer + " > " + text);
