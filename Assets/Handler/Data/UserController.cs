@@ -11,6 +11,8 @@ namespace handler.data
 	public class UserController : MonoBehaviour
 	{
 		public static UserController Instance;
+		public long ID;
+		public string AuthKey;
 		public static void Init()
 		{
 			GameObject usC = new GameObject("UserController");
@@ -36,6 +38,8 @@ namespace handler.data
 					Dictionary<string, object> resultDictionary = WebsocketHandler.Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
 					if ((string)resultDictionary["response"] == "success")
 					{
+						ID = System.Convert.ToInt64(Storager.getString("plr_uid", false));
+						AuthKey = (string)Storager.getString("plr_nhguXrl", false);
 						userIsValid = true;
 					}
 					validChecked = true;

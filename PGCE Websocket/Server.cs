@@ -10,6 +10,7 @@ namespace PGCE
 	{
 		protected override void OnMessage(MessageEventArgs e)
 		{
+			Server.SessionsBridge = Sessions;
 			Console.WriteLine($"------------------------------------------------------------");
 			Console.WriteLine($"[Action::OnMessage] Received message");
 			Dictionary<string, object> givenInput = JsonConvert.DeserializeObject<Dictionary<string, object>>(e.Data);
@@ -128,6 +129,7 @@ namespace PGCE
 		private const bool ClearDatabase = false;
 		public static SQLiteConnection? DB { get; set; }
 		public static SQLiteCommand? CMD { get; set; }
+		public static WebSocketSessionManager SessionsBridge { get; set; }
 		private static void InitDB(bool clearNoMatterWhat = false)
 		{
 			if (ClearDatabase || clearNoMatterWhat)
@@ -205,6 +207,10 @@ namespace PGCE
 							if (Helpers.BanAccount(id))
 							{
 								Console.WriteLine($"[COMMAND::BAN_USER] Banned user {Helpers.GetAccountInfo(id).Value.Name}");
+							}
+							else
+							{
+								Console.WriteLine($"[COMMAND::BAN_USER] User going by that ID doesn't exist!");
 							}
 						}
 					}

@@ -67,10 +67,20 @@ namespace PGCE
 				newCmd.CommandText = "UPDATE Users SET banned = 1 WHERE id = @id";
 				newCmd.Parameters.Add(new SQLiteParameter("@id", id));
 				newCmd.ExecuteNonQuery();
+				if (Server.SessionsBridge != null)
+				{
+					Dictionary<string, object> output = new Dictionary<string, object>();
+					output["bannedID"] = $"{id}";
+					output["type"] = "send";
+					output["action"] = "alert-ban";
+					output["response"] = "success";
+					Server.SessionsBridge.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(output)));
+				}
 				return true;
 			}
 			catch (Exception e)
 			{
+				Console.WriteLine($"[Helpers::BanAccount] Error while banning: {e.Message}");
 				return false;
 			}
 		}

@@ -43,9 +43,35 @@ namespace handler.networking
 			Debug.Log("[WebsocketHandler::Init] Websocket completely initialized");
 			if (WSIsAlive)
 			{
+				WebSocket Listener = new WebSocket(WS);
+				Listener.OnMessage += (sender, e) => {
+					try
+					{
+						MainThreadDispatcher.Instance.QueueOnMainThread(() =>
+						{
+							Instance.HandleRecv(e.Data);
+						});
+					}
+					catch (Exception e22)
+					{
+						Debug.Log($"[WebsocketHandler::Recv] ERROR! {e22.Message}");
+					}
+				};
+				Listener.Connect();
 				UserController.Init();
 			}
 			yield break;
+		}
+		private void HandleRecv(string data)
+		{
+			Dictionary<string, object> resultDictionary = Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
+			if ((string)resultDictionary["response"] == "success")
+			{
+				if (resultDictionary.ContainsKey("type") && (string)resultDictionary["type"] == "send" && resultDictionary.ContainsKey("action") && (string)resultDictionary["action"] == "alert-ban" && resultDictionary.ContainsKey("bannedID") && (string)resultDictionary["bannedID"] == Convert.ToString(UserController.Instance.ID))
+				{
+					AlertNGUI.Show("You have been banned!", 8f);
+				}
+			}
 		}
 		private void OnApplicationQuit()
 		{
@@ -54,11 +80,16 @@ namespace handler.networking
 		#region Websocket Actions
 		private static void HandleAnswered(ActionAnswered callback, string data)
 		{
+			Dictionary<string, object> resultDictionary = Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
 			Debug.Log($"[WebsocketHandler::CallAction] Returned {data}");
 			try
 			{
 				if (callback != null)
+				{
+					if (resultDictionary.ContainsKey("type") && (string)resultDictionary["type"] == "send")
+						return;
 					callback(data);
+				}
 			}
 			catch (Exception e)
 			{
