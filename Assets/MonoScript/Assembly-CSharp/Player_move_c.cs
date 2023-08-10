@@ -3093,15 +3093,13 @@ public sealed class Player_move_c : MonoBehaviour
 	public bool isGravFlipped;
 
 	public void flipGrav() {
-		if (isMine) {
-			Achievements.Give("gravflip");
-			ImpactReceiver impactReceiver = _weaponManager.myPlayer.GetComponent<ImpactReceiver>();
-			_weaponManager.myPlayer.transform.localScale = new Vector3(_weaponManager.myPlayer.transform.localScale.x, _weaponManager.myPlayer.transform.localScale.y * -1, _weaponManager.myPlayer.transform.localScale.z);
-			_weaponManager.myPlayer.GetComponent<FirstPersonControl>().cameraPivot.Rotate(0, 180, 0);
-			impactReceiver.AddImpact(Vector3.up, Mathf.Abs(Physics.gravity.y)*-4f);
-			Physics.gravity *= -1;
-			isGravFlipped = !isGravFlipped;
-		}
+		Achievements.Give("gravflip");
+		ImpactReceiver impactReceiver = _weaponManager.myPlayer.GetComponent<ImpactReceiver>();
+		_weaponManager.myPlayer.transform.localScale = new Vector3(_weaponManager.myPlayer.transform.localScale.x, _weaponManager.myPlayer.transform.localScale.y * -1, _weaponManager.myPlayer.transform.localScale.z);
+		_weaponManager.myPlayer.GetComponent<FirstPersonControl>().cameraPivot.Rotate(0, 180, 0);
+		impactReceiver.AddImpact(Vector3.up, Mathf.Abs(Physics.gravity.y)*-4f);
+		Physics.gravity *= -1;
+		isGravFlipped = !isGravFlipped;
 	}
 
 	public void shootS(bool alt)
@@ -3635,6 +3633,8 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	private float timeWithDMW;
+
 	private void Update()
 	{
 		if (isMine) {
@@ -3651,6 +3651,18 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 			} else {
 				frameSinceLastDie = 8;
+			}
+			if (CurHealth < 20)
+			{
+				timeWithDMW += Time.deltaTime;
+			}
+			else
+			{
+				timeWithDMW = 0;
+			}
+			if (timeWithDMW > 60)
+			{
+				Achievements.Give("deadmanwalking");
 			}
 		}
 		if (!Application.isMobilePlatform && isMine)
