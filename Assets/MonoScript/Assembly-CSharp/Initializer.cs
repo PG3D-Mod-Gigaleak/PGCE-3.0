@@ -425,6 +425,11 @@ public sealed class Initializer : MonoBehaviour
 			position = new Vector3(4.88f, 40.2767f, 4.989121f);
 			rotation = Quaternion.Euler(new Vector3(75.00076f, -128.7f, 0.001002863f));
 		}
+		if (prefs.GetString("MapName").Equals("Winter_normal"))
+		{
+			position = new Vector3(4.88f, 40.2767f, 4.989121f);
+			rotation = Quaternion.Euler(new Vector3(75.00076f, -128.7f, 0.001002863f));
+		}
 		tc = UnityEngine.Object.Instantiate(tempCam, position, rotation) as GameObject;
 
 		if (prefs.GetString("TypeConnect").Equals("local"))

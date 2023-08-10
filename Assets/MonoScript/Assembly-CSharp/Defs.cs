@@ -1226,6 +1226,7 @@ public sealed class Defs
 		mapNamesForUser.Add("carpark", "CAR PARK");
 		mapNamesForUser.Add("SOUP09-Sup01", "Sup01");
 		mapNamesForUser.Add("demise", "Demise");
+		mapNamesForUser.Add("Winter_normal", "Winter Wonderland but without snow");
 		levelNumsForMusicInMult.Add("Maze", 2);
 		levelNumsForMusicInMult.Add("Cementery", 1);
 		levelNumsForMusicInMult.Add("City", 3);
@@ -1294,6 +1295,7 @@ public sealed class Defs
 		levelNumsForMusicInMult.Add("carpark", 4022);
 		levelNumsForMusicInMult.Add("SOUP09-Sup01", 4023);
 		levelNumsForMusicInMult.Add("demise", 4024);
+		levelNumsForMusicInMult.Add("Winter_normal", 4003);
 		levelsWithVarY.Add(8);
 		levelsWithVarY.Add(10);
 		levelsWithVarY.Add(1005);
