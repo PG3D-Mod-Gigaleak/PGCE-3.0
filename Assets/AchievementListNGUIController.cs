@@ -40,11 +40,23 @@ public class AchievementListNGUIController : MonoBehaviour {
     }
     public void OnAdmin() {
         #if UNITY_EDITOR
+        #if USES_WEBSOCKET
+        handler.networking.WebsocketHandler.CallAction("admin_clear_achievements", null, new Dictionary<string, object>(){
+			{"uid", handler.data.UserController.Instance.ID},
+			{"ak", handler.data.UserController.Instance.AuthKey},
+		});
         foreach (Achievements.Achievement achievement in Resources.Load<Achievements>("Achievements").achievements) {
             if (Storager.hasKey(achievement.id + "-ACHIEVEMENT")) {
                 Storager.removeObjectForKey(achievement.id + "-ACHIEVEMENT");
             }
         }
+        #else
+        foreach (Achievements.Achievement achievement in Resources.Load<Achievements>("Achievements").achievements) {
+            if (Storager.hasKey(achievement.id + "-ACHIEVEMENT")) {
+                Storager.removeObjectForKey(achievement.id + "-ACHIEVEMENT");
+            }
+        }
+        #endif
         Storager.setInt("deathCount", 0, false);
         Storager.setInt("bowshotcount", 0, false);
         Storager.setInt("earsOn", 0, false);

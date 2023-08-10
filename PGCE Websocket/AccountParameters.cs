@@ -14,14 +14,24 @@ namespace PGCE
 		public bool Banned;
 		public bool CatEars;
 		public long Coins;
+		public string SkinData;
+		public bool IsAdmin;
+		public PG3D.Serialization.CategoryEquipList CategoryEquipList;
+		public List<string> Achievements;
+		public List<string> BoughtWeapons;
 		public AccountParameters(long id, string authkey)
 		{
 			this.Name = "";
 			this.Banned = false;
 			this.CatEars = false;
 			this.Coins = 15;
+			this.SkinData = "";
 			this.ID = id;
+			this.CategoryEquipList = new PG3D.Serialization.CategoryEquipList();
+			this.Achievements = new List<string>();
+			this.BoughtWeapons = new List<string>(){"Weapon1", "Weapon2", "Weapon9"};
 			this.AuthKey = authkey;
+			this.IsAdmin = false;
 		}
 	}
 }

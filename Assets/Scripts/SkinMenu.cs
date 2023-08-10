@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Newtonsoft.Json;
 
 public class SkinMenu : MonoBehaviour
 {
@@ -53,7 +54,21 @@ public class SkinMenu : MonoBehaviour
 
 	public void SetSkin(Skins.Skin skin)
 	{
+		#if USES_WEBSOCKET
+		handler.networking.WebsocketHandler.CallAction("update_player", (string data) => {
+			Dictionary<string, object> resultDictionary = handler.networking.WebsocketHandler.Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
+			if ((string)resultDictionary["response"] == "success")
+			{
+				CustomPrefs.CurrentSkin = (string)resultDictionary["skin_set"];
+			}
+		}, new Dictionary<string, object>(){
+			{"uid", handler.data.UserController.Instance.ID},
+			{"ak", handler.data.UserController.Instance.AuthKey},
+			{"newskin", Convert.ToBase64String(ImageConversion.EncodeToPNG((Texture2D)skin.skinTexture))},
+		});
+		#else
 		CustomPrefs.CurrentSkin = Convert.ToBase64String(ImageConversion.EncodeToPNG((Texture2D)skin.skinTexture));
+		#endif
 	}
 
 	public IEnumerator SetBack(Transform transform)

@@ -71,13 +71,20 @@ namespace handler.networking
 			{
 				if (resultDictionary.ContainsKey("type") && (string)resultDictionary["type"] == "send")
 				{
-					if (resultDictionary.ContainsKey("action") && (string)resultDictionary["action"] == "alert-ban" && resultDictionary.ContainsKey("bannedID") && (string)resultDictionary["bannedID"] == Convert.ToString(UserController.Instance.ID))
+					if (resultDictionary.ContainsKey("action"))
 					{
-						AlertNGUI.Show("You have been banned!", 8f);
-					}
-					if (resultDictionary.ContainsKey("action") && (string)resultDictionary["action"] == "alert-downtime")
-					{
-						AlertNGUI.Show("The servers are down for maintenance!", 8f);
+						if ((string)resultDictionary["action"] == "alert-ban" && resultDictionary.ContainsKey("bannedID") && (string)resultDictionary["bannedID"] == Convert.ToString(UserController.Instance.ID))
+						{
+							AlertNGUI.Show("You have been banned!", 8f);
+						}
+						if ((string)resultDictionary["action"] == "alert-downtime")
+						{
+							AlertNGUI.Show("The servers are down for maintenance!", 8f);
+						}
+						if ((string)resultDictionary["action"] == "recv-forceupdate-user" && resultDictionary.ContainsKey("recvid") && (string)resultDictionary["recvid"] == Convert.ToString(UserController.Instance.ID))
+						{
+							UserController.Instance.StartCoroutine(UserController.Instance.GetPlayerInfo());
+						}
 					}
 				}
 			}
@@ -137,6 +144,7 @@ namespace handler.networking
 					CurrentConnection.Close();
 				}
 			};
+			Debug.Log(args == null);
 			string sargs = JsonConvert.SerializeObject(Encrypt(args));
 			Debug.Log($"[WebsocketHandler::CallAction] Sending action {action} with arguments serialized to {sargs}");
 			CurrentConnection.Send(sargs);

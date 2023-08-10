@@ -1683,8 +1683,8 @@ public sealed class ConnectGUI : MonoBehaviour
 			prefs.SetString("TypeConnect", "inet");
 			#if USES_WEBSOCKET
 			Dictionary<string, object> connectionArgs = new Dictionary<string, object>();
-			connectionArgs["uid"] = System.Convert.ToInt64(Storager.getString("plr_uid", false));
-			connectionArgs["ak"] = (string)Storager.getString("plr_nhguXrl", false);
+			connectionArgs["uid"] = handler.data.UserController.Instance.ID;
+			connectionArgs["ak"] = handler.data.UserController.Instance.AuthKey;
 			connectionArgs["coop"] = prefs.GetInt("COOP", 0);
 			WebsocketHandler.CallAction("request_connection", (string data) => {
 				Dictionary<string, object> resultDictionary = WebsocketHandler.Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));

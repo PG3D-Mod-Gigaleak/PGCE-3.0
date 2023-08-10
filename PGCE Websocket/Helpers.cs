@@ -16,14 +16,17 @@ namespace PGCE
 		{
 			Console.WriteLine("Creating account");
 			SQLiteCommand newCmd = new SQLiteCommand(Server.DB);
-			newCmd.CommandText = "INSERT INTO Users(name, authkey, coins, banned) VALUES('Player', @authkey, 15, 0) RETURNING id";
+			newCmd.CommandText = "INSERT INTO Users(name, authkey, coins, banned, catequiplist, achievements, boughtWeapons) VALUES('Player', @authkey, 15, 0, @defaultcatequiplist, @defaultachievements, @defaultboughtweapons) RETURNING id";
 			string uuid = Guid.NewGuid().ToString();
 			newCmd.Parameters.Add(new SQLiteParameter("@authkey", SHA384Hash(uuid)));
+			newCmd.Parameters.Add(new SQLiteParameter("@defaultcatequiplist", JsonConvert.SerializeObject(new PG3D.Serialization.CategoryEquipList())));
+			newCmd.Parameters.Add(new SQLiteParameter("@defaultachievements", JsonConvert.SerializeObject(new List<string>())));
+			newCmd.Parameters.Add(new SQLiteParameter("@defaultboughtweapons", JsonConvert.SerializeObject(new List<string>(){"Weapon1", "Weapon2", "Weapon9"})));
 			object result = newCmd.ExecuteScalar();
 			if (result == null) {
 				return null;
 			}
-			Console.WriteLine($"Created account! Resulting ID is {result}");
+			Console.WriteLine($"Created account! Resulting ID is {result}, Authkey is {uuid} (maybe account is reserved?)");
 			return new AccountParameters((long)result, uuid);
 		}
 		public static string SHA384Hash(string a)
@@ -92,15 +95,18 @@ namespace PGCE
 			{
 				SQLiteCommand newCmd = new SQLiteCommand(Server.DB);
 				// expand this once we have more parameters
-				newCmd.CommandText = "UPDATE Users SET name = @newname, coins = @newcoins, catears = @newcatears WHERE id = @id";
+				newCmd.CommandText = "UPDATE Users SET name = @newname, coins = @newcoins, catears = @newcatears, skin = @newskin, catequiplist = @newcatequiplist, achievements = @newachievements, boughtWeapons = @newboughtweapons WHERE id = @id";
 				newCmd.Parameters.Add(new SQLiteParameter("@id", id));
 				newCmd.Parameters.Add(new SQLiteParameter("@newname", newParameters.Name));
 				newCmd.Parameters.Add(new SQLiteParameter("@newcoins", newParameters.Coins));
 				newCmd.Parameters.Add(new SQLiteParameter("@newcatears", newParameters.CatEars));
+				newCmd.Parameters.Add(new SQLiteParameter("@newskin", newParameters.SkinData));
+				newCmd.Parameters.Add(new SQLiteParameter("@newcatequiplist", JsonConvert.SerializeObject(newParameters.CategoryEquipList)));
+				newCmd.Parameters.Add(new SQLiteParameter("@newachievements", JsonConvert.SerializeObject(newParameters.Achievements)));
+				newCmd.Parameters.Add(new SQLiteParameter("@newboughtweapons", JsonConvert.SerializeObject(newParameters.BoughtWeapons)));
 				Server.SendEmbed("Player Parameters Updated", $"The ID {id} is updating account parameters", 0xFFFF00, new dField[]{
 					new dField("New username", newParameters.Name, false),
 					new dField("New coin count", Convert.ToString(newParameters.Coins), false),
-					new dField("Has cat ears?", Convert.ToString(newParameters.CatEars), false),
 				});
 				newCmd.ExecuteNonQuery();
 				return true;
@@ -118,7 +124,7 @@ namespace PGCE
 		public static AccountParameters? GetAccountInfo(long id)
 		{
 			SQLiteCommand newCmd = new SQLiteCommand(Server.DB);
-			newCmd.CommandText = "SELECT name, authkey, coins, banned, catears FROM Users WHERE id = @id";
+			newCmd.CommandText = "SELECT name, authkey, coins, banned, catears, skin, catequiplist, achievements, boughtWeapons, isadmin FROM Users WHERE id = @id";
 			newCmd.Parameters.Add(new SQLiteParameter("@id", id));
 			SQLiteDataReader result = newCmd.ExecuteReader();
 			if (result.Read())
@@ -126,8 +132,13 @@ namespace PGCE
 				AccountParameters foundUserData = new AccountParameters(id, (string)result["authkey"]);
 				foundUserData.Coins = (long)result["coins"];
 				foundUserData.Name = (string)result["name"];
+				foundUserData.SkinData = (string)result["skin"];
+				foundUserData.CategoryEquipList = JsonConvert.DeserializeObject<PG3D.Serialization.CategoryEquipList>((string)result["catequiplist"]);
+				foundUserData.Achievements = JsonConvert.DeserializeObject<List<string>>((string)result["achievements"]);
+				foundUserData.BoughtWeapons = JsonConvert.DeserializeObject<List<string>>((string)result["boughtWeapons"]);
 				foundUserData.Banned = ((long)result["banned"] == 0 ? false : true);
 				foundUserData.CatEars = ((long)result["catears"] == 0 ? false : true);
+				foundUserData.IsAdmin = ((long)result["isadmin"] == 0 ? false : true);
 				return foundUserData;
 			}
 			else

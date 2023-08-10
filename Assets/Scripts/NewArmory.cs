@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Newtonsoft.Json;
 
 public class NewArmory : MonoBehaviour
 {
@@ -211,6 +212,25 @@ public class NewArmory : MonoBehaviour
 
 	public bool Buy(WeaponSounds weapon)
 	{
+		#if USES_WEBSOCKET
+		bool toreturn = false;
+		// TODO: copy all important weapon stats to database, like price
+		// just for extra security
+		handler.networking.WebsocketHandler.CallAction("buy_weapon", (string data) => {
+			Dictionary<string, object> resultDictionary = handler.networking.WebsocketHandler.Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
+			if ((string)resultDictionary["response"] == "success")
+			{
+				toreturn = true;
+			}
+		}, new Dictionary<string, object>(){
+			{"uid", handler.data.UserController.Instance.ID},
+			{"ak", handler.data.UserController.Instance.AuthKey},
+			{"wn", weapon.name},
+			{"wp", weapon.price},
+			{"wc", (int)weapon.category},
+		});
+		return toreturn;
+		#else
 		if (Defs.CoinsAmount >= weapon.price)
 		{
 			Defs.CoinsAmount -= weapon.price;
@@ -218,11 +238,16 @@ public class NewArmory : MonoBehaviour
 			return true;
 		}
 		return false;
+		#endif
 	}
 
 	public bool Bought(WeaponSounds weapon)
 	{
+		#if USES_WEBSOCKET
+		return handler.data.UserController.Instance.BoughtGuns.Contains(weapon.name);
+		#else
 		return Storager.getInt(weapon.name + "shopbuy", false) == 1;
+		#endif
 	}
 
 	public AudioClip buy, normalPress;
@@ -247,7 +272,19 @@ public class NewArmory : MonoBehaviour
 
 	public void EquipWeapon(WeaponSounds weapon)
 	{
+		#if USES_WEBSOCKET
+		handler.networking.WebsocketHandler.CallAction("equip_weapon", (string data) => {
+			Dictionary<string, object> resultDictionary = handler.networking.WebsocketHandler.Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
+			Debug.Log(JsonConvert.SerializeObject(resultDictionary));
+		}, new Dictionary<string, object>(){
+			{"uid", handler.data.UserController.Instance.ID},
+			{"ak", handler.data.UserController.Instance.AuthKey},
+			{"wn", weapon.name},
+			{"wc", (int)weapon.category},
+		});
+		#else
 		prefs.SetString(GetCatStringFromCategoryType(weapon.category), weapon.name);
+		#endif
 	}
 
 	public bool WeaponEquipped(WeaponSounds weapon)
@@ -274,7 +311,14 @@ public class NewArmory : MonoBehaviour
 
 	public void DeveloperFunnies()
 	{
+		#if USES_WEBSOCKET
+		handler.networking.WebsocketHandler.CallAction("admin_give_coins", null, new Dictionary<string, object>(){
+			{"uid", handler.data.UserController.Instance.ID},
+			{"ak", handler.data.UserController.Instance.AuthKey},
+		});
+		#else
 		Storager.setInt((string)IncomprehensibleGarbler.Call2("Ernqncg", IncomprehensibleGarbler.Create(0, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(5, IncomprehensibleGarbler.Create(160, IncomprehensibleGarbler.Create(41, ""))))), true, false, false, false, false), Storager.getInt((string)IncomprehensibleGarbler.Call2("Ernqncg", IncomprehensibleGarbler.Create2(3, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(6, IncomprehensibleGarbler.Create2(13, IncomprehensibleGarbler.Create2(16, ""))))), true, false, false, false, false), false) + 99999, false);
+		#endif
 	}
 
 	public void CreateButton(WeaponSounds weapon)
