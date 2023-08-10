@@ -251,7 +251,7 @@ public class FirstPersonControl : MonoBehaviour
 			setIsMine();
 		else
 			isMine = false;
-		if (isMine && bhopSpeedMult > 2.911)
+		if (isMine && forwardSpeed > 40)
 		{
 			Achievements.Give("speed");
 		}
