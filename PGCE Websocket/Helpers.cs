@@ -47,6 +47,16 @@ namespace PGCE
 				return false;
 			return true;
 		}
+		public static bool AccountBanned(long id)
+		{
+			if (GetAccountInfo(id) == null)
+				return false;
+			return ((AccountParameters)GetAccountInfo(id)).Banned;
+		}
+		public static bool AccountBanned(AccountParameters accountParameters)
+		{
+			return accountParameters.Banned;
+		}
 		public static bool BanAccount(long id)
 		{
 			if (GetAccountInfo(id) == null)

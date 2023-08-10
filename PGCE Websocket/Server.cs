@@ -96,6 +96,8 @@ namespace PGCE
 					AccountParameters confirmedResult = (AccountParameters)result;
 					if (!Helpers.MatchingHash2Nonhash((string)givenInput["ak"], confirmedResult.AuthKey))
 						throw new Exception("Authkey invalid");
+					if (Helpers.AccountBanned(confirmedResult))
+						throw new Exception("The account is banned");
 					// TEMPORARY!!! HAVE TO SWITCH TO DYNAMIC SETTINGS AT ONE POINT FOR MORE SECURITY I GUESS
 					if (Convert.ToString((string)givenInput["coop"]) == "1")
 						output["settings"] = "v3.11COOP";
