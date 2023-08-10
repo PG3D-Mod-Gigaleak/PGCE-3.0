@@ -100,17 +100,17 @@ namespace PGCE
 					if (!Helpers.MatchingHash2Nonhash((string)givenInput["ak"], confirmedResult.AuthKey))
 						throw new Exception("Authkey invalid");
 					if (givenInput.ContainsKey("newname"))
-						confirmedResult.Name = (string)givenInput["newname"];
+					{
+						string r = PG3D.FilterBadWorld.FilterString((string)givenInput["newname"]);
+						confirmedResult.Name = r.Substring(0, Math.Clamp(r.Length, 0, 20));;
+					}
 					if (givenInput.ContainsKey("newcoins"))
 						confirmedResult.Coins = Convert.ToInt64((string)givenInput["newcoins"]);
 					if (givenInput.ContainsKey("newcatears"))
 						confirmedResult.CatEars = Convert.ToBoolean((string)givenInput["newcatears"]);
 					Helpers.UpdateParameters(Convert.ToInt64((string)givenInput["uid"]), confirmedResult);
 					if (givenInput.ContainsKey("newname"))
-					{
-						string r = PG3D.FilterBadWorld.FilterString((string)givenInput["newname"]);
-						output["name_set"] = r.Substring(0, Math.Clamp(r.Length, 0, 20));
-					}
+						output["name_set"] = confirmedResult.Name;
 					if (givenInput.ContainsKey("newcoins"))
 						output["coins_set"] = confirmedResult.Coins;
 					if (givenInput.ContainsKey("newcatears"))
