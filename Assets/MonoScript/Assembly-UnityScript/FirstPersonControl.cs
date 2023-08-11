@@ -115,17 +115,18 @@ public class FirstPersonControl : MonoBehaviour
 	public virtual void SetSpeedModifier()
 	{
 		try {
+			bool xz = (Globals.PlayerMove.walking || !isGrounded);
 			if (!(startForwardSpeed <= 0f))
 			{
-				forwardSpeed = startForwardSpeed* Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult;
+				forwardSpeed = (xz ? Mathf.Lerp(forwardSpeed, startForwardSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult, 0.05f) : 0);
 			}
 			if (!(startBackwardSpeed <= 0f))
 			{
-				backwardSpeed = startBackwardSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult;
+				backwardSpeed = (xz ? Mathf.Lerp(forwardSpeed, startBackwardSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult, 0.05f) : 0);
 			}
 			if (!(startSidestepSpeed <= 0f))
 			{
-				sidestepSpeed = startSidestepSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult;
+				sidestepSpeed = (xz ? Mathf.Lerp(forwardSpeed, startSidestepSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult, 0.05f) : 0);
 			}
 		} catch {
 

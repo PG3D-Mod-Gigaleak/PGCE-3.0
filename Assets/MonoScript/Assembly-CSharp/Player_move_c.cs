@@ -1579,7 +1579,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	private bool walking
+	public bool walking
 	{
 		get
 		{
@@ -1832,6 +1832,10 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public float GetSpeedMod()
 	{
+		if (_weaponManager.currentWeaponSounds.speedModifier == 0.35f)
+		{
+			Achievements.Give("slowdown");
+		}
 		return sprinting ? _weaponManager.currentWeaponSounds.speedModifier * 1.5f : _weaponManager.currentWeaponSounds.speedModifier;
 	}
 
