@@ -118,15 +118,15 @@ public class FirstPersonControl : MonoBehaviour
 			bool xz = (Globals.PlayerMove.walking || !isGrounded);
 			if (!(startForwardSpeed <= 0f))
 			{
-				forwardSpeed = (xz ? Mathf.Lerp(forwardSpeed, startForwardSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult, 0.05f) : 0);
+				forwardSpeed = (xz ? Mathf.Lerp(forwardSpeed, startForwardSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult * (Globals.PlayerMove.crouching ? 0.25f : 1f), 0.05f) : 0);
 			}
 			if (!(startBackwardSpeed <= 0f))
 			{
-				backwardSpeed = (xz ? Mathf.Lerp(forwardSpeed, startBackwardSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult, 0.05f) : 0);
+				backwardSpeed = (xz ? Mathf.Lerp(forwardSpeed, startBackwardSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult * (Globals.PlayerMove.crouching ? 0.25f : 1f), 0.05f) : 0);
 			}
 			if (!(startSidestepSpeed <= 0f))
 			{
-				sidestepSpeed = (xz ? Mathf.Lerp(forwardSpeed, startSidestepSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult, 0.05f) : 0);
+				sidestepSpeed = (xz ? Mathf.Lerp(forwardSpeed, startSidestepSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult * (Globals.PlayerMove.crouching ? 0.25f : 1f), 0.05f) : 0);
 			}
 		} catch {
 
@@ -216,6 +216,10 @@ public class FirstPersonControl : MonoBehaviour
 		{
 			bhopSpeedMult += bhopIncrement;
 			bhopIncrement /= 1.15f;
+		}
+		if (isMine)
+		{
+			Globals.PlayerMove.CrouchToggle(false);
 		}
 		jump = true;
 		canJump = false;

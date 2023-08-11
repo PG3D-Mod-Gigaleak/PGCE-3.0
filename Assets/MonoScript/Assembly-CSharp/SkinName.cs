@@ -47,9 +47,13 @@ public class SkinName : MonoBehaviour
 						{
 						case 0:
 							text = "Idle";
+							if (Globals.PlayerMove.crouching)
+								text = "Crouch" + text;
 							break;
 						case 1:
 							text = "Walk";
+							if (Globals.PlayerMove.crouching)
+								text = "Crouch" + text;
 							break;
 						case 2:
 							text = "Jump";

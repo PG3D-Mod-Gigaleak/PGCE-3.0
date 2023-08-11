@@ -1617,6 +1617,19 @@ public sealed class Player_move_c : MonoBehaviour
 		showGUI = false;
 	}
 
+	public void CrouchToggle(bool newCrouching)
+	{
+		if (newCrouching)
+			characterController.height = .8f;
+		else
+		{
+			if (newCrouching && !crouching)
+				_weaponManager.myPlayer.transform.position += Vector3.up;
+			characterController.height = 1.8f;
+		}
+		crouching = newCrouching;
+	}
+
 	public void setMyTamble(GameObject _myTable)
 	{
 		myTable = _myTable;
@@ -1711,6 +1724,10 @@ public sealed class Player_move_c : MonoBehaviour
 				return false;
 			}
 		}
+	}
+	public bool crouching
+	{
+		get; set;
 	}
 
 	public void setParentWeaponHelpPhoton(string _name, GameObject[] players, int idWeapon, int idParent, string nameSkin, string _nickName)
@@ -3734,6 +3751,10 @@ public sealed class Player_move_c : MonoBehaviour
 				{
 					ZoomPress();
 				}
+				if (Input.GetKeyDown(KeyCode.LeftControl))
+				{
+					CrouchToggle(!crouching);
+				}
 			} else if (isMine && showChat) {
 				if (Input.GetMouseButtonDown(0))
 				{
@@ -3852,7 +3873,10 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			Debug.LogWarning("Update(): _pauser is null.");
 		}
-
+		if (!crouching)
+			_weaponManager.currentWeaponSounds.transform.localPosition = new Vector3(0, -1.7f, 0);
+		else
+			_weaponManager.currentWeaponSounds.transform.localPosition = new Vector3(0, -2f, 0);
 		_003CUpdate_003Ec__AnonStorey.pauserIsPaused = _003CUpdate_003Ec__AnonStorey._003C_003Em__2D;
 		if (!_003CUpdate_003Ec__AnonStorey.pauserIsPaused() && canReceiveSwipes && !isInappWinOpen)
 		{
