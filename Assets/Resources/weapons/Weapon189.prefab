@@ -31,7 +31,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8076857851048538509}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -25.387672, y: -498.2304, z: 559.5909}
+  m_LocalEulerAnglesHint: {x: -23.722002, y: -496.858, z: 558.544}
 --- !u!33 &8100997890537583223
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -111,7 +111,7 @@ Transform:
   - {fileID: 5097448375842111186}
   m_Father: {fileID: 8076857851048538509}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90.92676, y: 3.5769596, z: -3.5769603}
+  m_LocalEulerAnglesHint: {x: -90.00001, y: 0, z: 0}
 --- !u!33 &8101748402419831763
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -299,7 +299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8079277251905665965}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.1997, y: 1.481, z: 1.646}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8073242872399895595}
@@ -320,17 +320,17 @@ MonoBehaviour:
   swapTime: 0.4
   isSwapIn: 0
   isSwapOut: 0
-  shoot: {fileID: 8300000, guid: 75242409aa033e44e96fbf6729872b49, type: 3}
+  shoot: {fileID: 8300000, guid: 378b04dfa3cddd74d942a1de08d00602, type: 3}
   reload: {fileID: 0}
   empty: {fileID: 0}
   isSerialShooting: 1
   bonusPrefab: {fileID: 8078387668818843573}
-  InitialAmmo: 0
-  ammoInClip: 0
-  maxAmmo: 0
-  isMelee: 1
+  InitialAmmo: 1
+  ammoInClip: 1
+  maxAmmo: 1
+  isMelee: 0
   range: 3
-  damage: 100
+  damage: 1500
   speedModifier: 1.15
   animationObject: {fileID: 8078387668818843573}
   Probability: 0
@@ -339,7 +339,7 @@ MonoBehaviour:
   preview: {fileID: 2800000, guid: 29633c605e5802d498e2b7cf8c7382ce, type: 3}
   inAppExtensionModifier: 10
   meleeAngle: 45
-  multiplayerDamage: 25
+  multiplayerDamage: 70
   meleeAttackTimeModifier: 0.55
   isHeal: 0
   healAmount: 0
@@ -368,14 +368,14 @@ MonoBehaviour:
   throwObject: 0
   throwObjects: 0
   isGrav: 0
-  startZone: {x: 0, y: 0}
+  startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 0.5
   maxKoof: 4
   downKoofFirst: 0.2
   downKoof: 0.2
   timeBeforeDownKoof: 0.5
-  railgun: 0
+  railgun: 1
   flamethrower: 0
   bazooka: 0
   rocketNum: 0
@@ -393,7 +393,7 @@ MonoBehaviour:
   zoomFov: 0
   secondBulletSpawn: {fileID: 0}
   shootLineColor: {r: 1, g: 1, b: 0, a: 1}
-  bulletIndex: 0
+  bulletIndex: 2
 --- !u!1 &8079372587029340989
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +474,7 @@ MonoBehaviour:
   bloomHigh: 0
   isShotgun: 1
   numOfPellets: 7
-  hasAlternateShot: 0
+  hasAlternateShot: 1
   alternateShot: {fileID: 8182066499645174455}
   hasRecoil: 0
   recoil: 0
@@ -487,7 +487,7 @@ MonoBehaviour:
   speedBoostDuration: 0
   isDouble: 0
   price: 5000
-  weaponName: Noobitematum
+  weaponName: Noobitematum ( very op virgin gun )
   oldMeleeSystem: 0
   emptyState: 0
   throwObject: 0
@@ -665,7 +665,7 @@ PrefabInstance:
     - target: {fileID: 3723046994442477222, guid: bf74bde08396d3743a7c90ed56631543,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -0.7811441
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3824238432929108740, guid: bf74bde08396d3743a7c90ed56631543,
         type: 3}
@@ -720,7 +720,7 @@ PrefabInstance:
     - target: {fileID: 6689654758048850010, guid: bf74bde08396d3743a7c90ed56631543,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -0.7172827
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf74bde08396d3743a7c90ed56631543, type: 3}
