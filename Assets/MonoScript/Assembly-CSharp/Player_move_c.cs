@@ -2519,9 +2519,9 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 			((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
 			}
-			if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == 0)
+			if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == 0 && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Shoot"))
 			{
-				Invoke("ReloadPressed", 0.2f);
+				Invoke("ReloadPressed", _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()["Shoot"].length);
 			}
 			if (WS.isChargeUp)
 			{
