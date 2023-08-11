@@ -3873,10 +3873,10 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			Debug.LogWarning("Update(): _pauser is null.");
 		}
-		if (!crouching)
+		/*if (!crouching)
 			_weaponManager.currentWeaponSounds.transform.localPosition = new Vector3(0, -1.7f, 0);
 		else
-			_weaponManager.currentWeaponSounds.transform.localPosition = new Vector3(0, -2f, 0);
+			_weaponManager.currentWeaponSounds.transform.localPosition = new Vector3(0, -2f, 0);*/
 		_003CUpdate_003Ec__AnonStorey.pauserIsPaused = _003CUpdate_003Ec__AnonStorey._003C_003Em__2D;
 		if (!_003CUpdate_003Ec__AnonStorey.pauserIsPaused() && canReceiveSwipes && !isInappWinOpen)
 		{
