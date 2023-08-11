@@ -46,7 +46,6 @@ namespace PGCE
 				catch (Exception exception)
 				{
 					Server.SendEmbed("Error while creating account", $"", 0xFF0000, new dField[]{
-						new dField("Dispatcher ID", Convert.ToString((string)givenInput["uid"]), false),
 						new dField("Error", exception.ToString(), false),
 					});
 					output["response"] = "failed";
