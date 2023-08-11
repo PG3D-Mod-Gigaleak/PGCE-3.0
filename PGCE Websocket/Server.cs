@@ -25,6 +25,18 @@ namespace PGCE
 			Dictionary<string, object> output = new Dictionary<string, object>();
 			if (action == "ensure_ws_alive")
 			{
+				if (givenInput.ContainsKey("uid") && givenInput.ContainsKey("ak"))
+				{
+					AccountParameters? result = Helpers.GetAccountInfo(givenInput["uid"]);
+					if (result == null) {
+						throw new Exception("Result was NULL!");
+					}
+					AccountParameters confirmedResult = (AccountParameters)result;
+					if (!Helpers.MatchingHash2Nonhash((string)givenInput["ak"], confirmedResult.AuthKey))
+						throw new Exception("Authkey invalid");
+					if (Helpers.AccountBanned(confirmedResult))
+						throw new Exception("The account is banned");
+				}
 				output["response"] = "success";
 			}
 			else if (action == "close_session")
