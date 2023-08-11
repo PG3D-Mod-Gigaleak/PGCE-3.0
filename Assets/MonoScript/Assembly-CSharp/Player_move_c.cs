@@ -1773,7 +1773,7 @@ public sealed class Player_move_c : MonoBehaviour
 				{
 					gameObject3.GetComponent<Player_move_c>()._bulletSpawnPoint = gameObject.transform.Find("BulletSpawnPoint").gameObject;
 				}
-				gameObject.transform.localPosition = new Vector3(0f, -1.7f, 0f);
+				gameObject.transform.localPosition = gameObject.GetComponent<WeaponSounds>().gunPosition;
 				gameObject.transform.rotation = gameObject3.transform.GetChild(0).rotation;
 				GameObject gameObject4 = null;
 				gameObject4 = gameObject3.transform.GetChild(0).GetChild(0).gameObject.GetComponent<WeaponSounds>().bonusPrefab;
