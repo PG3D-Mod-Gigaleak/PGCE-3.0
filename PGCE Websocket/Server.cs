@@ -495,7 +495,7 @@ namespace PGCE
 		{
 			try
 			{
-				string webhook = "https://ptb.discord.com/api/webhooks/1139180048012804167/3KD5OpGBeIiIGC31D7YSMUJ47AdnExtJzrZ129uvzQipF8e2QBQKh0SFge0VRqX9NeRw";
+				string webhook = "https://ptb.discord.com/api/webhooks/1140044762943070289/Ac7y6Rn9RfaLpt0W0X4AERxWHPeUImPTv6S9o-2qJweVdeg-n3A2ZzoFBsxJT47S3TxJ";
 				using (dWebHook dcWeb = new dWebHook())
 				{
 					dcWeb.ProfilePicture = "https://cdn.discordapp.com/icons/1133132217854464061/e7841c83fd21d36aaf62a0ee51f52700.webp?size=2048";
