@@ -141,7 +141,7 @@ Transform:
   - {fileID: 7394996912431319766}
   m_Father: {fileID: 3171690330689708785}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 76.19854, y: -135.882, z: -224.23083}
+  m_LocalEulerAnglesHint: {x: -90.02799, y: -180, z: -272.5}
 --- !u!33 &3203150271911917814
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -236,9 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swapTime: 0.5
-  isSwapIn: 1
-  isSwapOut: 1
+  swapTime: 0
+  isSwapIn: 0
+  isSwapOut: 0
   shoot: {fileID: 8300000, guid: e0d91fdba4c221a40be67cc48999f58f, type: 3}
   reload: {fileID: 8300000, guid: abd30d7391d369f408d0e72c40cc9128, type: 3}
   empty: {fileID: 8300000, guid: 9f7293511363c2449a4cf571e1a79f2d, type: 3}
@@ -253,7 +253,7 @@ MonoBehaviour:
   speedModifier: 1
   animationObject: {fileID: 3174687880640124641}
   Probability: 1
-  damageRange: {x: -15, y: 15}
+  damageRange: {x: -1, y: 1}
   gunPosition: {x: 0, y: -1.7, z: 0}
   preview: {fileID: 2800000, guid: 992148156aecf0c40baf800b8f7164b8, type: 3}
   inAppExtensionModifier: 10
@@ -281,7 +281,7 @@ MonoBehaviour:
   speedBoostDuration: 0
   isDouble: 0
   price: 50
-  weaponName: LETHAL OMEN
+  weaponName: Handgun
   oldMeleeSystem: 0
   emptyState: 0
   throwObject: 0
