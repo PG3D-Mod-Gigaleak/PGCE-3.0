@@ -1627,6 +1627,7 @@ public sealed class Player_move_c : MonoBehaviour
 				_weaponManager.myPlayer.transform.position += Vector3.up;
 			characterController.height = 1.8f;
 		}
+		_weaponManager.myPlayer.GetComponent<SkinName>().SendAnimation();
 		crouching = newCrouching;
 	}
 

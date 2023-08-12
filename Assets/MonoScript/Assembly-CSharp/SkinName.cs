@@ -91,6 +91,21 @@ public class SkinName : MonoBehaviour
 		}
 	}
 
+	public void SendAnimation()
+	{
+		int num = 0;
+		if (character.velocity.y > 0.01f || character.velocity.y < -0.01f)
+		{
+			num = 2;
+		}
+		else if (character.velocity.x != 0f || character.velocity.z != 0f)
+		{
+			num = 1;
+		}
+		typeAnim = num;
+		photonView.RPC("setAnimPhoton", PhotonTargets.All, GetComponent<PhotonView>().viewID, typeAnim);
+	}
+
 	private void Update()
 	{
 		if (prefs.GetInt("MultyPlayer") != 1 || ((!prefs.GetString("TypeConnect").Equals("inet") || !photonView || !photonView.isMine)))
