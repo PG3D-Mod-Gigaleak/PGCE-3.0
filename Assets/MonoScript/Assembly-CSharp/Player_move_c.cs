@@ -2450,12 +2450,15 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	public bool reloading { get; set; }
+
 	private void ReloadPressed()
 	{
 		if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.isHeal || _weaponManager.currentWeaponSounds.throwObject ||  _weaponManager.CurrentWeaponIndex < 0 || _weaponManager.CurrentWeaponIndex >= _weaponManager.playerWeapons.Count || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack <= 0 || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == _weaponManager.currentWeaponSounds.ammoInClip || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
 		{
 			return;
 		}
+		reloading = true;
 		_weaponManager.Reload();
 		if (prefs.GetInt("MultyPlayer") == 1)
 		{
@@ -2539,11 +2542,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			if (!WS.isChargeUp)
 			{
-			((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
-			}
-			if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == 0 && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Shoot"))
-			{
-				Invoke("ReloadPressed", _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()["Shoot"].length);
+				((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
 			}
 			if (WS.isChargeUp)
 			{
@@ -2556,7 +2555,11 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		else
 		{
-			if (!WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")))
+			if (!reloading && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack > 0)
+			{
+				ReloadPressed();
+			}
+			else if (!WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")))
 			{
 				WS.animationObject.GetComponent<Animation>().Play(myCAnim("Empty"));
 				if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
