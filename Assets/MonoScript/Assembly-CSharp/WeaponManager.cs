@@ -1188,6 +1188,7 @@ public sealed class WeaponManager : MonoBehaviour
 			((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInClip += ((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInBackpack;
 			((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInBackpack = 0;
 		}
+		myPlayer.GetComponent<SkinName>().playerMoveC.reloading = false;
 		yield break;
 	}
 }
