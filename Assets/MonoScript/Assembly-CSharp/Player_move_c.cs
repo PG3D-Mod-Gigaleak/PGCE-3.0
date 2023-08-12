@@ -3584,13 +3584,32 @@ public sealed class Player_move_c : MonoBehaviour
 		throw new NullReferenceException();
 		return 0;
 	}
-
+	private float timeToSwitch = 0f;
+	private float timeSinceLastSwitch = 0f;
+	private bool waitingForWeapon = false;
 	public void ChangeWeaponFull(CategoryType category)
 	{
-		if (!(!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut"))))
+		StartCoroutine(ChangeWeaponFullE(category));
+	}
+	public IEnumerator ChangeWeaponFullE(CategoryType category)
+	{
+		// switch timeout
+		if (Time.time-timeSinceLastSwitch < 1f)
 		{
-			return;
+			timeToSwitch += 0.1f;
 		}
+		else
+		{
+			timeToSwitch = 0f;
+		}
+		if (waitingForWeapon)
+		{
+			yield break;
+		}
+		waitingForWeapon = true;
+		yield return new WaitForSecondsRealtime(timeToSwitch);
+		waitingForWeapon = false;
+		timeSinceLastSwitch = Time.time;
 		if (isZoomed)
 		{
 			ZoomPress();
@@ -3612,6 +3631,7 @@ public sealed class Player_move_c : MonoBehaviour
 		canReceiveSwipes = false;
 		StartCoroutine(SetCanReceiveSwipes());
 		slideMagnitudeX = 0f;
+		yield break;
 	}
 
 	private bool isZoomed;
@@ -3677,7 +3697,7 @@ public sealed class Player_move_c : MonoBehaviour
 			} else {
 				frameSinceLastDie = 8;
 			}
-			if (CurHealth < 20)
+			if (CurHealth <= 20f)
 			{
 				timeWithDMW += Time.deltaTime;
 			}
