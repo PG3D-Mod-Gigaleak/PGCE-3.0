@@ -36,15 +36,12 @@ public class MapMenu : MonoBehaviour
 	public ButtonHandler startGame, addKTW, removeKTW, addMP, removeMP;
 	public UIInput roomNameInput;
 	public UILabel maxPlayersLabel, maxKillsLabel;
-	void Start()
+	IEnumerator Start()
 	{
-		try
+		while(PhotonNetwork.connected)
 		{
 			PhotonNetwork.Disconnect();
-		}
-		catch (System.Exception e)
-		{
-
+			yield return null;
 		}
 		openRoomList.gameObject.SetActive(false);
 		loadingBar.gameObject.SetActive(true);
@@ -75,6 +72,7 @@ public class MapMenu : MonoBehaviour
 			PhotonNetwork.ConnectUsingSettings("v" + GlobalGameController.AppVersion);
 		}
 		#endif
+		yield break;
 	}
 	public void OnJoinedLobby()
 	{
@@ -193,7 +191,7 @@ public class MapMenu : MonoBehaviour
 			prefs.SetString("MaxKill", killToWin);
 			string roomName = name;
 			goMapName = selectedMap.sceneName;
-		mapLoading = (Texture2D)selectedMap.icon;	
+			mapLoading = (Texture2D)selectedMap.icon;
 			RoomOptions roomOptions = new RoomOptions
 			{
 			    IsVisible = true,
