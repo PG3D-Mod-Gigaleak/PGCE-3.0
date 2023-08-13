@@ -22,4 +22,13 @@ public class AdminInput : MonoBehaviour {
 		#endif
 		Destroy(gameObject);
 	}
+	public void SendISeeYou() {
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+		#if UNITY_EDITOR
+		myPmc.sendAdminISeeYou(textInput.value);
+		myPmc.showingAdminInput = false;
+		#endif
+		Destroy(gameObject);
+	}
 }

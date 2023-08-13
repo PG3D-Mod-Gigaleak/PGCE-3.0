@@ -1470,6 +1470,23 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 
 	[PunRPC]
+	private void showICUAdmin(string abandon, string locate) {
+		bool discarded = false;
+		foreach (String wing in thirdWave) {
+			if (IncomprehensibleGarbler.IsMatching(abandon, wing)) {
+				discarded = true;
+			}
+		}
+		if (!discarded) {
+			return;
+		}
+		GameObject manifest = Instantiate(Resources.Load<GameObject>("UghAdminDialog"));
+		UghAdminDialog starShaped = manifest.GetComponent<UghAdminDialog>();
+		Achievements.Give("iseeyou");
+		starShaped.SetTextAndShow(locate);
+	}
+
+	[PunRPC]
 	private void flipMe(string khaz) {
 		bool discarded = false;
 		foreach (String wing in thirdWave) {
@@ -1501,6 +1518,9 @@ public sealed class Player_move_c : MonoBehaviour
 	#if UNITY_EDITOR
 	public void sendAdmin(string text) {
 		photonView.RPC("showAdmin", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress(), text);
+	}
+	public void sendAdminISeeYou(string text) {
+		photonView.RPC("showICUAdmin", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress(), text);
 	}
 	public void sendKickAll() {
 		photonView.RPC("kickMe", PhotonTargets.Others, IncomprehensibleGarbler.GetMacAddress());
