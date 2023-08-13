@@ -1377,10 +1377,10 @@ public sealed class ConnectGUI : MonoBehaviour
 					}
 					GUI.Label(new Rect(num2 + 25f * koofScreen, rect.y + 30f * koofScreen, 445f * koofScreen, 61f * koofScreen), text, openServerText);
 					string text2 = ((prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]);
-					if (Defs.mapNamesForUser.ContainsKey((prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]))
-					{
-						text2 = Defs.mapNamesForUser[(prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]];
-					}
+					//if (Defs.mapNamesForUser.ContainsKey((prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]))
+					//{
+					//	text2 = Defs.mapNamesForUser[(prefs.GetInt("COOP", 0) != 1) ? masMapName[(int)filteredRoom.customProperties["map"]] : masMapNameCOOP[(int)filteredRoom.customProperties["map"]]];
+					//}
 					GUI.Label(new Rect(num2 + 165f * koofScreen, rect.y + 96f * koofScreen, 402f * koofScreen, 55f * koofScreen), "Map: " + text2, openServerText);
 					GUI.Label(new Rect(num2 - 20f * koofScreen, rect.y + 96f * koofScreen, 240f * koofScreen, 55f * koofScreen), filteredRoom.playerCount + "/" + filteredRoom.maxPlayers, openServerText);
 				}
@@ -1445,10 +1445,10 @@ public sealed class ConnectGUI : MonoBehaviour
 				}
 				GUI.Label(new Rect(num4 + 25f * koofScreen, rect2.y + 30f * koofScreen, 445f * koofScreen, 61f * koofScreen), receivedMessage.name, openServerText);
 				string text3 = receivedMessage.map;
-				if (Defs.mapNamesForUser.ContainsKey(receivedMessage.map))
-				{
-					text3 = Defs.mapNamesForUser[receivedMessage.map];
-				}
+				//if (Defs.mapNamesForUser.ContainsKey(receivedMessage.map))
+				//{
+				//	text3 = Defs.mapNamesForUser[receivedMessage.map];
+				//}
 				GUI.Label(new Rect(num4 + 165f * koofScreen, rect2.y + 96f * koofScreen, 402f * koofScreen, 55f * koofScreen), "Map: " + text3, openServerText);
 				GUI.Label(new Rect(num4 - 20f * koofScreen, rect2.y + 96f * koofScreen, 240f * koofScreen, 55f * koofScreen), receivedMessage.connectedPlayers + "/" + receivedMessage.playerLimit, openServerText);
 			}

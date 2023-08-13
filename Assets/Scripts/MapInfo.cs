@@ -20,5 +20,27 @@ public class MapInfo : MonoBehaviour
 		public bool hasVarY;
 	}
 
+	public static MapInfo Instance
+	{
+		get
+		{
+			if (instance == null)
+			{
+				instance = Resources.Load<GameObject>("MapInfo").GetComponent<MapInfo>();
+			}
+			return instance;
+		}
+	}
+
+	public List<Map> CurrentMapsList
+	{
+		get
+		{
+			return (prefs.GetInt("COOP", 0) == 1 ? coopMaps : deathmatchMaps);
+		}
+	}
+
+	private static MapInfo instance;
+
 	public List<Map> deathmatchMaps, coopMaps;
 }

@@ -213,7 +213,7 @@ public class MapMenu : MonoBehaviour
 		customRoomName = "";
 		limitsPlayer = "4";
 		killToWin = "10";
-		List<MapInfo.Map> mapInfoList = (prefs.GetInt("COOP", 0) == 1 ? _info.coopMaps : _info.deathmatchMaps);
+		List<MapInfo.Map> mapInfoList = _info.CurrentMapsList;
 		prefs.SetString("TypeGame", "server");
 		string[] propsToListInLobby = new string[3] { "map", "MaxKill", "pass" };
 		int selectMapIndex = mapInfoList.IndexOf(selectedMap);
@@ -240,7 +240,7 @@ public class MapMenu : MonoBehaviour
 	private void UpdateRoomList()
 	{
 		RoomInfo[] roomList = PhotonNetwork.GetRoomList();
-		List<MapInfo.Map> mapInfoList = (prefs.GetInt("COOP", 0) == 1 ? _info.coopMaps : _info.deathmatchMaps);
+		List<MapInfo.Map> mapInfoList = _info.CurrentMapsList;
 		foreach (Transform p in roomListGrid.transform)
 		{
 			if (p.gameObject != preset)
