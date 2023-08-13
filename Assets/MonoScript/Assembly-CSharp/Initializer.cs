@@ -506,7 +506,7 @@ public sealed class Initializer : MonoBehaviour
 				else
 				{
 					LoadConnectScene.loading = null;
-					LoadConnectScene.sceneToLoad = "ConnectScene";
+					LoadConnectScene.sceneToLoad = "NewMapList";
 					Application.LoadLevel("PromScene");
 				}
 			}
@@ -525,7 +525,7 @@ public sealed class Initializer : MonoBehaviour
 			else
 			{
 				LoadConnectScene.loading = null;
-				LoadConnectScene.sceneToLoad = "ConnectScene";
+				LoadConnectScene.sceneToLoad = "NewMapList";
 				Application.LoadLevel("PromScene");
 			}
 		}

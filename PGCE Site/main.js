@@ -8,16 +8,16 @@ var pageHeader = "";
 
 app.use('/', express.static('public'))
 
-function prep()
+function prep(res, path)
 {
 	fs.readFile("templates/replaces/pageheader.html", "utf8", function(err, data){
 		pageHeader = data;
 	});
+	sendfile(res, path);
 }
 
 app.get("/", function (req, res) {
-	prep();
-	sendfile(res, "templates/index.html");
+	prep(res, "templates/index.html");
 })
 
 function sendfile(res, path)
@@ -30,8 +30,11 @@ function sendfile(res, path)
 }
 
 app.get("/about", function (req, res) {
-	prep();
-	sendfile(res, "templates/about.html");
+	prep(res, "templates/about.html");
+})
+
+app.get("/changelog", function (req, res) {
+	prep(res, "templates/changelog.html");
 })
 
 app.listen(port, () => {

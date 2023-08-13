@@ -107,6 +107,7 @@ public class WeaponSounds : MonoBehaviour
 	public int throwObjects;
 	
 	public bool isGrav;
+	public bool infiniteAmmo;
 
 	[Header("imported stuff")]
 

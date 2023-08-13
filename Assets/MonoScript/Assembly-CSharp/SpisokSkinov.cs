@@ -301,7 +301,7 @@ public sealed class SpisokSkinov : MonoBehaviour
 	public static void GoFromProfileToConnect()
 	{
 		prefs.SetInt("typeConnect__", 0);
-		Application.LoadLevel("ConnectScene");
+		Application.LoadLevel("NewMapList");
 	}
 
 	private void Start()

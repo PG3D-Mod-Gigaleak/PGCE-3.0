@@ -24,7 +24,7 @@ public class TestingController : MonoBehaviour
 		prefs.SetInt("MultyPlayer", 1);
 		GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().Reset();
 		FlurryPluginWrapper.LogCOOPModePress();
-		Application.LoadLevel("ConnectScene");
+		Application.LoadLevel("NewMapList");
 	}
 
 	public void EnterDictionary()

@@ -19,9 +19,18 @@ public class MenuBackgroundMusic : MonoBehaviour
 		//"GearScene"
 	};
 
+	public static MenuBackgroundMusic Instance;
+	public static AudioSource myAudioSOurce;
+
 	private void Start()
 	{
 		UnityEngine.Object.DontDestroyOnLoad(base.gameObject);
+	}
+
+	private void Update()
+	{
+		Instance = base.GetComponent<MenuBackgroundMusic>();
+		myAudioSOurce = base.GetComponent<AudioSource>();
 	}
 
 	private void OnLevelWasLoaded(int idx)

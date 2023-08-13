@@ -13,6 +13,20 @@ public class Weapon
 	}
 
 	public int currentAmmoInBackpack;
-
-	public int currentAmmoInClip;
+	private int pcaib;
+	public int currentAmmoInClip
+	{
+		get
+		{
+			if (weaponPrefab.GetComponent<WeaponSounds>().infiniteAmmo)
+			{
+				return 5;
+			}
+			return pcaib;
+		}
+		set
+		{
+			pcaib = value;
+		}
+	}
 }

@@ -247,7 +247,7 @@ public sealed class MainMenu : MonoBehaviour
 			prefs.SetInt("COOP", 0);
 			GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().Reset();
 			FlurryPluginWrapper.LogDeathmatchModePress();
-			Application.LoadLevel("ConnectScene");
+			Application.LoadLevel("NewMapList");
 		}
 		int arg3 = 2;
 		if (GUI.RepeatButton(func(arg3), string.Empty, coopStyle))
@@ -258,7 +258,7 @@ public sealed class MainMenu : MonoBehaviour
 			prefs.SetInt("MultyPlayer", 1);
 			GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().Reset();
 			FlurryPluginWrapper.LogCOOPModePress();
-			Application.LoadLevel("ConnectScene");
+			Application.LoadLevel("NewMapList");
 		}
 		int arg4 = 3;
 		if (GUI.RepeatButton(func(arg4), string.Empty, ArmoryStyle))

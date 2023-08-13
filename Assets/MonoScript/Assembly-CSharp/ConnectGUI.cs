@@ -293,7 +293,7 @@ public sealed class ConnectGUI : MonoBehaviour
 	{
 		prefs.SetInt("typeConnect__", 1);
 		LoadConnectScene.loading = null;
-		LoadConnectScene.sceneToLoad = "ConnectScene";
+		LoadConnectScene.sceneToLoad = "NewMapList";
 		Application.LoadLevel("PromScene");
 	}
 

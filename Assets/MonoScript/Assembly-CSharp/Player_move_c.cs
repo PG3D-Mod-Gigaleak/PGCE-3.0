@@ -937,7 +937,7 @@ public sealed class Player_move_c : MonoBehaviour
 				Debug.LogWarning("OnGUI(): _weaponManager.currentWeaponSounds is null.");
 			}
 		}
-		if (_weaponManager != null && _weaponManager.CurrentWeaponIndex >= 0 && _weaponManager.CurrentWeaponIndex < _weaponManager.playerWeapons.Count && !_weaponManager.currentWeaponSounds.isMelee && !_weaponManager.currentWeaponSounds.isHeal && !_weaponManager.currentWeaponSounds.throwObject)
+		if (_weaponManager != null && _weaponManager.CurrentWeaponIndex >= 0 && _weaponManager.CurrentWeaponIndex < _weaponManager.playerWeapons.Count && !_weaponManager.currentWeaponSounds.isMelee && !_weaponManager.currentWeaponSounds.isHeal && !_weaponManager.currentWeaponSounds.throwObject && !_weaponManager.currentWeaponSounds.infiniteAmmo)
 		{
 			GUI.DrawTexture(position5, ammoTexture);
 			GUI.Box(position6, ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip + "/" + ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack, AmmoBox);

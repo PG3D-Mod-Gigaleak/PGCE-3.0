@@ -12,7 +12,7 @@ public class MenuGUI : MonoBehaviour
 		prefs.SetInt("COOP", 0);
 		GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().Reset();
 		FlurryPluginWrapper.LogDeathmatchModePress();
-		Application.LoadLevel("ConnectScene");
+		Application.LoadLevel("NewMapList");
 	}
 
 	public void EnterArmory()
