@@ -2602,7 +2602,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.chargeUp);
 		}
-		while (holdingShoot)
+		while (holdingShoot && !isKilled)
 		{
 			yield return new WaitForSeconds(0.01f);
 			if (!WS.animationObject.GetComponent<Animation>().IsPlaying("ChargeUp"))
