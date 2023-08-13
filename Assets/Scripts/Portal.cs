@@ -8,8 +8,7 @@ public class Portal : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		Debug.LogError("HALLO??");
-		other.transform.position = otherPortal.position;
+		other.transform.position = otherPortal.position + otherPortal.transform.forward;
 		other.transform.rotation = otherPortal.rotation;
 	}
 }
