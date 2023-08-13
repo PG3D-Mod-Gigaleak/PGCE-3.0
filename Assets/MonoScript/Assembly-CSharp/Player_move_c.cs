@@ -3180,7 +3180,7 @@ public sealed class Player_move_c : MonoBehaviour
 			return;
 		}
 		if (WS.isGrav) {
-			if (Application.loadedLevelName != "demise" || Application.loadedLevelName != "buntu") {
+			if (Application.loadedLevelName != "demise" && Application.loadedLevelName != "buntu") {
 				float understand = CurHealth;
 				CurHealth -= 25f;
 				IncomprehensibleGarbler.Dispatch("UrnyguPunatr", this, understand);
