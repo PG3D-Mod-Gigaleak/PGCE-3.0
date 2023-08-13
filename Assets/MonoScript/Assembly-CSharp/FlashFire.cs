@@ -20,6 +20,10 @@ public class FlashFire : MonoBehaviour
 
 	private void Start()
 	{
+		if (gunFlashObj == null || gunFlashObj2 == null)
+		{
+			return;
+		}
 		gunFlashObj.SetActive(false);
 		if (has2Flashes)
 		{
@@ -29,6 +33,10 @@ public class FlashFire : MonoBehaviour
 
 	private void Update()
 	{
+		if (gunFlashObj == null || gunFlashObj2 == null)
+		{
+			return;
+		}
 		if (activeTime > 0f)
 		{
 			activeTime -= Time.deltaTime;
@@ -45,12 +53,20 @@ public class FlashFire : MonoBehaviour
 
 	public void fire()
 	{
+		if (gunFlashObj == null || gunFlashObj2 == null)
+		{
+			return;
+		}
 		gunFlashObj.SetActive(true);
 		activeTime = timeFireAction;
 	}
 
 	public void fire(int index)
 	{
+		if (gunFlashObj == null || gunFlashObj2 == null)
+		{
+			return;
+		}
 		if (index == 0)
 		{
 			gunFlashObj.SetActive(true);
