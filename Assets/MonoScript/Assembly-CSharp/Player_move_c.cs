@@ -3140,12 +3140,16 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 
 	public bool isGravFlipped;
+	public float timeAtLastGravflip = 0;
 
 	public void flipGrav() {
+		if (Time.time-timeAtLastGravflip < 0.2f && timeAtLastGravflip != 0)
+			return;
+		timeAtLastGravflip = Time.time;
 		Achievements.Give("gravflip");
-		ImpactReceiver impactReceiver = _weaponManager.myPlayer.GetComponent<ImpactReceiver>();
-		_weaponManager.myPlayer.transform.localScale = new Vector3(_weaponManager.myPlayer.transform.localScale.x, _weaponManager.myPlayer.transform.localScale.y * -1, _weaponManager.myPlayer.transform.localScale.z);
-		_weaponManager.myPlayer.GetComponent<FirstPersonControl>().cameraPivot.Rotate(0, 180, 0);
+		ImpactReceiver impactReceiver = Globals.Player.GetComponent<ImpactReceiver>();
+		Globals.Player.transform.localScale = new Vector3(Globals.Player.transform.localScale.x, Globals.Player.transform.localScale.y * -1, Globals.Player.transform.localScale.z);
+		Globals.Player.GetComponent<FirstPersonControl>().cameraPivot.Rotate(0, 180, 0);
 		impactReceiver.AddImpact(Vector3.up, Mathf.Abs(Physics.gravity.y)*-4f);
 		Physics.gravity *= -1;
 		isGravFlipped = !isGravFlipped;

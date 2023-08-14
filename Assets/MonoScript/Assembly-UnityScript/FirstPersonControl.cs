@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonControl : MonoBehaviour
 {
+	public GameObject peekPivot;
 	public Joystick moveTouchPad;
 
 	public Joystick rotateTouchPad;
@@ -114,13 +115,15 @@ public class FirstPersonControl : MonoBehaviour
 
 	private float lerpup(ref float x, ref float y)
 	{
-		return Mathf.Lerp(x, y * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult * (Globals.PlayerMove.crouching ? 0.25f : 1f), 0.05f);
+		return Mathf.Lerp(x, y * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult * (Globals.PlayerMove.crouching ? 0.25f : ConstantMultiplier), 0.05f);
 	}
 
 	private float lerpdown(ref float x)
 	{
 		return Mathf.Lerp(x, 0, 0.05f);
 	}
+
+	private const float ConstantMultiplier = 1.35f;
 
 	public virtual void SetSpeedModifier()
 	{
@@ -266,7 +269,7 @@ public class FirstPersonControl : MonoBehaviour
 			setIsMine();
 		else
 			isMine = false;
-		if (isMine && forwardSpeed > 40)
+		if (isMine && forwardSpeed > 40*ConstantMultiplier)
 		{
 			Achievements.Give("speed");
 		}
@@ -285,6 +288,7 @@ public class FirstPersonControl : MonoBehaviour
 			if (Globals.PlayerMove && Globals.PlayerMove.showChat) {
 				can = false;
 			}
+			float ad = 0;
 			if (can) {
 				if (Input.GetKey(KeyCode.Space))
 				{
@@ -298,8 +302,17 @@ public class FirstPersonControl : MonoBehaviour
 				{
 					jumpButton.jumpPressed = false;
 				}
+				if (Input.GetKey(KeyCode.E))
+				{
+					ad -= 20f;
+				}
+				if (Input.GetKey(KeyCode.Q))
+				{
+					ad += 20f;
+				}
 			}
-			camSway.value = Mathf.Lerp(camSway.value, moveTouchPad.position.x > 0 ? -2.5f : moveTouchPad.position.x < 0 ? 2.5f : 0, Time.deltaTime * camSwaySpeed);
+			peekPivot.transform.localRotation = Quaternion.Lerp(peekPivot.transform.localRotation, Quaternion.Euler(0, 0, ad), Time.deltaTime * camSwaySpeed);
+			camSway.value = Mathf.Lerp(camSway.value, (moveTouchPad.position.x > 0 ? -3.5f : moveTouchPad.position.x < 0 ? 3.5f : 0), Time.deltaTime * camSwaySpeed);
 		}
 		SetSpeedModifier();
 		Vector3 motion = thisTransform.TransformDirection(new Vector3(moveTouchPad.position.x, 0f, moveTouchPad.position.y));

@@ -19,6 +19,27 @@ public class Globals
 			return WeaponManager.sharedManager.myPlayer;
 		}
 	}
+	public static SkinName SkinName
+	{
+		get
+		{
+			return WeaponManager.sharedManager.myPlayer.GetComponent<SkinName>();
+		}
+	}
+	public static FirstPersonControl FirstPersonControl
+	{
+		get
+		{
+			return WeaponManager.sharedManager.myPlayer.GetComponent<FirstPersonControl>();
+		}
+	}
+	public static FilterBadWorld FilterBadWorld
+	{
+		get
+		{
+			return WeaponManager.sharedManager.gameObject.GetComponent<FilterBadWorld>();
+		}
+	}
 	public static MapInfo.Map CurrentMap
 	{
 		get
