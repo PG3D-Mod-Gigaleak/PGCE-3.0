@@ -68,7 +68,7 @@ public sealed class Initializer : MonoBehaviour
 		}
 		else
 		{
-			int musicNum = MapInfo.Instance.CurrentMapsList.Find(x => x.sceneName == Application.loadedLevelName).backgroundMusic;
+			int musicNum = Globals.CurrentMap.backgroundMusic;
 			GlobalGameController.currentLevel = musicNum;
 			gameObject = Resources.Load("BackgroundMusic/BackgroundMusic_Level" + musicNum) as GameObject;
 		}
@@ -133,8 +133,8 @@ public sealed class Initializer : MonoBehaviour
 		}
 		List<MapInfo.Map> maps = MapInfo.Instance.CurrentMapsList;
 		Debug.LogError(prefs.GetString("MapName"));
-		Vector3 position = maps.Find(x => x.sceneName == Application.loadedLevelName).position;
-		Quaternion rotation = maps.Find(x => x.sceneName == Application.loadedLevelName).rotation;
+		Vector3 position = Globals.CurrentMap.position;
+		Quaternion rotation = Globals.CurrentMap.rotation;
 		tc = UnityEngine.Object.Instantiate(tempCam, position, rotation) as GameObject;
 
 		if (prefs.GetString("TypeConnect").Equals("local"))

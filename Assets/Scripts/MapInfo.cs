@@ -18,6 +18,7 @@ public class MapInfo : MonoBehaviour
 		public Vector3 position;
 
 		public bool hasVarY;
+		public bool negateAbominatorDamage;
 	}
 
 	public static MapInfo Instance

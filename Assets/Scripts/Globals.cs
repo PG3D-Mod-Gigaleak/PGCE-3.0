@@ -19,4 +19,11 @@ public class Globals
 			return WeaponManager.sharedManager.myPlayer;
 		}
 	}
+	public static MapInfo.Map CurrentMap
+	{
+		get
+		{
+			return MapInfo.Instance.CurrentMapsList.Find(x => x.sceneName == Application.loadedLevelName);
+		}
+	}
 }
