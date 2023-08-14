@@ -39,7 +39,7 @@ public class UghAdminDialog : MonoBehaviour
             og.PlayOneShot(ac2);
             yield return new WaitForSeconds(Random.Range(0, 0.1f));
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         Destroy(gameObject);
         yield break;
     }
