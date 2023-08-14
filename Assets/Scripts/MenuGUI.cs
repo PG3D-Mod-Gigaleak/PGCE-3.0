@@ -43,7 +43,7 @@ public class MenuGUI : MonoBehaviour
 	}
 
 	private bool loading;
-	public UIButton optionsBtn, achievementsBtn;
+	public UIButton optionsBtn, achievementsBtn, profileBtn;
 
 	public void EnterOptions() {
 		loading = true;
@@ -63,8 +63,8 @@ public class MenuGUI : MonoBehaviour
 		}
 	}
 
-	private UIButtonColor.State oldState, achOldState;
-	private bool completelyIgnoreStateCHANGES, achCompletelyIgnoreStateCHANGES;
+	private UIButtonColor.State oldState, achOldState, profileOldState;
+	private bool completelyIgnoreStateCHANGES, achCompletelyIgnoreStateCHANGES, profileCompletelyIgnoreStateCHANGES;
 	private float nz = 0;
 
 	private void Update() {
@@ -92,6 +92,24 @@ public class MenuGUI : MonoBehaviour
 				EnterAchievements();
 			}
 		}
+		if (profileOldState != profileBtn.state && !profileCompletelyIgnoreStateCHANGES) {
+			profileOldState = profileBtn.state;
+			if (profileOldState == UIButtonColor.State.Hover) {
+				Tweener j = HOTween.To(profileBtn.transform, .5f, new TweenParms().Prop("localRotation", new Vector3(0, 0, 5)).Ease(EaseType.EaseOutBounce));
+			}
+			if (profileOldState == UIButtonColor.State.Normal) {
+				Tweener j = HOTween.To(profileBtn.transform, .5f, new TweenParms().Prop("localRotation", new Vector3(0, 0, 0)).Ease(EaseType.EaseOutBounce));
+			}
+			if (profileOldState == UIButtonColor.State.Pressed) {
+				EnterProfile();
+			}
+		}
+	}
+
+	private void EnterProfile()
+	{
+		loading = true;
+		Application.LoadLevel("ProfileShop");
 	}
 
 	private void Start() {

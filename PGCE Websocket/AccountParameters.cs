@@ -19,6 +19,8 @@ namespace PGCE
 		public PG3D.Serialization.CategoryEquipList CategoryEquipList;
 		public List<string> Achievements;
 		public List<string> BoughtWeapons;
+		public DateTime ChatBanTime;
+		public DateTime BanTime;
 		public AccountParameters(long id, string authkey)
 		{
 			this.Name = "";
@@ -32,6 +34,8 @@ namespace PGCE
 			this.BoughtWeapons = new List<string>(){"Weapon1", "Weapon2", "Weapon9"};
 			this.AuthKey = authkey;
 			this.IsAdmin = false;
+			this.ChatBanTime = DateTime.MinValue;
+			this.BanTime = DateTime.MinValue;
 		}
 	}
 }

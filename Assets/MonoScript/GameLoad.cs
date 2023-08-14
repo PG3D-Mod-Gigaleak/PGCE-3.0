@@ -11,7 +11,7 @@ using UnityEngine;
 
 public class GameLoad : MonoBehaviour
  {
-	void Start() 
+	IEnumerator Start() 
 	{
 		#if USES_WEBSOCKET
 		Log.Init();
@@ -26,7 +26,14 @@ public class GameLoad : MonoBehaviour
 		Debug.Log("<color=yellow>## IF YOU WANT TO GET YOUR HWID, MAKE SURE <color=#aa0000ff><b>NOBODY</b></color> IS LOOKING!! ##</color>");
 		Debug.LogWarning("Your HWID is " + IncomprehensibleGarbler.GetMacAddress());
 		#endif
+		#if USES_WEBSOCKET
+		currentTask.text = "Awaiting server response";
+		yield return new WaitUntil(() => WebsocketHandler.WSIsAlive);
 		BeginLoading();
+		#else
+		BeginLoading();
+		#endif
+		yield break;
 	}
 
 	public void BeginLoading()

@@ -52,7 +52,7 @@ namespace handler.logger
 		{
 			EnsureInitialized();
 			string text = $"[{DateTime.Now.ToShortDateString()}///{DateTime.Now.ToShortTimeString()}] [{logType.ToString().ToUpper()}]\n{line}\n\n";
-			File.AppendAllText("./output-log.txt", text);
+			//File.AppendAllText("./output-log.txt", text);
 		}
 	}
 }

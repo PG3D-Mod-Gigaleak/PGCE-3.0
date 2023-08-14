@@ -25,19 +25,27 @@ namespace PGCE
 			Dictionary<string, object> output = new Dictionary<string, object>();
 			if (action == "ensure_ws_alive")
 			{
-				if (givenInput.ContainsKey("uid") && givenInput.ContainsKey("ak"))
+				try
 				{
-					AccountParameters? result = Helpers.GetAccountInfo(givenInput["uid"]);
-					if (result == null) {
-						throw new Exception("Result was NULL!");
+					if (givenInput.ContainsKey("uid") && givenInput.ContainsKey("ak"))
+					{
+						AccountParameters? result = Helpers.GetAccountInfo(givenInput["uid"]);
+						if (result == null) {
+							throw new Exception("Result was NULL!");
+						}
+						AccountParameters confirmedResult = (AccountParameters)result;
+						if (!Helpers.MatchingHash2Nonhash((string)givenInput["ak"], confirmedResult.AuthKey))
+							throw new Exception("Authkey invalid");
+						if (Helpers.AccountBanned(confirmedResult))
+							throw new Exception("The account is banned");
 					}
-					AccountParameters confirmedResult = (AccountParameters)result;
-					if (!Helpers.MatchingHash2Nonhash((string)givenInput["ak"], confirmedResult.AuthKey))
-						throw new Exception("Authkey invalid");
-					if (Helpers.AccountBanned(confirmedResult))
-						throw new Exception("The account is banned");
+					output["response"] = "success";
 				}
-				output["response"] = "success";
+				catch (Exception exception)
+				{
+					output["response"] = "failed";
+					output["cause"] = $"{exception.Message}";
+				}
 			}
 			else if (action == "close_session")
 			{
@@ -116,6 +124,16 @@ namespace PGCE
 						throw new Exception("Authkey invalid");
 					if (Helpers.AccountBanned(confirmedResult))
 						throw new Exception("The account is banned");
+					if (Helpers.AccountChatBanned(confirmedResult))
+					{
+						Sessions.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
+							{"type", "send"},
+							{"recvid", Convert.ToInt64((string)givenInput["uid"])},
+							{"action", "recv-chatbanned"},
+							{"response", "success"},
+						})));
+						throw new Exception("The account is chat banned");
+					}
 					Sessions.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
 						{"type", "send"},
 						{"text", $"<{confirmedResult.Name}> {PG3D.FilterBadWorld.FilterString((string)givenInput["msg"])}"},
@@ -126,6 +144,10 @@ namespace PGCE
 				}
 				catch (Exception exception)
 				{
+					Server.SendEmbed("Error while sending chat message", $"", 0xFF0000, new dField[]{
+						new dField("Dispatcher ID", Convert.ToString((string)givenInput["uid"]), false),
+						new dField("Error", exception.ToString(), false),
+					});
 					output["response"] = "failed";
 					output["cause"] = $"{exception.Message}";
 				}
@@ -452,7 +474,7 @@ namespace PGCE
 			else
 			{
 				Server.SendEmbed("Called nonexistent action", $"The action called was {action}, which is not implemented or does not exist.", 0xFF0000, new dField[]{
-					new dField("Dispatcher ID", Convert.ToString((string)givenInput["uid"]), false),
+					new dField("Dispatcher ID (or null)", (givenInput.ContainsKey("uid") ? Convert.ToString((string)givenInput["uid"]) : ""), false),
 				});
 				output["response"] = "failed";
 				output["cause"] = $"Unimplemented action {action}";
@@ -573,6 +595,13 @@ namespace PGCE
 							: new string[] { element })
 						.SelectMany(element => element).ToList();
 					string command = commandWArgs[0];
+					if (command == ".encrypt")
+					{
+						if (commandWArgs.Count > 1)
+						{
+							Console.WriteLine($"[COMMAND::ENCRYPT] Encrypted result: \"{Helpers.Encrypt(commandWArgs[1])}\"");
+						}
+					}
 					if (command == ".unban_user")
 					{
 						if (commandWArgs.Count > 1)

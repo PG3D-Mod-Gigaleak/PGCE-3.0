@@ -36,7 +36,7 @@ public class ProfileShopNGUIController : MonoBehaviour {
 	}
 	public void Back() {
 		Debug.Log("let me out!!!");
-		Application.LoadLevel("NewMapList");
+		Application.LoadLevel(Defs.CurrentMainMenuScene);
 	}
 	public UIToggle catEarsToggle;
 	private bool canActuallySet = false;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Holoville.HOTween;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class MapMenu : MonoBehaviour
@@ -55,8 +56,8 @@ public class MapMenu : MonoBehaviour
 		connectionArgs["uid"] = handler.data.UserController.Instance.ID;
 		connectionArgs["ak"] = handler.data.UserController.Instance.AuthKey;
 		connectionArgs["coop"] = prefs.GetInt("COOP", 0);
-		WebsocketHandler.CallAction("request_connection", (string data) => {
-			Dictionary<string, object> resultDictionary = WebsocketHandler.Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
+		handler.networking.WebsocketHandler.CallAction("request_connection", (string data) => {
+			Dictionary<string, object> resultDictionary = handler.networking.WebsocketHandler.Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
 			if ((string)resultDictionary["response"] == "success")
 			{
 				PhotonNetwork.ConnectUsingSettings((string)resultDictionary["settings"]);
@@ -77,7 +78,7 @@ public class MapMenu : MonoBehaviour
 	public void OnJoinedLobby()
 	{
 		#if USES_WEBSOCKET
-		Log.AddLine("[ConnectGUI::OnJoinedLobby] OnConnectedToPhoton");
+		handler.logger.Log.AddLine("[ConnectGUI::OnJoinedLobby] OnConnectedToPhoton");
 		#endif
 		RealStart();
 	}

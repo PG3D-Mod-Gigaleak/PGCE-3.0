@@ -54,11 +54,27 @@ namespace PGCE
 		{
 			if (GetAccountInfo(id) == null)
 				return false;
-			return ((AccountParameters)GetAccountInfo(id)).Banned;
+			AccountParameters accountParameters = GetAccountInfo(id).GetValueOrDefault();
+			return AccountBanned(accountParameters);
 		}
 		public static bool AccountBanned(AccountParameters accountParameters)
 		{
-			return accountParameters.Banned;
+			if (accountParameters.Banned)
+				return true;
+			return DateTime.Now < accountParameters.BanTime;
+		}
+		public static bool AccountChatBanned(long id)
+		{
+			if (GetAccountInfo(id) == null)
+				return false;
+			AccountParameters accountParameters = GetAccountInfo(id).GetValueOrDefault();
+			return AccountChatBanned(accountParameters);
+		}
+		public static bool AccountChatBanned(AccountParameters accountParameters)
+		{
+			if (accountParameters.Banned)
+				return true;
+			return DateTime.Now < accountParameters.ChatBanTime;
 		}
 		public static bool BanAccount(long id)
 		{
@@ -116,6 +132,37 @@ namespace PGCE
 				Console.WriteLine($"[Helpers::BanAccount] Error while banning: {e.Message}");
 				return false;
 			}
+		}
+		public static string Encrypt(string a)
+        {
+            int num = 9933;
+            char[] b = new char[a.Length];
+            int i = 0;
+            foreach (char c in a)
+            {
+                b[i] = (char)(c + num);
+                num *= 2;
+                i++;
+            }
+            return new string(b);
+        }
+        public static string Decrypt(string a)
+        {
+            int num = 9933;
+            char[] b = new char[a.Length];
+            int i = 0;
+            foreach (char c in a)
+            {
+                b[i] = (char)(c - num);
+                num *= 2;
+                i++;
+            }
+            return new string(b);
+        }
+		public static string GUIDFromTime(DateTime time)
+		{
+			string result = "";
+			return result;
 		}
 		public static AccountParameters? GetAccountInfo(object id)
 		{
