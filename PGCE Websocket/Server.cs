@@ -103,6 +103,33 @@ namespace PGCE
 					output["cause"] = $"{exception.Message}";
 				}
 			}
+			else if (action == "send_chat")
+			{
+				try
+				{
+					AccountParameters? result = Helpers.GetAccountInfo(givenInput["uid"]);
+					if (result == null) {
+						throw new Exception("User does not exist!");
+					}
+					AccountParameters confirmedResult = (AccountParameters)result;
+					if (!Helpers.MatchingHash2Nonhash((string)givenInput["ak"], confirmedResult.AuthKey))
+						throw new Exception("Authkey invalid");
+					if (Helpers.AccountBanned(confirmedResult))
+						throw new Exception("The account is banned");
+					Sessions.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
+						{"type", "send"},
+						{"text", $"<{confirmedResult.Name}> {PG3D.FilterBadWorld.FilterString((string)givenInput["msg"])}"},
+						{"action", "recv-chat"},
+						{"response", "success"},
+					})));
+					output["response"] = "success";
+				}
+				catch (Exception exception)
+				{
+					output["response"] = "failed";
+					output["cause"] = $"{exception.Message}";
+				}
+			}
 			else if (action == "update_player")
 			{
 				try

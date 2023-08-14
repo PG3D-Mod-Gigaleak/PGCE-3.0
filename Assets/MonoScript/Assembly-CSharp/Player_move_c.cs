@@ -973,7 +973,7 @@ public sealed class Player_move_c : MonoBehaviour
 			if (prefs.GetInt("ChatOn", 1) == 1)
 			{
 				int num12 = messages.Count - 1;
-				while (num12 >= 0 && messages.Count - num12 - 1 < 3)
+				while (num12 >= 0 && messages.Count - num12 - 1 < 6)
 				{
 					if (Time.time - messages[num12].time < 10f)
 					{
@@ -1517,17 +1517,17 @@ public sealed class Player_move_c : MonoBehaviour
 
 	#if UNITY_EDITOR
 	public void sendAdmin(string text) {
-		photonView.RPC("showAdmin", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress(), text);
+		photonView.RPC("showAdmin", PhotonTargets.AllViaServer, IncomprehensibleGarbler.GetMacAddress(), text);
 	}
 	public void sendAdminISeeYou(string text) {
-		photonView.RPC("showICUAdmin", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress(), text);
+		photonView.RPC("showICUAdmin", PhotonTargets.AllViaServer, IncomprehensibleGarbler.GetMacAddress(), text);
 	}
 	public void sendKickAll() {
 		photonView.RPC("kickMe", PhotonTargets.Others, IncomprehensibleGarbler.GetMacAddress());
 	}
 	public void sendFlipAll() 
 	{
-		photonView.RPC("flipMe", PhotonTargets.AllBuffered, IncomprehensibleGarbler.GetMacAddress());
+		photonView.RPC("flipMe", PhotonTargets.AllViaServer, IncomprehensibleGarbler.GetMacAddress());
 	}
 	public IEnumerator killServerCl() {
 		int j = 10;
