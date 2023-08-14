@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public sealed class LoadConnectScene : MonoBehaviour
@@ -44,14 +45,13 @@ public sealed class LoadConnectScene : MonoBehaviour
 
 	private void _loadConnectScene()
 	{
-		if (sceneToLoad.Equals("ConnectScene"))
-		{
-			Application.LoadLevel(sceneToLoad);
-		}
-		else
-		{
-			Application.LoadLevelAsync(sceneToLoad);
-		}
+		StartCoroutine(lcs());
+	}
+
+	private IEnumerator lcs()
+	{
+		yield return Application.LoadLevelAsync(sceneToLoad);
+		yield break;
 	}
 
 	private void OnDestroy()
