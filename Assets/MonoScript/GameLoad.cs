@@ -54,7 +54,7 @@ public class GameLoad : MonoBehaviour
 			}
 			//if (i % 4 == 0)
 			//{
-				yield return null;
+			//	yield return null;
 			//}
 		}
 		if (Debug.isDebugBuild)
@@ -65,10 +65,15 @@ public class GameLoad : MonoBehaviour
 		{
 			StartCoroutine(CacheAllPhotonViewItems());
 		}
+		yield break;
 	}
 	public void Done() {
+		StartCoroutine(DoneC());
+	}
+	private IEnumerator DoneC() {
 		currentTask.text = "done! loading into the menu...";
-		Application.LoadLevel("Loading");
+		yield return Application.LoadLevelAsync("Loading");
+		yield break;
 	}
 	public IEnumerator LoadEnemies()
 	{
@@ -83,9 +88,9 @@ public class GameLoad : MonoBehaviour
 			}
 			currentTask.text = "Loading Enemy (" + obj.name + ")";
 			Encyclopedia.storedEntities.Add(obj as GameObject);
-			yield return null;
 		}
 		StartCoroutine(LoadBosses());
+		yield break;
 	}
 	public IEnumerator CacheAllPhotonViewItems() {
 		#if UNITY_EDITOR
@@ -93,19 +98,15 @@ public class GameLoad : MonoBehaviour
 		currentTask.text = "Caching PhotonView Objects (might take a while!)";
 		GameObject[] allObjects = Resources.LoadAll<GameObject>("");
 		yield return allObjects;
-		yield return null;
 		GameObject[] photonObjects = (from go in allObjects where go.GetComponent<PhotonView>() != null select go).ToArray();
 		yield return photonObjects;
-		yield return null;
 		int i = 0;
 		foreach (GameObject photonObject in photonObjects) {
 			MiscCache.photonViewGameObjects.Add(photonObject);
 			currentTask.text = "Adding to cache (" + i + "/" + photonObjects.Length + ")";
 			i++;
-			yield return null;
 		}
 		#endif
-		yield return null;
 		Done();
 		yield break;
 	}
@@ -114,7 +115,6 @@ public class GameLoad : MonoBehaviour
 	{
 	    List<SurvivalConfig.Enemy> foundEnemies = new List<SurvivalConfig.Enemy>();
 		currentTask.text = "Sorting Enemies Into Dictionary";
-		yield return null;
 	    foreach (SurvivalConfig.BaseLevel possibleLevel in Defs.m_SurvivalConfig.levels.levels)
 	    {
 			foreach (SurvivalConfig.LevelSettings level in possibleLevel.PossibleLevels)
@@ -140,7 +140,7 @@ public class GameLoad : MonoBehaviour
 	    }
 	    Encyclopedia.parsedEnemies.AddRange(foundEnemies);
 		StartCoroutine(CacheAllPhotonViewItems());
-		yield return null;
+		yield break;
 	}
 
 	public IEnumerator LoadBosses()
@@ -156,8 +156,8 @@ public class GameLoad : MonoBehaviour
 			}
 			currentTask.text = "Loading Boss (" + obj.name + ")";
 			Encyclopedia.storedEntities.Add(obj as GameObject);
-			yield return null;
 		}
 		StartCoroutine(LoadEnemiesIntoDictionary());
+		yield break;
 	}
 }

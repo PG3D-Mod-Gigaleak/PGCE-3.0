@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -121,14 +122,6 @@ public sealed class Switcher : MonoBehaviour
 			fonToDraw = Resources.Load(Path.Combine(LoadingInResourcesPath, Defs.GetLoadingNameFromRandomByIndex((GlobalGameController.currentLevel == GlobalGameController.levelMapping[0]) ? (GlobalGameController.levelMapping[0] + 1) : 0))) as Texture;
 		}
 		Debug.Log("2 GlobalGameController.currentLevel " + GlobalGameController.currentLevel);
-		if (NoWait)
-		{
-			LoadMenu();
-		}
-		else
-		{
-			Invoke("LoadMenu", 2f);
-		}
 		if (!GameObject.FindGameObjectWithTag("SkinsManager") && (bool)skinsManagerPrefab)
 		{
 			Object.Instantiate(skinsManagerPrefab, Vector3.zero, Quaternion.identity);
@@ -360,6 +353,14 @@ public sealed class Switcher : MonoBehaviour
 			}
 		}
 		Object.Instantiate(coinsShopPrefab);
+		if (NoWait)
+		{
+			LoadMenu();
+		}
+		else
+		{
+			Invoke("LoadMenu", Time.unscaledDeltaTime);
+		}
 	}
 
 	private void Method()
@@ -382,6 +383,10 @@ public sealed class Switcher : MonoBehaviour
 	}
 
 	private void LoadMenu()
+	{
+		StartCoroutine(a());
+	}
+	private IEnumerator a()
 	{
 		string text;
 		switch (GlobalGameController.currentLevel)
@@ -442,6 +447,7 @@ public sealed class Switcher : MonoBehaviour
 			GlobalGameController.incrementLevel();
 		}
 		Debug.Log("3 GlobalGameController.currentLevel " + GlobalGameController.currentLevel);
-		Application.LoadLevel(text);
+		yield return Application.LoadLevelAsync(text);
+		yield break;
 	}
 }

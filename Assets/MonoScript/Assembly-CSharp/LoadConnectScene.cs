@@ -16,7 +16,7 @@ public sealed class LoadConnectScene : MonoBehaviour
 		//{
 		//	loading = MenuSettings.GetCurrentMenu.loading;
 		//}
-		Invoke("_loadConnectScene", 2f);
+		Invoke("_loadConnectScene", Time.unscaledDeltaTime);
 		//aInd = StoreKitEventListener.purchaseActivityInd;
 		//if (aInd == null)
 		//{
