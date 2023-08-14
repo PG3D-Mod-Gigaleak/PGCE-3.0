@@ -112,21 +112,31 @@ public class FirstPersonControl : MonoBehaviour
 		isMine = true;
 	}
 
+	private float lerpup(ref float x, ref float y)
+	{
+		return Mathf.Lerp(x, y * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult * (Globals.PlayerMove.crouching ? 0.25f : 1f), 0.05f);
+	}
+
+	private float lerpdown(ref float x)
+	{
+		return Mathf.Lerp(x, 0, 0.05f);
+	}
+
 	public virtual void SetSpeedModifier()
 	{
 		try {
 			bool xz = (Globals.PlayerMove.walking || !isGrounded);
 			if (!(startForwardSpeed <= 0f))
 			{
-				forwardSpeed = (xz ? Mathf.Lerp(forwardSpeed, startForwardSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult * (Globals.PlayerMove.crouching ? 0.25f : 1f), 0.05f) : 0);
+				forwardSpeed = (xz ? lerpup(ref forwardSpeed, ref startForwardSpeed) : lerpdown(ref forwardSpeed));
 			}
 			if (!(startBackwardSpeed <= 0f))
 			{
-				backwardSpeed = (xz ? Mathf.Lerp(forwardSpeed, startBackwardSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult * (Globals.PlayerMove.crouching ? 0.25f : 1f), 0.05f) : 0);
+				backwardSpeed = (xz ? lerpup(ref backwardSpeed, ref startBackwardSpeed) : lerpdown(ref backwardSpeed));
 			}
 			if (!(startSidestepSpeed <= 0f))
 			{
-				sidestepSpeed = (xz ? Mathf.Lerp(forwardSpeed, startSidestepSpeed * Globals.PlayerMove.GetSpeedMod() * bhopSpeedMult * (Globals.PlayerMove.crouching ? 0.25f : 1f), 0.05f) : 0);
+				sidestepSpeed = (xz ? lerpup(ref sidestepSpeed, ref startSidestepSpeed) : lerpdown(ref sidestepSpeed));
 			}
 		} catch {
 
@@ -408,6 +418,6 @@ public class FirstPersonControl : MonoBehaviour
 		float @float = prefs.GetFloat("SensitivitySett", 12f);
 		vector2 *= Time.deltaTime * @float;
 		thisTransform.Rotate(0f, vector2.x, 0f, Space.World);
-		cameraPivot.Rotate(0f - vector2.y * (_playerGun.GetComponent<Player_move_c>().isGravFlipped ? -1 : 1), 0f, 0f);
+		cameraPivot.Rotate(0f - vector2.y * (Globals.PlayerMove.isGravFlipped ? -1 : 1), 0f, 0f);
 	}
 }
