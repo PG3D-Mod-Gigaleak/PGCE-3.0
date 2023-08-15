@@ -3740,7 +3740,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		if (!Application.isMobilePlatform && isMine)
 		{
-			if (Input.GetKey("e") && _weaponManager.currentWeaponSounds.hasAlternateShot)
+			if (Input.GetKey("g") && _weaponManager.currentWeaponSounds.hasAlternateShot)
 			{
 				ShotPressed(true);
 			}

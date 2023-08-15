@@ -132,9 +132,19 @@ public sealed class Initializer : MonoBehaviour
 			return;
 		}
 		List<MapInfo.Map> maps = MapInfo.Instance.CurrentMapsList;
-		Debug.LogError(prefs.GetString("MapName"));
-		Vector3 position = Globals.CurrentMap.position;
-		Quaternion rotation = Globals.CurrentMap.rotation;
+		Vector3 position = Vector3.zero;
+		Quaternion rotation = Quaternion.identity;
+		if (GameObject.Find("InitCam"))
+		{
+			GameObject ic = GameObject.Find("InitCam");
+			position = ic.transform.position;
+			rotation = ic.transform.rotation;
+		}
+		else
+		{
+			position = Globals.CurrentMap.position;
+			rotation = Globals.CurrentMap.rotation;
+		}
 		tc = UnityEngine.Object.Instantiate(tempCam, position, rotation) as GameObject;
 
 		if (prefs.GetString("TypeConnect").Equals("local"))
