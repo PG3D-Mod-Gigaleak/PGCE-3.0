@@ -179,7 +179,7 @@ namespace PGCE
 				}
 				catch (Exception exception)
 				{
-					Server.SendEmbed("Error while sending chat message", $"", 0xFF0000, new dField[]{
+					Server.SendEmbed("Error while sending banning user:", $"", 0xFF0000, new dField[]{
 						new dField("Dispatcher ID", Convert.ToString((string)givenInput["uid"]), false),
 						new dField("Error", exception.ToString(), false),
 					});
@@ -485,15 +485,16 @@ namespace PGCE
 						throw new Exception("Authkey invalid");
 					if (Helpers.AccountBanned(confirmedResult))
 						throw new Exception("The account is banned");
-					// TEMPORARY!!! HAVE TO SWITCH TO DYNAMIC SETTINGS AT ONE POINT FOR MORE SECURITY I GUESS
+					string s = Helpers.GUIDFromTime(DateTime.Today);
 					Server.SendEmbed("Photon Connection Requested", "", 0x00FF00, new dField[]{
 						new dField("User ID", Convert.ToString((string)givenInput["uid"]), true),
+						new dField("Given connection settings", s, true),
 						new dField("Is COOP", Convert.ToString((string)givenInput["coop"] == "1"), true),
 					});
 					if (Convert.ToString((string)givenInput["coop"]) == "1")
-						output["settings"] = "v3.11COOP";
+						output["settings"] = $"{s}COOP";
 					else
-						output["settings"] = "v3.11";
+						output["settings"] = s;
 					output["response"] = "success";
 				}
 				catch (Exception exception)
@@ -596,6 +597,7 @@ namespace PGCE
 		{
 			Console.Clear();
 			InitDB();
+			Helpers.InitializeEncryption();
 			var wssv = new WebSocketServer(8083);
 			wssv.AddWebSocketService<Action>("/action");
 			wssv.Start();
@@ -634,7 +636,7 @@ namespace PGCE
 					{
 						if (commandWArgs.Count > 1)
 						{
-							Console.WriteLine($"[COMMAND::ENCRYPT] Encrypted result: \"{Helpers.Encrypt(commandWArgs[1])}\"");
+							Console.WriteLine($"[COMMAND::ENCRYPT] Encrypted result: \"{Helpers.EncryptString(commandWArgs[1])}\"");
 						}
 					}
 					if (command == ".unban_user")

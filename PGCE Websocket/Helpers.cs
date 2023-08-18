@@ -133,35 +133,81 @@ namespace PGCE
 				return false;
 			}
 		}
-		public static string Encrypt(string a)
-        {
-            int num = 9933;
-            char[] b = new char[a.Length];
-            int i = 0;
-            foreach (char c in a)
-            {
-                b[i] = (char)(c + num);
-                num *= 2;
-                i++;
-            }
-            return new string(b);
-        }
-        public static string Decrypt(string a)
-        {
-            int num = 9933;
-            char[] b = new char[a.Length];
-            int i = 0;
-            foreach (char c in a)
-            {
-                b[i] = (char)(c - num);
-                num *= 2;
-                i++;
-            }
-            return new string(b);
-        }
+		public static byte[] Key { get; set; }
+		public static byte[] IV { get; set; }
+		public static string Password 
+		{ 
+			get
+			{
+				// https://pinetools.com/random-string-generator
+				// length: 64
+				return "1LKJJ3%T5nn7xupp.}S36cie3i[D_V@2CB/%.+k/[@Z&6KMDZxCJ6_5$SxFui*0f";
+			} 
+		}
+		public static void InitializeEncryption()
+		{
+			byte[] salt = GenerateSalt();
+			Rfc2898DeriveBytes keyDerivation = new Rfc2898DeriveBytes(Password, salt, 10000, HashAlgorithmName.SHA256);
+			Key = keyDerivation.GetBytes(32); // AES-256 key size
+			IV = keyDerivation.GetBytes(16); // AES block size
+		}
+		public static byte[] GenerateSalt()
+		{
+			byte[] salt = new byte[16];
+			using (RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
+			{
+				rngCsp.GetBytes(salt);
+			}
+			return salt;
+		}
+		public static string EncryptString(string plainText)
+		{
+			using (Aes aesAlg = Aes.Create())
+			{
+				aesAlg.Key = Key;
+				aesAlg.IV = IV;
+
+				ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+				using (MemoryStream msEncrypt = new MemoryStream())
+				{
+					using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+					{
+						using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+						{
+							swEncrypt.Write(plainText);
+						}
+					}
+
+					return Convert.ToBase64String(msEncrypt.ToArray());
+				}
+			}
+		}
+
+		public static string DecryptString(string cipherText)
+		{
+			using (Aes aesAlg = Aes.Create())
+			{
+				aesAlg.Key = Key;
+				aesAlg.IV = IV;
+
+				ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+				using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText)))
+				{
+					using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+					{
+						using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+						{
+							return srDecrypt.ReadToEnd();
+						}
+					}
+				}
+			}
+		}
 		public static string GUIDFromTime(DateTime time)
 		{
-			string result = "";
+			string result = EncryptString(time.ToLongDateString() + "///" + time.ToLongTimeString() + "-v3.0");
 			return result;
 		}
 		public static AccountParameters? GetAccountInfo(object id)
