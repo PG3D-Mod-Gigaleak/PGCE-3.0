@@ -126,7 +126,7 @@ namespace PGCE
 						throw new Exception("The account is banned");
 					if (Helpers.AccountChatBanned(confirmedResult))
 					{
-						Sessions.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
+						Send(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
 							{"type", "send"},
 							{"recvid", Convert.ToInt64((string)givenInput["uid"])},
 							{"action", "recv-chatbanned"},
@@ -249,7 +249,7 @@ namespace PGCE
 						throw new Exception("The account isn't admin");
 					confirmedResult.Coins += 99999;
 					Helpers.UpdateParameters(Convert.ToInt64((string)givenInput["uid"]), confirmedResult);
-					Sessions.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
+					Send(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
 						{"type", "send"},
 						{"recvid", Convert.ToInt64((string)givenInput["uid"])},
 						{"action", "recv-forceupdate-user"},
@@ -284,7 +284,7 @@ namespace PGCE
 						throw new Exception("The account isn't admin");
 					confirmedResult.Achievements.Clear();
 					Helpers.UpdateParameters(Convert.ToInt64((string)givenInput["uid"]), confirmedResult);
-					Sessions.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
+					Send(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
 						{"type", "send"},
 						{"recvid", Convert.ToInt64((string)givenInput["uid"])},
 						{"action", "recv-forceupdate-user"},
@@ -335,7 +335,7 @@ namespace PGCE
 						new dField("Expected end-result coins", Convert.ToString(oldCoins-price), false),
 						new dField("Actual end-result coins", Convert.ToString(confirmedResult.Coins), false),
 					});
-					Sessions.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
+					Send(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
 						{"type", "send"},
 						{"recvid", Convert.ToInt64((string)givenInput["uid"])},
 						{"action", "recv-forceupdate-user"},
@@ -378,8 +378,7 @@ namespace PGCE
 						new dField("Achievement ID", achievement, false),
 					});
 					output["response"] = "success";
-					Send(JsonConvert.SerializeObject(Encryption.Encrypt(output)));
-					Sessions.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
+					Send(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
 						{"type", "send"},
 						{"recvid", Convert.ToInt64((string)givenInput["uid"])},
 						{"action", "recv-forceupdate-user"},
@@ -421,7 +420,7 @@ namespace PGCE
 						new dField("Dispatcher name", confirmedResult.Name, true),
 						new dField("Weapon name", weaponName, false),
 					});
-					Sessions.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
+					Send(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
 						{"type", "send"},
 						{"recvid", Convert.ToInt64((string)givenInput["uid"])},
 						{"action", "recv-forceupdate-user"},
