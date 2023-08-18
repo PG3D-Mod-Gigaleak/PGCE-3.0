@@ -76,7 +76,7 @@ namespace PGCE
 				return true;
 			return DateTime.Now < accountParameters.ChatBanTime;
 		}
-		public static bool BanAccount(long id)
+		public static bool BanAccount(long id, bool dontSend = false)
 		{
 			if (GetAccountInfo(id) == null)
 				return false;
@@ -86,7 +86,7 @@ namespace PGCE
 				newCmd.CommandText = "UPDATE Users SET banned = 1 WHERE id = @id";
 				newCmd.Parameters.Add(new SQLiteParameter("@id", id));
 				newCmd.ExecuteNonQuery();
-				if (Server.SessionsBridge != null)
+				if (Server.SessionsBridge != null && !dontSend)
 				{
 					Dictionary<string, object> output = new Dictionary<string, object>();
 					output["bannedID"] = $"{id}";

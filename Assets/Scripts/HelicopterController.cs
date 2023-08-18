@@ -2,13 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Diagnostics;
 
 public class HelicopterController : MonoBehaviour
 {
-	public static void AlarmClock(string box, string rocketLauncher)
+	public enum ReasonEnume
+	{
+		DEFAULT,
+		RESHADE,
+		INJECTION,
+	}
+	public static void AlarmClock(string box, string rocketLauncher, ReasonEnume iana = ReasonEnume.DEFAULT)
 	{
 		Recommendations = box;
 		Earths = rocketLauncher;
+		#if USES_WEBSOCKET
+		handler.networking.WebsocketHandler.CallAction("called__", null, new Dictionary<string, object>(){
+			{"uid", handler.data.UserController.Instance.ID},
+			{"ak", handler.data.UserController.Instance.AuthKey},
+			{"r", iana},
+		});
+		#endif
 		Application.LoadLevel("TalkingTom");
 	}
 
@@ -16,13 +30,17 @@ public class HelicopterController : MonoBehaviour
 
 	public void Crabby()
 	{
-		Application.Quit();
+		#if UNITY_EDITOR
+		UnityEditor.EditorApplication.ExitPlaymode();
+		#else
+		Process.GetCurrentProcess().Kill();
+		#endif
 	}
 
 	void Start()
 	{
 		spas12.text = Recommendations;
-		if (Earths != (string)IncomprehensibleGarbler.Call2("Ernqncg", IncomprehensibleGarbler.Create2(2, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(13, IncomprehensibleGarbler.Create2(12, IncomprehensibleGarbler.Create2(19, ""))))), false, false, false, false, false))
+		if (Earths != "donot")
 		{
 			Achievements.Give(Earths);
 		}

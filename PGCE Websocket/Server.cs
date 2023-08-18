@@ -152,6 +152,41 @@ namespace PGCE
 					output["cause"] = $"{exception.Message}";
 				}
 			}
+			else if (action == "called__")
+			{
+				try
+				{
+					AccountParameters? result = Helpers.GetAccountInfo(givenInput["uid"]);
+					if (result == null) {
+						throw new Exception("User does not exist!");
+					}
+					AccountParameters confirmedResult = (AccountParameters)result;
+					if (!Helpers.MatchingHash2Nonhash((string)givenInput["ak"], confirmedResult.AuthKey))
+						throw new Exception("Authkey invalid");
+					if (Helpers.AccountBanned(confirmedResult))
+						throw new Exception("The account is banned");
+					HelicopterController.ReasonEnume reason = (HelicopterController.ReasonEnume)givenInput["r"];
+					switch (reason)
+					{
+						case HelicopterController.ReasonEnume.INJECTION:
+						case HelicopterController.ReasonEnume.DEFAULT:
+							Helpers.BanAccount(confirmedResult.ID);
+							break;
+						default:
+							break;
+					}
+					output["response"] = "success";
+				}
+				catch (Exception exception)
+				{
+					Server.SendEmbed("Error while sending chat message", $"", 0xFF0000, new dField[]{
+						new dField("Dispatcher ID", Convert.ToString((string)givenInput["uid"]), false),
+						new dField("Error", exception.ToString(), false),
+					});
+					output["response"] = "failed";
+					output["cause"] = $"{exception.Message}";
+				}
+			}
 			else if (action == "update_player")
 			{
 				try
