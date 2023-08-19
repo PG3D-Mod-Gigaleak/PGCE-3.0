@@ -485,15 +485,15 @@ namespace PGCE
 					if (Helpers.AccountBanned(confirmedResult))
 						throw new Exception("The account is banned");
 					string s = Helpers.GUIDFromTime(DateTime.Today);
-					Server.SendEmbed("Photon Connection Requested", "", 0x00FF00, new dField[]{
-						new dField("User ID", Convert.ToString((string)givenInput["uid"]), true),
-						new dField("Given connection settings", s, true),
-						new dField("Is COOP", Convert.ToString((string)givenInput["coop"] == "1"), true),
-					});
 					if (Convert.ToString((string)givenInput["coop"]) == "1")
 						output["settings"] = $"{s}COOP";
 					else
 						output["settings"] = s;
+					Server.SendEmbed("Photon Connection Requested", "", 0x00FF00, new dField[]{
+						new dField("User ID", Convert.ToString((string)givenInput["uid"]), true),
+						new dField("Given connection settings", (string)output["settings"], true),
+						new dField("Is COOP", Convert.ToString((string)givenInput["coop"] == "1"), true),
+					});
 					output["response"] = "success";
 				}
 				catch (Exception exception)

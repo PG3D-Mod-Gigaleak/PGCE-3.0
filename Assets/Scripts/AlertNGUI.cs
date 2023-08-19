@@ -15,6 +15,7 @@ public class AlertNGUI : MonoBehaviour
 		AlertNGUI x = j.GetComponent<AlertNGUI>();
 		x.left = timeToCrash;
 		x.tL.text = text;
+		DontDestroyOnLoad(j);
 	}
 	private void Update()
 	{

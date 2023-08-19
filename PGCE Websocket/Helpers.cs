@@ -154,7 +154,7 @@ namespace PGCE
 		public static byte[] GenerateSalt()
 		{
 			byte[] salt = new byte[16];
-			using (RNGCryptoServiceProvider rngCsp = new RNGCryptoServiceProvider())
+			using (RandomNumberGenerator rngCsp = RandomNumberGenerator.Create())
 			{
 				rngCsp.GetBytes(salt);
 			}
