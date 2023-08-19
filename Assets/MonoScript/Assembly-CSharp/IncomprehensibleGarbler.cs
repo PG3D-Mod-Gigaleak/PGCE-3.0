@@ -161,7 +161,7 @@ public class IncomprehensibleGarbler {
         byte[] destroy = Encoding.UTF8.GetBytes(rot), thorn = amazed.ComputeHash(destroy);
         string psi = "";
         foreach (byte delta in thorn) {
-            psi += Call("Pbaireg2Fgevat", delta);
+            psi += Call("GbFgevatk2", delta);
         }
         return (IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create2(3, "")) == IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create(0, "")) ? psi == breaking : false);
     }
