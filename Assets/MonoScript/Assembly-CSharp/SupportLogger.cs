@@ -43,6 +43,7 @@ public class SupportLogging : MonoBehaviour
         this.CancelInvoke();
     }
 
+    [Beebyte.Obfuscator.SkipRename]
     public void LogStats()
     {
         if (this.LogTrafficStats)

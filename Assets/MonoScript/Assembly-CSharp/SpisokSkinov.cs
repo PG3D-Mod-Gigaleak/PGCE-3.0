@@ -737,6 +737,7 @@ public sealed class SpisokSkinov : MonoBehaviour
 		ViborChastiTela.skinIzm = false;
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	public void hideMsg()
 	{
 		msgSaveShow = false;
@@ -832,11 +833,13 @@ public sealed class SpisokSkinov : MonoBehaviour
 		TwitterManager.requestDidFinishEvent -= OnTwitterPost;
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void hideMessag()
 	{
 		showMessagFacebook = false;
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void hideMessagTwitter()
 	{
 		showMessagTiwtter = false;

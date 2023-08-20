@@ -378,6 +378,7 @@ public class UIDragDropItem : MonoBehaviour
 	/// Reason: http://www.tasharen.com/forum/index.php?topic=10203.0
 	/// </summary>
 
+	[Beebyte.Obfuscator.SkipRename]
 	protected void EnableDragScrollView ()
 	{
 		if (mDragScrollView != null)

@@ -125,6 +125,7 @@ public sealed class GameOver : MonoBehaviour
 		coinsPlashka.thisScript.enabled = true;
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void setAppropriateProducts()
 	{
 		_products = _listener._products;

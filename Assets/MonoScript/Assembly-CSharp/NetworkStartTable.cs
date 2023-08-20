@@ -455,6 +455,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	public void startPlayer()
 	{
 		_playerPrefab = Resources.Load("Player") as GameObject;
@@ -615,6 +616,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		component2.viewID = _id;
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	public void synchState()
 	{
 		if (prefs.GetInt("COOP", 0) == 0)
@@ -698,11 +700,13 @@ public sealed class NetworkStartTable : MonoBehaviour
 		TwitterManager.requestDidFinishEvent -= OnTwitterPost;
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void hideMessag()
 	{
 		showMessagFacebook = false;
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void hideMessagTwitter()
 	{
 		showMessagTiwtter = false;

@@ -16,6 +16,7 @@ public sealed class Message : MonoBehaviour
 		Invoke("Remove", 2f);
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void Remove()
 	{
 		Object.Destroy(base.gameObject);

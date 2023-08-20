@@ -184,6 +184,7 @@ public sealed class Initializer : MonoBehaviour
 		Invoke("SetupObjectThatNeedsPlayer", 0.01f);
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	public void SetupObjectThatNeedsPlayer()
 	{
 		if (prefs.GetInt("MultyPlayer") == 1)
@@ -306,6 +307,7 @@ public sealed class Initializer : MonoBehaviour
 		}
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void goToConnect()
 	{
 		ConnectGUI.Local();
@@ -366,6 +368,7 @@ public sealed class Initializer : MonoBehaviour
 		_purchaseActivityIndicator.SetActive(true);
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void ConnectToPhoton()
 	{
 		if (!isCancelReConnect)
@@ -396,6 +399,7 @@ public sealed class Initializer : MonoBehaviour
 		ConnectToRoom();
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void ConnectToRoom()
 	{
 		Debug.Log("OnJoinedLobby " + prefs.GetString("RoomName"));

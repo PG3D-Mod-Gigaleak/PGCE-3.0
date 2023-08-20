@@ -75,6 +75,7 @@ public class PickupItemSimple : Photon.MonoBehaviour
         }
     }
 
+    [Beebyte.Obfuscator.SkipRename]
     public void RespawnAfter()
     {
         if (this.gameObject != null)

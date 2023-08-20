@@ -1,3 +1,4 @@
+using Beebyte.Obfuscator;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -58,6 +59,7 @@ public class Bullet : MonoBehaviour
 		transform.position += transform.forward * (Time.deltaTime * speed);
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	void DestroySelf()
 	{
 		Destroy(gameObject);

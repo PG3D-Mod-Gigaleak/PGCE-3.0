@@ -112,6 +112,7 @@ public class EtceteraUIManager : MonoBehaviourGUI
 		}
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void hideProgress()
 	{
 		EtceteraAndroid.hideProgressDialog();

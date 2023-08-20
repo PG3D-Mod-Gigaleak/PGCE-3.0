@@ -33,7 +33,7 @@ public class PickupItemSyncer : Photon.MonoBehaviour
         }
     }
 
-
+    [Beebyte.Obfuscator.SkipRename]
     public void AskForPickupItemSpawnTimes()
     {
         if (this.IsWaitingForPickupInit)

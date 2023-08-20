@@ -382,6 +382,7 @@ public sealed class Switcher : MonoBehaviour
 		//}
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void LoadMenu()
 	{
 		StartCoroutine(a());

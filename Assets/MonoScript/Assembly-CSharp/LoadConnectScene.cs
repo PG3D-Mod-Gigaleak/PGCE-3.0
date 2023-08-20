@@ -43,6 +43,7 @@ public sealed class LoadConnectScene : MonoBehaviour
 		//GUI.DrawTexture(position, loading, ScaleMode.StretchToFill);
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void _loadConnectScene()
 	{
 		StartCoroutine(lcs());

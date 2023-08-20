@@ -1995,6 +1995,7 @@ public sealed class Player_move_c : MonoBehaviour
 		_weaponManager.currentWeaponSounds.gameObject.AddComponent<InterpolateOnlyScale>();
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void SendSpeedModifier()
 	{
 		if (_player != null)
@@ -4102,6 +4103,7 @@ public sealed class Player_move_c : MonoBehaviour
 		Destroy(base.gameObject.transform.parent.gameObject);
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void SetNoKilled()
 	{
 		randomRespawnIndex = UnityEngine.Random.Range(0, respawnPlayerSounds.Length);
@@ -4110,6 +4112,7 @@ public sealed class Player_move_c : MonoBehaviour
 		isKilled = false;
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void ChangePositionAfterRespawn()
 	{
 		if ((bool)base.transform.parent)

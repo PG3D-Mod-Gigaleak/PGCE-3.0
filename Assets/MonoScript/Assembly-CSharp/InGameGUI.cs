@@ -136,6 +136,7 @@ public class InGameGUI : MonoBehaviour
 		playerMoveC.SendChat(chatInputVal);
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void GenerateMiganie()
 	{
 		CoinsMessage.FireCoinsAddedEvent();

@@ -81,6 +81,7 @@ public class InputDemo : MonoBehaviour
 		//return new _0024ExplodeText_002493(this).GetEnumerator();
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	public virtual void BlinkCursor()
 	{
 		if (cursorChar == "-"[0])

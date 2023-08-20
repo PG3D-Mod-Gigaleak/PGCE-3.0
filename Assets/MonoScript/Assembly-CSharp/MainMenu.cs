@@ -704,6 +704,7 @@ public sealed class MainMenu : MonoBehaviour
 		}
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void setEnabledGUI()
 	{
 		isFirstFrame = false;
@@ -797,11 +798,13 @@ public sealed class MainMenu : MonoBehaviour
 		CleanFacebookEvents();
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void hideMessag()
 	{
 		showMessagFacebook = false;
 	}
 
+	[Beebyte.Obfuscator.SkipRename]
 	private void hideMessagTwitter()
 	{
 		showMessagTiwtter = false;
