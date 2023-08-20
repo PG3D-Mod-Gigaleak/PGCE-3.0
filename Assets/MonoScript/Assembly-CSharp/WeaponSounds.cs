@@ -71,6 +71,7 @@ public class WeaponSounds : MonoBehaviour
 	public int numOfPellets;
 
 	public bool hasAlternateShot;
+	public bool hasInspect;
 
 	public WeaponSounds alternateShot;
 
