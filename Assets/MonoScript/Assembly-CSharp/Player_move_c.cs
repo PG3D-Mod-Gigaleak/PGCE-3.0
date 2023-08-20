@@ -3674,7 +3674,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			return;
 		}
-		if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == 0)
+		if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == 0 && _weaponManager.currentWeaponSounds.hasInspect && !isZoomed)
 		{
 			return;
 		}
