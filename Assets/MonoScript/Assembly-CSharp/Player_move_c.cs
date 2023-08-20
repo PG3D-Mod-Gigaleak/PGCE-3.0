@@ -3673,6 +3673,10 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			return;
 		}
+		if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == 0)
+		{
+			return;
+		}
 		if (!isZoomed)
 		{
 			inGameGUI.Zoom(true, _weaponManager.currentWeaponSounds.scopeNum);
@@ -3751,7 +3755,17 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 				else if (_weaponManager.currentWeaponSounds.hasInspect)
 				{
-					_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play(myCAnim("Inspect"));
+					if (_weaponManager.currentWeaponSounds.isZooming)
+					{
+						if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == 0)
+						{
+							_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play(myCAnim("Inspect"));
+						}
+					}
+					else
+					{
+						_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play(myCAnim("Inspect"));
+					}
 				}
 			}
 			if (Input.GetKeyDown(KeyCode.K) && !showChat && !showRanks && isMine) {
