@@ -1,4 +1,4 @@
-Shader "Mobile/Diffuse" {
+Shader "Mobile/Transparent/Diffuse" {
 Properties {
     _MainTex ("Base (RGB)", 2D) = "white" {}
     _Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
