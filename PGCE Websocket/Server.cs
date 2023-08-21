@@ -203,7 +203,7 @@ namespace PGCE
 					if (givenInput.ContainsKey("newname"))
 					{
 						string r = PG3D.FilterBadWorld.FilterString((string)givenInput["newname"]);
-						confirmedResult.Name = r.Substring(0, Math.Clamp(r.Length, 0, 20));;
+						confirmedResult.Name = r.Substring(0, Math.Clamp(r.Length, 0, 20)).RemoveColorCode();
 					}
 					if (givenInput.ContainsKey("newcoins"))
 						confirmedResult.Coins = Convert.ToInt64((string)givenInput["newcoins"]);
