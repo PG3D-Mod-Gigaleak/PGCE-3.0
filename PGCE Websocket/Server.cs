@@ -135,6 +135,8 @@ namespace PGCE
 						throw new Exception("The account is chat banned");
 					}
 					string nameColorTag = "[FFFFFF]";
+					if (confirmedResult.IsAdmin)
+						nameColorTag = "[E6213D]";
 					Sessions.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
 						{"type", "send"},
 						{"text", $"<{nameColorTag}{confirmedResult.Name.RemoveColorCode()}[FFFFFF]> {PG3D.FilterBadWorld.FilterString((string)givenInput["msg"])}"},
