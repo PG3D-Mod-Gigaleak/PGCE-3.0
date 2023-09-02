@@ -28,7 +28,6 @@ namespace handler.data
 		}
 		public IEnumerator CheckUserExists()
 		{
-			Debug.Log("[UserController::CheckUserExists] Callback reached");
 			if (Storager.hasKey("plr_uid") && Storager.hasKey("plr_nhguXrl"))
 			{
 				bool userIsValid = false;
@@ -70,8 +69,6 @@ namespace handler.data
 					}
 					else
 					{
-						Debug.Log("[WebsocketHandler::BanCheck] response wasn't \"success\"");
-						Debug.Log("[WebsocketHandler::BanCheck] " + data);
 					}
 				}, checkArgs);
 			}
@@ -83,7 +80,6 @@ namespace handler.data
 				}
 				catch (Exception e)
 				{
-					Debug.Log($"[UserController::CheckUserExists] ERROR! {e.Message}");
 				}
 			}
 			yield break;
@@ -105,7 +101,6 @@ namespace handler.data
 		{
 			WebsocketHandler.CallAction("get_my_player_info", (string data2) => {
 				Dictionary<string, object> resultDictionary2 = WebsocketHandler.Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data2));
-				Debug.Log(JsonConvert.SerializeObject(resultDictionary2));
 				if ((string)resultDictionary2["response"] == "success")
 				{
 					CustomPrefs.CurrentSkin = (string)resultDictionary2["skin_set"];
@@ -129,13 +124,10 @@ namespace handler.data
 		}
 		public IEnumerator OnCreateAccount(string data)
 		{
-			Debug.Log("[WebsocketHandler::CreateAccount] Callback reached!!!");
 			Dictionary<string, object> resultDictionary = WebsocketHandler.Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
 			yield return resultDictionary;
-			Debug.Log("[WebsocketHandler::CreateAccount] Deserialized result!!!");
 			if ((string)resultDictionary["response"] == "success")
 			{
-				Debug.Log("[WebsocketHandler::CreateAccount] Success!!!");
 				Storager.setString("plr_uid", (string)resultDictionary["givenID"]);
 				Storager.setString("plr_nhguXrl", (string)resultDictionary["authcret"]);
 				ID = System.Convert.ToInt64(Storager.getString("plr_uid", false));
@@ -144,8 +136,6 @@ namespace handler.data
 			}
 			else
 			{
-				Debug.Log("[WebsocketHandler::CreateAccount] response wasn't \"success\"");
-				Debug.Log("[WebsocketHandler::CreateAccount] " + data);
 			}
 			yield break;
 		}
