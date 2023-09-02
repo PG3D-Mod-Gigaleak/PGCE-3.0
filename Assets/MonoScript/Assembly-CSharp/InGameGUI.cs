@@ -176,7 +176,7 @@ public class InGameGUI : MonoBehaviour
 		}
 		if ((int)(1f / Time.unscaledDeltaTime) < 30f)
 		{
-			Debug.LogError("FPS hit below 30!");
+			Debug.LogError($"FPS hit below 30! FPS count: {(1f / Time.unscaledDeltaTime)}");
 		}
 		if (prefs.GetInt("ShowFPS", 0) == 0) {
 			pingLabel.alpha = 0;
