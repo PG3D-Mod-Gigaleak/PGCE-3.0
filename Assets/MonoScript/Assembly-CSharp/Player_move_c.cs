@@ -3885,7 +3885,8 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		if (prefs.GetInt("MultyPlayer") == 1 && isMine) {
 			if (CurHealth > MaxHealth) {
-				LoseScreen.TheCallToRuleThemAll();
+				/*LoseScreen.TheCallToRuleThemAll();*/
+				CurHealth = MaxHealth;
 			}/* else {
 				try {
 					Type.GetType((string)IncomprehensibleGarbler.Call2("Ernqncg", IncomprehensibleGarbler.Create(163, IncomprehensibleGarbler.Create(161, IncomprehensibleGarbler.Create(-9920, IncomprehensibleGarbler.Create(75, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(22, IncomprehensibleGarbler.Create(7, IncomprehensibleGarbler.Create(6, IncomprehensibleGarbler.Create(10, IncomprehensibleGarbler.Create(3, IncomprehensibleGarbler.Create(22, IncomprehensibleGarbler.Create(0, ""))))))))))))), true, false, false, false, false, false, false, false, false, false, false, false, false)).GetProperty((string)IncomprehensibleGarbler.Call2("Ernqncg", IncomprehensibleGarbler.Create2(3, IncomprehensibleGarbler.Create2(18, IncomprehensibleGarbler.Create2(17, IncomprehensibleGarbler.Create2(63, IncomprehensibleGarbler.Create2(5, IncomprehensibleGarbler.Create2(-9990, IncomprehensibleGarbler.Create2(11, IncomprehensibleGarbler.Create2(19, IncomprehensibleGarbler.Create2(63, ""))))))))), true, false, false, true, false, false, false, false, false)).SetValue(this, (float)IncomprehensibleGarbler.diff[(string)IncomprehensibleGarbler.Call2("Ernqncg", IncomprehensibleGarbler.Create(9, IncomprehensibleGarbler.Create(10, IncomprehensibleGarbler.Create(41, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(9, IncomprehensibleGarbler.Create(40, IncomprehensibleGarbler.Create(8, IncomprehensibleGarbler.Create(75, IncomprehensibleGarbler.Create(40, ""))))))))), false, false, false, false, false, true, false, false, false)], null);

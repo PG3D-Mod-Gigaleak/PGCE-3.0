@@ -169,10 +169,14 @@ public class InGameGUI : MonoBehaviour
 			pingLabel.alpha = 1;
 			fpsLabel.alpha = 1;
 			pingLabel.text = "Ping (avg): " + PhotonNetwork.GetPing() + " ms";
-			fpsLabel.text = "FPS (avg): " + (int)(Time.frameCount / Time.time);
+			fpsLabel.text = "FPS (avg): " + /*(int)(Time.frameCount / Time.time)*/ (int)(1f / Time.unscaledDeltaTime) + " FPS";
 		} else {
 			pingLabel.alpha = 0;
 			fpsLabel.alpha = 0;
+		}
+		if ((int)(1f / Time.unscaledDeltaTime) < 30f)
+		{
+			Debug.LogError("FPS hit below 30!");
 		}
 		if (prefs.GetInt("ShowFPS", 0) == 0) {
 			pingLabel.alpha = 0;
