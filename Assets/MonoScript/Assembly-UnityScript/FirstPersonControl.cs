@@ -313,7 +313,7 @@ public class FirstPersonControl : MonoBehaviour
 					if (Input.GetKey(KeyCode.Q))
 					{
 						ad += 20f;
-						offs += -0.7226772f;
+						offs += 0.7226772f;
 					}
 				}
 			}
