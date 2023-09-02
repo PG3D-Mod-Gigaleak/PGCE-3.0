@@ -289,6 +289,7 @@ public class FirstPersonControl : MonoBehaviour
 				can = false;
 			}
 			float ad = 0;
+			float offs = 0;
 			if (can) {
 				if (Input.GetKey(KeyCode.Space))
 				{
@@ -302,17 +303,26 @@ public class FirstPersonControl : MonoBehaviour
 				{
 					jumpButton.jumpPressed = false;
 				}
-				if (Input.GetKey(KeyCode.E))
+				if (!Globals.PlayerMove.isKilled && Globals.PlayerMove.CurHealth > 0f)
 				{
-					ad -= 20f;
-				}
-				if (Input.GetKey(KeyCode.Q))
-				{
-					ad += 20f;
+					if (Input.GetKey(KeyCode.E))
+					{
+						ad -= 20f;
+						offs = 0.7226772f;
+					}
+					if (Input.GetKey(KeyCode.Q))
+					{
+						ad += 20f;
+						offs = -0.7226772f;
+					}
 				}
 			}
-			peekPivot.transform.localRotation = Quaternion.Lerp(peekPivot.transform.localRotation, Quaternion.Euler(0, 0, ad), Time.deltaTime * camSwaySpeed);
-			camSway.value = Mathf.Lerp(camSway.value, (moveTouchPad.position.x > 0 ? -3.5f : moveTouchPad.position.x < 0 ? 3.5f : 0), Time.deltaTime * camSwaySpeed);
+			/*peekPivot.transform.localRotation = Quaternion.Lerp(peekPivot.transform.localRotation, Quaternion.Euler(0, 0, ad), Time.deltaTime * camSwaySpeed);
+			cameraPivot.rotation = Quaternion.Euler(cameraPivot.rotation.eulerAngles.x, cameraPivot.rotation.eulerAngles.y, peekPivot.transform.localRotation.eulerAngles.z);
+			Globals.PlayerMove.gunCam.transform.rotation = Quaternion.Euler(Globals.PlayerMove.gunCam.transform.rotation.eulerAngles.x, Globals.PlayerMove.gunCam.transform.rotation.eulerAngles.y, peekPivot.transform.localRotation.eulerAngles.z);
+			*/
+			camSway.value = Mathf.Lerp(camSway.value, (moveTouchPad.position.x > 0 ? -3.5f : moveTouchPad.position.x < 0 ? 3.5f : 0)+ad, Time.deltaTime * camSwaySpeed);
+			camSway.offset = Mathf.Lerp(camSway.offset, offs, Time.deltaTime * camSwaySpeed);
 		}
 		SetSpeedModifier();
 		Vector3 motion = thisTransform.TransformDirection(new Vector3(moveTouchPad.position.x, 0f, moveTouchPad.position.y));
