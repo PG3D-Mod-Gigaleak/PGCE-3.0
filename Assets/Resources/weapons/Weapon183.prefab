@@ -156,7 +156,7 @@ Transform:
   - {fileID: 7905294563356050683}
   m_Father: {fileID: 7902663785273569619}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 1.149876, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!111 &7795401366131779147
 Animation:
   m_ObjectHideFlags: 0
@@ -176,6 +176,8 @@ Animation:
   - {fileID: 7400000, guid: f92c69a2e78a0c04b83b625328e5d6c8, type: 2}
   - {fileID: 7400000, guid: b6e0c906b605ee1478e19984ed371b7a, type: 2}
   - {fileID: 7400000, guid: 1b3c2f2fc8b52d440814e8742b87e6b8, type: 2}
+  - {fileID: 7400000, guid: 55a7e4d3f55f21c48ace451767a2b8d4, type: 2}
+  - {fileID: 7400000, guid: f6d66870260766a448e087fe38bad3c4, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -435,7 +437,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7905331330592737745}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.000042911757, y: -0.000011843869, z: -1.4033731e-14}
 --- !u!33 &7913485134360698010
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -583,7 +585,7 @@ MonoBehaviour:
   preview: {fileID: 2800000, guid: fb26ddd69cdb33946847643ae6785f3e, type: 3}
   inAppExtensionModifier: 10
   meleeAngle: 45
-  multiplayerDamage: 12
+  multiplayerDamage: 14
   meleeAttackTimeModifier: 0.57
   isHeal: 0
   healAmount: 0
@@ -594,10 +596,10 @@ MonoBehaviour:
   isShotgun: 0
   numOfPellets: 0
   hasAlternateShot: 0
-  hasInspect: 0
+  hasInspect: 1
   alternateShot: {fileID: 0}
   hasRecoil: 1
-  recoil: 2
+  recoil: 1
   hasUpgrades: 0
   isChargeUp: 0
   chargeUp: {fileID: 0}
@@ -635,8 +637,8 @@ MonoBehaviour:
   armoryPosition: {x: 0, y: 0, z: 0}
   category: 0
   isZooming: 0
-  scopeNum: 0
-  zoomFov: 0
+  scopeNum: 8
+  zoomFov: 100
   secondBulletSpawn: {fileID: 0}
   shootLineColor: {r: 0.4044118, g: 0.4044118, b: 0.4044118, a: 1}
   bulletIndex: 0
@@ -737,13 +739,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7900396579735412532}
   m_LocalRotation: {x: -0.63309634, y: -0.25543103, z: 0.2017747, w: 0.70230407}
-  m_LocalPosition: {x: -0.23559742, y: 0.5335703, z: -0.07426239}
+  m_LocalPosition: {x: -0.2355974, y: 0.5335703, z: -0.07426239}
   m_LocalScale: {x: -0.9999999, y: -1.0000001, z: -1.0000004}
   m_Children:
   - {fileID: 3979225792900361888}
   m_Father: {fileID: 7905294563356050683}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -60.744545, y: -91.28848, z: 88.218864}
+  m_LocalEulerAnglesHint: {x: -51.829315, y: -83.69332, z: 79.091515}
 --- !u!33 &7916679903224211322
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -823,7 +825,7 @@ Transform:
   - {fileID: 7902242682161455061}
   m_Father: {fileID: 7905294563356050683}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 3.748479, y: 13.3838825, z: 3.3452458}
+  m_LocalEulerAnglesHint: {x: 0.000005638274, y: 0, z: 0}
 --- !u!33 &7912862046798436947
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -902,7 +904,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7905331330592737745}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -1.2896712e-14}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -1.4033418e-14}
 --- !u!33 &7916532090582510169
 MeshFilter:
   m_ObjectHideFlags: 0
