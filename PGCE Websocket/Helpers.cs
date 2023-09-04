@@ -11,7 +11,7 @@ namespace PGCE
 	public class Helpers
 	{
 		// set this up with parameters & shit
-		// INTEGER is "long" in c# for some reason, don't ask
+		// INTEGER is 64bit in sqlite for some reason, don't ask
 		public static AccountParameters? CreateAccount()
 		{
 			Console.WriteLine("Creating account");
