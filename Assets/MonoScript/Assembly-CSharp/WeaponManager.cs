@@ -497,7 +497,7 @@ public sealed class WeaponManager : MonoBehaviour
 		}
 		if (prefs.GetString("cat5") == String.Empty || prefs.GetInt("refreshWeaponSystem") == 0)
 		{
-			prefs.SetString("cat5", "Weapon205");
+			prefs.SetString("cat5", "Weapon99");
 		}
 		if (prefs.GetInt("refreshWeaponSystem") == 0)
 		{
