@@ -128,7 +128,7 @@ public class ArmoryNGUI : MonoBehaviour
 
     public void Heavy() { SetCategory(4); }
 
-    public void Back()
+    public void Back(bool gameOver = false)
     {
         if (Application.loadedLevelName.StartsWith("Menu_"))
         {
@@ -138,7 +138,10 @@ public class ArmoryNGUI : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.Locked;
 			Cursor.visible = false;
-            Globals.PlayerMove.ReEnableCams();
+            if (!gameOver)
+            {
+                Globals.PlayerMove.ReEnableCams();
+            }
         }
         gameObject.SetActive(false);
     }

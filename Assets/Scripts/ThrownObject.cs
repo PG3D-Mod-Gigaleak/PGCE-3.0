@@ -52,8 +52,11 @@ public class ThrownObject : MonoBehaviour
 				return;
 			if (other.transform.tag == "HeadCollider" || other.transform.tag == "BodyCollider")
 			{
-				Globals.PlayerMove.inGameGUI.Hitmark();
-				Globals.PlayerMove.MinusLivePlayerManual(damageSender, other.transform.parent.GetComponent<PhotonView>().viewID, multiplayerDamage * (other.transform.tag == "HeadCollider" ? 1.5f : 1f));
+				if (mView.isMine)
+				{
+					Globals.PlayerMove.inGameGUI.Hitmark();
+					Globals.PlayerMove.MinusLivePlayerManual(damageSender, other.transform.parent.GetComponent<PhotonView>().viewID, multiplayerDamage * (other.transform.tag == "HeadCollider" ? 1.5f : 1f));
+				}
 			}
 			else if (other.transform.tag == "Enemy")
 			{
@@ -93,8 +96,11 @@ public class ThrownObject : MonoBehaviour
 	{
 		if (other.transform.tag == "HeadCollider" || other.transform.tag == "BodyCollider")
 		{
-			Globals.PlayerMove.inGameGUI.Hitmark();
-			Globals.PlayerMove.MinusLivePlayerManual(damageSender, other.transform.parent.GetComponent<PhotonView>().viewID, multiplayerDamage * (other.transform.tag == "HeadCollider" ? 1.5f : 1f));
+			if (mView.isMine)
+			{
+				Globals.PlayerMove.inGameGUI.Hitmark();
+				Globals.PlayerMove.MinusLivePlayerManual(damageSender, other.transform.parent.GetComponent<PhotonView>().viewID, multiplayerDamage * (other.transform.tag == "HeadCollider" ? 1.5f : 1f));
+			}
 		}
 		else if (other.transform.tag == "Enemy")
 		{

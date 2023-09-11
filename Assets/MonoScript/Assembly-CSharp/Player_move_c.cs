@@ -2854,7 +2854,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		if (armoryGuiOverlayed)
 		{
-			ArmoryNGUI.instance.Back();
+			ArmoryNGUI.instance.Back(true);
 		}
 		GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
 		GameObject[] array2 = array;
