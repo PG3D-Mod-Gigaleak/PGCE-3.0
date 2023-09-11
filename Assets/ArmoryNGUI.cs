@@ -41,6 +41,14 @@ public class ArmoryNGUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Back();
+        }
+    }
+
     private void CreateButton(WeaponSounds sounds)
     {
         WeaponNGUIButton weaponBtn = Instantiate(weaponButton, categoryGrids[(int)sounds.category].transform).GetComponent<WeaponNGUIButton>();

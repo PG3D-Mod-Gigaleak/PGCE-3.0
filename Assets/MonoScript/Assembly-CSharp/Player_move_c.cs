@@ -2572,10 +2572,6 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void ShotPressed(bool alt = false)
 	{
-		if (_weaponManager.currentWeaponSounds.throwObject && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip <= 0)
-		{
-			return;
-		}
 		if (isChargingUp || armoryGuiOverlayed)
 		{
 			return;
@@ -2588,6 +2584,10 @@ public sealed class Player_move_c : MonoBehaviour
 		else
 		{
 			WS = _weaponManager.currentWeaponSounds;
+		}
+		if (WS.throwObject && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip <= 0)
+		{
+			return;
 		}
 		if ((prefs.GetInt("MultyPlayer") == 1 && prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("ChargeDown")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Inspect")))
 		{
