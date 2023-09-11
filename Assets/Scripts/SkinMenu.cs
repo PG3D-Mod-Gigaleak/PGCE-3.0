@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 
 public class SkinMenu : MonoBehaviour
 {
-	private GameObject skinBtn;
+	public GameObject skinBtn;
 
 	public Transform scroll;
 
@@ -21,7 +21,6 @@ public class SkinMenu : MonoBehaviour
     
 	void Start()
 	{
-		skinBtn = Resources.Load<GameObject>("SkinButton");
 		Skins skins = Resources.Load<Skins>("Skins");
 		foreach (Skins.Skin skin in skins.skins)
 		{
@@ -37,19 +36,6 @@ public class SkinMenu : MonoBehaviour
 	{
 		AchievementNGUI.instance.gameObject.SetActive(false);
 		Application.LoadLevel("ProfileShop");
-	}
-
-	void Update()
-	{
-		scroll.localPosition = new Vector3(scroll.localPosition.x, scroll.localPosition.y + mouseScrollThing, scroll.localPosition.z);
-	}
-
-	public int mouseScrollThing
-	{
-		get
-		{
-			return (Input.GetAxis("Mouse ScrollWheel") == 0 ? 0 : Input.GetAxis("Mouse ScrollWheel") < 0 ? 50 : -50);
-		}
 	}
 
 	public void SetSkin(Skins.Skin skin)
@@ -81,6 +67,7 @@ public class SkinMenu : MonoBehaviour
 	public void CreateSkinButton(Skins.Skin skin)
 	{
 		SkinButton button = Instantiate(skinBtn).GetComponent<SkinButton>();
+		button.gameObject.SetActive(true);
 		button.transform.parent = skinGrid.transform;
 		button.nameLabel.text = skin.skin;
 		button.button.color = skin.color;

@@ -7,6 +7,10 @@ public class SerializePosition : Photon.MonoBehaviour
 
 	private Quaternion correctPlayerRot = Quaternion.identity;
 
+    public bool lerp;
+
+    public float lerpSpeed = 5f;
+
 	private void Awake()
 	{
 		if (prefs.GetInt("MultyPlayer") != 1 || prefs.GetString("TypeConnect").Equals("local"))
@@ -35,8 +39,16 @@ public class SerializePosition : Photon.MonoBehaviour
 	{
 		if (!base.photonView.isMine)
 		{
-		    base.transform.position = correctPlayerPos;
-		    base.transform.rotation = correctPlayerRot;
+            if (lerp)
+            {
+                base.transform.position = Vector3.Lerp(base.transform.position, correctPlayerPos, Time.deltaTime * lerpSpeed);
+                base.transform.rotation = Quaternion.Lerp(base.transform.rotation, correctPlayerRot, Time.deltaTime * lerpSpeed);
+            }
+            else
+            {
+		        base.transform.position = correctPlayerPos;
+		        base.transform.rotation = correctPlayerRot;
+            }
 		}
 	}
 }

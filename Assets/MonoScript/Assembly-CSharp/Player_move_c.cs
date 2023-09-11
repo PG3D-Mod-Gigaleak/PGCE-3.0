@@ -723,7 +723,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		get
 		{
-			return ___weaponManager;
+			return WeaponManager.sharedManager;
 		}
 		set
 		{
