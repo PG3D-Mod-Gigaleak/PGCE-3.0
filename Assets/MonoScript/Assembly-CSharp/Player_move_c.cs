@@ -3220,7 +3220,7 @@ public sealed class Player_move_c : MonoBehaviour
 			float num = 0.2f;
 			extraSpeed = WS.bazookaSpeed;
 			gameObject3 = ((prefs.GetInt("MultyPlayer") == 0) ? (UnityEngine.Object.Instantiate(gameObject2, base.transform.position + base.transform.forward * num, base.transform.rotation) as GameObject) : (!prefs.GetString("TypeConnect").Equals("local") ? PhotonNetwork.Instantiate("Rocket", base.transform.position + base.transform.forward * num, base.transform.rotation, 0) : ((GameObject)PhotonNetwork.Instantiate("Rocket", base.transform.position + base.transform.forward * num, base.transform.rotation, 0))));
-			gameObject.GetComponent<Rocket>().extraSpeed = extraSpeed;
+			gameObject3.GetComponent<Rocket>().extraSpeed = extraSpeed;
 			gameObject3.GetComponent<Rocket>().rocketNum = WS.rocketNum;
 			gameObject3.GetComponent<Rocket>().weaponName = WS.gameObject.name.Replace("(Clone)", string.Empty);
 			gameObject3.GetComponent<Rocket>().damage = WS.damage;
