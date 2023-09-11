@@ -144,9 +144,9 @@ public class BonusCreator : MonoBehaviour
 			}
 			GameObject spawnZone = _bonusCreationZones[Random.Range(0, _bonusCreationZones.Length)];
 			BoxCollider spawnZoneCollider = spawnZone.GetComponent<BoxCollider>();
-			Vector2 sz = new Vector2(spawnZoneCollider.size.x * spawnZone.transform.localScale.x, spawnZoneCollider.size.z * spawnZone.transform.localScale.z);
+			Vector3 sz = new Vector3(spawnZoneCollider.size.x * spawnZone.transform.localScale.x, spawnZoneCollider.size.y * spawnZone.transform.localScale.y, spawnZoneCollider.size.z * spawnZone.transform.localScale.z);
 			Rect zoneRect = new Rect(spawnZone.transform.position.x - sz.x / 2f, spawnZone.transform.position.z - sz.y / 2f, sz.x, sz.y);
-			Vector3 pos = new Vector3(zoneRect.x + Random.Range(0f, zoneRect.width), (!Defs.levelsWithVarY.Contains(_curLevel())) ? 0.24f : spawnZone.transform.position.y, zoneRect.y + Random.Range(0f, zoneRect.height));
+			Vector3 pos = new Vector3(zoneRect.x + Random.Range(0f, zoneRect.width), spawnZone.transform.position.y, zoneRect.y + Random.Range(0f, zoneRect.height));
 			int type = Random.Range(0, 11);
 			if (!_isMultiplayer)
 			{
