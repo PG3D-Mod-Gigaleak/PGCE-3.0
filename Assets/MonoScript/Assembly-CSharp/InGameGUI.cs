@@ -44,6 +44,12 @@ public class InGameGUI : MonoBehaviour
 
 	public GameObject entryPopup;
 
+	public UILabel ammoLabel;
+
+	public Transform weaponInstantiationPoint;
+
+	private GameObject selectedWeapon;
+
 	private bool jumping
 	{
 		get
@@ -145,6 +151,36 @@ public class InGameGUI : MonoBehaviour
 	public void newEntryPopup(string name)
 	{
 		entryPopup.GetComponent<Animation>().PlayQueued("UnlockedNewThing");
+	}
+
+	public void ChangeWeapon(WeaponSounds sounds)
+	{
+        if (selectedWeapon != null)
+        {
+            Destroy(selectedWeapon);
+        }
+
+        selectedWeapon = Instantiate(sounds.bonusPrefab, weaponInstantiationPoint).gameObject;
+		if (selectedWeapon.GetComponent<SkinnedMeshRenderer>())
+		{
+			GameObject newModel = new GameObject("NewModel_" + selectedWeapon.name);
+			newModel.AddComponent<MeshFilter>().sharedMesh = selectedWeapon.GetComponent<SkinnedMeshRenderer>().sharedMesh;
+			newModel.AddComponent<MeshRenderer>().materials = selectedWeapon.GetComponent<SkinnedMeshRenderer>().materials;
+			newModel.transform.parent = selectedWeapon.transform;
+			newModel.transform.localScale = Vector3.one;
+			newModel.transform.localPosition = Vector3.zero;
+			newModel.transform.localRotation = Quaternion.Euler(sounds.armoryRotation);
+            newModel.layer = 10;
+		}
+        selectedWeapon.transform.localPosition = sounds.armoryPosition;
+		selectedWeapon.transform.localRotation = Quaternion.Euler(sounds.armoryRotation);
+		selectedWeapon.transform.localScale = sounds.armoryScale;
+        
+        selectedWeapon.layer = 10;
+        foreach (Transform trf in selectedWeapon.gameObject.GetComponentsInChildren<Transform>())
+        {
+            trf.gameObject.layer = 10;
+        }
 	}
 
 	private void Update()

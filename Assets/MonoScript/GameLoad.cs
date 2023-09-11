@@ -38,6 +38,11 @@ public class GameLoad : MonoBehaviour
 
 	public void BeginLoading()
 	{
+		if (prefs.GetInt("startingValues") == 0)
+		{
+			prefs.SetFloat("setVolm", 0.5f);
+			prefs.SetInt("startingValues", 1);
+		}
 		StartCoroutine(LoadWeapons());
 	}
 

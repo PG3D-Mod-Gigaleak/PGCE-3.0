@@ -811,6 +811,22 @@ public sealed class Player_move_c : MonoBehaviour
 		doubleShotIndex = 0;
 	}
 
+	public void UpdateAmmoCounter()
+	{
+		if (!_weaponManager.currentWeaponSounds.isMelee && !_weaponManager.currentWeaponSounds.isHeal && !_weaponManager.currentWeaponSounds.throwObject && !_weaponManager.currentWeaponSounds.infiniteAmmo)
+		{
+			inGameGUI.ammoLabel.text = ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip + "/" + ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack;
+		}
+		else if (!_weaponManager.currentWeaponSounds.isHeal || !_weaponManager.currentWeaponSounds.throwObject && !_weaponManager.currentWeaponSounds.isMelee && !_weaponManager.currentWeaponSounds.infiniteAmmo)
+		{
+			inGameGUI.ammoLabel.text = "" + ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack;
+		}
+		else if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.infiniteAmmo)
+		{
+			inGameGUI.ammoLabel.text = "INF";
+		}
+	}
+
 	private void OnGUI()
 	{
 		if (!showGUI || (coinsShop.thisScript != null && coinsShop.thisScript.enabled))
@@ -939,14 +955,14 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		if (_weaponManager != null && _weaponManager.CurrentWeaponIndex >= 0 && _weaponManager.CurrentWeaponIndex < _weaponManager.playerWeapons.Count && !_weaponManager.currentWeaponSounds.isMelee && !_weaponManager.currentWeaponSounds.isHeal && !_weaponManager.currentWeaponSounds.throwObject && !_weaponManager.currentWeaponSounds.infiniteAmmo)
 		{
-			GUI.DrawTexture(position5, ammoTexture);
-			GUI.Box(position6, ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip + "/" + ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack, AmmoBox);
+			//GUI.DrawTexture(position5, ammoTexture);
+			//GUI.Box(position6, ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip + "/" + ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack, AmmoBox);
 		}
 		if (_weaponManager.currentWeaponSounds.isHeal || _weaponManager.currentWeaponSounds.throwObject)
 		{
-			GUI.DrawTexture(position5, ammoTexture);
-			string str = ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip.ToString();
-			GUI.Box(position6, str, AmmoBox);
+			//GUI.DrawTexture(position5, ammoTexture);
+			//string str = ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip.ToString();
+			//GUI.Box(position6, str, AmmoBox);
 		}
 		ScoreBox.fontSize = Mathf.RoundToInt((float)Screen.height * 0.035f);
 		float num9 = (float)(enemiesTxture.width * Screen.width) / 1024f;
@@ -1008,11 +1024,11 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		else
 		{
-			GUI.DrawTexture(position4, _weaponManager.currentWeaponSounds.preview);
+			//GUI.DrawTexture(position4, _weaponManager.currentWeaponSounds.preview);
 		}
 		if ((bool)_weaponManager && _weaponManager.playerWeapons != null && _weaponManager.playerWeapons.Count > 1)
 		{
-			GUI.Box(new Rect((float)Screen.width - 186f * (float)Screen.width / 1024f, 94f * (float)Screen.width / 1024f, 186f * (float)Screen.width / 1024f, 23f * (float)Screen.width / 1024f), "< SWIPE >", ScoreBox);
+			//GUI.Box(new Rect((float)Screen.width - 186f * (float)Screen.width / 1024f, 94f * (float)Screen.width / 1024f, 186f * (float)Screen.width / 1024f, 23f * (float)Screen.width / 1024f), "< SWIPE >", ScoreBox);
 		}
 		bool flag2 = false;
 		if (Application.platform == RuntimePlatform.Android)
@@ -1993,6 +2009,10 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		//_weaponManager.currentWeaponSounds.transform.localScale = new Vector3(1, (isGravFlipped == true ? -1 : 1), 1);
 		_weaponManager.currentWeaponSounds.gameObject.AddComponent<InterpolateOnlyScale>();
+		if (inGameGUI != null)
+		{
+			inGameGUI.ChangeWeapon(((Weapon)_weaponManager.playerWeapons[index]).weaponPrefab.GetComponent<WeaponSounds>());
+		}
 	}
 
 	[Beebyte.Obfuscator.SkipRename]
@@ -2283,6 +2303,7 @@ public sealed class Player_move_c : MonoBehaviour
 			inGameGUI.armor = _003CStart_003Em__2A;
 			inGameGUI.killsToMaxKills = _003CStart_003Em__2B;
 			inGameGUI.timeLeft = _003CStart_003Em__2C;
+			inGameGUI.ChangeWeapon(((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).weaponPrefab.GetComponent<WeaponSounds>());
 			AddButtonHandlers();
 		}
 		Debug.Log("init player " + prefs.GetInt("StartAfterDisconnect"));
@@ -2479,7 +2500,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void ReloadPressed()
 	{
-		if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.isHeal || _weaponManager.currentWeaponSounds.throwObject ||  _weaponManager.CurrentWeaponIndex < 0 || _weaponManager.CurrentWeaponIndex >= _weaponManager.playerWeapons.Count || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack <= 0 || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == _weaponManager.currentWeaponSounds.ammoInClip || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
+		if (_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || armoryGuiOverlayed || _weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.isHeal || _weaponManager.currentWeaponSounds.throwObject ||  _weaponManager.CurrentWeaponIndex < 0 || _weaponManager.CurrentWeaponIndex >= _weaponManager.playerWeapons.Count || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack <= 0 || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == _weaponManager.currentWeaponSounds.ammoInClip || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
 		{
 			return;
 		}
@@ -2551,7 +2572,11 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void ShotPressed(bool alt = false)
 	{
-		if (isChargingUp)
+		if (_weaponManager.currentWeaponSounds.throwObject && ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip <= 0)
+		{
+			return;
+		}
+		if (isChargingUp || armoryGuiOverlayed)
 		{
 			return;
 		}
@@ -2827,6 +2852,10 @@ public sealed class Player_move_c : MonoBehaviour
 	[PunRPC]
 	public void pobedaPhoton(int idKiller)
 	{
+		if (armoryGuiOverlayed)
+		{
+			ArmoryNGUI.instance.Back();
+		}
 		GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
 		GameObject[] array2 = array;
 		foreach (GameObject gameObject in array2)
@@ -3206,6 +3235,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0)
 			{
+				((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
 				if (Defs.isMulti)
 				{
 					photonView.RPC("SpawnThrownObject", PhotonTargets.All, transform.parent.GetComponent<PhotonView>().viewID, _weaponManager.currentWeaponSounds.name.Replace("(Clone)", ""), WS.multiplayerDamage, _bulletSpawnPoint.transform.position, _bulletSpawnPoint.transform.rotation);
@@ -3214,7 +3244,6 @@ public sealed class Player_move_c : MonoBehaviour
 				{
 					SpawnThrownObjectOffline(WS.multiplayerDamage);
 				}
-				((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip--;
 			}
 			return;
 		}
@@ -3794,6 +3823,10 @@ public sealed class Player_move_c : MonoBehaviour
 				prefs.SetInt("ShowFPS", (prefs.GetInt("ShowFPS", 0) == 0 ? 1 : 0));
 			}
 			if (isMine && !showChat && !armoryGuiOverlayed) {
+				if (inGameGUI != null)
+				{
+					UpdateAmmoCounter();
+				}
 				if (Input.GetKeyDown(KeyCode.Alpha1))
 				{
 					if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Primary)
@@ -3928,7 +3961,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 			}
 		}
-		if (!isZoomed && isMine) {
+		if (!isZoomed && isMine && !armoryGuiOverlayed) {
 			if (sprinting)
 			{
 				if (Camera.main.fieldOfView < 90f)

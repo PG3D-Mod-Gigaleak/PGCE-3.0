@@ -99,11 +99,9 @@ public class ArmoryNGUI : MonoBehaviour
 		texture.filterMode = FilterMode.Point;
 		Player_move_c.SetTextureRecursivelyFrom(pers, texture, new GameObject[1] { selectedWeapon.GetComponent<WeaponSounds>().bonusPrefab });
 
-        prefs.SetString("cat" + (((int)sounds.category) + 1), sounds.name);
-
         if (!Application.loadedLevelName.StartsWith("Menu_"))
         {
-            Globals.PlayerMove._weaponManager.ResetCategory("cat" + (sounds.category + 1));
+            Globals.PlayerMove._weaponManager.ResetCategory("cat" + ((int)sounds.category + 1), sounds.name);
             Globals.PlayerMove.ChangeWeaponFull(sounds.category);
         }
     }

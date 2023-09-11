@@ -497,19 +497,19 @@ public sealed class WeaponManager : MonoBehaviour
 		}
 	}
 
-	public void ResetCategory(string cat)
+	public void ResetCategory(string cat, string weaponName)
 	{
-		object remove = null;
 		foreach (object obj in _playerWeapons)
 		{
 			if (((Weapon)obj).weaponPrefab.name == prefs.GetString(cat))
 			{
-				remove = obj;
+				_playerWeapons.Remove(obj);
 				break;
 			}
 		}
-		_playerWeapons.Remove(remove);
 
+		prefs.SetString(cat, weaponName);
+		
 		GameObject sounds = null;
 
         foreach (GameObject wpn in WeaponManager.WeaponPrefabs)
@@ -521,15 +521,18 @@ public sealed class WeaponManager : MonoBehaviour
             }
         }
 
-		GameObject @gameObject = sounds;
-
 		Weapon weapon = new Weapon();
-		weapon.weaponPrefab = @gameObject;
+		weapon.weaponPrefab = sounds;
 		weapon.currentAmmoInBackpack = weapon.weaponPrefab.GetComponent<WeaponSounds>().InitialAmmo;
 		weapon.currentAmmoInClip = weapon.weaponPrefab.GetComponent<WeaponSounds>().ammoInClip;
-
+		
 		_playerWeapons.Add(weapon);
 		playerWeapons.Sort(new WeaponsComparer());
+
+		foreach (object obj in _playerWeapons)
+		{
+			Debug.LogError(((Weapon)obj).weaponPrefab.name);
+		}
 	}
 
 	public void Reset()
