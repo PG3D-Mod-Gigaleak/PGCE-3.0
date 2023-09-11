@@ -3034,7 +3034,7 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				WeaponSounds ws = chaild.transform.GetChild(0).GetChild(0).gameObject.GetComponent<WeaponSounds>();
 				_gunWiapon = ws.bonusPrefab;
-				if (!ws.isMelee)
+				if (!ws.isMelee && ws.GetComponent<FlashFire>() != null && ws.GetComponent<FlashFire>().gunFlashObj != null)
 				{
 					gunFlashTmp = ws.GetComponent<FlashFire>().gunFlashObj;
 				}
