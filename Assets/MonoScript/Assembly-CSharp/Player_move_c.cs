@@ -2093,6 +2093,7 @@ public sealed class Player_move_c : MonoBehaviour
 			"6a41b69e01a8f81fb28a5e64beecdb9ce9be08a4912be33e4f0e91385026967f59579e3400e6779f773748eebe1abd04",
 			"77e1d534bd591d890d953d3f84a5dbbe7070cad63dc09219c14aa80443c22f6b50c98ce25f045b387830854fc7934905",
 		};
+		ArmoryNGUI.instance.Check();
 		widthPoduct = (float)(healthInApp.normal.background.width * Screen.height) / 768f * (320f / (float)healthInApp.normal.background.height);
 		if (prefs.GetInt("MultyPlayer") == 1)
 		{

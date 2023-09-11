@@ -43,6 +43,12 @@ public class ArmoryNGUI : MonoBehaviour
 
     void OnEnable()
     {
+        Check();
+    }
+
+    public void Check()
+    {
+        Debug.LogError("hello  ?? ? ");
         bool active = true;
         if (!Application.loadedLevelName.StartsWith("Menu_"))
         {
@@ -50,11 +56,13 @@ public class ArmoryNGUI : MonoBehaviour
             {
                 if (!Globals.PlayerMove.actuallyOpenIt)
                 {
+                    Debug.LogError("actualkly opn");
                     active = false;
                 }
             }
             else
             {
+                Debug.LogError("null");
                 active = false;
             }
         }
