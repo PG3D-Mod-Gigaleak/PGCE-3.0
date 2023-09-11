@@ -817,9 +817,9 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			inGameGUI.ammoLabel.text = ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip + "/" + ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack;
 		}
-		else if (!_weaponManager.currentWeaponSounds.isHeal || !_weaponManager.currentWeaponSounds.throwObject && !_weaponManager.currentWeaponSounds.isMelee && !_weaponManager.currentWeaponSounds.infiniteAmmo)
+		else if (_weaponManager.currentWeaponSounds.isHeal || _weaponManager.currentWeaponSounds.throwObject)
 		{
-			inGameGUI.ammoLabel.text = "" + ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack;
+			inGameGUI.ammoLabel.text = "" + ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip;
 		}
 		else if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.infiniteAmmo)
 		{

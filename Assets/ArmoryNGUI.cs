@@ -104,6 +104,10 @@ public class ArmoryNGUI : MonoBehaviour
             Globals.PlayerMove._weaponManager.ResetCategory("cat" + ((int)sounds.category + 1), sounds.name);
             Globals.PlayerMove.ChangeWeaponFull(sounds.category);
         }
+        else
+        {
+            prefs.SetString("cat" + ((int)sounds.category + 1), sounds.name);
+        }
     }
 
     public void Primary() { SetCategory(0); }
