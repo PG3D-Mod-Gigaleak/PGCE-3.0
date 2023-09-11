@@ -1,5 +1,154 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1290344204919320615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2579100855016632455}
+  - component: {fileID: 5718889640886411280}
+  - component: {fileID: 7456222208796360440}
+  m_Layer: 0
+  m_Name: altshoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2579100855016632455
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290344204919320615}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3623446196908111056}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5718889640886411280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290344204919320615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swapTime: 0.7
+  isSwapIn: 0
+  isSwapOut: 0
+  shoot: {fileID: 8300000, guid: abe5c84c172b865429b2baedb19d9d4e, type: 3}
+  reload: {fileID: 0}
+  empty: {fileID: 0}
+  isSerialShooting: 1
+  bonusPrefab: {fileID: 7914026632881500584}
+  InitialAmmo: 0
+  ammoInClip: 0
+  maxAmmo: 0
+  isMelee: 1
+  range: 3
+  damage: 2000
+  speedModifier: 1.3
+  animationObject: {fileID: 3628354592709830624}
+  Probability: 1
+  damageRange: {x: -50, y: 50}
+  gunPosition: {x: 0, y: -1.7, z: 0}
+  preview: {fileID: 2800000, guid: f9fa393269a65bc4c882af01331e9eed, type: 3}
+  inAppExtensionModifier: 10
+  meleeAngle: 45
+  multiplayerDamage: 50
+  meleeAttackTimeModifier: 0.25
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  hasInspect: 1
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 750
+  weaponName: Frying Pan
+  oldMeleeSystem: 0
+  emptyState: 0
+  throwObject: 0
+  throwObjects: 0
+  isGrav: 0
+  infiniteAmmo: 0
+  startZone: {x: 1, y: 1}
+  tekKoof: 1
+  upKoofFire: 2
+  maxKoof: 26
+  downKoofFirst: 1.5
+  downKoof: 0.1
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 2500, y: 2500, z: 2500}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 2
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
+  secondBulletSpawn: {fileID: 0}
+  shootLineColor: {r: 0.4044118, g: 0.4044118, b: 0.4044118, a: 1}
+  bulletIndex: 0
+--- !u!114 &7456222208796360440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1290344204919320615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25ae6de24cfdc3469b586d164d376d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents: []
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &3628354592709830624
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +237,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3623153462140518202}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -58.87016, y: -99.20329, z: 74.69516}
+  m_LocalEulerAnglesHint: {x: -58.861004, y: -99.199005, z: 74.687004}
 --- !u!33 &3615834711137911669
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -166,6 +315,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3627090750766595153}
+  - {fileID: 2579100855016632455}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -184,7 +334,7 @@ MonoBehaviour:
   swapTime: 0.7
   isSwapIn: 0
   isSwapOut: 0
-  shoot: {fileID: 8300000, guid: abe5c84c172b865429b2baedb19d9d4e, type: 3}
+  shoot: {fileID: 0}
   reload: {fileID: 0}
   empty: {fileID: 0}
   isSerialShooting: 1
@@ -203,7 +353,7 @@ MonoBehaviour:
   preview: {fileID: 2800000, guid: f9fa393269a65bc4c882af01331e9eed, type: 3}
   inAppExtensionModifier: 10
   meleeAngle: 45
-  multiplayerDamage: 50
+  multiplayerDamage: 25
   meleeAttackTimeModifier: 0.25
   isHeal: 0
   healAmount: 0
@@ -214,7 +364,7 @@ MonoBehaviour:
   isShotgun: 0
   numOfPellets: 0
   hasAlternateShot: 0
-  hasInspect: 1
+  hasInspect: 0
   alternateShot: {fileID: 0}
   hasRecoil: 0
   recoil: 0
@@ -225,7 +375,7 @@ MonoBehaviour:
   SpeedBoost: 0
   speedBoostAmount: 0
   speedBoostDuration: 0
-  isDouble: 0
+  isDouble: 1
   price: 750
   weaponName: Frying Pan
   oldMeleeSystem: 0
@@ -318,7 +468,7 @@ Transform:
   - {fileID: 7394793929470749458}
   m_Father: {fileID: 3623153462140518202}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 97.80756, y: 76.58925, z: 38.465088}
+  m_LocalEulerAnglesHint: {x: 97.81, y: 76.58299, z: 38.457}
 --- !u!33 &3616343281315703366
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -398,6 +548,133 @@ Transform:
   m_Father: {fileID: 3627090750766595153}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6080395826615622012
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8750601301360611051}
+  - component: {fileID: 121445287450801768}
+  m_Layer: 0
+  m_Name: Audio Source (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &8750601301360611051
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6080395826615622012}
+  m_LocalRotation: {x: 0.91161203, y: 0.38558477, z: 0.13341703, w: 0.049878854}
+  m_LocalPosition: {x: 0.0076, y: 0.0096, z: -0.0142}
+  m_LocalScale: {x: 0.033333335, y: 0.033333324, z: 0.03333332}
+  m_Children: []
+  m_Father: {fileID: 7394793929470749458}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &121445287450801768
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6080395826615622012}
+  m_Enabled: 0
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: abe5c84c172b865429b2baedb19d9d4e, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 40
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7358601522612788711
 GameObject:
   m_ObjectHideFlags: 0
@@ -431,7 +708,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7394793929470749458}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -179.31432, y: -16.363298, z: -45.76402}
+  m_LocalEulerAnglesHint: {x: -179.315, y: -16.364014, z: -45.755005}
 --- !u!33 &4399751948214204853
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -664,6 +941,7 @@ Transform:
   m_Children:
   - {fileID: 3244967332401302975}
   - {fileID: 9011984458359468836}
+  - {fileID: 8750601301360611051}
   m_Father: {fileID: 3627351826514402486}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -169.919, y: 2.3899841, z: -83.632996}
