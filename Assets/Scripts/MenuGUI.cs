@@ -5,6 +5,8 @@ using Holoville.HOTween;
 
 public class MenuGUI : MonoBehaviour
 {
+	public static MenuGUI instance;
+
 	public void EnterDeathmatch()
 	{
 		loading = true;
@@ -17,8 +19,8 @@ public class MenuGUI : MonoBehaviour
 
 	public void EnterArmory()
 	{
-		loading = true;
-		Application.LoadLevel("NewArmoryScene");
+		ArmoryNGUI.instance.gameObject.SetActive(true);
+		gameObject.SetActive(false);
 	}
 
 	public void EnterTesting()
@@ -113,6 +115,7 @@ public class MenuGUI : MonoBehaviour
 	}
 
 	private void Start() {
+		instance = this;
 		completelyIgnoreStateCHANGES = false;
 		HOTween.Init(true, true, true);
 		HOTween.EnableOverwriteManager();

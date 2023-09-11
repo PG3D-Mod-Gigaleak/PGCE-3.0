@@ -43,6 +43,8 @@ public class GameLoad : MonoBehaviour
 
 	public UILabel currentTask;
 
+	public bool forTesting;
+
 	public IEnumerator LoadWeapons()
 	{
 		int i = 1;
@@ -75,7 +77,10 @@ public class GameLoad : MonoBehaviour
 		yield break;
 	}
 	public void Done() {
-		StartCoroutine(DoneC());
+		if (!forTesting)
+		{
+			StartCoroutine(DoneC());
+		}
 	}
 	private IEnumerator DoneC() {
 		currentTask.text = "done! loading into the menu...";

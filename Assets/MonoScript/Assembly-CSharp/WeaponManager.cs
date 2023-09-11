@@ -497,6 +497,41 @@ public sealed class WeaponManager : MonoBehaviour
 		}
 	}
 
+	public void ResetCategory(string cat)
+	{
+		object remove = null;
+		foreach (object obj in _playerWeapons)
+		{
+			if (((Weapon)obj).weaponPrefab.name == prefs.GetString(cat))
+			{
+				remove = obj;
+				break;
+			}
+		}
+		_playerWeapons.Remove(remove);
+
+		GameObject sounds = null;
+
+        foreach (GameObject wpn in WeaponManager.WeaponPrefabs)
+        {
+            if (wpn.name == prefs.GetString(cat))
+            {
+                sounds = wpn;
+                break;
+            }
+        }
+
+		GameObject @gameObject = sounds;
+
+		Weapon weapon = new Weapon();
+		weapon.weaponPrefab = @gameObject;
+		weapon.currentAmmoInBackpack = weapon.weaponPrefab.GetComponent<WeaponSounds>().InitialAmmo;
+		weapon.currentAmmoInClip = weapon.weaponPrefab.GetComponent<WeaponSounds>().ammoInClip;
+
+		_playerWeapons.Add(weapon);
+		playerWeapons.Sort(new WeaponsComparer());
+	}
+
 	public void Reset()
 	{
 		Debug.LogWarning("cat1 is " + prefs.GetString("cat1"));

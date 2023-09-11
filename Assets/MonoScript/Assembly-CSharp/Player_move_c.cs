@@ -2539,6 +2539,16 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public bool isChargingUp;
 
+	private bool armoryGuiOverlayed;
+
+	public void ReEnableCams()
+	{
+		armoryGuiOverlayed = false;
+		gunCam.enabled = true;
+		gunCam.transform.parent.GetComponent<Camera>().enabled = true;
+		inGameGUI.gameObject.GetComponentInChildren<Camera>().enabled = true;
+	}
+
 	private void ShotPressed(bool alt = false)
 	{
 		if (isChargingUp)
@@ -3749,7 +3759,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		if (!Application.isMobilePlatform && isMine)
 		{
-			if (Input.GetMouseButton(1))
+			if (Input.GetMouseButton(1) && !armoryGuiOverlayed)
 			{
 				if (_weaponManager.currentWeaponSounds.hasAlternateShot)
 				{
@@ -3770,7 +3780,7 @@ public sealed class Player_move_c : MonoBehaviour
 					}
 				}
 			}
-			if (Input.GetKeyDown(KeyCode.K) && !showChat && !showRanks && isMine) {
+			if (Input.GetKeyDown(KeyCode.K) && !showChat && !showRanks && isMine && !armoryGuiOverlayed) {
 				#if UNITY_EDITOR
 				if (!showingAdminInput) {
 					showingAdminInput = true;
@@ -3783,7 +3793,7 @@ public sealed class Player_move_c : MonoBehaviour
 			if (Input.GetKeyDown(KeyCode.Insert)) {
 				prefs.SetInt("ShowFPS", (prefs.GetInt("ShowFPS", 0) == 0 ? 1 : 0));
 			}
-			if (isMine && !showChat) {
+			if (isMine && !showChat && !armoryGuiOverlayed) {
 				if (Input.GetKeyDown(KeyCode.Alpha1))
 				{
 					if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).category != CategoryType.Primary)
@@ -3864,7 +3874,14 @@ public sealed class Player_move_c : MonoBehaviour
 			#endif
 			if (Input.GetKeyDown(KeyCode.Escape) && c)
 			{
-				SwitchPause();
+				if (armoryGuiOverlayed)
+				{
+					ArmoryNGUI.instance.Back();
+				}
+				else
+				{
+					SwitchPause();
+				}
 			}
 			if (Input.GetKeyDown(KeyCode.Tab) && c)
 			{
@@ -3882,6 +3899,16 @@ public sealed class Player_move_c : MonoBehaviour
 			if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift))
 			{
 				parentedAnimation.Stop();
+			}
+			if (Input.GetKeyDown(KeyCode.F2) && !ArmoryNGUI.instance.gameObject.activeInHierarchy)
+			{
+				armoryGuiOverlayed = true;
+				ArmoryNGUI.instance.gameObject.SetActive(true);
+				Cursor.lockState = CursorLockMode.None;
+				Cursor.visible = true;
+				gunCam.enabled = false;
+				gunCam.transform.parent.GetComponent<Camera>().enabled = false;
+				inGameGUI.gameObject.GetComponentInChildren<Camera>().enabled = false;
 			}
 		}
 		if (prefs.GetInt("MultyPlayer") == 1 && isMine) {
