@@ -5,6 +5,8 @@ public class Rocket : MonoBehaviour
 {
 	public int rocketNum;
 
+	public float extraSpeed { get; set; }
+
 	public string weaponName = string.Empty;
 
 	public float damage;
@@ -66,6 +68,10 @@ public class Rocket : MonoBehaviour
 		}
 		GetComponent<BoxCollider>().enabled = false;
 		base.transform.GetComponent<Rigidbody>().isKinematic = true;
+		if (!photonView.isMine)
+		{
+			GetComponent<Rigidbody>().AddForce(83.75f * transform.forward * extraSpeed);
+		}
 	}
 
 	[Obfuscation(Exclude = true)]
