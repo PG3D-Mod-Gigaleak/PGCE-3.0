@@ -3065,7 +3065,7 @@ public sealed class Player_move_c : MonoBehaviour
 	}
 
 	[PunRPC]
-	private void fireFlashPhoton(int id, bool isFlash, float distanBullet, Quaternion naprv, int shotIndex)
+	private void fireFlashPhoton(int id, bool isFlash, float distanBullet, Quaternion naprv, int shotIndex, bool altShoot)
 	{
 		GameObject[] array = GameObject.FindGameObjectsWithTag("PlayerGun");
 		GameObject[] array2 = array;
@@ -3086,7 +3086,7 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 				if (!gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().isDouble)
 				{
-					gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, "Shoot"));
+					gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play(Defs.CAnim(gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject, altShoot ? "AltShoot" : "Shoot"));
 				}
 				else
 				{
@@ -3388,7 +3388,7 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			if (prefs.GetInt("MultyPlayer") == 1)
 			{
-				photonView.RPC("fireFlashPhoton", PhotonTargets.Others, base.gameObject.transform.GetComponent<PhotonView>().viewID, true, hitInfo.distance, Quaternion.LookRotation(Camera.main.transform.TransformDirection(Vector3.forward)), doubleShotIndex);
+				photonView.RPC("fireFlashPhoton", PhotonTargets.Others, base.gameObject.transform.GetComponent<PhotonView>().viewID, true, hitInfo.distance, Quaternion.LookRotation(Camera.main.transform.TransformDirection(Vector3.forward)), doubleShotIndex, alt);
 			}
 			if ((hitInfo.collider.gameObject.CompareTag("BodyCollider") || hitInfo.collider.gameObject.CompareTag("HeadCollider")) && prefs.GetInt("MultyPlayer") == 1 && prefs.GetInt("COOP", 0) != 1 && !hitInfo.collider.transform.parent.gameObject.GetComponent<FirstPersonControl>().playerGameObject.GetComponent<Player_move_c>().isMine)
 			{
@@ -3398,7 +3398,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		if (prefs.GetInt("MultyPlayer") == 1)
 		{
-			photonView.RPC("fireFlashPhoton", PhotonTargets.Others, base.gameObject.transform.GetComponent<PhotonView>().viewID, false, 0f, Quaternion.identity, doubleShotIndex);
+			photonView.RPC("fireFlashPhoton", PhotonTargets.Others, base.gameObject.transform.GetComponent<PhotonView>().viewID, false, 0f, Quaternion.identity, doubleShotIndex, alt);
 		}
 		StartCoroutine(CheckHitByMelee(alt));
 	}
