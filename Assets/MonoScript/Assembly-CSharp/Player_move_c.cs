@@ -10,6 +10,7 @@ public sealed class Player_move_c : MonoBehaviour
 {
 	public GameObject stalkerhelmet;
 	public GameObject earshat;
+	public bool actuallyOpenIt { get; set; }
 	public struct MessageChat
 	{
 		public string text;
@@ -3939,6 +3940,7 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			if (Input.GetKeyDown(KeyCode.F2) && !ArmoryNGUI.instance.gameObject.activeInHierarchy)
 			{
+				actuallyOpenIt = true;
 				armoryGuiOverlayed = true;
 				ArmoryNGUI.instance.gameObject.SetActive(true);
 				Cursor.lockState = CursorLockMode.None;

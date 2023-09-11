@@ -41,6 +41,26 @@ public class ArmoryNGUI : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    void OnEnable()
+    {
+        bool active = true;
+        if (!Application.loadedLevelName.StartsWith("Menu_"))
+        {
+            if (Globals.PlayerMove != null)
+            {
+                if (!Globals.PlayerMove.actuallyOpenIt)
+                {
+                    active = false;
+                }
+            }
+            else
+            {
+                active = false;
+            }
+        }
+        gameObject.SetActive(active);
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -141,6 +161,7 @@ public class ArmoryNGUI : MonoBehaviour
             if (!gameOver)
             {
                 Globals.PlayerMove.ReEnableCams();
+                Globals.PlayerMove.actuallyOpenIt = false;
             }
         }
         gameObject.SetActive(false);
