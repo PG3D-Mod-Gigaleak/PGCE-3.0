@@ -3405,10 +3405,6 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public void MinusLivePlayerManual(int sender, int receiver, float damage, bool headShot = false)
 	{
-		if (sender == receiver)
-		{
-			return;
-		}
 		photonView.RPC("minusLivePhoton", PhotonTargets.All, receiver, sender, damage, headShot);
 	}
 

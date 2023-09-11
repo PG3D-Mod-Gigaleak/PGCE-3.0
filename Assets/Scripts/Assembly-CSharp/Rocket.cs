@@ -66,12 +66,8 @@ public class Rocket : MonoBehaviour
 			Invoke("Remove", 7f);
 			return;
 		}
-		//GetComponent<BoxCollider>().enabled = false;
-		//base.transform.GetComponent<Rigidbody>().isKinematic = true;
-		if (!photonView.isMine)
-		{
-			GetComponent<Rigidbody>().AddForce(83.75f * transform.forward * extraSpeed);
-		}
+		GetComponent<BoxCollider>().enabled = false;
+		base.transform.GetComponent<Rigidbody>().isKinematic = true;
 	}
 
 	[Obfuscation(Exclude = true)]
