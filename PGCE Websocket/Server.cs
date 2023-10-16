@@ -15,11 +15,21 @@ namespace PGCE
 			Server.SessionsBridge = Sessions;
 			/*Console.WriteLine($"------------------------------------------------------------");
 			Console.WriteLine($"[Action::OnMessage] Received message");*/
-			Dictionary<string, object> givenInput = JsonConvert.DeserializeObject<Dictionary<string, object>>(e.Data);
+			long SenderSessionID = -1;
+			PlayerSession? Sender = null;
+			string SentData = e.Data;
+			if (e.Data.Split(Server.IDSplitter).Length == 2)
+			{
+				SenderSessionID = Convert.ToInt64(e.Data.Split(Server.IDSplitter)[0]);
+				SentData = e.Data.Split(Server.IDSplitter)[1];
+				Sender = PlayerSessionManager.GetPlayerSessionFromID(SenderSessionID);
+			}
+			Dictionary<string, object> givenInput = JsonConvert.DeserializeObject<Dictionary<string, object>>(SentData);
 			if (givenInput == null) {
 				Send("-X-");
+				return;
 			}
-			givenInput = Encryption.Decrypt(givenInput);
+			givenInput = Encryption.Decrypt(givenInput, Sender);
 			string action = (string)givenInput["action"];
 			//Console.WriteLine($"[Action::OnMessage] Received request for action {action}");
 			Dictionary<string, object> output = new Dictionary<string, object>();
@@ -27,6 +37,7 @@ namespace PGCE
 			{
 				try
 				{
+					PlayerSession GenSession = PlayerSessionManager.CreateNewSession();
 					if (givenInput.ContainsKey("uid") && givenInput.ContainsKey("ak"))
 					{
 						AccountParameters? result = Helpers.GetAccountInfo(givenInput["uid"]);
@@ -39,6 +50,8 @@ namespace PGCE
 						if (Helpers.AccountBanned(confirmedResult))
 							throw new Exception("The account is banned");
 					}
+					output["s_id"] = GenSession.SessionID;
+					output["d_ky"] = GenSession.DecryptionKey;
 					output["response"] = "success";
 				}
 				catch (Exception exception)
@@ -49,6 +62,7 @@ namespace PGCE
 			}
 			else if (action == "close_session")
 			{
+				PlayerSessionManager.DestroySession(SenderSessionID);
 				output["response"] = "success";
 			}
 			else if (action == "create_user")
@@ -131,13 +145,13 @@ namespace PGCE
 							{"recvid", Convert.ToInt64((string)givenInput["uid"])},
 							{"action", "recv-chatbanned"},
 							{"response", "success"},
-						})));
+						}, Sender)));
 						throw new Exception("The account is chat banned");
 					}
 					string nameColorTag = "[FFFFFF]";
 					if (confirmedResult.IsAdmin)
 						nameColorTag = "[E6213D]";
-					Sessions.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
+					Sessions.Broadcast("NO-ENCRYPT|" + JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
 						{"type", "send"},
 						{"text", $"<{nameColorTag}{confirmedResult.Name.RemoveColorCode()}[FFFFFF]> {PG3D.FilterBadWorld.FilterString((string)givenInput["msg"])}"},
 						{"action", "recv-chat"},
@@ -257,7 +271,7 @@ namespace PGCE
 						{"recvid", Convert.ToInt64((string)givenInput["uid"])},
 						{"action", "recv-forceupdate-user"},
 						{"response", "success"},
-					})));
+					}, Sender)));
 					output["response"] = "success";
 				}
 				catch (Exception exception)
@@ -292,7 +306,7 @@ namespace PGCE
 						{"recvid", Convert.ToInt64((string)givenInput["uid"])},
 						{"action", "recv-forceupdate-user"},
 						{"response", "success"},
-					})));
+					}, Sender)));
 					output["response"] = "success";
 				}
 				catch (Exception exception)
@@ -343,7 +357,7 @@ namespace PGCE
 						{"recvid", Convert.ToInt64((string)givenInput["uid"])},
 						{"action", "recv-forceupdate-user"},
 						{"response", "success"},
-					})));
+					}, Sender)));
 					output["response"] = "success";
 				}
 				catch (Exception exception)
@@ -386,7 +400,7 @@ namespace PGCE
 						{"recvid", Convert.ToInt64((string)givenInput["uid"])},
 						{"action", "recv-forceupdate-user"},
 						{"response", "success"},
-					})));
+					}, Sender)));
 					return;
 				}
 				catch (Exception exception)
@@ -428,7 +442,7 @@ namespace PGCE
 						{"recvid", Convert.ToInt64((string)givenInput["uid"])},
 						{"action", "recv-forceupdate-user"},
 						{"response", "success"},
-					})));
+					}, Sender)));
 					output["response"] = "success";
 				}
 				catch (Exception exception)
@@ -454,6 +468,9 @@ namespace PGCE
 						throw new Exception("Authkey invalid");
 					if (Helpers.AccountBanned(confirmedResult))
 						throw new Exception("The account is banned");
+					PlayerSession SenderSesh = (PlayerSession)Sender;
+					SenderSesh.AccountParameters = confirmedResult;
+					PlayerSessionManager.UpdatePlayerSession(SenderSessionID, SenderSesh);
 					output["name_set"] = confirmedResult.Name;
 					output["coins_set"] = confirmedResult.Coins;
 					output["catears_set"] = confirmedResult.CatEars;
@@ -517,7 +534,11 @@ namespace PGCE
 				output["response"] = "failed";
 				output["cause"] = $"Unimplemented action {action}";
 			}
-			Send(JsonConvert.SerializeObject(Encryption.Encrypt(output)));
+			if (Sender == null)
+				Console.WriteLine($"[Encryption] Sender is NULL, not encrypting");
+			else
+				Console.WriteLine($"[Encryption] Sender is NOT null, encrypting with key {Sender.Value.DecryptionKey}");
+			Send(JsonConvert.SerializeObject(Encryption.Encrypt(output, Sender)));
 			/*Console.WriteLine($"[Action::OnMessage] Finalized request for action {action}");
 			Console.WriteLine($"[Action::OnMessage] Output: {JsonConvert.SerializeObject(output)}");*/
 		}
@@ -527,9 +548,11 @@ namespace PGCE
 	{
 		private const bool IsProduction = false;
 		private const bool ClearDatabase = false;
+		public const string IDSplitter = "__ID-SPLITTER|^|ID-SPLITTER__";
 		public static SQLiteConnection? DB { get; set; }
 		public static SQLiteCommand? CMD { get; set; }
 		public static WebSocketSessionManager SessionsBridge { get; set; }
+		public static List<PlayerSession> PlayerSessions { get; set; }
 		private static void InitDB(bool clearNoMatterWhat = false)
 		{
 			if (ClearDatabase || clearNoMatterWhat)
@@ -595,9 +618,17 @@ namespace PGCE
 				// fuck you
 			}
 		}
+
+		public static void ClearSessionList()
+		{
+			if (PlayerSessions != default)
+				PlayerSessions.Clear();
+		}
+
 		public static void Main(string[] args)
 		{
 			Console.Clear();
+			PlayerSessions = new List<PlayerSession>();
 			InitDB();
 			Helpers.InitializeEncryption();
 			var wssv = new WebSocketServer(8083);
@@ -618,7 +649,8 @@ namespace PGCE
 						output["type"] = "send";
 						output["action"] = "alert-downtime";
 						output["response"] = "success";
-						Server.SessionsBridge.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(output)));
+						Server.SessionsBridge.Broadcast("NO-ENCRYPT|" + JsonConvert.SerializeObject(Encryption.Encrypt(output)));
+						ClearSessionList();
 					}
 					break;
 				}

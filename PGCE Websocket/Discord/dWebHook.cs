@@ -47,12 +47,13 @@ public class dWebHook: IDisposable
     }
     public static void sendDiscordWebhook(string URL, string escapedjson)
     {
-        var wr = WebRequest.Create(URL);
+        // disabled to not bother...
+        /*var wr = WebRequest.Create(URL);
         wr.ContentType = "application/json";
         wr.Method = "POST";
         using (var sw = new StreamWriter(wr.GetRequestStream()))
             sw.Write(escapedjson);
-        wr.GetResponse();
+        wr.GetResponse();*/
     }
     public void Dispose()
     {

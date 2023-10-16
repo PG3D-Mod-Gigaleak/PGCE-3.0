@@ -55,11 +55,13 @@ namespace PGCE
 			if (GetAccountInfo(id) == null)
 				return false;
 			AccountParameters accountParameters = GetAccountInfo(id).GetValueOrDefault();
+			PlayerSessionManager.DestroySession(accountParameters);
 			return AccountBanned(accountParameters);
 		}
 		public static bool AccountBanned(AccountParameters accountParameters)
 		{
 			if (accountParameters.Banned)
+				PlayerSessionManager.DestroySession(accountParameters);
 				return true;
 			return DateTime.Now < accountParameters.BanTime;
 		}
@@ -93,7 +95,7 @@ namespace PGCE
 					output["type"] = "send";
 					output["action"] = "alert-ban";
 					output["response"] = "success";
-					Server.SessionsBridge.Broadcast(JsonConvert.SerializeObject(Encryption.Encrypt(output)));
+					Server.SessionsBridge.Broadcast("NO-ENCRYPT|" + JsonConvert.SerializeObject(Encryption.Encrypt(output)));
 				}
 				return true;
 			}
