@@ -2516,7 +2516,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.reload);
 		}
-		_rightJoystick.SendMessage("HasAmmo");
+//		_rightJoystick.SendMessage("HasAmmo");
 	}
 
 	public void OpenChat()
@@ -4123,8 +4123,8 @@ public sealed class Player_move_c : MonoBehaviour
 			isKilled = true;
 			isDeadFrame = true;
 			StartCoroutine(FlashWhenDead());
-			_leftJoystick.SetActive(false);
-			_rightJoystick.SetActive(false);
+			_leftJoystick?.SetActive(false);
+			_rightJoystick?.SetActive(false);
 			if (isMine) {
 				DispatchDie();
 			}

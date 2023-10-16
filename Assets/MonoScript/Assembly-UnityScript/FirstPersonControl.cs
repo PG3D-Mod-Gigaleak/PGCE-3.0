@@ -275,6 +275,10 @@ public class FirstPersonControl : MonoBehaviour
 		}
 		if (!Application.isMobilePlatform && isMine)
 		{
+			if (Globals.PlayerMove == null)
+			{
+				return;
+			}
 			moveTouchPad.position = updateKeyboardControls();
 			if (Cursor.lockState == CursorLockMode.Locked)
 			{
