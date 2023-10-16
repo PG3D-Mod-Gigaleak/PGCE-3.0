@@ -178,8 +178,14 @@ public sealed class Player_move_c : MonoBehaviour
 			_003C_003Ef__this._weaponManager.myPlayer.GetComponent<SkinName>().camPlayer.transform.parent = _003C_003Ef__this._weaponManager.myPlayer.transform;
 			if (!pauserIsPaused())
 			{
-				_003C_003Ef__this._leftJoystick.SetActive(true);
-				_003C_003Ef__this._rightJoystick.SetActive(true);
+				if (_003C_003Ef__this._leftJoystick != null)
+				{
+					_003C_003Ef__this._leftJoystick.SetActive(true);
+				}
+				if (_003C_003Ef__this._rightJoystick != null)
+				{
+					_003C_003Ef__this._rightJoystick.SetActive(true);
+				}
 			}
 			_003C_003Ef__this._rightJoystick.SendMessage("HasAmmo");
 			if (_003C_003Ef__this.isGravFlipped && _003C_003Ef__this.isMine) {
