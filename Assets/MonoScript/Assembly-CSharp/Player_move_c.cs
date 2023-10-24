@@ -740,11 +740,13 @@ public sealed class Player_move_c : MonoBehaviour
 	[HideInInspector]
 	public int doubleShotIndex;
 
+	public int doubleInspectIndex;
+
 	public bool Shooting
 	{
 		get
 		{
-			return _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Shoot") || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Shoot" + doubleShotIndex) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("AltShoot")  || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Inspect");
+			return _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Shoot") || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Shoot" + doubleShotIndex) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("AltShoot")  || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Inspect") || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Inspect0") || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying("Inspect1");
 		}
 	}
 
@@ -817,7 +819,16 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		doubleShotIndex = 0;
 	}
-
+    
+	public void DoDoubleInspect()
+	{
+		if (doubleInspectIndex == 0)
+		{
+			doubleInspectIndex = 1;
+			return;
+		}
+		doubleInspectIndex = 0;
+	}
 	public void UpdateAmmoCounter()
 	{
 		if (!_weaponManager.currentWeaponSounds.isMelee && !_weaponManager.currentWeaponSounds.isHeal && !_weaponManager.currentWeaponSounds.throwObject && !_weaponManager.currentWeaponSounds.infiniteAmmo)
@@ -1989,6 +2000,11 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("Inspect")].layer = 1;
 		}
+		if (_weaponManager.currentWeaponSounds.hasDoubleInspect)
+		{
+			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("Inspect0")].layer = 1;
+			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("Inspect1")].layer = 1;
+		}
 		if (_weaponManager.currentWeaponSounds.chargeUp)
 		{
 			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("ChargeUp")].layer = 1;
@@ -2512,6 +2528,15 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			return;
 		}
+		Debug.LogError("alo team");
+		if ( _weaponManager.currentWeaponSounds.hasDoubleInspect && doubleInspectIndex == 0 )
+		{
+			Debug.LogError("alo team is true");
+			gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
+            gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play("Inspect1");
+		}
+		doubleInspectIndex = 1;
+		DoDoubleInspect();
 		reloading = true;
 		_weaponManager.Reload();
 		if (prefs.GetInt("MultyPlayer") == 1)
@@ -2522,9 +2547,10 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.reload);
 		}
-//		_rightJoystick.SendMessage("HasAmmo");
-	}
-
+		{
+		_rightJoystick.SendMessage("HasAmmo");
+	    }
+		}
 	public void OpenChat()
 	{
 		if (prefs.GetInt("MultyPlayer") == 1 && !_pauser.paused && prefs.GetInt("ChatOn", 1) == 1)
@@ -2597,7 +2623,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			return;
 		}
-		if ((prefs.GetInt("MultyPlayer") == 1 && prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("ChargeDown")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Inspect")))
+		if ((prefs.GetInt("MultyPlayer") == 1 && prefs.GetString("TypeConnect").Equals("inet") && (bool)photonView && !photonView.isMine) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("ChargeDown")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Inspect")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Inspect0")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Inspect1")))
 		{
 			return;
 		}
@@ -2675,7 +2701,7 @@ public sealed class Player_move_c : MonoBehaviour
 			yield return new WaitForSeconds(0.01f);
 			if (!WS.animationObject.GetComponent<Animation>().IsPlaying("ChargeUp"))
 			{
-				if (!WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Inspect")))
+				if (!WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Shoot1")) || WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Empty")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("AltShoot")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Inspect")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Inspect0")) && !WS.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Inspect1")))
 				{
 					if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip <= 0)
 					{
@@ -3817,7 +3843,17 @@ public sealed class Player_move_c : MonoBehaviour
 						_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play(myCAnim("Inspect"));
 					}
 				}
-			}
+				if (_weaponManager.currentWeaponSounds.hasDoubleInspect) 
+				{
+					if (!_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Inspect0")) && !_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Inspect1")))
+                    {
+                    gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
+                    gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play("Inspect" + doubleInspectIndex);
+					Debug.LogError("alolooo");
+                    DoDoubleInspect();
+                    }
+				}
+            }
 			if (Input.GetKeyDown(KeyCode.K) && !showChat && !showRanks && isMine && !armoryGuiOverlayed) {
 				#if UNITY_EDITOR
 				if (!showingAdminInput) {
@@ -4147,7 +4183,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 	}
-
+			
 	[HideInInspector] public bool diedInCOOP;
 
 	public void LoseScreenMethod()

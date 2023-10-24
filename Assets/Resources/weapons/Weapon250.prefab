@@ -130,8 +130,8 @@ Animation:
   - {fileID: 7400000, guid: f92c69a2e78a0c04b83b625328e5d6c8, type: 2}
   - {fileID: 7400000, guid: c320ca1909fdf7a4cac3e47601e890e2, type: 2}
   - {fileID: 7400000, guid: 98b49e1147cef5644a2fe34d558c1268, type: 2}
-  - {fileID: 7400000, guid: 446c33d2278eb8c4b8c31c445d45ad46, type: 2}
-  - {fileID: 7400000, guid: be5b905bdcbbced4ca4d7efd41d7d4e1, type: 2}
+  - {fileID: 7400000, guid: 666bf91bc37c75f498e78df92d55059d, type: 2}
+  - {fileID: 7400000, guid: 0e062664710984d44afb4d5711644d23, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
   maxAmmo: 600
   isMelee: 0
   range: 3
-  damage: 750
+  damage: 550
   speedModifier: 0.7
   animationObject: {fileID: 842180794090195142}
   Probability: 1
@@ -278,7 +278,8 @@ MonoBehaviour:
   isShotgun: 0
   numOfPellets: 9
   hasAlternateShot: 0
-  hasInspect: 1
+  hasInspect: 0
+  hasDoubleInspect: 1
   alternateShot: {fileID: 0}
   hasRecoil: 0
   recoil: 0
@@ -427,7 +428,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 839199920819505958}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -62.669003, y: -71.213005, z: 64.987}
+  m_LocalEulerAnglesHint: {x: -37.185, y: -85.11201, z: 81.09801}
 --- !u!33 &850584436053813415
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -507,7 +508,7 @@ Transform:
   - {fileID: 2114716330143714488}
   m_Father: {fileID: 839199920819505958}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.514}
 --- !u!33 &846802620844004750
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1026,7 +1027,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7510794790454962258}
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0.0809, y: -0.0026, z: 0.0355}
+  m_LocalPosition: {x: -0.0423, y: -0.0026, z: 0.0348}
   m_LocalScale: {x: 0.71428573, y: 0.71428555, z: 0.7142856}
   m_Children: []
   m_Father: {fileID: 4137842749576784596}
@@ -1057,7 +1058,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 10
+  field of view: 14
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
