@@ -2528,15 +2528,6 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			return;
 		}
-		Debug.LogError("alo team");
-		if ( _weaponManager.currentWeaponSounds.hasDoubleInspect && doubleInspectIndex == 0 )
-		{
-			Debug.LogError("alo team is true");
-			gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
-            gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play("Inspect1");
-		}
-		doubleInspectIndex = 1;
-		DoDoubleInspect();
 		reloading = true;
 		_weaponManager.Reload();
 		if (prefs.GetInt("MultyPlayer") == 1)
