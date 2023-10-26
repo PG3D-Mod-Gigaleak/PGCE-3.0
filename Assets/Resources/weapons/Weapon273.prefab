@@ -503,7 +503,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3475445632213117569}
   m_LocalRotation: {x: 0.4889738, y: 0.51078844, z: 0.51078856, w: 0.48897338}
-  m_LocalPosition: {x: 0.95119536, y: -0.19005649, z: 0.29900002}
+  m_LocalPosition: {x: 0.945, y: -0.051, z: 0.299}
   m_LocalScale: {x: 0.21904469, y: 0.19443, z: 1}
   m_Children:
   - {fileID: 343979992186123660}
@@ -707,41 +707,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e6dcb4e84307f4b982ce71a00c0bde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cuberedPrefab: {fileID: 8292422762710562415, guid: 27e0b79594454ef408d3fdda3f2d887a,
-    type: 3}
-  onSpawn:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5344540490388882767}
-        m_MethodName: CancelInvoke
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5344540490388882767}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5344540490388882767}
-        m_MethodName: StopAllCoroutines
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  Prefab: {fileID: 8292422762710562415, guid: 27e0b79594454ef408d3fdda3f2d887a, type: 3}
+  initialSpeed: 1
+  frequency: 1
