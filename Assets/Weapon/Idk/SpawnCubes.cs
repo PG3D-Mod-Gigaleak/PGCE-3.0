@@ -5,21 +5,18 @@ using UnityEngine.Events;
 public class SpawnCubes : MonoBehaviour
 {
     public GameObject Prefab;
-    public float initialSpeed;
-    float lastSpawned;
+    float lastSpawnedtime;
     public float frequency;
-    
-    void Update() {
-        if (Time.time > lastSpawned + frequency)
-        {
-            spawnage();
-            lastSpawned = Time.time;
-        }
-    }
     public void spawnage()
     {
         Debug.LogError("Spawned");
         Instantiate(Prefab, transform.position, Quaternion.identity);
-        Prefab.GetComponent<Rigidbody>().velocity = transform.forward * initialSpeed;
+    }
+    void Update() {
+        if (Time.time > lastSpawnedtime + frequency)
+        {
+            lastSpawnedtime = Time.time;
+            spawnage();
+        }
     }
 }
