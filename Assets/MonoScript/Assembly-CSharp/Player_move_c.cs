@@ -1865,6 +1865,19 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	public void HitPlayer(Collider other, float damage)
+	{
+		if (photonView.isMine)
+		{
+			int viewID = transform.parent.GetComponent<PhotonView>().viewID;
+			if (viewID != other.transform.parent.GetComponent<PhotonView>().viewID)
+			{
+				inGameGUI.Hitmark();
+				MinusLivePlayerManual(viewID, other.transform.parent.GetComponent<PhotonView>().viewID, damage * (other.transform.tag == "HeadCollider" ? 1.5f : 1f));
+			}
+		}
+	}
+
 	[PunRPC]
 	public void setParentWeaponPhoton(int idWeapon, int idParent, string nameSkin, string _nickName)
 	{
