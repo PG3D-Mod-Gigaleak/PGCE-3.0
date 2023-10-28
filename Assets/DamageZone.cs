@@ -21,6 +21,7 @@ public class DamageZone : MonoBehaviour
 			    {
 			    	Globals.PlayerMove.inGameGUI.Hitmark();
 			    	other.transform.GetComponent<BotHealth>().adjustHealth(coopDamage, Camera.main.transform);
+                    Debug.LogError("EnemyDamage");
 			    }
 			    else
 			    {
@@ -28,9 +29,11 @@ public class DamageZone : MonoBehaviour
 			    	float health = controller.health;
 			    	health -= coopDamage;
 			    	controller.setHealth(health, true);
+                    Debug.LogError("EnemyHealth");
 			    	if (health <= 0f)
 			    	{
 			    		GlobalGameController.Score += controller.transform.GetChild(0).GetComponent<Sounds>().scorePerKill;
+                        Debug.LogError("Score");
 			    	}
 			    	WeaponManager.sharedManager.myTable.GetComponent<NetworkStartTable>().score = GlobalGameController.Score;
 			    	WeaponManager.sharedManager.myTable.GetComponent<NetworkStartTable>().synchState();
@@ -40,6 +43,7 @@ public class DamageZone : MonoBehaviour
             case "BodyCollider":
             case "HeadCollider":
                 Globals.PlayerMove.HitPlayer(other, multiplayerDamage);
+                Debug.LogError("DamagePlayer");
                 break;
         }
 
