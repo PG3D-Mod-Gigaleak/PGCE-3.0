@@ -7,7 +7,7 @@ public class DamageZone : MonoBehaviour
     public float coopDamage = 25f, multiplayerDamage = 15f, damageCooldown = 1f;
     private float timer;
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (timer > 0f)
         {
@@ -37,12 +37,14 @@ public class DamageZone : MonoBehaviour
 			    	}
 			    	WeaponManager.sharedManager.myTable.GetComponent<NetworkStartTable>().score = GlobalGameController.Score;
 			    	WeaponManager.sharedManager.myTable.GetComponent<NetworkStartTable>().synchState();
+                    Globals.PlayerMove.inGameGUI.Hitmark();
 			    }
                 break;
 
             case "BodyCollider":
             case "HeadCollider":
                 Globals.PlayerMove.HitPlayer(other, multiplayerDamage);
+                Globals.PlayerMove.inGameGUI.Hitmark();
                 Debug.LogError("DamagePlayer");
                 break;
         }
