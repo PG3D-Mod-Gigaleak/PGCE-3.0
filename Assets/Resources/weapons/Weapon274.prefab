@@ -31,6 +31,7 @@ Transform:
   m_Children:
   - {fileID: 1654215855350867601}
   - {fileID: 949582989874881899}
+  - {fileID: 7341668674170920117}
   m_Father: {fileID: 1654408602666700401}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -51,6 +52,7 @@ Animation:
   - {fileID: 7400000, guid: bd0b4733fd0b76b4898f455a46a93087, type: 2}
   - {fileID: 7400000, guid: fa2d70f0b6006d442b44e6531d257deb, type: 2}
   - {fileID: 7400000, guid: cfd700dd10081104eb18c5fff69b0121, type: 2}
+  - {fileID: 7400000, guid: 8417868b9b4efb94db0dc3fa8e2dfd2f, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -182,7 +184,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1654215855350867601}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -63.850517, y: 0, z: -0.000010608814}
 --- !u!33 &1624755967393350193
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -262,7 +264,7 @@ Transform:
   - {fileID: 1651228222977788191}
   m_Father: {fileID: 1654427704694399035}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -0.53400004, y: -0.53400004, z: 0.027}
+  m_LocalEulerAnglesHint: {x: 0.2883113, y: 0.029160023, z: 36.549664}
 --- !u!33 &1624712636705132371
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -581,7 +583,7 @@ MonoBehaviour:
   isShotgun: 0
   numOfPellets: 0
   hasAlternateShot: 0
-  hasInspect: 0
+  hasInspect: 1
   hasDoubleInspect: 0
   alternateShot: {fileID: 0}
   hasRecoil: 0
@@ -1006,7 +1008,7 @@ Transform:
   - {fileID: 1654427704694399035}
   m_Father: {fileID: 1654215855350867601}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 62.62139, y: 0, z: 0}
 --- !u!33 &1625224923230349367
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1098,7 +1100,88 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6595332642560483060, guid: 041bbc771fd836449a16358944e68aa3, type: 3}
+  User: {fileID: 1657058738163608661}
+  hasUser: 0
+  isRandom: 0
+  isForward: 0
+  onlyHorizontal: 0
   frequency: 3
+  positionObject: {x: 0, y: 0, z: 0}
+  rotationObject: {x: 0, y: 0, z: 0}
+  scaleObject: {x: 0, y: 0, z: 0}
+  distance: 0
+  distancePosition: {x: 0, y: 0, z: 0}
+  distanceRotation: {x: 0, y: 0, z: 0}
+  distanceScale: {x: 0, y: 0, z: 0}
+  x1: 0
+  x2: 0
+  y1: 0
+  y2: 0
+  z1: 0
+  z2: 0
+--- !u!1 &4712925715083181591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7341668674170920117}
+  - component: {fileID: 1940511049149392712}
+  m_Layer: 0
+  m_Name: RandomSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &7341668674170920117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4712925715083181591}
+  m_LocalRotation: {x: 2.091381e-14, y: 0.0000001404956, z: 0.0000001488574, w: 1}
+  m_LocalPosition: {x: 0.044, y: 1.51, z: 4.599001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1654252229538244271}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1940511049149392712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4712925715083181591}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e6dcb4e84307f4b982ce71a00c0bde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Prefab: {fileID: 6595332642560483060, guid: 041bbc771fd836449a16358944e68aa3, type: 3}
+  User: {fileID: 1657058738163608661}
+  hasUser: 0
+  isRandom: 1
+  isForward: 0
+  onlyHorizontal: 0
+  frequency: 0.4
+  positionObject: {x: 0, y: 0, z: 0}
+  rotationObject: {x: 0, y: 0, z: 0}
+  scaleObject: {x: 0, y: 0, z: 0}
+  distance: 0
+  distancePosition: {x: 0, y: 0, z: 0}
+  distanceRotation: {x: 0, y: 0, z: 0}
+  distanceScale: {x: 0, y: 0, z: 0}
+  x1: -25
+  x2: 25
+  y1: 0
+  y2: 0
+  z1: -25
+  z2: 25
 --- !u!1 &5861579099910921955
 GameObject:
   m_ObjectHideFlags: 0
