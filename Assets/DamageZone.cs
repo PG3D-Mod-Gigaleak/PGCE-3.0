@@ -22,35 +22,9 @@ public class DamageZone : MonoBehaviour
 	private WeaponManager _weaponManager;
 
 	private bool isKilled;
-
-private void Awake()
-	{
-		isMulti = prefs.GetInt("MultyPlayer") == 1;
-		isInet = true;//prefs.GetString("TypeConnect").Equals("inet");
-		isCompany = false;//prefs.GetInt("company", 0) == 1;
-		isCOOP = prefs.GetInt("COOP", 0) == 1;
-	}
-
 	private void Start()
 	{
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
-		photonView = PhotonView.Get(this);
-		if (isMulti)
-		{
-			isMine = photonView.isMine;
-		}
-		if (isMulti && isMine)
-		{
-            return;
-		}
-		else if (!isMulti)
-		{
-            return;
-		}
-		if (!isMulti || isMine)
-		{
-			return;
-		}
 	}
     void OnTriggerStay(Collider other)
     {
