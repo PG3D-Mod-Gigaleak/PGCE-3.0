@@ -22,9 +22,33 @@ public class DamageZone : MonoBehaviour
 	private WeaponManager _weaponManager;
 
 	private bool isKilled;
+	private void Awake()
+	{
+		isMulti = prefs.GetInt("MultyPlayer") == 1;
+		isInet = true;//prefs.GetString("TypeConnect").Equals("inet");
+		isCompany = false;//prefs.GetInt("company", 0) == 1;
+		isCOOP = prefs.GetInt("COOP", 0) == 1;
+	}
 	private void Start()
 	{
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
+		photonView = PhotonView.Get(this);
+		if (isMulti)
+		{
+			isMine = photonView.isMine;
+		}
+		if (isMulti && isMine)
+		{
+            return;
+		}
+		else if (!isMulti)
+		{
+            return;
+		}
+		if (!isMulti || isMine)
+		{
+			return;
+		}
 	}
     void OnTriggerStay(Collider other)
     {
@@ -33,74 +57,78 @@ public class DamageZone : MonoBehaviour
             return;
         }
 
-        switch (other.tag)
+        if (other.gameObject.CompareTag("ZombieCollider"))
         {
-            case "Enemy":
-			    if (!Defs.isMulti)
-			    {
-			    	Globals.PlayerMove.inGameGUI.Hitmark();
-			    	other.transform.GetComponent<BotHealth>().adjustHealth(coopDamage, Camera.main.transform);
-                    Debug.LogError("EnemyDamage");
-			    }
-			    else
-			    {
-			    	ZombiUpravlenie controller = other.transform.GetComponent<ZombiUpravlenie>();
-			    	float health = controller.health;
-			    	health -= coopDamage;
-			    	controller.setHealth(health, true);
-                    Debug.LogError("EnemyHealth");
-			    	if (health <= 0f)
-			    	{
-			    		GlobalGameController.Score += controller.transform.GetChild(0).GetComponent<Sounds>().scorePerKill;
-                        Debug.LogError("Score");
-			    	}
-			    	WeaponManager.sharedManager.myTable.GetComponent<NetworkStartTable>().score = GlobalGameController.Score;
-			    	WeaponManager.sharedManager.myTable.GetComponent<NetworkStartTable>().synchState();
-                    Globals.PlayerMove.inGameGUI.Hitmark();
-			    }
-                break;
-
-            case "Player":
+			    if (isMulti && _weaponManager.myPlayer == null)
+			{
+				return;
+			}
+				Globals.PlayerMove.inGameGUI.Hitmark();
+				Debug.LogError("EnemyDamage");
+				if (!isMulti)
+				{
+					BotHealth component = other.transform.parent.gameObject.GetComponent<BotHealth>();
+					component.adjustHealth(0f - coopDamage, Camera.main.transform);
+				}
+				float health = other.transform.parent.gameObject.GetComponent<ZombiUpravlenie>().health;
+				if (health > 0f)
+				{
+					health -= coopDamage;
+					other.transform.parent.gameObject.GetComponent<ZombiUpravlenie>().setHealth(health, true);
+					GlobalGameController.Score += 5;
+					if (health <= 0f)
+					{
+						GlobalGameController.Score += other.GetComponent<Sounds>().scorePerKill;
+					}
+					_weaponManager.myTable.GetComponent<NetworkStartTable>().score = GlobalGameController.Score;
+					_weaponManager.myTable.GetComponent<NetworkStartTable>().synchState();
+				}
+		}
+        if (other.gameObject.CompareTag("BodyCollider"))
+		{
+			        bool flag = false;
+					flag = other.transform.parent.gameObject.GetComponent<PhotonView>().isMine;
+					float num = 1f;
+					bool isHeadShot = false;
+					if (flag)
+					{
                     Globals.PlayerMove.inGameGUI.Hitmark();
                     Debug.LogError("DamagePlayer");
-                    float num = 1f;
-					bool isHeadShot = false;
 					_weaponManager.lastEnemyHitBy = null;
 					float num2 = multiplayerDamage;
-					float num3 = num2 - other.GetComponent<SkinName>().playerMoveC.curArmor;
+					float num3 = num2 - other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.curArmor;
 					if (num3 < 0f)
 					{
-						other.GetComponent<SkinName>().playerMoveC.curArmor -= num2;
+						other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.curArmor -= num2;
 						num3 = 0f;
 					}
 					else
 					{
-						other.GetComponent<SkinName>().playerMoveC.curArmor = 0f;
+						other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.curArmor = 0f;
 					}
-					if (other.GetComponent<SkinName>().playerMoveC.CurHealth > 0f)
+					if (other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.CurHealth > 0f)
 					{
-						if (other.GetComponent<SkinName>().playerMoveC.isMine) {
-							float understand = other.GetComponent<SkinName>().playerMoveC.CurHealth;
-							other.GetComponent<SkinName>().playerMoveC.CurHealth -= num3;
-							IncomprehensibleGarbler.Dispatch("UrnyguPunatr", other.GetComponent<SkinName>().playerMoveC, understand);
+						if (other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.isMine) {
+							float understand = other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.CurHealth;
+							other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.CurHealth -= num3;
+							IncomprehensibleGarbler.Dispatch("UrnyguPunatr", other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC, understand);
 						} else {
-							other.GetComponent<SkinName>().playerMoveC.CurHealth -= num3;
+							other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.CurHealth -= num3;
 						}
-						if (other.GetComponent<SkinName>().playerMoveC.CurHealth <= 0f)
+						if (other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.CurHealth <= 0f)
 						{
-							if (isMine && other.GetComponent<SkinName>().playerMoveC.isMine) {
-								other.GetComponent<SkinName>().playerMoveC.DispatchDie();
+							if (isMine && other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.isMine) {
+								other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.DispatchDie();
 								Achievements.Give("HolyDamage");
 							}
-							other.GetComponent<SkinName>().playerMoveC.sendImDeath(other.GetComponent<SkinName>().NickName);
+							other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.sendImDeath(other.transform.parent.gameObject.GetComponent<SkinName>().NickName);
 						}
+					}
 					}
 //                    Globals.PlayerMove.HitPlayer(other, multiplayerDamage);
 //                    Globals.PlayerMove.inGameGUI.Hitmark();
 //                    Debug.LogError("DamagePlayer");
-                    break;
         }
-
         timer = damageCooldown;
     }
 

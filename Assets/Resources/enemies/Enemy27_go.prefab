@@ -266,8 +266,6 @@ GameObject:
   - component: {fileID: 114299715924775522}
   - component: {fileID: 114398214877182608}
   - component: {fileID: 114978386763562628}
-  - component: {fileID: 3995024679987071737}
-  - component: {fileID: 1536732594778782339}
   m_Layer: 0
   m_Name: Enemy27_go
   m_TagString: Enemy
@@ -532,35 +530,6 @@ MonoBehaviour:
   hitTexture: {fileID: 2800000, guid: 6f5b96be682e8b04f8635781cfd80397, type: 3}
   typeZombInMas: 0
   tekAnim: -1
---- !u!54 &3995024679987071737
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357271607759286}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &1536732594778782339
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357271607759286}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.2849061, y: 1.5279015, z: 0.710121}
-  m_Center: {x: 0.14245325, y: 0.8175209, z: -0.08212903}
 --- !u!1 &1364193986093046
 GameObject:
   m_ObjectHideFlags: 0
@@ -850,12 +819,13 @@ GameObject:
   m_Component:
   - component: {fileID: 4946731819279808}
   - component: {fileID: 114310612835742236}
-  - component: {fileID: 65028738200272350}
   - component: {fileID: 111821197101760006}
   - component: {fileID: 114807602827764892}
+  - component: {fileID: 65028738200272350}
+  - component: {fileID: 9006640739166646967}
   m_Layer: 0
   m_Name: Enemy27
-  m_TagString: Untagged
+  m_TagString: ZombieCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -904,19 +874,6 @@ MonoBehaviour:
   attackingSpeedRandomRange:
   - -0.25
   - 0.25
---- !u!65 &65028738200272350
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1457609651179960}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.3622613, y: 1.6022296, z: 0.85264283}
-  m_Center: {x: -0.016461134, y: 0.8034842, z: -0.08742508}
 --- !u!111 &111821197101760006
 Animation:
   m_ObjectHideFlags: 0
@@ -953,6 +910,35 @@ MonoBehaviour:
   descriptio: not native to the pixel world, can only be found in the world of call
     of mini. extremely dangerous, take caution.
   ruleOut: 0
+--- !u!65 &65028738200272350
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457609651179960}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.3622613, y: 1.6022296, z: 0.6899159}
+  m_Center: {x: -0.016461134, y: 0.8034842, z: -0.0060616136}
+--- !u!54 &9006640739166646967
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457609651179960}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1464251264157284
 GameObject:
   m_ObjectHideFlags: 0

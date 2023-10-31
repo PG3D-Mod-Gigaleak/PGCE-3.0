@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5448929265297909139}
   - component: {fileID: 4952041120334160551}
   - component: {fileID: 1096322700805244997}
+  - component: {fileID: 3230842586849027811}
+  - component: {fileID: 6487488052869052270}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -194,6 +196,35 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3230842586849027811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651668353875668615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d577cce6a41e7a439db58f707e32c51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coopDamage: 300
+  multiplayerDamage: 10
+  damageCooldown: 0.05
+--- !u!64 &6487488052869052270
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651668353875668615}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &2522505035550191676
 GameObject:
   m_ObjectHideFlags: 0
