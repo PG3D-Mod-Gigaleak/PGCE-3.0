@@ -22,6 +22,8 @@ public class DamageZone : MonoBehaviour
 	private WeaponManager _weaponManager;
 
 	private bool isKilled;
+
+	private int amount;
 	private void Awake()
 	{
 		isMulti = prefs.GetInt("MultyPlayer") == 1;
@@ -55,10 +57,16 @@ public class DamageZone : MonoBehaviour
         if (timer > 0f)
         {
             return;
-        }
+		}
 
         if (other.gameObject.CompareTag("ZombieCollider"))
         {
+			amount = 0;
+			GameObject[] array = GameObject.FindGameObjectsWithTag("ZombieCollider");
+			foreach(var GameObject in array)
+			{
+				amount += 1;
+			}
 			    if (isMulti && _weaponManager.myPlayer == null)
 			{
 				return;
@@ -86,6 +94,12 @@ public class DamageZone : MonoBehaviour
 		}
         if (other.gameObject.CompareTag("BodyCollider"))
 		{
+			        amount = 0;
+			        GameObject[] array = GameObject.FindGameObjectsWithTag("BodyCollider");
+			        foreach(var GameObject in array)
+			        {
+				        amount += 1;
+			        }
 			        bool flag = false;
 					flag = other.transform.parent.gameObject.GetComponent<PhotonView>().isMine;
 					float num = 1f;
@@ -129,7 +143,10 @@ public class DamageZone : MonoBehaviour
 //                    Globals.PlayerMove.inGameGUI.Hitmark();
 //                    Debug.LogError("DamagePlayer");
         }
-        timer = damageCooldown;
+		if (amount != 0)
+		{
+        timer = damageCooldown/amount;
+		}
     }
 
     void Update()
