@@ -257,6 +257,8 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 			}
 			else
 			{
+				if (Friendly == false)
+				{
 				GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
 				if (array.Length > 0)
 				{
@@ -273,6 +275,27 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 							target = gameObject.transform;
 						}
 					}
+				}
+				}
+				if (Friendly == true)
+				{
+				GameObject[] array = GameObject.FindGameObjectsWithTag("Enemy");
+				if (array.Length > 0)
+				{
+					timeToUpdateTarget = 5f;
+					float num2 = Vector3.Distance(base.transform.position, array[0].transform.position);
+					target = array[0].transform;
+					GameObject[] array2 = array;
+					foreach (GameObject gameObject in array2)
+					{
+						float num3 = Vector3.Distance(base.transform.position, gameObject.transform.position);
+						if (num3 < num2)
+						{
+							num2 = Vector3.Distance(base.transform.position, gameObject.transform.position);
+							target = gameObject.transform;
+						}
+					}
+				}
 				}
 			}
 			if (health <= 0f)
