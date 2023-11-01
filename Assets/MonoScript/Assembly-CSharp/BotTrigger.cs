@@ -10,6 +10,7 @@ public class BotTrigger : MonoBehaviour
 
 	private BotAI _eai;
 
+    public bool isFriendly = false;
 	private GameObject _player;
 
 	private GameObject _modelChild;
@@ -45,7 +46,14 @@ public class BotTrigger : MonoBehaviour
 		}
 		_soundClips = _modelChild.GetComponent<Sounds>();
 		_eai = GetComponent<BotAI>();
-		_player = GameObject.FindGameObjectWithTag("Player");
+		if (isFriendly == false);
+		{
+		    _player = GameObject.FindGameObjectWithTag("Player");
+		}
+		if (isFriendly == true);
+		{
+			_player = GameObject.FindGameObjectWithTag("Enemy");
+		}
 	}
 
 	private void Update()

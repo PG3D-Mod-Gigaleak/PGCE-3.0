@@ -43,6 +43,8 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 
 	public bool deaded;
 
+	public bool Friendly = false;
+
 	public Transform target;
 
 	public float health;
@@ -171,7 +173,14 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 		_nma = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		_modelChildCollider = _modelChild.GetComponent<BoxCollider>();
 		shootAnim = offAnim;
+		if (Friendly == false)
+		{
 		player = GameObject.FindGameObjectWithTag("Player");
+	    }
+		if (Friendly == true)
+		{
+		player = GameObject.FindGameObjectWithTag("Enemy");
+	    }
 		_gameController = GameObject.FindGameObjectWithTag("ZombiCreator").GetComponent<ZombiManager>();
 		_soundClips = _modelChild.GetComponent<Sounds>();
 		CurLifeTime = _soundClips.timeToHit;
