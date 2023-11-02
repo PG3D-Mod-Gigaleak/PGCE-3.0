@@ -16,6 +16,7 @@ namespace PGCE
 		public long Coins;
 		public string SkinData;
 		public bool IsAdmin;
+		public bool Flagged;
 		public PG3D.Serialization.CategoryEquipList CategoryEquipList;
 		public List<string> Achievements;
 		public List<string> BoughtWeapons;
@@ -29,6 +30,7 @@ namespace PGCE
 			this.Coins = 15;
 			this.SkinData = "";
 			this.ID = id;
+			this.Flagged = false;
 			this.CategoryEquipList = new PG3D.Serialization.CategoryEquipList();
 			this.Achievements = new List<string>();
 			this.BoughtWeapons = new List<string>(){"Weapon1", "Weapon2", "Weapon9"};

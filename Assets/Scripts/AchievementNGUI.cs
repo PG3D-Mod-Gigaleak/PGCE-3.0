@@ -61,7 +61,10 @@ public class AchievementNGUI : MonoBehaviour
 		}, new Dictionary<string, object>(){
 			{"uid", handler.data.UserController.Instance.ID},
 			{"ak", handler.data.UserController.Instance.AuthKey},
-			{"achievement", achievement},
+			{"req",
+				{"achievement", achievement},
+				{"rq_anl", achievement},
+			},
 		});
 		// the normal code is still ran like usual
 		if (Storager.hasKey(achievement + "-ACHIEVEMENT"))

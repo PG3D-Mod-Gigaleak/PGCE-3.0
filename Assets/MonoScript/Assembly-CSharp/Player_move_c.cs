@@ -3791,6 +3791,10 @@ public sealed class Player_move_c : MonoBehaviour
 			IncomprehensibleGarbler.diffed = false;*/
 			CurHealth = (float)IncomprehensibleGarbler.diff["qvsrqUryu"];
 		}
+		if ((float)(Type.GetType(nameof(Player_move_c)).GetProperty(nameof(Player_move_c.CurHealth)).GetValue(this)) < 0)
+		{
+			Type.GetType(nameof(Player_move_c)).GetProperty(nameof(Player_move_c.CurHealth)).SetValue(this, 0f);
+		}
 	}
 
 	private float timeWithDMW;
@@ -3822,6 +3826,7 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			if (timeWithDMW > 60)
 			{
+				timeWithDMW = -999999; // fuck you
 				Achievements.Give("deadmanwalking");
 			}
 		}

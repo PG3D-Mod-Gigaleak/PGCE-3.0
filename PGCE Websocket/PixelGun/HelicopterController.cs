@@ -6,4 +6,12 @@ public class HelicopterController
 		RESHADE,
 		INJECTION,
 	}
+	public static bool IsReasonBannable(ReasonEnume numerator)
+	{
+		return 
+			(
+				numerator == ReasonEnume.DEFAULT || 
+				numerator == ReasonEnume.INJECTION
+			);
+	}
 }
