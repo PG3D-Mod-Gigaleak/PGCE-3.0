@@ -6,9 +6,9 @@ public class OreSpawner : MonoBehaviour
 {
     public Mineable[] ores;
 
-    public static int blockSpawnedCount;
-
     public Vector2 cooldownRandom;
+
+    private int currentOres;
 
     public float GetRandX(Mineable ore)
     {
@@ -24,7 +24,13 @@ public class OreSpawner : MonoBehaviour
 
     void Update()
     {
-        if (blockSpawnedCount >= 1000)
+        currentOres = 0;
+        GameObject[] array = GameObject.FindGameObjectsWithTag("Ore");
+        foreach (var GameObject in array)
+        {
+            currentOres += 1;
+        }
+        if (currentOres >= 1000)
         {
             return;
         }
@@ -42,6 +48,5 @@ public class OreSpawner : MonoBehaviour
                 break;
             }
         }
-        blockSpawnedCount++;
     }
 }

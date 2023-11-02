@@ -20,7 +20,6 @@ public class Mineable : MonoBehaviour
         GetComponent<Animation>().Play("Destroy");
         PlayerPrefs.SetInt("Resource" + (int)resource, PlayerPrefs.GetInt("Resource" + (int)resource) + PickaxeData.CurrentPickaxe.BlockDrop);
         AudioController.PlayRandomAudio(AudioController.instance.breakRock);
-        OreSpawner.blockSpawnedCount--;
         ExperienceController.CurrentExperience += experienceDrop;
     }
 

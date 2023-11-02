@@ -12,10 +12,6 @@ public class PickaxeHitbox : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (alreadyHit && !sweep)
-        {
-            return;
-        }
         if (other.tag == "Ore")
         {
             Debug.LogError("browhat");
