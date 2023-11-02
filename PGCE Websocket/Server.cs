@@ -577,6 +577,7 @@ namespace PGCE
 	{
 		private const bool IsProduction = false;
 		private const bool ClearDatabase = false;
+		public const string Version = "3.0";
 		public const string IDSplitter = "__ID-SPLITTER|^|ID-SPLITTER__";
 		public static SQLiteConnection? DB { get; set; }
 		public static SQLiteCommand? CMD { get; set; }

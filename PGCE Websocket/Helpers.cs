@@ -209,7 +209,7 @@ namespace PGCE
 		}
 		public static string GUIDFromTime(DateTime time)
 		{
-			string result = EncryptString(time.ToLongDateString() + "///" + time.ToLongTimeString() + "-v3.0");
+			string result = EncryptString(time.ToLongDateString() + "///" + time.ToLongTimeString() + $"-v{Server.Version}");
 			return result;
 		}
 		public static AccountParameters? GetAccountInfo(object id)
