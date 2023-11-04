@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Holoville.HOTween;
 using UnityEngine;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 public sealed class Player_move_c : MonoBehaviour
 {
@@ -1869,7 +1870,7 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	public void HitPlayer(Collider other, float damage)
+	public void HitPlayer(Collider other, int wep)
 	{
 		if (photonView.isMine)
 		{
@@ -1877,7 +1878,7 @@ public sealed class Player_move_c : MonoBehaviour
 			if (viewID != other.transform.parent.GetComponent<PhotonView>().viewID)
 			{
 				inGameGUI.Hitmark();
-				MinusLivePlayerManual(viewID, other.transform.parent.GetComponent<PhotonView>().viewID, damage * (other.transform.tag == "HeadCollider" ? 1.5f : 1f));
+				MinusLivePlayerManual(viewID, other.transform.parent.GetComponent<PhotonView>().viewID, wep);
 			}
 		}
 	}
@@ -2526,6 +2527,17 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
+	public static int WeaponIDFromName(string name)
+	{
+		int returnID = 0;
+		Match m = Regex.Match(name, @"(?!Weapon)[0-9](?!\(Clone\))");
+		if (m.Success)
+		{
+			int.TryParse(m.Value, out returnID);
+		}
+		return returnID;	
+	}
+
 	private void _HitPlayer(GameObject plr)
 	{
 		GameObject label = plr.GetComponent<SkinName>().playerMoveC._label;
@@ -2533,7 +2545,7 @@ public sealed class Player_move_c : MonoBehaviour
 		bool flag = false;
 		if (Defs.isMulti && !Defs.isCOOP)
 		{
-			_weaponManager.myPlayer.GetComponent<PhotonView>().RPC("minusLivePhoton", PhotonTargets.All, plr.GetComponent<PhotonView>().viewID, _weaponManager.myPlayer.GetComponent<PhotonView>().viewID, _weaponManager.currentWeaponSounds.multiplayerDamage * num);
+			_weaponManager.myPlayer.GetComponent<PhotonView>().RPC("minusLivePhoton", PhotonTargets.All, plr.GetComponent<PhotonView>().viewID, _weaponManager.myPlayer.GetComponent<PhotonView>().viewID, WeaponIDFromName(_weaponManager.currentWeaponSounds.gameObject.name), false, num);
 		}
 	}
 
@@ -2913,16 +2925,31 @@ public sealed class Player_move_c : MonoBehaviour
 	public AudioClip[] headshotSounds;
 
 	[PunRPC]
-	public void minusLivePhoton(int id, int idKiller, float minus, bool headShot)
+	public void minusLivePhoton(int id, int idKiller, int idWeapon, bool headShot, float multiplier)
 	{
 		if (_weaponManager == null || _weaponManager.myPlayer == null || id == base.transform.parent.transform.GetComponent<PhotonView>().viewID)
 		{
 			return;
 		}
+		float minus = 0f;
+		if (multiplier > 1f)
+		{
+			multiplier = 1f;
+		}
+		if (multiplier < 0f)
+		{
+			multiplier = 0f;
+		}
+		if (Resources.Load<WeaponSounds>("weapons/Weapon" + idWeapon))
+		{
+			WeaponSounds x = Resources.Load<WeaponSounds>("weapons/Weapon" + idWeapon);
+			minus = x.multiplayerDamage;
+		}
 		if (headShot)
 		{
 			minus *= 1.5f;
 		}
+		minus *= multiplier;
 		GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
 		GameObject[] array2 = array;
 		foreach (GameObject gameObject in array2)
@@ -3217,7 +3244,7 @@ public sealed class Player_move_c : MonoBehaviour
 	[PunRPC]
 	public void SpawnThrownObject(int viewID, string weaponName, float damage, Vector3 pos, Quaternion rot)
 	{
-		Instantiate(Resources.Load<GameObject>("ThrowObjects/" + weaponName), pos, rot).GetComponent<ThrownObject>().SetMultiplayerData(viewID, damage);
+		Instantiate(Resources.Load<GameObject>("ThrowObjects/" + weaponName), pos, rot).GetComponent<ThrownObject>().SetMultiplayerData(viewID, weaponName);
 	}
 
 	public void SpawnThrownObjectOffline(float damage)
@@ -3264,6 +3291,7 @@ public sealed class Player_move_c : MonoBehaviour
 			gameObject3.GetComponent<Rocket>().extraSpeed = extraSpeed;
 			gameObject3.GetComponent<Rocket>().rocketNum = WS.rocketNum;
 			gameObject3.GetComponent<Rocket>().weaponName = WS.gameObject.name.Replace("(Clone)", string.Empty);
+			gameObject3.GetComponent<Rocket>().tiedWeaponName = WS.gameObject.name;
 			gameObject3.GetComponent<Rocket>().damage = WS.damage;
 			gameObject3.GetComponent<Rocket>().radiusDamage = WS.bazookaExplosionRadius;
 			gameObject3.GetComponent<Rocket>().radiusDamageSelf = WS.bazookaExplosionRadiusSelf;
@@ -3432,7 +3460,7 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			if ((hitInfo.collider.gameObject.CompareTag("BodyCollider") || hitInfo.collider.gameObject.CompareTag("HeadCollider")) && prefs.GetInt("MultyPlayer") == 1 && prefs.GetInt("COOP", 0) != 1 && !hitInfo.collider.transform.parent.gameObject.GetComponent<FirstPersonControl>().playerGameObject.GetComponent<Player_move_c>().isMine)
 			{
-				MinusLivePlayer(hitInfo.collider.transform.parent.gameObject.GetComponent<PhotonView>().viewID, WS.multiplayerDamage, hitInfo.collider.gameObject.CompareTag("HeadCollider"));
+				MinusLivePlayer(hitInfo.collider.transform.parent.gameObject.GetComponent<PhotonView>().viewID, WeaponIDFromName(WS.gameObject.name), hitInfo.collider.gameObject.CompareTag("HeadCollider"));
 			}
 			return;
 		}
@@ -3443,14 +3471,14 @@ public sealed class Player_move_c : MonoBehaviour
 		StartCoroutine(CheckHitByMelee(alt));
 	}
 
-	public void MinusLivePlayerManual(int sender, int receiver, float damage, bool headShot = false)
+	public void MinusLivePlayerManual(int sender, int receiver, int wep, bool headShot = false, float multiplier = 1)
 	{
-		photonView.RPC("minusLivePhoton", PhotonTargets.All, receiver, sender, damage, headShot);
+		photonView.RPC("minusLivePhoton", PhotonTargets.All, receiver, sender, wep, headShot, multiplier);
 	}
 
-	public void MinusLivePlayer(int hitPlayerID, float damage, bool headShot = false)
+	public void MinusLivePlayer(int hitPlayerID, int wep, bool headShot = false, float multiplier = 1)
 	{
-		photonView.RPC("minusLivePhoton", PhotonTargets.All, hitPlayerID, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, damage, headShot);
+		photonView.RPC("minusLivePhoton", PhotonTargets.All, hitPlayerID, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, wep, headShot, multiplier);
 		if (headShot)
 		{
 			inGameGUI.Headmark();
@@ -3459,9 +3487,9 @@ public sealed class Player_move_c : MonoBehaviour
 		inGameGUI.Hitmark();
 	}
 
-	public void MinusLiveSelf(int fromPlayerID, float damage, bool headShot = false)
+	public void MinusLiveSelf(int fromPlayerID, int wep, bool headShot = false, float multiplier = 1)
 	{
-		photonView.RPC("minusLivePhoton", PhotonTargets.All, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, fromPlayerID, damage, headShot);
+		photonView.RPC("minusLivePhoton", PhotonTargets.All, base.transform.parent.gameObject.GetComponent<PhotonView>().viewID, fromPlayerID, wep, headShot, multiplier);
 	}
 
 	private IEnumerator CheckHitByMelee(bool alt)
@@ -3550,7 +3578,7 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				if (tr.gameObject.tag.Equals("PlayerGun") && prefs.GetInt("MultyPlayer") == 1)
 				{
-					MinusLivePlayer(tr.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().viewID, WS.multiplayerDamage);
+					MinusLivePlayer(tr.gameObject.transform.parent.gameObject.GetComponent<PhotonView>().viewID, WeaponIDFromName(WS.gameObject.name));
 				}
 			}
 			yield break;

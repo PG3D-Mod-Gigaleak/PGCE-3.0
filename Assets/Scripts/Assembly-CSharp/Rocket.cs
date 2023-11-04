@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public class Rocket : MonoBehaviour
@@ -8,6 +9,8 @@ public class Rocket : MonoBehaviour
 	public float extraSpeed { get; set; }
 
 	public string weaponName = string.Empty;
+
+	public string tiedWeaponName = "";
 
 	public float damage;
 
@@ -278,7 +281,7 @@ public class Rocket : MonoBehaviour
 					}
 					else
 					{
-						_weaponManager.myPlayer.GetComponent<SkinName>().playerMoveC.MinusLivePlayer(gameObject4.GetComponent<PhotonView>().viewID, multiplayerDamage * num);
+						_weaponManager.myPlayer.GetComponent<SkinName>().playerMoveC.MinusLivePlayer(gameObject4.GetComponent<PhotonView>().viewID, Player_move_c.WeaponIDFromName(tiedWeaponName), multiplier: num);
 					}
 				}
 			}

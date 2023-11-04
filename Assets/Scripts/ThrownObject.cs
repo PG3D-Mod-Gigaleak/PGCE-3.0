@@ -9,6 +9,7 @@ public class ThrownObject : MonoBehaviour
 	[HideInInspector] public float multiplayerDamage;
 
 	[HideInInspector] public int damageSender;
+	public string tiedWeaponName = "";
 
 	private PhotonView mView;
 
@@ -57,7 +58,7 @@ public class ThrownObject : MonoBehaviour
 					if (damageSender != other.transform.parent.GetComponent<PhotonView>().viewID)
 					{
 						Globals.PlayerMove.inGameGUI.Hitmark();
-						Globals.PlayerMove.MinusLivePlayerManual(damageSender, other.transform.parent.GetComponent<PhotonView>().viewID, multiplayerDamage * (other.transform.tag == "HeadCollider" ? 1.5f : 1f));
+						Globals.PlayerMove.MinusLivePlayerManual(damageSender, other.transform.parent.GetComponent<PhotonView>().viewID, Player_move_c.WeaponIDFromName(tiedWeaponName), other.transform.tag == "HeadCollider");
 					}
 				}
 			}
@@ -104,7 +105,7 @@ public class ThrownObject : MonoBehaviour
 				if (damageSender != other.transform.parent.GetComponent<PhotonView>().viewID)
 				{
 					Globals.PlayerMove.inGameGUI.Hitmark();
-					Globals.PlayerMove.MinusLivePlayerManual(damageSender, other.transform.parent.GetComponent<PhotonView>().viewID, multiplayerDamage * (other.transform.tag == "HeadCollider" ? 1.5f : 1f));
+					Globals.PlayerMove.MinusLivePlayerManual(damageSender, other.transform.parent.GetComponent<PhotonView>().viewID, Player_move_c.WeaponIDFromName(tiedWeaponName), other.transform.tag == "HeadCollider");
 				}
 			}
 		}
@@ -139,9 +140,10 @@ public class ThrownObject : MonoBehaviour
 		}
 	}
 
-	public void SetMultiplayerData(int viewID, float damage)
+	public void SetMultiplayerData(int viewID, string weaponName)
 	{
 		damageSender = viewID;
-		multiplayerDamage = damage;
+		multiplayerDamage = 0;
+		tiedWeaponName = weaponName;
 	}
 }
