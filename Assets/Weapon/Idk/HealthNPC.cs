@@ -29,7 +29,15 @@ public class HealthNPC : MonoBehaviour
         {
             float health = targetNPC.GetComponent<ZombiUpravlenie>().health;
             float maxhealth = targetNPC.GetChild(0).GetComponent<Sounds>().health;
-            value = health / maxhealth;
+            if (health < 0f)
+            {
+                health = 0f;
+                value = health / maxhealth;
+            }
+            if (health >= 0f)
+            {
+                value = health / maxhealth;
+            }
             fillBar.localScale = new Vector3(Mathf.Lerp(fillBar.localScale.x, value, Time.deltaTime * 3f), fillBar.localScale.y, fillBar.localScale.z);
         }
         transform.LookAt(Camera.main.transform.position);

@@ -2506,6 +2506,7 @@ GameObject:
   - component: {fileID: 7818761350470498771}
   - component: {fileID: 7768825923180701708}
   - component: {fileID: 531507444016713946}
+  - component: {fileID: 7057543215104956144}
   m_Layer: 0
   m_Name: Boss16
   m_TagString: Enemy
@@ -2691,6 +2692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldDetectPlayer: 1
+  isFriendly: 0
 --- !u!195 &8044241588989529569
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2739,6 +2741,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerKill: {fileID: 0}
   deaded: 0
+  Friendly: 0
   target: {fileID: 0}
   health: 0
   hitTexture: {fileID: 2800000, guid: 6f5b96be682e8b04f8635781cfd80397, type: 3}
@@ -2834,6 +2837,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &7057543215104956144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7859592760318426419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba4837fc99673249a5700f4cbf4b434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Healthbar: {fileID: 3361972340383323923, guid: 8fc79a260fe40e749a518c0f56a43cee,
+    type: 3}
 --- !u!1 &7859677892321142791
 GameObject:
   m_ObjectHideFlags: 0
