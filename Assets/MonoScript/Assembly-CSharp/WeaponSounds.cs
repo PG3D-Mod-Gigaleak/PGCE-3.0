@@ -30,7 +30,7 @@ public class WeaponSounds : MonoBehaviour
 
 	public float range = 3f;
 
-	public int damage = 50;
+	public float damage = 50;
 
 	public float speedModifier = 1f;
 
@@ -113,6 +113,16 @@ public class WeaponSounds : MonoBehaviour
 	public bool isGrav;
 	public bool infiniteAmmo;
 
+	public bool isRandomDamage = false;
+	public float DamageMult1;
+	public float DamageMult2;
+	public bool ChanceofSelf = false;
+	public int Chance1;
+	public int Chance2;
+	public bool ChanceofForceReload = false;
+	public int Ammo1;
+	public int Ammo2;
+
 	[Header("imported stuff")]
 
 	public Vector2 startZone = new Vector2(3f, 3f);
@@ -171,6 +181,8 @@ public class WeaponSounds : MonoBehaviour
 	
 	public int bulletIndex;
 
+	private int Roll = 0;
+
 	private void Start()
 	{
 		if (animationObject != null && animationObject.GetComponent<Animation>()["Shoot"] != null)
@@ -189,6 +201,28 @@ public class WeaponSounds : MonoBehaviour
 
 	private void Update()
 	{
+		if (isRandomDamage == true)
+		{
+			multiplayerDamage = multiplayerDamage * Random.Range(DamageMult1,DamageMult2);
+			damage = damage * Random.Range(DamageMult1,DamageMult2);
+		
+		}
+		if (ChanceofSelf == true)
+		{
+			Roll = Random.Range(Chance1,Chance2);
+			if (Roll == 1)
+			{
+				isHeal = true;
+			}
+			else
+			{
+				isHeal = false;
+			}
+		}
+		if (ChanceofForceReload == true)
+			{
+				ammoInClip = Random.Range(Ammo1,Ammo2);
+			}
 		if (timeFromFire > 0f)
 		{
 			timeFromFire -= 1f * Time.deltaTime;
