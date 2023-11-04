@@ -54,6 +54,7 @@ public class WeaponSounds : MonoBehaviour
 
 	[Header("cursed edition stuff")]
 
+    public bool hasammunition = false;
 	public bool isHeal;
 
 	public float healAmount;
@@ -117,11 +118,12 @@ public class WeaponSounds : MonoBehaviour
 	public float DamageMult1;
 	public float DamageMult2;
 	public bool ChanceofSelf = false;
-	public int Chance1;
-	public int Chance2;
+	public float SelfChance;
 	public bool ChanceofForceReload = false;
-	public int Ammo1;
-	public int Ammo2;
+	public float ReloadChance;
+    private float RandomizedDamage = 1f;
+	private float RandomizedMultiplayerDamage = 1f;
+	Player_move_c player_Move;
 
 	[Header("imported stuff")]
 
@@ -181,7 +183,7 @@ public class WeaponSounds : MonoBehaviour
 	
 	public int bulletIndex;
 
-	private int Roll = 0;
+	private float Roll = 0;
 
 	private void Start()
 	{
@@ -203,26 +205,58 @@ public class WeaponSounds : MonoBehaviour
 	{
 		if (isRandomDamage == true)
 		{
-			multiplayerDamage = multiplayerDamage * Random.Range(DamageMult1,DamageMult2);
-			damage = damage * Random.Range(DamageMult1,DamageMult2);
+			RandomizedDamage = damage;
+			RandomizedMultiplayerDamage = multiplayerDamage;
+			RandomizedMultiplayerDamage = RandomizedMultiplayerDamage * Random.Range(DamageMult1,DamageMult2);
+			RandomizedDamage = RandomizedDamage * Random.Range(DamageMult1,DamageMult2);
 		
 		}
 		if (ChanceofSelf == true)
-		{
-			Roll = Random.Range(Chance1,Chance2);
-			if (Roll == 1)
 			{
-				isHeal = true;
+			if (SelfChance >= 1f && SelfChance <= 100f)
+			{
+			    Roll = Random.Range(1f,100f);
+			    if (Roll < SelfChance)
+			    {
+			    	isHeal = true;
+			    }
+				else
+				{
+					isHeal = false;
+				}
 			}
-			else
+			else if (SelfChance >= 0.1f && SelfChance <= 100f)
 			{
-				isHeal = false;
+			    Roll = Random.Range(0.1f,100f);
+			    if (Roll < SelfChance)
+			    {
+			    	isHeal = true;
+			    }
+				else
+				{
+					isHeal = false;
+				}
 			}
 		}
 		if (ChanceofForceReload == true)
 			{
-				ammoInClip = Random.Range(Ammo1,Ammo2);
+			if (ReloadChance >= 1f && ReloadChance <= 100f)
+			{
+			    Roll = Random.Range(1f,100f);
+			    if (Roll < ReloadChance)
+			    {
+			    	player_Move.ReloadPressed();
+			    }
 			}
+			else if (ReloadChance >= 0.1f && ReloadChance <= 100f)
+			{
+			    Roll = Random.Range(0.1f,100f);
+			    if (Roll < ReloadChance)
+			    {
+			    	player_Move.ReloadPressed();
+			    }
+			}
+		}
 		if (timeFromFire > 0f)
 		{
 			timeFromFire -= 1f * Time.deltaTime;

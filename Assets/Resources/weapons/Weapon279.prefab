@@ -3947,6 +3947,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 25
   meleeAttackTimeModifier: 0.57
+  hasammunition: 1
   isHeal: 0
   healAmount: -10
   HealArmor: 0
@@ -3981,11 +3982,9 @@ MonoBehaviour:
   DamageMult1: 0
   DamageMult2: 3
   ChanceofSelf: 1
-  Chance1: 0
-  Chance2: 5
+  SelfChance: 20
   ChanceofForceReload: 1
-  Ammo1: 0
-  Ammo2: 10
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -4074,7 +4073,7 @@ Animation:
   - {fileID: 7400000, guid: 0433e03e66a76854ca9762900510c615, type: 2}
   - {fileID: 7400000, guid: bdf82d50509569d4fbebfcaa7f6fb134, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 0
+  m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
 --- !u!1 &8379037555521249813

@@ -835,9 +835,13 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			inGameGUI.ammoLabel.text = ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip + "/" + ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack;
 		}
-		else if (_weaponManager.currentWeaponSounds.isHeal || _weaponManager.currentWeaponSounds.throwObject)
+		else if ((_weaponManager.currentWeaponSounds.isHeal == true || _weaponManager.currentWeaponSounds.throwObject == true) && _weaponManager.currentWeaponSounds.hasammunition == false)
 		{
 			inGameGUI.ammoLabel.text = "" + ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip;
+		}
+		else if ((_weaponManager.currentWeaponSounds.isHeal == true || _weaponManager.currentWeaponSounds.throwObject == true) && _weaponManager.currentWeaponSounds.hasammunition == true)
+		{
+			inGameGUI.ammoLabel.text = ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip + "/" + ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack;
 		}
 		else if (_weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.infiniteAmmo)
 		{
@@ -2535,7 +2539,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public bool reloading { get; set; }
 
-	private void ReloadPressed()
+	public void ReloadPressed()
 	{
 		if (_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("Reload")) || armoryGuiOverlayed || _weaponManager.currentWeaponSounds.isMelee || _weaponManager.currentWeaponSounds.isHeal || _weaponManager.currentWeaponSounds.throwObject ||  _weaponManager.CurrentWeaponIndex < 0 || _weaponManager.CurrentWeaponIndex >= _weaponManager.playerWeapons.Count || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInBackpack <= 0 || ((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip == _weaponManager.currentWeaponSounds.ammoInClip || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapIn")) || _weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().IsPlaying(myCAnim("SwapOut")))
 		{
