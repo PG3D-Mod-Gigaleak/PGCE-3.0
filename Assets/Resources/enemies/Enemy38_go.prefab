@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 114559253581570408}
   - component: {fileID: 114636599297106822}
   - component: {fileID: 114478923514454932}
+  - component: {fileID: 8214557063154784654}
   m_Layer: 0
   m_Name: Enemy38_go
   m_TagString: Enemy
@@ -486,6 +487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldDetectPlayer: 1
+  isFriendly: 0
 --- !u!195 &195743891181491696
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -560,11 +562,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerKill: {fileID: 0}
   deaded: 0
+  Friendly: 0
   target: {fileID: 0}
   health: 0
   hitTexture: {fileID: 2800000, guid: 6f5b96be682e8b04f8635781cfd80397, type: 3}
   typeZombInMas: 0
   tekAnim: -1
+--- !u!114 &8214557063154784654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185962865110468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ba4837fc99673249a5700f4cbf4b434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Healthbar: {fileID: 3361972340383323923, guid: 8fc79a260fe40e749a518c0f56a43cee,
+    type: 3}
 --- !u!1 &1195539915086366
 GameObject:
   m_ObjectHideFlags: 0
