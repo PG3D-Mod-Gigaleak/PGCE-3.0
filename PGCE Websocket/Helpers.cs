@@ -61,8 +61,10 @@ namespace PGCE
 		public static bool AccountBanned(AccountParameters accountParameters)
 		{
 			if (accountParameters.Banned)
+			{
 				PlayerSessionManager.DestroySession(accountParameters);
 				return true;
+			}
 			return DateTime.Now < accountParameters.BanTime;
 		}
 		public static bool AccountChatBanned(long id)

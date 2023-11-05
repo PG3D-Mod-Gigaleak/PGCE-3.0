@@ -30,6 +30,7 @@ namespace PGCE
 				return;
 			}
 			givenInput = Encryption.Decrypt(givenInput, Sender);
+			Console.WriteLine("[DEBUG] Received JSON (decrypted): " + JsonConvert.SerializeObject(givenInput));
 			string action = (string)givenInput["action"];
 			//Console.WriteLine($"[Action::OnMessage] Received request for action {action}");
 			Dictionary<string, object> output = new Dictionary<string, object>();
@@ -151,9 +152,13 @@ namespace PGCE
 					string nameColorTag = "[FFFFFF]";
 					if (confirmedResult.IsAdmin)
 						nameColorTag = "[E6213D]";
+					string fixedMsg = PG3D.FilterBadWorld.FilterString((string)givenInput["msg"]);
+					fixedMsg = fixedMsg.Substring(0, Math.Clamp(fixedMsg.Length, 0, 32));
+					if (fixedMsg.IsNullOrEmpty())
+						throw new Exception("Message was empty.");
 					Sessions.Broadcast("NO-ENCRYPT|" + JsonConvert.SerializeObject(Encryption.Encrypt(new Dictionary<string, object>(){
 						{"type", "send"},
-						{"text", $"<{nameColorTag}{confirmedResult.Name.RemoveColorCode()}[FFFFFF]> {PG3D.FilterBadWorld.FilterString((string)givenInput["msg"])}"},
+						{"text", $"{nameColorTag}<{confirmedResult.Name.RemoveColorCode()}>[FFFFFF] {fixedMsg}"},
 						{"action", "recv-chat"},
 						{"response", "success"},
 					})));
@@ -182,9 +187,8 @@ namespace PGCE
 						throw new Exception("Authkey invalid");
 					if (Helpers.AccountBanned(confirmedResult))
 						throw new Exception("The account is banned");
-					Dictionary<string, object> req = ((Dictionary<string, object>)givenInput["req"]);
-					HelicopterController.ReasonEnume reason = (HelicopterController.ReasonEnume)req["r"];
-					HelicopterController.ReasonEnume reason_al = (HelicopterController.ReasonEnume)req["rq_anl"];
+					HelicopterController.ReasonEnume reason = (HelicopterController.ReasonEnume)givenInput["r"];
+					HelicopterController.ReasonEnume reason_al = (HelicopterController.ReasonEnume)givenInput["rq_anl"];
 					if (reason != reason_al)
 					{
 						if (!HelicopterController.IsReasonBannable(reason) && HelicopterController.IsReasonBannable(reason_al))
@@ -342,15 +346,14 @@ namespace PGCE
 						throw new Exception("Authkey invalid");
 					if (Helpers.AccountBanned(confirmedResult))
 						throw new Exception("The account is banned");
-					Dictionary<string, object> req = ((Dictionary<string, object>)givenInput["req"]);
-					string weaponName = (string)req["wn"];
-					string weaponName_analytics = (string)req["rq_anl1"];
+					string weaponName = (string)givenInput["wn"];
+					string weaponName_analytics = (string)givenInput["rq_anl1"];
 					if (confirmedResult.BoughtWeapons.Contains(weaponName))
 						throw new Exception("Duplicate");
-					long price = Convert.ToInt64((string)req["wp"]);
-					long price_analytics = Convert.ToInt64((string)req["rq_anl2"]);
-					long category = Convert.ToInt64((string)req["wc"]);
-					long category_analytics = Convert.ToInt64((string)req["rq_anl3"]);
+					long price = Convert.ToInt64((string)givenInput["wp"]);
+					long price_analytics = Convert.ToInt64((string)givenInput["rq_anl2"]);
+					long category = Convert.ToInt64((string)givenInput["wc"]);
+					long category_analytics = Convert.ToInt64((string)givenInput["rq_anl3"]);
 					if (confirmedResult.Coins < price)
 						throw new Exception("The account doesn't have enough coins");
 					confirmedResult.BoughtWeapons.Add(weaponName);
@@ -403,9 +406,8 @@ namespace PGCE
 						throw new Exception("Authkey invalid");
 					if (Helpers.AccountBanned(confirmedResult))
 						throw new Exception("The account is banned");
-					Dictionary<string, object> req = ((Dictionary<string, object>)givenInput["req"]);
-					string achievement = (string)req["achievement"];
-					string achievement_analytics = (string)req["rq_anl"];
+					string achievement = (string)givenInput["achievement"];
+					string achievement_analytics = (string)givenInput["rq_anl"];
 					if (Helpers.GetAccountInfo(givenInput["uid"]).Value.Achievements.Contains(achievement))
 						throw new Exception("Duplicate");
 					if (achievement != achievement_analytics)
@@ -450,13 +452,12 @@ namespace PGCE
 						throw new Exception("Authkey invalid");
 					if (Helpers.AccountBanned(confirmedResult))
 						throw new Exception("The account is banned");
-					Dictionary<string, object> req = ((Dictionary<string, object>)givenInput["req"]);
-					string weaponName = (string)req["wn"];
-					string weaponName_analytics = (string)req["rq_anl1"];
+					string weaponName = (string)givenInput["wn"];
+					string weaponName_analytics = (string)givenInput["rq_anl1"];
 					if (!confirmedResult.BoughtWeapons.Contains(weaponName))
 						throw new Exception("The account doesn't own the weapon");
-					long category = Convert.ToInt64((string)req["wc"]);
-					long category_analytics = Convert.ToInt64((string)req["rq_anl2"]);
+					long category = Convert.ToInt64((string)givenInput["wc"]);
+					long category_analytics = Convert.ToInt64((string)givenInput["rq_anl2"]);
 					if (weaponName != weaponName_analytics && category != category_analytics)
 						throw new Exception("Request format invalid (CONTACT DEVS)");
 					confirmedResult.CategoryEquipList.SetWeaponForCat((CategoryType)category, weaponName);
@@ -567,6 +568,7 @@ namespace PGCE
 				Console.WriteLine($"[Encryption] Sender is NULL, not encrypting");
 			else
 				Console.WriteLine($"[Encryption] Sender is NOT null, encrypting with key {Sender.Value.DecryptionKey}");
+			Console.WriteLine("[DEBUG] Sent JSON (not encrypted): " + JsonConvert.SerializeObject(output));
 			Send(JsonConvert.SerializeObject(Encryption.Encrypt(output, Sender)));
 			/*Console.WriteLine($"[Action::OnMessage] Finalized request for action {action}");
 			Console.WriteLine($"[Action::OnMessage] Output: {JsonConvert.SerializeObject(output)}");*/
@@ -684,11 +686,11 @@ namespace PGCE
 					}
 					break;
 				}
-				if (line == "clear-db")
+				else if (line == "clear-db")
 				{
 					InitDB(true);
 				}
-				if (line.StartsWith("."))
+				else if (line.StartsWith("."))
 				{
 					List<string> commandWArgs = line.Split('"')
 						.Select((element, index) => index % 2 == 0
@@ -703,7 +705,7 @@ namespace PGCE
 							Console.WriteLine($"[COMMAND::ENCRYPT] Encrypted result: \"{Helpers.EncryptString(commandWArgs[1])}\"");
 						}
 					}
-					if (command == ".unban_user")
+					else if (command == ".unban_user")
 					{
 						if (commandWArgs.Count > 1)
 						{
@@ -724,7 +726,7 @@ namespace PGCE
 							Console.WriteLine($"[COMMAND::UNBAN_USER] Unbanned user {Helpers.GetAccountInfo(id).Value.Name}");
 						}
 					}
-					if (command == ".set_admin")
+					else if (command == ".set_admin")
 					{
 						if (commandWArgs.Count > 2)
 						{
@@ -761,7 +763,7 @@ namespace PGCE
 							Console.WriteLine($"[COMMAND::SET_ADMIN] Set {Helpers.GetAccountInfo(id).Value.Name}'s admin to {Helpers.GetAccountInfo(id).Value.IsAdmin}");
 						}
 					}
-					if (command == ".ban_user")
+					else if (command == ".ban_user")
 					{
 						if (commandWArgs.Count > 1)
 						{
@@ -785,7 +787,7 @@ namespace PGCE
 							}
 						}
 					}
-					if (command == ".get_user_info")
+					else if (command == ".get_user_info")
 					{
 						if (commandWArgs.Count > 1)
 						{

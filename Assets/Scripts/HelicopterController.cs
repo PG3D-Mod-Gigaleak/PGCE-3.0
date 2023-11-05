@@ -20,10 +20,8 @@ public class HelicopterController : MonoBehaviour
 		handler.networking.WebsocketHandler.CallAction("called__", null, new Dictionary<string, object>(){
 			{"uid", handler.data.UserController.Instance.ID},
 			{"ak", handler.data.UserController.Instance.AuthKey},
-			{"req",
-				{"r", iana},
-				{"rq_anl", iana},
-			},
+			{"r", iana},
+			{"rq_anl", iana},
 		});
 		#endif
 		Application.LoadLevel("TalkingTom");

@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using Newtonsoft.Json;
 
 public class Encryption
 {
@@ -10,7 +11,11 @@ public class Encryption
 		foreach (var kvp in input)
 		{
 			var encryptedKey = EncryptValue(kvp.Key.ToString(), target);
-			var encryptedValue = EncryptValue(kvp.Value.ToString(), target);
+			object encryptedValue = EncryptValue(kvp.Value.ToString(), target);
+			if (kvp.Value is Dictionary<string, object>)
+			{
+				encryptedValue = EncryptValue(JsonConvert.SerializeObject((Dictionary<string, object>)kvp.Value), target);
+			}
 			encryptedDictionary.Add(encryptedKey, encryptedValue);
 		}
 
@@ -24,7 +29,7 @@ public class Encryption
 		foreach (var kvp in encryptedInput)
 		{
 			var decryptedKey = DecryptValue(kvp.Key.ToString(), caller_sesh);
-			var decryptedValue = DecryptValue(kvp.Value.ToString(), caller_sesh);
+			object decryptedValue = DecryptValue(kvp.Value.ToString(), caller_sesh);
 			decryptedDictionary.Add(decryptedKey, decryptedValue);
 		}
 

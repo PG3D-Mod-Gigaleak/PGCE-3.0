@@ -30,8 +30,8 @@ namespace handler.networking
 		}
 		private static IEnumerator RealInit()
 		{
-			yield return new WaitForSecondsRealtime(2f);
 			EditorOnlyDebug.Log("RealInit CALLED!");
+			yield return new WaitForSecondsRealtime(2f);
 			CallAction("ensure_ws_alive", (string data) => {
 				EditorOnlyDebug.Log("received alive");
 				EditorOnlyDebug.Log($"data: {data}");
@@ -49,13 +49,16 @@ namespace handler.networking
 				}
 				EditorOnlyDebug.Log($"ws is ACTUALLY alive (or is it? {WSIsAlive})");
 			}, default);
+			yield return null;
 			EditorOnlyDebug.Log("waitinggggggggg");
 			yield return new WaitUntil(() => WSIsAlive);
+			yield return null;
 			EditorOnlyDebug.Log("waited!");
 			if (WSIsAlive)
 			{
 				EditorOnlyDebug.Log("creating listener");
 				Listener = new WebSocket(WS);
+				yield return null;
 				Listener.OnMessage += (sender, e) => {
 					try
 					{
@@ -68,7 +71,9 @@ namespace handler.networking
 					{
 					}
 				};
+				yield return null;
 				Listener.Connect();
+				yield return null;
 				EditorOnlyDebug.Log("initializing this shit");
 				UserController.Init();
 			}
@@ -98,9 +103,13 @@ namespace handler.networking
 						{
 							AlertNGUI.Show("The servers are down for maintenance!", 8f);
 						}
+						if ((string)resultDictionary["action"] == "recv-chat" && resultDictionary.ContainsKey("text"))
+						{
+							ChatController.Instance.AddChatMessage((string)resultDictionary["text"]);
+						}
 						if ((string)resultDictionary["action"] == "recv-forceupdate-user" && resultDictionary.ContainsKey("recvid") && (string)resultDictionary["recvid"] == Convert.ToString(UserController.Instance.ID))
 						{
-							UserController.Instance.StartCoroutine(UserController.Instance.GetPlayerInfo());
+							UserController.Instance.StartCoroutine(nameof(UserController.GetPlayerInfo));
 						}
 					}
 				}
@@ -114,7 +123,14 @@ namespace handler.networking
 		#region Websocket Actions
 		private static void HandleAnswered(WebSocket connection, ActionAnswered callback, string data)
 		{
-			Dictionary<string, object> resultDictionary = Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(data));
+			string Data = data;
+			bool Encrypt = true;
+			if (Data.StartsWith("NO-ENCRYPT|"))
+			{
+				Encrypt = false;
+				Data = Data.Replace("NO-ENCRYPT|", "");
+			}
+			Dictionary<string, object> resultDictionary = Encrypt ? Decrypt(JsonConvert.DeserializeObject<Dictionary<string, object>>(Data)) : JsonConvert.DeserializeObject<Dictionary<string, object>>(Data);
 			try
 			{
 				if (callback != null)
@@ -148,7 +164,7 @@ namespace handler.networking
 					{
 						HandleAnswered(CurrentConnection, callback, e.Data);
 					});
-					Thread.Sleep(2000);
+					Thread.Sleep(12000);
 					CurrentConnection.Close();
 				}
 				catch (Exception e22)
@@ -172,7 +188,14 @@ namespace handler.networking
 
 			foreach (var kvp in input)
 			{
-				encryptedDictionary.Add(EncryptValue(kvp.Key.ToString()), EncryptValue(kvp.Value.ToString()));
+				if (kvp.Value is Dictionary<string, object>)
+				{
+					encryptedDictionary.Add(EncryptValue(kvp.Key.ToString()), EncryptValue(JsonConvert.SerializeObject((Dictionary<string, object>)kvp.Value)));
+				}
+				else
+				{
+					encryptedDictionary.Add(EncryptValue(kvp.Key.ToString()), EncryptValue(kvp.Value.ToString()));
+				}
 			}
 
 			return encryptedDictionary;

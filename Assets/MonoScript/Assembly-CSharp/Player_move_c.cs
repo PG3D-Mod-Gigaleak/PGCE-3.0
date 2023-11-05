@@ -1596,11 +1596,13 @@ public sealed class Player_move_c : MonoBehaviour
 	[PunRPC]
 	private void SendChatMessage(string text)
 	{
+		#if !USES_WEBSOCKET
 		if (!(_weaponManager == null) && !(_weaponManager.myPlayer == null))
 		{
 			_weaponManager.myPlayer.GetComponent<SkinName>().playerGameObject.GetComponent<Player_move_c>().AddMessage(text, Time.time, base.transform.parent.GetComponent<PhotonView>().viewID);
 			GameObject gameObject = GameObject.FindGameObjectWithTag("ChatViewer");
 		}
+		#endif
 	}
 
 	private bool saidInterlope;
@@ -1621,12 +1623,17 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		if (text != string.Empty)
 		{
+			#if USES_WEBSOCKET
+			handler.data.ChatController.Instance.SendChatMessage(text);
+			#else
 			photonView.RPC("SendChatMessage", PhotonTargets.All, "< " + _weaponManager.myTable.GetComponent<NetworkStartTable>().NamePlayer + " > " + text);
+			#endif
 		}
 	}
 
 	public void AddMessage(string text, float time, int ID)
 	{
+		#if !USES_WEBSOCKET
 		MessageChat item = default(MessageChat);
 		item.text = text;
 		item.time = time;
@@ -1636,6 +1643,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			messages.RemoveAt(0);
 		}
+		#endif
 	}
 
 	public bool walking

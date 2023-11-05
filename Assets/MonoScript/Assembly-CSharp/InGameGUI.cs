@@ -92,6 +92,14 @@ public class InGameGUI : MonoBehaviour
 
 	public Animation hitmarker;
 	public UIInput chatInput;
+	public UILabel templateChatLabel;
+	public UIGrid chatListGrid;
+	public void AddChatMessage(string text)
+	{
+		UILabel newChatLabel = Instantiate(templateChatLabel, chatListGrid.transform);
+		newChatLabel.text = text;
+		chatListGrid.Reposition();
+	}
 	public void Zoom(bool onOff, int index = 0)
 	{
 		zoomTex.gameObject.SetActive(onOff);
@@ -110,6 +118,12 @@ public class InGameGUI : MonoBehaviour
 			Invoke("GenerateMiganie", 1f);
 			prefs.SetInt("AddCoins", 0);
 		}
+		#if USES_WEBSOCKET
+		foreach (string message in handler.data.ChatController.Instance.Messages)
+		{
+			AddChatMessage(message);
+		}
+		#endif
 	}
 
 	public void Hitmark()

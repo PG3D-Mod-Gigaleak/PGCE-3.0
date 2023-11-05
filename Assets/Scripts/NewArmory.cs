@@ -225,14 +225,12 @@ public class NewArmory : MonoBehaviour
 		}, new Dictionary<string, object>(){
 			{"uid", handler.data.UserController.Instance.ID},
 			{"ak", handler.data.UserController.Instance.AuthKey},
-			{"req",
-				{"wn", weapon.name},
-				{"wp", weapon.price},
-				{"wc", (int)weapon.category},
-				{"rq_anl1", weapon.name},
-				{"rq_anl2", weapon.price},
-				{"rq_anl3", (int)weapon.category},
-			}
+			{"wn", weapon.name},
+			{"wp", weapon.price},
+			{"wc", (int)weapon.category},
+			{"rq_anl1", weapon.name},
+			{"rq_anl2", weapon.price},
+			{"rq_anl3", (int)weapon.category},
 		});
 		return toreturn;
 		#else
@@ -284,12 +282,10 @@ public class NewArmory : MonoBehaviour
 		}, new Dictionary<string, object>(){
 			{"uid", handler.data.UserController.Instance.ID},
 			{"ak", handler.data.UserController.Instance.AuthKey},
-			{"req",
-				{"wn", weapon.name},
-				{"wc", (int)weapon.category},
-				{"rq_anl1", weapon.name},
-				{"rq_anl2", (int)weapon.category},
-			}
+			{"wn", weapon.name},
+			{"wc", (int)weapon.category},
+			{"rq_anl1", weapon.name},
+			{"rq_anl2", (int)weapon.category},
 		});
 		#else
 		prefs.SetString(GetCatStringFromCategoryType(weapon.category), weapon.name);

@@ -16,6 +16,7 @@ public class GameLoad : MonoBehaviour
 		#if USES_WEBSOCKET
 		Log.Init();
 		CrashHandler.Init();
+		ChatController.Init();
 		WebsocketHandler.Init();
 		#endif
 		#if UNITY_EDITOR
