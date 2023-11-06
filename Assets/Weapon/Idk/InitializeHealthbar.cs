@@ -8,7 +8,7 @@ public class InitializeHealthbar : MonoBehaviour
     public int alreadyHealthbar = 0;
     public GameObject Healthbar;
     private float health;
-    private float maxhealth;
+    public float maxhealth;
     private float timer = 0;
     private float timer2 = 0;
     public int alreadyTimedBar = 0;
@@ -35,11 +35,13 @@ public class InitializeHealthbar : MonoBehaviour
         gameObject.transform.GetChild(0).tag="ZombieCollider";
         gameObject.AddComponent<Rigidbody>();
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        maxhealth = transform.GetChild(0).GetComponent<Sounds>().health;
         }
         else if (gameObject.CompareTag("Player"))
         {
         gameObject.AddComponent<Rigidbody>();
         gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        maxhealth = 100f;
         }
     }
     void Update()
@@ -49,7 +51,6 @@ public class InitializeHealthbar : MonoBehaviour
         if (gameObject.CompareTag("Enemy"))
         {
             health = gameObject.GetComponent<ZombiUpravlenie>().health;
-            maxhealth = transform.GetChild(0).GetComponent<Sounds>().health;
             if (alreadyTimedBar == 2)
             {
                 timer = 1000f;
@@ -58,7 +59,6 @@ public class InitializeHealthbar : MonoBehaviour
         else if (gameObject.CompareTag("Player"))
         {
             health = transform.GetComponent<SkinName>().playerMoveC.CurHealth;
-            maxhealth = 100f;
             if (alreadyTimedBar == 0)
             {
                 timer = 1f;

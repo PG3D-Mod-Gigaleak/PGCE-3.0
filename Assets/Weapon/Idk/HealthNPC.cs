@@ -12,9 +12,11 @@ public class HealthNPC : MonoBehaviour
     public Transform fillBar;
     private int alreadyPlayed = 0;
     private float timer = 1f;
+    private float timeNoDamage = 1f;
     private float animLength = 1f;
-    private float add = 0.1f;
+    private float add = 0.075f;
     private float health;
+    public float health1;
     private float maxhealth;
     void Awake()
     {
@@ -22,7 +24,10 @@ public class HealthNPC : MonoBehaviour
     }
     void OnTriggerStay(Collider other)
     {
-        add = add + 0.1f;
+        if ((other.tag == "ZombieCollider") || (other.tag == "BodyCollider"))
+        {
+        add = add + 0.025f;
+        }
     }
     void Update()
     {
@@ -36,13 +41,30 @@ public class HealthNPC : MonoBehaviour
         health = targetNPC.GetComponent<SkinName>().playerMoveC.CurHealth;
         maxhealth = 100f;
         }
-        if (health <= 0f)
+        if (health1 == health)
+        {
+            timeNoDamage += Time.deltaTime;
+        }
+        else
+        {
+            timeNoDamage = 0f;
+        }
+        if ((health <= 0f) || (timeNoDamage >= 5f) )
         {
             animLength = gameObject.GetComponent<Animation>()["HealthDown"].length;
             if (alreadyPlayed == 0)
             {
+                if (timeNoDamage >= 5f)
+                {
+                targetNPC.GetComponent<InitializeHealthbar>().maxhealth = health1;
+                targetNPC.GetComponent<InitializeHealthbar>().alreadyTimedBar = 0;
+                targetNPC.GetComponent<InitializeHealthbar>().alreadyHealthbar = 0;
+                }
+                else
+                {
                 targetNPC.GetComponent<InitializeHealthbar>().alreadyTimedBar = 2;
                 targetNPC.GetComponent<InitializeHealthbar>().alreadyHealthbar = 0;
+                }
                 gameObject.GetComponent<Animation>().Play("HealthDown");
                 timer = animLength;
                 alreadyPlayed = 1;
@@ -53,7 +75,7 @@ public class HealthNPC : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        targetPos = new Vector3(targetNPC.position.x,(targetNPC.position.y + (6*add)), targetNPC.position.z);
+        targetPos = new Vector3(targetNPC.position.x,(targetNPC.position.y + (30*add)), targetNPC.position.z);
         if (targetNPC != null)
         {
             if (health < 0f)
@@ -69,5 +91,6 @@ public class HealthNPC : MonoBehaviour
         }
         transform.LookAt(Camera.main.transform.position);
         transform.localPosition = new Vector3(targetPos.x,targetPos.y,targetPos.z);
+        health1 = health;
     }
 }
