@@ -13,19 +13,36 @@ public class HealthNPC : MonoBehaviour
     private int alreadyPlayed = 0;
     private float timer = 1f;
     private float animLength = 1f;
+    private float add = 0.1f;
+    private float health;
+    private float maxhealth;
     void Awake()
     {
         instance = this;
     }
+    void OnTriggerStay(Collider other)
+    {
+        add = add + 0.1f;
+    }
     void Update()
     {
-        float health = targetNPC.GetComponent<ZombiUpravlenie>().health;
-        float maxhealth = targetNPC.GetChild(0).GetComponent<Sounds>().health;
+        if (targetNPC.CompareTag("Enemy"))
+        {
+        health = targetNPC.GetComponent<ZombiUpravlenie>().health;
+        maxhealth = targetNPC.GetChild(0).GetComponent<Sounds>().health;
+        }
+        else if (targetNPC.CompareTag("Player"))
+        {
+        health = targetNPC.GetComponent<SkinName>().playerMoveC.CurHealth;
+        maxhealth = 100f;
+        }
         if (health <= 0f)
         {
             animLength = gameObject.GetComponent<Animation>()["HealthDown"].length;
             if (alreadyPlayed == 0)
             {
+                targetNPC.GetComponent<InitializeHealthbar>().alreadyTimedBar = 2;
+                targetNPC.GetComponent<InitializeHealthbar>().alreadyHealthbar = 0;
                 gameObject.GetComponent<Animation>().Play("HealthDown");
                 timer = animLength;
                 alreadyPlayed = 1;
@@ -36,7 +53,7 @@ public class HealthNPC : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        targetPos = new Vector3(targetNPC.position.x,(targetNPC.position.y + 3), targetNPC.position.z);
+        targetPos = new Vector3(targetNPC.position.x,(targetNPC.position.y + (6*add)), targetNPC.position.z);
         if (targetNPC != null)
         {
             if (health < 0f)

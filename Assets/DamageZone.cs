@@ -5,25 +5,20 @@ using UnityEngine;
 
 public class DamageZone : MonoBehaviour
 {
-    public float coopDamage = 25f, multiplayerDamage = 15f, damageCooldown = 1f;
+    public float coopDamage;
+	public float multiplayerDamage;
+	public float damageCooldown;
     private float timer;
     private PhotonView photonView;
-
 	private bool isMulti;
-
 	private bool isInet;
-
 	private bool isMine;
-
 	private bool isCompany;
-
 	private bool isCOOP;
-
-	private WeaponManager _weaponManager;
-
+	public WeaponManager _weaponManager;
 	private bool isKilled;
-
 	private int amount;
+	public bool isPierce = false;
 	private void Awake()
 	{
 		isMulti = prefs.GetInt("MultyPlayer") == 1;
@@ -35,6 +30,7 @@ public class DamageZone : MonoBehaviour
 	{
 		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
 		photonView = PhotonView.Get(this);
+		timer = 0f;
 		if (isMulti)
 		{
 			isMine = photonView.isMine;
@@ -54,30 +50,17 @@ public class DamageZone : MonoBehaviour
 	}
     void OnTriggerStay(Collider other)
     {
-        if (timer > 0f)
+		if ( (timer <= 0f) && isPierce == false )
+		{
+        if (other.tag == "ZombieCollider")
         {
-            return;
-		}
-
-        if (other.gameObject.CompareTag("ZombieCollider"))
-        {
-			amount = 0;
-			GameObject[] array = GameObject.FindGameObjectsWithTag("ZombieCollider");
-			foreach(var GameObject in array)
-			{
-				amount += 1;
-			}
-			    if (isMulti && _weaponManager.myPlayer == null)
-			{
-				return;
-			}
-				Globals.PlayerMove.inGameGUI.Hitmark();
+			    if (!isMulti)
+			    	{
+			    		BotHealth component = other.transform.parent.gameObject.GetComponent<BotHealth>();
+			    		component.adjustHealth(0f - coopDamage, Camera.main.transform);
+			    	}
 				Debug.LogError("EnemyDamage");
-				if (!isMulti)
-				{
-					BotHealth component = other.transform.parent.gameObject.GetComponent<BotHealth>();
-					component.adjustHealth(0f - coopDamage, Camera.main.transform);
-				}
+				Globals.PlayerMove.inGameGUI.Hitmark();
 				float health = other.transform.parent.gameObject.GetComponent<ZombiUpravlenie>().health;
 				if (health > 0f)
 				{
@@ -91,24 +74,18 @@ public class DamageZone : MonoBehaviour
 					_weaponManager.myTable.GetComponent<NetworkStartTable>().score = GlobalGameController.Score;
 					_weaponManager.myTable.GetComponent<NetworkStartTable>().synchState();
 				}
+				timer = damageCooldown;
 		}
-        if (other.gameObject.CompareTag("BodyCollider"))
+        if (other.tag == "BodyCollider")
 		{
-			        amount = 0;
-			        GameObject[] array = GameObject.FindGameObjectsWithTag("BodyCollider");
-			        foreach(var GameObject in array)
-			        {
-				        amount += 1;
-			        }
 			        bool flag = false;
 					flag = other.transform.parent.gameObject.GetComponent<PhotonView>().isMine;
 					float num = 1f;
 					bool isHeadShot = false;
 					if (flag)
 					{
-                    Globals.PlayerMove.inGameGUI.Hitmark();
-                    Debug.LogError("DamagePlayer");
-					_weaponManager.lastEnemyHitBy = null;
+                    Debug.LogError("PlayerDamage");
+					Globals.PlayerMove.inGameGUI.Hitmark();
 					float num2 = multiplayerDamage;
 					float num3 = num2 - other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.curArmor;
 					if (num3 < 0f)
@@ -120,33 +97,42 @@ public class DamageZone : MonoBehaviour
 					{
 						other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.curArmor = 0f;
 					}
-					if (other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.CurHealth > 0f)
-					{
-						if (other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.isMine) {
+					if (other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.isMine) {
 							float understand = other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.CurHealth;
 							other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.CurHealth -= num3;
 							IncomprehensibleGarbler.Dispatch("UrnyguPunatr", other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC, understand);
 						} else {
 							other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.CurHealth -= num3;
 						}
-						if (other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.CurHealth <= 0f)
+					if (other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.CurHealth <= 0f)
 						{
-							if (isMine && other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.isMine) {
+							if (other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.isMine) {
 								other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.DispatchDie();
 								Achievements.Give("HolyDamage");
 							}
+							if (!other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.isKilled) {
 							other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.sendImDeath(other.transform.parent.gameObject.GetComponent<SkinName>().NickName);
+							}
 						}
+				    timer = damageCooldown;
 					}
-					}
+		}
+		}
+		else if ( isPierce == true )
+		{
+            if (other.tag == "ZombieCollider")
+            {
+				other.transform.parent.GetComponent<InitializeHealthbar>().DamageNPC("Zombie",coopDamage,multiplayerDamage,damageCooldown,_weaponManager);
+		    }
+            if (other.tag == "BodyCollider")
+		    {
+				other.transform.parent.GetComponent<InitializeHealthbar>().DamageNPC("Player",coopDamage,multiplayerDamage,damageCooldown,_weaponManager);
+		    }
+		}
+
 //                    Globals.PlayerMove.HitPlayer(other, multiplayerDamage);
 //                    Globals.PlayerMove.inGameGUI.Hitmark();
 //                    Debug.LogError("DamagePlayer");
-        }
-		if (amount != 0)
-		{
-        timer = damageCooldown/amount;
-		}
     }
 
     void Update()
