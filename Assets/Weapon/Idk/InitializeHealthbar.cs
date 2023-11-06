@@ -66,6 +66,14 @@ public class InitializeHealthbar : MonoBehaviour
             }
             else if (alreadyTimedBar == 2)
             {
+                if (gameObject.CompareTag("Enemy"))
+                {
+                    maxhealth = transform.GetChild(0).GetComponent<Sounds>().health;
+                }
+                else if (gameObject.CompareTag("Player"))
+                {
+                    maxhealth = 100f;
+                }
                 timer = 3f;
                 alreadyTimedBar = 1;
             }
@@ -76,6 +84,17 @@ public class InitializeHealthbar : MonoBehaviour
             {
                 Healthbar.GetComponent<HealthNPC>().targetNPC = transform;
                 Instantiate(Healthbar, transform.position, Quaternion.identity);
+                if (gameObject.CompareTag("Enemy"))
+                {
+                    gameObject.transform.GetChild(0).tag="ZombieCollider";
+                    gameObject.AddComponent<Rigidbody>();
+                    gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                }
+                else if (gameObject.CompareTag("Player"))
+                {
+                    gameObject.AddComponent<Rigidbody>();
+                    gameObject.GetComponent<Rigidbody>().isKinematic = true;
+                }
                 alreadyHealthbar = 1;
             }
         }

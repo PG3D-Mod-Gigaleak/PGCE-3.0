@@ -11,7 +11,7 @@ public class HealthNPC : MonoBehaviour
     private float value;
     public Transform fillBar;
     private int alreadyPlayed = 0;
-    private float timer = 1f;
+    public float timer = 1f;
     private float timeNoDamage = 1f;
     private float animLength = 1f;
     private float add = 0.075f;
@@ -31,6 +31,11 @@ public class HealthNPC : MonoBehaviour
     }
     void Update()
     {
+        timer -= Time.deltaTime;
+        if ((timer <= 0f) && (alreadyPlayed == 1))
+            {
+                Destroy(gameObject);
+            }
         if (targetNPC.CompareTag("Enemy"))
         {
         health = targetNPC.GetComponent<ZombiUpravlenie>().health;
@@ -68,11 +73,6 @@ public class HealthNPC : MonoBehaviour
                 gameObject.GetComponent<Animation>().Play("HealthDown");
                 timer = animLength;
                 alreadyPlayed = 1;
-            }
-            timer -= Time.deltaTime;
-            if (timer < 0f)
-            {
-                Destroy(gameObject);
             }
         }
         targetPos = new Vector3(targetNPC.position.x,(targetNPC.position.y + (30*add)), targetNPC.position.z);
