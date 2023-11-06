@@ -49,12 +49,12 @@ public class HealthNPC : MonoBehaviour
         {
             timeNoDamage = 0f;
         }
-        if ((health <= 0f) || (timeNoDamage >= 5f) )
+        if ((health <= 0f) || (timeNoDamage >= 3f) )
         {
             animLength = gameObject.GetComponent<Animation>()["HealthDown"].length;
             if (alreadyPlayed == 0)
             {
-                if (timeNoDamage >= 5f)
+                if (timeNoDamage >= 3f)
                 {
                 targetNPC.GetComponent<InitializeHealthbar>().maxhealth = health1;
                 targetNPC.GetComponent<InitializeHealthbar>().alreadyTimedBar = 0;
