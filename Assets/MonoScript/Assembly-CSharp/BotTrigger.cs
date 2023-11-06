@@ -52,12 +52,13 @@ public class BotTrigger : MonoBehaviour
 		}
 		if (isFriendly == true);
 		{
-			_player = GameObject.FindGameObjectWithTag("Enemy");
+			_player = null;
 		}
 	}
 
 	private void Update()
 	{
+		_player = gameObject.GetComponent<ZombiUpravlenie>().target.gameObject;
 		if (shouldDetectPlayer)
 		{
 			if (!_entered && Vector3.Distance(base.transform.position, _player.transform.position) <= _soundClips.detectRadius)

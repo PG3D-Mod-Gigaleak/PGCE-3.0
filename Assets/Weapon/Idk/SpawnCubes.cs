@@ -13,8 +13,9 @@ public class SpawnCubes : MonoBehaviour
     public bool isRandom = false;
     public bool isForward = false;
     public bool onlyHorizontal = false;
-    float lastSpawnedtime;
+    public float lastSpawnedtime;
     public float frequency;
+
     [Header("Vectors")]
     public Vector3 positionObject;
     public Vector3 rotationObject;
@@ -66,7 +67,7 @@ public class SpawnCubes : MonoBehaviour
             Debug.LogError("Spawned4");
             Instantiate(Prefab, forwardPosFixed, Quaternion.Euler(rotationObject));
             }
-         else if (isRandom == true)
+        else if (isRandom == true)
         {
             float rangeX = Random.Range(x1,x2);
             float rangeY = Random.Range(y1,y2);
@@ -76,7 +77,7 @@ public class SpawnCubes : MonoBehaviour
             Quaternion forwardRot = User.transform.rotation;
             Debug.LogError("Spawned5");
             Instantiate(Prefab, finalPos, Quaternion.Euler(rotationObject));
-            }
+        }
     }
     void Update() {
         if (Time.time > lastSpawnedtime + frequency)

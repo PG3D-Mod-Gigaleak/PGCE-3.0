@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public sealed class ZombiUpravlenie : MonoBehaviour
@@ -45,7 +46,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 
 	public bool Friendly = false;
 
-	public Transform target;
+	public Transform target = null;
 
 	public float health;
 
@@ -66,6 +67,10 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 	private float timeToUpdateNavMesh;
 
 	public int tekAnim = -1;
+
+	private GameObject SelfObject;
+
+	public WeaponManager _weaponManager;
 
 	public string myCAnim(string a){
         return Defs.CAnim(_modelChild, a);
@@ -169,18 +174,12 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 
 	private void Start()
 	{
+		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
 		_skin = SetSkinForObj(_modelChild, this.name);
 		_nma = GetComponent<UnityEngine.AI.NavMeshAgent>();
 		_modelChildCollider = _modelChild.GetComponent<BoxCollider>();
 		shootAnim = offAnim;
-		if (Friendly == false)
-		{
-		player = GameObject.FindGameObjectWithTag("Player");
-	    }
-		if (Friendly == true)
-		{
-		player = GameObject.FindGameObjectWithTag("Enemy");
-	    }
+		player = null;
 		_gameController = GameObject.FindGameObjectWithTag("ZombiCreator").GetComponent<ZombiManager>();
 		_soundClips = _modelChild.GetComponent<Sounds>();
 		CurLifeTime = _soundClips.timeToHit;
@@ -250,57 +249,97 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 						{
 							base.GetComponent<AudioSource>().PlayOneShot(_soundClips.bite);
 						}
-						target.transform.Find("GameObject").GetComponent<Player_move_c>().minusLiveFromZombi(_soundClips.damagePerHit, base.transform.GetChild(0).gameObject);
+						if (Friendly == false)
+						{
+						    target.transform.Find("GameObject").GetComponent<Player_move_c>().minusLiveFromZombi(_soundClips.damagePerHit, base.transform.GetChild(0).gameObject);
+						}
+						else if (Friendly == true)
+						{
+						    Debug.LogError("DamageByFriendly");
+				            Globals.PlayerMove.inGameGUI.Hitmark();
+				            float healthenemy = target.gameObject.GetComponent<ZombiUpravlenie>().health;
+						    float friendlydamage = target.GetChild(0).gameObject.GetComponent<Sounds>().damagePerHit;
+				            if (healthenemy > 0f)
+				            {
+				            	health -= friendlydamage;
+				            	target.gameObject.GetComponent<ZombiUpravlenie>().setHealth(health, true);
+				            	GlobalGameController.Score += 5;
+						    }
+				            if (healthenemy<= 0f)
+				            {
+				            	GlobalGameController.Score += target.GetChild(0).gameObject.GetComponent<Sounds>().scorePerKill;
+				            }
+				            _weaponManager.myTable.GetComponent<NetworkStartTable>().score = GlobalGameController.Score;
+				            _weaponManager.myTable.GetComponent<NetworkStartTable>().synchState();
+							PlayZombieAttack();
+				        }
 					}
-					PlayZombieAttack();
 				}
 			}
 			else
 			{
 				if (Friendly == false)
 				{
-				GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
-				if (array.Length > 0)
-				{
-					timeToUpdateTarget = 5f;
-					float num2 = Vector3.Distance(base.transform.position, array[0].transform.position);
-					target = array[0].transform;
-					GameObject[] array2 = array;
-					foreach (GameObject gameObject in array2)
-					{
-						float num3 = Vector3.Distance(base.transform.position, gameObject.transform.position);
-						if (num3 < num2)
-						{
-							num2 = Vector3.Distance(base.transform.position, gameObject.transform.position);
-							target = gameObject.transform;
-						}
-					}
-				}
+				    GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
+				    if (array.Length > 0)
+				    {
+				    	timeToUpdateTarget = 5f;
+				    	float num2 = Vector3.Distance(base.transform.position, array[0].transform.position);
+				    	target = array[0].transform;
+				    	GameObject[] array2 = array;
+				    	foreach (GameObject gameObject in array2)
+				    	{
+				    		float num3 = Vector3.Distance(base.transform.position, gameObject.transform.position);
+				    		if (num3 < num2)
+				    		{
+				    			num2 = Vector3.Distance(base.transform.position, gameObject.transform.position);
+				    			target = gameObject.transform;
+				    		}
+				    	}
+				    }
 				}
 				if (Friendly == true)
 				{
-				GameObject[] array = GameObject.FindGameObjectsWithTag("Enemy");
-				if (array.Length > 0)
-				{
-					timeToUpdateTarget = 5f;
-					float num2 = Vector3.Distance(base.transform.position, array[0].transform.position);
-					target = array[0].transform;
-					GameObject[] array2 = array;
-					foreach (GameObject gameObject in array2)
-					{
-						float num3 = Vector3.Distance(base.transform.position, gameObject.transform.position);
-						if (num3 < num2)
+				    Debug.LogError("Friendly");
+			        SelfObject = gameObject;
+					string SelfName = SelfObject.name;
+					int FriendCount = 0;
+					string OtherName = "";
+		            List<GameObject> RealTargets = new List<GameObject>();
+				    GameObject[] array = GameObject.FindGameObjectsWithTag("Enemy");
+				    foreach (GameObject gameObject in array)
+				    {
+						Debug.LogError(gameObject.name);
+						OtherName = gameObject.name;
+						Debug.LogError(SelfName);
+				    	if (OtherName == SelfName)
+				    	{
+							FriendCount += 1;
+				    	}
+						else 
 						{
-							num2 = Vector3.Distance(base.transform.position, gameObject.transform.position);
-							target = gameObject.transform;
-						}
-					}
+				    		RealTargets.Add(gameObject);
+				    		Debug.LogError("New Target List: ");
+				    	}
+				    }
+				    timeToUpdateTarget = 5f;
+				    float num2 = Vector3.Distance(base.transform.position, RealTargets[0].transform.position);
+				    target = RealTargets[0].transform;
+				    foreach (GameObject gameObject in RealTargets)
+				    {
+				    	float num3 = Vector3.Distance(base.transform.position, gameObject.transform.position);
+				    	if (num3 < num2)
+				    	{
+				    		num2 = Vector3.Distance(base.transform.position, gameObject.transform.position);
+				    		target = gameObject.transform;
+				    	}
+				    }
 				}
-				}
-			}
-			if (health <= 0f)
-			{
-				photonView.RPC("Death", PhotonTargets.All);
+				player = target.gameObject;
+			    if (health <= 0f)
+			    {
+			    	photonView.RPC("Death", PhotonTargets.All);
+			    }
 			}
 		}
 		else if (falling)
