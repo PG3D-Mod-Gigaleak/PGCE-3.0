@@ -68,9 +68,16 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 
 	public int tekAnim = -1;
 
-	private GameObject SelfObject;
+	public GameObject SelfObject;
 
 	public WeaponManager _weaponManager;
+
+	public float healthoffriendly = 1f;
+	public float healthofenemy = 1f ;
+	public float damagetofriendly = 1f;
+	public float damagetoenemy = 1f;
+	public string OtherName = "";
+	public string SelfName = "";
 
 	public string myCAnim(string a){
         return Defs.CAnim(_modelChild, a);
@@ -257,38 +264,39 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 							if ((target.tag == "Player") && (isASummon != "PlayerTrickster"))
 							{
 						    target.transform.Find("GameObject").GetComponent<Player_move_c>().minusLiveFromZombi(_soundClips.damagePerHit, base.transform.GetChild(0).gameObject);
+							Debug.LogError("DamageToPlayer");
 							}
 							else if ((target.tag == "Player") && (isASummon == "PlayerTrickster"))
 							{
-							float healthenemy = target.parent.gameObject.GetComponent<ZombiUpravlenie>().health;
-							float damagetofriendly = gameObject.transform.GetChild(0).gameObject.GetComponent<Sounds>().damagePerHit;
-				            if (healthenemy > 0f)
+							healthoffriendly = target.parent.GetComponent<ZombiUpravlenie>().health;
+							damagetofriendly = gameObject.transform.GetChild(0).GetComponent<Sounds>().damagePerHit;
+				            if (healthoffriendly > 0f)
 				            {
-				            	healthenemy -= damagetofriendly;
-				            	target.parent.gameObject.GetComponent<ZombiUpravlenie>().setHealth(health, true);
+				            	healthoffriendly -= damagetofriendly;
+				            	target.parent.gameObject.GetComponent<ZombiUpravlenie>().setHealth(healthoffriendly, true);
 							}
 				            _weaponManager.myTable.GetComponent<NetworkStartTable>().score = GlobalGameController.Score;
 				            _weaponManager.myTable.GetComponent<NetworkStartTable>().synchState();
-							Debug.LogError("DamageToFriendly");
+							Debug.LogError("DamageToSummon");
 							}
 						}
 						else if (Friendly == true)
 						{
-				            float healthenemy = target.gameObject.GetComponent<ZombiUpravlenie>().health;
-						    float friendlydamage = gameObject.transform.GetChild(0).gameObject.GetComponent<Sounds>().damagePerHit;
-				            if (healthenemy > 0f)
+				            healthofenemy = target.GetComponent<ZombiUpravlenie>().health;
+						    damagetoenemy = gameObject.transform.GetChild(0).GetComponent<Sounds>().damagePerHit;
+				            if (healthofenemy > 0f)
 				            {
-				            	healthenemy -= friendlydamage;
-				            	target.GetComponent<ZombiUpravlenie>().setHealth(health, true);
+				            	healthofenemy -= damagetoenemy;
+				            	target.GetComponent<ZombiUpravlenie>().setHealth(healthofenemy, true);
 				            	GlobalGameController.Score += 5;
 						    }
-				            if (healthenemy <= 0f)
+				            if (healthofenemy <= 0f)
 				            {
-				            	GlobalGameController.Score += target.GetChild(0).gameObject.GetComponent<Sounds>().scorePerKill;
+				            	GlobalGameController.Score += target.GetChild(0).GetComponent<Sounds>().scorePerKill;
 				            }
 				            _weaponManager.myTable.GetComponent<NetworkStartTable>().score = GlobalGameController.Score;
 				            _weaponManager.myTable.GetComponent<NetworkStartTable>().synchState();
-							Debug.LogError("DamageByFriendly");
+							Debug.LogError("DamageToEnemy");
 							Globals.PlayerMove.inGameGUI.Hitmark();
 				        }
 					}
@@ -321,8 +329,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 				{
 				    Debug.LogError("Friendly");
 			        SelfObject = gameObject;
-					string SelfName = SelfObject.name;
-					string OtherName = "";
+					SelfName = SelfObject.name;
 					List<GameObject> RealTargets = new List<GameObject>();
 				    GameObject[] array = GameObject.FindGameObjectsWithTag("Enemy");
 				    foreach (GameObject gameObject in array)
