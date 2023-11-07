@@ -177,7 +177,7 @@ namespace Easing
 
     public class Ease
     {
-        public static float EaseBy(EaseType type, EasingMethod method, float x)
+        public static float MethodByEnum(EaseType type, EasingMethod method, float x)
         {
             if (type == EaseType.In)
             {
