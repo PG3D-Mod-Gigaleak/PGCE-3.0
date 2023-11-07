@@ -244,6 +244,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 					base.transform.LookAt(vector);
 					if (CurLifeTime <= 0f)
 					{
+						Debug.LogError("CurLifeTimed");
 						CurLifeTime = _soundClips.timeToHit;
 						if (PlayerPrefsX.GetBool(PlayerPrefsX.SndSetting, true))
 						{
@@ -251,29 +252,47 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 						}
 						if (Friendly == false)
 						{
+							string isASummon = "";
+							isASummon = target.gameObject.name;
+							if ((target.tag == "Player") && (isASummon != "PlayerTrickster"))
+							{
 						    target.transform.Find("GameObject").GetComponent<Player_move_c>().minusLiveFromZombi(_soundClips.damagePerHit, base.transform.GetChild(0).gameObject);
+							}
+							else if ((target.tag == "Player") && (isASummon == "PlayerTrickster"))
+							{
+							float healthenemy = target.parent.gameObject.GetComponent<ZombiUpravlenie>().health;
+							float damagetofriendly = gameObject.transform.GetChild(0).gameObject.GetComponent<Sounds>().damagePerHit;
+				            if (healthenemy > 0f)
+				            {
+				            	healthenemy -= damagetofriendly;
+				            	target.parent.gameObject.GetComponent<ZombiUpravlenie>().setHealth(health, true);
+							}
+				            _weaponManager.myTable.GetComponent<NetworkStartTable>().score = GlobalGameController.Score;
+				            _weaponManager.myTable.GetComponent<NetworkStartTable>().synchState();
+							Debug.LogError("DamageToFriendly");
+							}
 						}
 						else if (Friendly == true)
 						{
-						    Debug.LogError("DamageByFriendly");
-				            Globals.PlayerMove.inGameGUI.Hitmark();
 				            float healthenemy = target.gameObject.GetComponent<ZombiUpravlenie>().health;
-						    float friendlydamage = target.GetChild(0).gameObject.GetComponent<Sounds>().damagePerHit;
+						    float friendlydamage = gameObject.transform.GetChild(0).gameObject.GetComponent<Sounds>().damagePerHit;
 				            if (healthenemy > 0f)
 				            {
-				            	health -= friendlydamage;
-				            	target.gameObject.GetComponent<ZombiUpravlenie>().setHealth(health, true);
+				            	healthenemy -= friendlydamage;
+				            	target.GetComponent<ZombiUpravlenie>().setHealth(health, true);
 				            	GlobalGameController.Score += 5;
 						    }
-				            if (healthenemy<= 0f)
+				            if (healthenemy <= 0f)
 				            {
 				            	GlobalGameController.Score += target.GetChild(0).gameObject.GetComponent<Sounds>().scorePerKill;
 				            }
 				            _weaponManager.myTable.GetComponent<NetworkStartTable>().score = GlobalGameController.Score;
 				            _weaponManager.myTable.GetComponent<NetworkStartTable>().synchState();
-							PlayZombieAttack();
+							Debug.LogError("DamageByFriendly");
+							Globals.PlayerMove.inGameGUI.Hitmark();
 				        }
 					}
+					PlayZombieAttack();
 				}
 			}
 			else
@@ -283,7 +302,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 				    GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
 				    if (array.Length > 0)
 				    {
-				    	timeToUpdateTarget = 5f;
+						timeToUpdateTarget = 3f;
 				    	float num2 = Vector3.Distance(base.transform.position, array[0].transform.position);
 				    	target = array[0].transform;
 				    	GameObject[] array2 = array;
@@ -303,43 +322,41 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 				    Debug.LogError("Friendly");
 			        SelfObject = gameObject;
 					string SelfName = SelfObject.name;
-					int FriendCount = 0;
 					string OtherName = "";
-		            List<GameObject> RealTargets = new List<GameObject>();
+					List<GameObject> RealTargets = new List<GameObject>();
 				    GameObject[] array = GameObject.FindGameObjectsWithTag("Enemy");
 				    foreach (GameObject gameObject in array)
 				    {
-						Debug.LogError(gameObject.name);
 						OtherName = gameObject.name;
-						Debug.LogError(SelfName);
 				    	if (OtherName == SelfName)
 				    	{
-							FriendCount += 1;
 				    	}
 						else 
 						{
-				    		RealTargets.Add(gameObject);
-				    		Debug.LogError("New Target List: ");
+							RealTargets.Add(gameObject);
 				    	}
 				    }
-				    timeToUpdateTarget = 5f;
-				    float num2 = Vector3.Distance(base.transform.position, RealTargets[0].transform.position);
-				    target = RealTargets[0].transform;
-				    foreach (GameObject gameObject in RealTargets)
-				    {
-				    	float num3 = Vector3.Distance(base.transform.position, gameObject.transform.position);
-				    	if (num3 < num2)
-				    	{
-				    		num2 = Vector3.Distance(base.transform.position, gameObject.transform.position);
-				    		target = gameObject.transform;
-				    	}
-				    }
+					if (RealTargets[0] != null)
+					{
+					    timeToUpdateTarget = 3f;
+				        float num2 = Vector3.Distance(base.transform.position, RealTargets[0].transform.position);
+				        target = RealTargets[0].transform;
+				        foreach (GameObject gameObject in RealTargets)
+				        {
+				        	float num3 = Vector3.Distance(base.transform.position, gameObject.transform.position);
+				        	if (num3 < num2)
+				        	{
+				        		num2 = Vector3.Distance(base.transform.position, gameObject.transform.position);
+				        		target = gameObject.transform;
+				        	}
+				        }
+					}
 				}
-				player = target.gameObject;
-			    if (health <= 0f)
-			    {
-			    	photonView.RPC("Death", PhotonTargets.All);
-			    }
+			}
+			player = target.gameObject;
+			if (health <= 0f)
+			{
+			    photonView.RPC("Death", PhotonTargets.All);
 			}
 		}
 		else if (falling)

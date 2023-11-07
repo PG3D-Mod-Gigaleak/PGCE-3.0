@@ -24,9 +24,9 @@ public class HealthNPC : MonoBehaviour
     }
     void OnTriggerStay(Collider other)
     {
-        if ((other.tag == "ZombieCollider") || (other.tag == "BodyCollider"))
+        if (other == targetNPC)
         {
-        add = add + 0.025f;
+        add = add + 0.01f;
         }
     }
     void Update()
