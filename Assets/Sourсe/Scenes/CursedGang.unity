@@ -2131,6 +2131,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -2161,6 +2162,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 3, y: 3}
   tekKoof: 3
   upKoofFire: 0.4
@@ -12184,6 +12192,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -12214,6 +12223,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 3, y: 3}
   tekKoof: 3
   upKoofFire: 0.4
@@ -13012,6 +13028,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -13042,6 +13059,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 3, y: 3}
   tekKoof: 3
   upKoofFire: 0.4
@@ -13253,6 +13277,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -13283,6 +13308,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 3, y: 3}
   tekKoof: 3
   upKoofFire: 0.4
@@ -13796,6 +13828,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -13826,6 +13859,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 3, y: 3}
   tekKoof: 3
   upKoofFire: 0.4
@@ -19146,6 +19186,8 @@ GameObject:
   - component: {fileID: 1989851490}
   - component: {fileID: 1989851491}
   - component: {fileID: 1989851493}
+  - component: {fileID: 1989851494}
+  - component: {fileID: 1989851492}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -19160,13 +19202,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989851489}
-  m_LocalRotation: {x: -0.5549109, y: -0.58840764, z: -0.39766622, w: 0.43325737}
-  m_LocalPosition: {x: 0.156, y: 0.7176826, z: 0.007}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: -0.5}
+  m_LocalPosition: {x: 0.045, y: 0.82, z: -0.217}
   m_LocalScale: {x: 1.5875008, y: 1.5875024, z: 1.5875021}
   m_Children: []
   m_Father: {fileID: 1960539607}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -93.895996, y: 111.300995, z: -201.80301}
 --- !u!137 &1989851491
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -19224,6 +19266,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.054511085, y: 0.060010076, z: 0.26286674}
     m_Extent: {x: 0.38525712, y: 0.69902676, z: 1.0131785}
   m_DirtyAABB: 0
+--- !u!114 &1989851492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989851489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8309b0f88f867344fbd3a0684484677d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &1989851493
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -19232,6 +19286,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989851489}
   m_Mesh: {fileID: 4300000, guid: f7ec29bb459edf44abbadaaa9970b359, type: 2}
+--- !u!65 &1989851494
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989851489}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.29489213, y: 1, z: 1.2714279}
+  m_Center: {x: 0.14501855, y: 0.00000004965826, z: 0.13570957}
 --- !u!1 &2037054642
 GameObject:
   m_ObjectHideFlags: 0
@@ -19833,6 +19900,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -19863,6 +19931,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 3, y: 3}
   tekKoof: 3
   upKoofFire: 0.4

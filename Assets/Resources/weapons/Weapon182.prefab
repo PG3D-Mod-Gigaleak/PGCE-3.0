@@ -118,7 +118,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4874283075845168}
-  - component: {fileID: 111063219221099034}
   m_Layer: 0
   m_Name: M14
   m_TagString: Untagged
@@ -141,26 +140,6 @@ Transform:
   m_Father: {fileID: 4664484981371348}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &111063219221099034
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1162202070088204}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: ca14d52a02afd434999255f69ebe862c, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: ca14d52a02afd434999255f69ebe862c, type: 2}
-  - {fileID: 7400000, guid: cc05195d298a4454195cb91fcec3844a, type: 2}
-  - {fileID: 7400000, guid: 3ea457b0823ff4665995af4a70b124f8, type: 2}
-  - {fileID: 7400000, guid: 98e00b42d51bb4791bec6a10172bfbb7, type: 2}
-  - {fileID: 7400000, guid: a8d7b69c0e4524b66a9d76cfe58a8439, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &1455934108827892
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,6 +183,7 @@ GameObject:
   - component: {fileID: 114769753754326864}
   - component: {fileID: 114583102374367884}
   - component: {fileID: 114573973946347624}
+  - component: {fileID: 7771195667582225856}
   m_Layer: 0
   m_Name: Weapon182
   m_TagString: Weapon
@@ -254,7 +234,7 @@ MonoBehaviour:
   range: 9
   damage: 500
   speedModifier: 1
-  animationObject: {fileID: 1162202070088204}
+  animationObject: {fileID: 1675714082796670}
   Probability: 1
   damageRange: {x: -2, y: -2}
   gunPosition: {x: 0, y: -1.7, z: 0}
@@ -263,6 +243,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 50
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -273,7 +254,7 @@ MonoBehaviour:
   numOfPellets: 0
   hasAlternateShot: 0
   hasInspect: 0
-  hasDoubleInspect: 0
+  hasDoubleInspect: 1
   alternateShot: {fileID: 0}
   hasRecoil: 0
   recoil: 0
@@ -284,7 +265,7 @@ MonoBehaviour:
   SpeedBoost: 0
   speedBoostAmount: 0
   speedBoostDuration: 0
-  isDouble: 0
+  isDouble: 1
   price: 50
   weaponName: Aperture Science Handheld Portal Device
   oldMeleeSystem: 0
@@ -293,6 +274,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 1
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -302,11 +290,11 @@ MonoBehaviour:
   timeBeforeDownKoof: 0.5
   railgun: 0
   flamethrower: 0
-  bazooka: 0
-  rocketNum: 0
-  bazookaExplosionRadius: 5
-  bazookaExplosionRadiusSelf: 2.5
-  bazookaImpulseRadius: 6
+  bazooka: 1
+  rocketNum: 17
+  bazookaExplosionRadius: 0
+  bazookaExplosionRadiusSelf: 0
+  bazookaImpulseRadius: 0
   bazookaSpeed: 2
   grenadeLauncher: 0
   armoryScale: {x: 100, y: 100, z: 100}
@@ -360,6 +348,29 @@ MonoBehaviour:
   gunFlashObj: {fileID: 1075332496836904}
   gunFlashObj2: {fileID: 0}
   timeFireAction: 0.1
+--- !u!111 &7771195667582225856
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675714082796670}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: bca3d2d772e53215487b6a088cb2a6db, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: bca3d2d772e53215487b6a088cb2a6db, type: 2}
+  - {fileID: 7400000, guid: ecb50ff878657439ebaf40a68fa0e4ac, type: 2}
+  - {fileID: 7400000, guid: 5895d63a3e3c72ef395a3b9d291d5cb1, type: 2}
+  - {fileID: 7400000, guid: 98e00b42d51bb4791bec6a10172bfbb7, type: 2}
+  - {fileID: 7400000, guid: a8d7b69c0e4524b66a9d76cfe58a8439, type: 2}
+  - {fileID: 7400000, guid: a1a5dfc16e9c721b7a35fc1f59f80207, type: 2}
+  - {fileID: 7400000, guid: 3cff187d1e8cf12ccbd636f7285514e9, type: 2}
+  - {fileID: 7400000, guid: f4f6ef6a3f15320bb94e095d75b7f871, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1681755229236776
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +495,7 @@ Transform:
   - {fileID: 4268400506539638}
   m_Father: {fileID: 4972583005311212}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 2.7542138, y: -0.051832046, z: -0.26643354}
+  m_LocalEulerAnglesHint: {x: 0, y: -0.75658226, z: 0}
 --- !u!1 &1897418916552116
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,7 +526,7 @@ Transform:
   - {fileID: 4149654027878960}
   m_Father: {fileID: 4205728434494770}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 59.972004, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -3.8974977, y: 0, z: 0}
 --- !u!1 &190528589491548724
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,7 +705,7 @@ Transform:
   - {fileID: 3319398530082309088}
   m_Father: {fileID: 4603749713942440}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -183.317, y: 7.350998, z: -10.544983}
+  m_LocalEulerAnglesHint: {x: -3.3170002, y: 39.998, z: -10.545}
 --- !u!33 &9040818743756323636
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -928,7 +939,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 586333a7d3c7ad14196498668f7a1234, type: 2}
+  - {fileID: 2100000, guid: 5539c88702b4977b185402b90fbfd6fc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
