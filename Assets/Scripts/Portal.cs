@@ -9,8 +9,16 @@ public class Portal : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
+		if (other.tag == "ZombieCollider")
+		{
+		other.transform.parent.position = otherPortal.position + otherPortal.transform.forward;
+		other.transform.parent.rotation = otherPortal.rotation;
+		}
+		else
+		{
 		other.transform.position = otherPortal.position + otherPortal.transform.forward;
 		other.transform.rotation = otherPortal.rotation;
+		}
 	}
 
 	void Update()
