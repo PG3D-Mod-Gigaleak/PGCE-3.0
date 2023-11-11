@@ -791,6 +791,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5099137058877594376}
+  - {fileID: 4632964803248568166}
   m_Father: {fileID: 2945367308148985644}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1034,6 +1035,74 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2951054691094972196}
   m_Enabled: 1
+--- !u!1001 &4632964803248568165
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2945421526310931840}
+    m_Modifications:
+    - target: {fileID: 1374887992921536, guid: 6536cf4927615b544ab967299e9757d6, type: 3}
+      propertyPath: m_Name
+      value: Weapon166
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137613589418102, guid: 6536cf4927615b544ab967299e9757d6, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137613589418102, guid: 6536cf4927615b544ab967299e9757d6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137613589418102, guid: 6536cf4927615b544ab967299e9757d6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137613589418102, guid: 6536cf4927615b544ab967299e9757d6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137613589418102, guid: 6536cf4927615b544ab967299e9757d6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137613589418102, guid: 6536cf4927615b544ab967299e9757d6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137613589418102, guid: 6536cf4927615b544ab967299e9757d6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137613589418102, guid: 6536cf4927615b544ab967299e9757d6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137613589418102, guid: 6536cf4927615b544ab967299e9757d6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137613589418102, guid: 6536cf4927615b544ab967299e9757d6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4137613589418102, guid: 6536cf4927615b544ab967299e9757d6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114639421563924362, guid: 6536cf4927615b544ab967299e9757d6,
+        type: 3}
+      propertyPath: isSwapOut
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6536cf4927615b544ab967299e9757d6, type: 3}
+--- !u!4 &4632964803248568166 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4137613589418102, guid: 6536cf4927615b544ab967299e9757d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 4632964803248568165}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &5086902692148503110
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1339,7 +1408,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &5101110763025100446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,6 +1517,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 85
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -1458,6 +1528,7 @@ MonoBehaviour:
   numOfPellets: 0
   hasAlternateShot: 0
   hasInspect: 0
+  hasDoubleInspect: 0
   alternateShot: {fileID: 0}
   hasRecoil: 0
   recoil: 0
@@ -1477,6 +1548,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
