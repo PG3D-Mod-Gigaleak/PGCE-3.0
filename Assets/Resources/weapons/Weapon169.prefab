@@ -102,6 +102,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 27.5
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -112,6 +113,7 @@ MonoBehaviour:
   numOfPellets: 0
   hasAlternateShot: 0
   hasInspect: 1
+  hasDoubleInspect: 0
   alternateShot: {fileID: 0}
   hasRecoil: 0
   recoil: 0
@@ -131,6 +133,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -230,7 +239,7 @@ Transform:
   - {fileID: 4940614397042594}
   m_Father: {fileID: 4357111187535096}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.00001}
+  m_LocalEulerAnglesHint: {x: 0.94200003, y: -8.533, z: 90.350006}
 --- !u!1 &1022191492975260
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,7 +1265,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4731639698061018}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -180, y: 39.86699, z: -90}
+  m_LocalEulerAnglesHint: {x: -200.04315, y: 43.985348, z: -47.53359}
 --- !u!33 &33756335799757578
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1426,7 +1435,7 @@ Transform:
   - {fileID: 4231306015015864}
   m_Father: {fileID: 4731639698061018}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.00001}
+  m_LocalEulerAnglesHint: {x: -0.15281606, y: -2.4772964, z: -94.409294}
 --- !u!33 &33261851837502894
 MeshFilter:
   m_ObjectHideFlags: 0
