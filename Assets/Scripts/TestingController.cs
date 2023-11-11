@@ -13,7 +13,8 @@ public class TestingController : MonoBehaviour
 		prefs.SetFloat(Defs.CurrentHealthSett, Player_move_c.MaxPlayerHealth);
 		prefs.SetFloat(Defs.CurrentArmorSett, 0f);
 		FlurryPluginWrapper.LogSurvivalModePress();
-		Application.LoadLevel("LoadingNoWait");
+		LoadConnectScene.sceneToLoad = "Cementery";
+		Application.LoadLevel("PromScene");
 	}
 
 	public void EnterCOOP()
