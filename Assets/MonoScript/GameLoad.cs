@@ -54,6 +54,8 @@ public class GameLoad : MonoBehaviour
 
 	public IEnumerator LoadWeapons()
 	{
+		currentTask.text = "Loading Weapons";
+		yield return null;
 		int i = 1;
 		for (;;i++)
 		{
@@ -63,7 +65,6 @@ public class GameLoad : MonoBehaviour
 				Debug.Log("broke at " + i);
 				break;
 			}
-			currentTask.text = "Loading Weapon (" + obj.name + ").";
 			if (!WeaponManager.WeaponPrefabs.Contains(obj))
 			{
 				WeaponManager.WeaponPrefabs.Add(obj);
@@ -91,11 +92,14 @@ public class GameLoad : MonoBehaviour
 	}
 	private IEnumerator DoneC() {
 		currentTask.text = "done! loading into the menu...";
-		yield return Application.LoadLevelAsync("Loading");
+		yield return null;
+		yield return UnityEngine.SceneManagement.SceneManager.LoadSceneAsync("Loading");
 		yield break;
 	}
 	public IEnumerator LoadEnemies()
 	{
+		currentTask.text = "Loading Enemies";
+		yield return null;
 		int i = 1;
 		for (;;i++)
 		{
@@ -105,7 +109,6 @@ public class GameLoad : MonoBehaviour
 				Debug.Log("broke at " + i);
 				break;
 			}
-			currentTask.text = "Loading Enemy (" + obj.name + ")";
 			Encyclopedia.storedEntities.Add(obj as GameObject);
 		}
 		StartCoroutine(LoadBosses());
@@ -115,16 +118,10 @@ public class GameLoad : MonoBehaviour
 		#if UNITY_EDITOR
 		// tysm ender
 		currentTask.text = "Caching PhotonView Objects (might take a while!)";
-		GameObject[] allObjects = Resources.LoadAll<GameObject>("");
+		yield return null;
+		List<GameObject> allObjects = Resources.LoadAll<GameObject>("").ToList();
 		yield return allObjects;
-		GameObject[] photonObjects = (from go in allObjects where go.GetComponent<PhotonView>() != null select go).ToArray();
-		yield return photonObjects;
-		int i = 0;
-		foreach (GameObject photonObject in photonObjects) {
-			MiscCache.photonViewGameObjects.Add(photonObject);
-			currentTask.text = "Adding to cache (" + i + "/" + photonObjects.Length + ")";
-			i++;
-		}
+		MiscCache.photonViewGameObjects.AddRange(allObjects.FindAll(x => x.GetComponent<PhotonView>() != null));
 		#endif
 		Done();
 		yield break;
@@ -132,38 +129,30 @@ public class GameLoad : MonoBehaviour
 
 	public IEnumerator LoadEnemiesIntoDictionary()
 	{
-	    List<SurvivalConfig.Enemy> foundEnemies = new List<SurvivalConfig.Enemy>();
 		currentTask.text = "Sorting Enemies Into Dictionary";
+		yield return null;
 	    foreach (SurvivalConfig.BaseLevel possibleLevel in Defs.m_SurvivalConfig.levels.levels)
 	    {
 			foreach (SurvivalConfig.LevelSettings level in possibleLevel.PossibleLevels)
 			{
-	        	foreach (SurvivalConfig.Enemy enemy in level.enemies)
-	        	{
-	        	    if (foundEnemies.Find(x => x.name == enemy.name) == null)
-	        	    {
-	        	        foundEnemies.Add(enemy);
-	        	    }
-	        	}
+				Encyclopedia.parsedEnemies.AddRange(level.enemies.ToList().FindAll(x => !Encyclopedia.parsedEnemies.Contains(x)));
 			}
 	    }
 	    foreach (TimeSurvivalConfig.MapSettings level in Defs.m_TimeSurvivalConfig.maps.mapSettings)
 	    {
 	        foreach (SurvivalConfig.Enemy enemy in level.enemies)
 	        {
-	            if (foundEnemies.Find(x => x.name == enemy.name) == null)
-	            {
-	                foundEnemies.Add(enemy);
-	            }
+				Encyclopedia.parsedEnemies.AddRange(level.enemies.ToList().FindAll(x => !Encyclopedia.parsedEnemies.Contains(x)));
 	        }
 	    }
-	    Encyclopedia.parsedEnemies.AddRange(foundEnemies);
 		StartCoroutine(CacheAllPhotonViewItems());
 		yield break;
 	}
 
 	public IEnumerator LoadBosses()
 	{
+		currentTask.text = "Loading Bosses";
+		yield return null;
 		int i = 1;
 		for (;;i++)
 		{
@@ -173,7 +162,6 @@ public class GameLoad : MonoBehaviour
 				Debug.Log("broke at " + i);
 				break;
 			}
-			currentTask.text = "Loading Boss (" + obj.name + ")";
 			Encyclopedia.storedEntities.Add(obj as GameObject);
 			// yield return null;
 		}

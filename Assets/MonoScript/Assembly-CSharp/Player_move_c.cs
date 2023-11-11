@@ -3257,7 +3257,7 @@ public sealed class Player_move_c : MonoBehaviour
 			gameObject3.GetComponent<Rocket>().extraSpeed = extraSpeed;
 			gameObject3.GetComponent<Rocket>().rocketNum = WS.rocketNum;
 			gameObject3.GetComponent<Rocket>().weaponName = WS.gameObject.name.Replace("(Clone)", string.Empty);
-			gameObject3.GetComponent<Rocket>().tiedWeaponName = WS.gameObject.name;
+			gameObject3.GetComponent<Rocket>().tiedWeaponName = _weaponManager.currentWeaponSounds.gameObject.name;
 			gameObject3.GetComponent<Rocket>().damage = WS.damage;
 			gameObject3.GetComponent<Rocket>().radiusDamage = WS.bazookaExplosionRadius;
 			gameObject3.GetComponent<Rocket>().radiusDamageSelf = WS.bazookaExplosionRadiusSelf;
