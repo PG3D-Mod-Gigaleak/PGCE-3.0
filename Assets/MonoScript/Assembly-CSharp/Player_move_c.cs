@@ -2500,7 +2500,6 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public static int WeaponIDFromName(string name)
 	{
-		Debug.LogError(name.Replace("Weapon", "").Replace("(Clone)", "").Trim());
 		return int.Parse(name.Replace("Weapon", "").Replace("(Clone)", "").Trim());	
 	}
 
@@ -3863,7 +3862,6 @@ public sealed class Player_move_c : MonoBehaviour
                     {
                     gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
                     gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play("Inspect" + doubleInspectIndex);
-					Debug.LogError("alolooo");
                     DoDoubleInspect();
                     }
 				}
