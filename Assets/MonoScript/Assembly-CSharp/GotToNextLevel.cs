@@ -17,7 +17,7 @@ public class GotToNextLevel : MonoBehaviour
 
 	private void Awake()
 	{
-		OnPlayerAddedAct = _003CAwake_003Em__4;
+		OnPlayerAddedAct = PlayerAdded;
 		Initializer.PlayerAddedEvent += OnPlayerAddedAct;
 	}
 
@@ -54,8 +54,7 @@ public class GotToNextLevel : MonoBehaviour
 		}
 	}
 
-	[CompilerGenerated]
-	private void _003CAwake_003Em__4()
+	private void PlayerAdded()
 	{
 		_player = GameObject.FindGameObjectWithTag("Player");
 		_playerMoveC = GameObject.FindGameObjectWithTag("PlayerGun").GetComponent<Player_move_c>();

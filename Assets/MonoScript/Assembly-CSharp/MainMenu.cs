@@ -9,42 +9,34 @@ using UnityEngine;
 
 public sealed class MainMenu : MonoBehaviour
 {
-	[CompilerGenerated]
-	private sealed class _003CDrawGameModeButtons_003Ec__AnonStorey1B
+	internal float buttonsLeft;
+
+	internal float buttonsTop;
+
+	internal float rowHeight;
+
+	internal float buttonWidth;
+
+	internal float buttonHeight;
+
+	internal Rect DrawGamemodeButtons(int rowIndex)
 	{
-		internal float buttonsLeft;
-
-		internal float buttonsTop;
-
-		internal float rowHeight;
-
-		internal float buttonWidth;
-
-		internal float buttonHeight;
-
-		internal Rect _003C_003Em__5(int rowIndex)
-		{
-			return new Rect(buttonsLeft, buttonsTop + (float)rowIndex * rowHeight, buttonWidth, buttonHeight);
-		}
+		return new Rect(buttonsLeft, buttonsTop + (float)rowIndex * rowHeight, buttonWidth, buttonHeight);
 	}
 
-	[CompilerGenerated]
-	private sealed class _003CDrawToolbar_003Ec__AnonStorey1C
+	internal float toolbarLeft;
+
+	internal float columnWidth;
+
+	internal float toolbarTop;
+
+	internal float smallButtonWidth;
+
+	internal float smallButtonHeight;
+
+	internal Rect DrawToolbar(int columnIndex)
 	{
-		internal float toolbarLeft;
-
-		internal float columnWidth;
-
-		internal float toolbarTop;
-
-		internal float smallButtonWidth;
-
-		internal float smallButtonHeight;
-
-		internal Rect _003C_003Em__6(int columnIndex)
-		{
-			return new Rect(toolbarLeft + (float)columnIndex * columnWidth, toolbarTop, smallButtonWidth, smallButtonHeight);
-		}
+		return new Rect(toolbarLeft + (float)columnIndex * columnWidth, toolbarTop, smallButtonWidth, smallButtonHeight);
 	}
 
 	private const string SkinsMakerSku = "skinsmaker";
@@ -218,15 +210,14 @@ public sealed class MainMenu : MonoBehaviour
 
 	private void DrawGameModeButtons(float rightBorder)
 	{
-		_003CDrawGameModeButtons_003Ec__AnonStorey1B _003CDrawGameModeButtons_003Ec__AnonStorey1B = new _003CDrawGameModeButtons_003Ec__AnonStorey1B();
 		float num = (float)Screen.height / 768f;
-		_003CDrawGameModeButtons_003Ec__AnonStorey1B.buttonWidth = (float)playStyle.normal.background.width * num;
-		_003CDrawGameModeButtons_003Ec__AnonStorey1B.buttonHeight = (float)playStyle.normal.background.height * num;
-		_003CDrawGameModeButtons_003Ec__AnonStorey1B.buttonsTop = 222f * num;
-		_003CDrawGameModeButtons_003Ec__AnonStorey1B.buttonsLeft = rightBorder - _003CDrawGameModeButtons_003Ec__AnonStorey1B.buttonWidth;
+		buttonWidth = (float)playStyle.normal.background.width * num;
+		buttonHeight = (float)playStyle.normal.background.height * num;
+		buttonsTop = 222f * num;
+		buttonsLeft = rightBorder - buttonWidth;
 		float num2 = 18f * num;
-		_003CDrawGameModeButtons_003Ec__AnonStorey1B.rowHeight = _003CDrawGameModeButtons_003Ec__AnonStorey1B.buttonHeight + num2;
-		Func<int, Rect> func = _003CDrawGameModeButtons_003Ec__AnonStorey1B._003C_003Em__5;
+		rowHeight = buttonHeight + num2;
+		Func<int, Rect> func = DrawGamemodeButtons;
 		int arg = 0;
 		if (GUI.RepeatButton(func(arg), string.Empty, playStyle))
 		{
@@ -271,15 +262,14 @@ public sealed class MainMenu : MonoBehaviour
 
 	private void DrawToolbar(float rightBorder)
 	{
-		_003CDrawToolbar_003Ec__AnonStorey1C _003CDrawToolbar_003Ec__AnonStorey1C = new _003CDrawToolbar_003Ec__AnonStorey1C();
 		float num = (float)Screen.height / 768f;
-		_003CDrawToolbar_003Ec__AnonStorey1C.toolbarLeft = 0.5f * (float)Screen.width - 423f * num;
-		_003CDrawToolbar_003Ec__AnonStorey1C.toolbarTop = 682f * num;
-		_003CDrawToolbar_003Ec__AnonStorey1C.smallButtonWidth = (float)soundStyle.normal.background.width * num;
-		_003CDrawToolbar_003Ec__AnonStorey1C.smallButtonHeight = (float)soundStyle.normal.background.height * num;
+		toolbarLeft = 0.5f * (float)Screen.width - 423f * num;
+		toolbarTop = 682f * num;
+		smallButtonWidth = (float)soundStyle.normal.background.width * num;
+		smallButtonHeight = (float)soundStyle.normal.background.height * num;
 		float num2 = 30f * num;
-		_003CDrawToolbar_003Ec__AnonStorey1C.columnWidth = _003CDrawToolbar_003Ec__AnonStorey1C.smallButtonWidth + num2;
-		Func<int, Rect> func = _003CDrawToolbar_003Ec__AnonStorey1C._003C_003Em__6;
+		columnWidth = smallButtonWidth + num2;
+		Func<int, Rect> func = DrawToolbar;
 		int arg = 0;
 		if (GUI.RepeatButton(func(arg), string.Empty, soundStyle) && !isFirstFrame)
 		{
@@ -300,7 +290,7 @@ public sealed class MainMenu : MonoBehaviour
 		float num3 = (float)skinsMakerStyle.normal.background.width * num;
 		if (true)
 		{
-			Rect position = new Rect(rightBorder - num3, _003CDrawToolbar_003Ec__AnonStorey1C.toolbarTop, num3, (float)skinsMakerStyle.normal.background.height * num);
+			Rect position = new Rect(rightBorder - num3, toolbarTop, num3, (float)skinsMakerStyle.normal.background.height * num);
 			bool flag = Defs.IsProEdition || prefs.GetInt(Defs.SkinsMakerInMainMenuPurchased) > 0;
 			GUIStyle style = skinsMakerStyle;
 			if ((Application.platform != RuntimePlatform.Android) ? GUI.RepeatButton(position, string.Empty, skinsMakerStyle) : GUI.Button(position, string.Empty, style))
@@ -328,7 +318,7 @@ public sealed class MainMenu : MonoBehaviour
 		float num4 = (float)coins_Free.normal.background.width * num;
 		if (true)
 		{
-			Rect position2 = new Rect(rightBorder - num3 - num4 - _003CDrawToolbar_003Ec__AnonStorey1C.columnWidth, _003CDrawToolbar_003Ec__AnonStorey1C.toolbarTop, num4, _003CDrawToolbar_003Ec__AnonStorey1C.smallButtonHeight);
+			Rect position2 = new Rect(rightBorder - num3 - num4 - columnWidth, toolbarTop, num4, smallButtonHeight);
 			if (GUI.Button(position2, string.Empty, coins_Free))
 			{
 				showFreeCoins = true;

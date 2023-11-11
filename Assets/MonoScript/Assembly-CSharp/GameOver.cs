@@ -6,68 +6,55 @@ using UnityEngine;
 
 public sealed class GameOver : MonoBehaviour
 {
-	[CompilerGenerated]
-	private sealed class _003COnGUI_003Ec__AnonStorey1A
+	internal int newCoins;
+
+	internal Action<string> showShop;
+
+	internal void SetCoins()
 	{
-		private sealed class _003COnGUI_003Ec__AnonStorey19
+		Storager.setInt(Defs.Coins, newCoins, false);
+		_Buy();
+	}
+
+	internal void ShowShop(string pressedbutton)
+	{
+		if (!pressedbutton.Equals("Cancel"))
 		{
-			internal int newCoins;
-
-			internal Action<string> showShop;
-
-			internal _003COnGUI_003Ec__AnonStorey1A _003C_003Ef__ref_002426;
-
-			internal void _003C_003Em__1()
-			{
-				Storager.setInt(Defs.Coins, newCoins, false);
-				_003C_003Ef__ref_002426._003C_003Ef__this._Buy();
-			}
-
-			internal void _003C_003Em__2(string pressedbutton)
-			{
-				if (!pressedbutton.Equals("Cancel"))
-				{
-					coinsShop.thisScript.notEnoughCoins = true;
-					coinsShop.thisScript.onReturnAction = _003C_003Ef__ref_002426.act;
-					coinsShop.showCoinsShop();
-				}
-			}
-
-			internal void _003C_003Em__3()
-			{
-				showShop("Yes!");
-			}
+			coinsShop.thisScript.notEnoughCoins = true;
+			coinsShop.thisScript.onReturnAction = act;
+			coinsShop.showCoinsShop();
 		}
+	}
 
-		internal Action act;
+	internal void YesPressed()
+	{
+		showShop("Yes!");
+	}
 
-		internal GameOver _003C_003Ef__this;
+	internal Action act;
 
-		internal void _003C_003Em__0()
+	internal void InitShop()
+	{
+		coinsShop.thisScript.notEnoughCoins = false;
+		coinsShop.thisScript.onReturnAction = null;
+		int num = ((!VirtualCurrencyHelper.prices.ContainsKey(StoreKitEventListener.elixirID)) ? 10 : VirtualCurrencyHelper.prices[StoreKitEventListener.elixirID]);
+		int @int = Storager.getInt(Defs.Coins, false);
+		newCoins = @int - num;
+		Action action = SetCoins;
+		showShop = ShowShop;
+		if (newCoins >= 0)
 		{
-			_003COnGUI_003Ec__AnonStorey19 _003COnGUI_003Ec__AnonStorey = new _003COnGUI_003Ec__AnonStorey19();
-			_003COnGUI_003Ec__AnonStorey._003C_003Ef__ref_002426 = this;
-			coinsShop.thisScript.notEnoughCoins = false;
-			coinsShop.thisScript.onReturnAction = null;
-			int num = ((!VirtualCurrencyHelper.prices.ContainsKey(StoreKitEventListener.elixirID)) ? 10 : VirtualCurrencyHelper.prices[StoreKitEventListener.elixirID]);
-			int @int = Storager.getInt(Defs.Coins, false);
-			_003COnGUI_003Ec__AnonStorey.newCoins = @int - num;
-			Action action = _003COnGUI_003Ec__AnonStorey._003C_003Em__1;
-			_003COnGUI_003Ec__AnonStorey.showShop = _003COnGUI_003Ec__AnonStorey._003C_003Em__2;
-			if (_003COnGUI_003Ec__AnonStorey.newCoins >= 0)
-			{
-				action();
-				return;
-			}
-			GameObject gameObject = UnityEngine.Object.Instantiate(Resources.Load("CustomDialog")) as GameObject;
-			if (gameObject == null)
-			{
-				Debug.LogError("customDialogEntity == null");
-				return;
-			}
-			CustomDialog component = gameObject.GetComponent<CustomDialog>();
-			component.yesPressed = _003COnGUI_003Ec__AnonStorey._003C_003Em__3;
+			action();
+			return;
 		}
+		GameObject gameObject = UnityEngine.Object.Instantiate(Resources.Load("CustomDialog")) as GameObject;
+		if (gameObject == null)
+		{
+			Debug.LogError("customDialogEntity == null");
+			return;
+		}
+		CustomDialog component = gameObject.GetComponent<CustomDialog>();
+		component.yesPressed = YesPressed;
 	}
 
 	private GameObject _purchaseActivityIndicator;
@@ -281,11 +268,9 @@ public sealed class GameOver : MonoBehaviour
 				Rect position3 = new Rect(0.5f * num12 * (float)(texture.width - buy.normal.background.width), (float)(texture.height - buy.normal.background.height - 96) * num12, (float)buy.normal.background.width * num12, (float)buy.normal.background.height * num12);
 				if (GUI.Button(position3, string.Empty, buy))
 				{
-					_003COnGUI_003Ec__AnonStorey1A _003COnGUI_003Ec__AnonStorey1A = new _003COnGUI_003Ec__AnonStorey1A();
-					_003COnGUI_003Ec__AnonStorey1A._003C_003Ef__this = this;
-					_003COnGUI_003Ec__AnonStorey1A.act = null;
-					_003COnGUI_003Ec__AnonStorey1A.act = _003COnGUI_003Ec__AnonStorey1A._003C_003Em__0;
-					_003COnGUI_003Ec__AnonStorey1A.act();
+					act = null;
+					act = InitShop;
+					act();
 				}
 				if (haveNoElixirSh && _products.Count > 0)
 				{

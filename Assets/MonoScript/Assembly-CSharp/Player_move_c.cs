@@ -27,194 +27,139 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private GameObject rocketToLaunch;
 
-	[CompilerGenerated]
-	private sealed class _003CshowCategory_003Ec__AnonStorey24
+	internal string[] idsArr;
+
+	internal int iStorey;
+	internal Action<string> buyItem;
+
+	internal void OnBuy(string pressedButton)
 	{
-		internal string[] idsArr;
-
-		internal Player_move_c _003C_003Ef__this;
-	}
-
-	[CompilerGenerated]
-	private sealed class _003CshowCategory_003Ec__AnonStorey25
-	{
-		internal int i;
-
-		internal Player_move_c _003C_003Ef__this;
-	}
-
-	[CompilerGenerated]
-	private sealed class _003CshowCategory_003Ec__AnonStorey23
-	{
-		private sealed class _003CshowCategory_003Ec__AnonStorey26
+		EtceteraAndroidManager.alertButtonClickedEvent -= buyItem;
+		if (!pressedButton.Equals("Cancel"))
 		{
-			private sealed class _003CshowCategory_003Ec__AnonStorey27
-			{
-				internal Action<string> buyItem;
-
-				internal _003CshowCategory_003Ec__AnonStorey23 _003C_003Ef__ref_002435;
-
-				internal _003CshowCategory_003Ec__AnonStorey26 _003C_003Ef__ref_002438;
-
-				internal void _003C_003Em__33(string pressedButton)
-				{
-					EtceteraAndroidManager.alertButtonClickedEvent -= buyItem;
-					if (!pressedButton.Equals("Cancel"))
-					{
-						_003C_003Ef__ref_002438.actualBuy();
-					}
-				}
-			}
-
-			internal int newCoins;
-
-			internal Action actualBuy;
-
-			internal Action<string> showShop;
-
-			internal _003CshowCategory_003Ec__AnonStorey24 _003C_003Ef__ref_002436;
-
-			internal _003CshowCategory_003Ec__AnonStorey25 _003C_003Ef__ref_002437;
-
-			internal _003CshowCategory_003Ec__AnonStorey23 _003C_003Ef__ref_002435;
-
-			internal void _003C_003Em__2F()
-			{
-				Storager.setInt(Defs.Coins, newCoins, false);
-				_003C_003Ef__ref_002435._003C_003Ef__this._weaponManager.AddMinerWeapon(_003C_003Ef__ref_002435.id);
-				_003C_003Ef__ref_002435._003C_003Ef__this.PurchaseSuccessful(_003C_003Ef__ref_002435.id);
-			}
-
-			internal void _003C_003Em__30()
-			{
-				_003CshowCategory_003Ec__AnonStorey27 _003CshowCategory_003Ec__AnonStorey = new _003CshowCategory_003Ec__AnonStorey27();
-				_003CshowCategory_003Ec__AnonStorey._003C_003Ef__ref_002435 = _003C_003Ef__ref_002435;
-				_003CshowCategory_003Ec__AnonStorey._003C_003Ef__ref_002438 = this;
-				_003CshowCategory_003Ec__AnonStorey.buyItem = null;
-				_003CshowCategory_003Ec__AnonStorey.buyItem = _003CshowCategory_003Ec__AnonStorey._003C_003Em__33;
-				string message = string.Format("Do you want to buy {0}?", InAppData.inappReadableNames[_003C_003Ef__ref_002435.id]);
-				EtceteraAndroidManager.alertButtonClickedEvent += _003CshowCategory_003Ec__AnonStorey.buyItem;
-				EtceteraAndroid.showAlert(string.Empty, message, "Buy", "Cancel");
-			}
-
-			internal void _003C_003Em__31(string pressedbutton)
-			{
-				EtceteraAndroidManager.alertButtonClickedEvent -= showShop;
-				if (!pressedbutton.Equals("Cancel"))
-				{
-					coinsShop.thisScript.notEnoughCoins = true;
-					coinsShop.thisScript.onReturnAction = _003C_003Ef__ref_002435.act;
-					coinsShop.showCoinsShop();
-				}
-			}
-
-			internal void _003C_003Em__32()
-			{
-				showShop("Yes!");
-			}
-		}
-
-		internal string id;
-
-		internal Action act;
-
-		internal _003CshowCategory_003Ec__AnonStorey24 _003C_003Ef__ref_002436;
-
-		internal _003CshowCategory_003Ec__AnonStorey25 _003C_003Ef__ref_002437;
-
-		internal Player_move_c _003C_003Ef__this;
-
-		internal void _003C_003Em__26()
-		{
-			_003CshowCategory_003Ec__AnonStorey26 _003CshowCategory_003Ec__AnonStorey = new _003CshowCategory_003Ec__AnonStorey26();
-			_003CshowCategory_003Ec__AnonStorey._003C_003Ef__ref_002436 = _003C_003Ef__ref_002436;
-			_003CshowCategory_003Ec__AnonStorey._003C_003Ef__ref_002437 = _003C_003Ef__ref_002437;
-			_003CshowCategory_003Ec__AnonStorey._003C_003Ef__ref_002435 = this;
-			coinsShop.thisScript.notEnoughCoins = false;
-			coinsShop.thisScript.onReturnAction = null;
-			if (id == null)
-			{
-				string arg = string.Join(", ", _003C_003Ef__ref_002436.idsArr);
-				string message = string.Format("idsArr[{0}] == null;    idsArr = [{1}]", _003C_003Ef__ref_002437.i, arg);
-				Debug.LogError(message);
-				return;
-			}
-			int num = ((!VirtualCurrencyHelper.prices.ContainsKey(id)) ? (10 * (1 + _003C_003Ef__ref_002437.i)) : VirtualCurrencyHelper.prices[id]);
-			int @int = Storager.getInt(Defs.Coins, false);
-			_003CshowCategory_003Ec__AnonStorey.newCoins = @int - num;
-			_003CshowCategory_003Ec__AnonStorey.actualBuy = _003CshowCategory_003Ec__AnonStorey._003C_003Em__2F;
-			Action action = _003CshowCategory_003Ec__AnonStorey._003C_003Em__30;
-			_003CshowCategory_003Ec__AnonStorey.showShop = null;
-			_003CshowCategory_003Ec__AnonStorey.showShop = _003CshowCategory_003Ec__AnonStorey._003C_003Em__31;
-			if (_003CshowCategory_003Ec__AnonStorey.newCoins >= 0)
-			{
-				_003CshowCategory_003Ec__AnonStorey.actualBuy();
-			}
-			else if (_003C_003Ef__this.customDialogPrefab != null)
-			{
-				GameObject gameObject = UnityEngine.Object.Instantiate(_003C_003Ef__this.customDialogPrefab) as GameObject;
-				CustomDialog component = gameObject.GetComponent<CustomDialog>();
-				component.yesPressed = _003CshowCategory_003Ec__AnonStorey._003C_003Em__32;
-			}
+			actualBuy();
 		}
 	}
 
-	[CompilerGenerated]
-	private sealed class _003CUpdate_003Ec__AnonStorey28
+
+	internal int newCoins;
+
+	internal Action actualBuy;
+
+	internal Action<string> showShop;
+
+	internal void AddWeapon()
 	{
-		internal Func<bool> pauserIsPaused;
+		Storager.setInt(Defs.Coins, newCoins, false);
+		_weaponManager.AddMinerWeapon(id);
+		PurchaseSuccessful(id);
+	}
 
-		internal Player_move_c _003C_003Ef__this;
+	internal void TryBuy()
+	{
+		buyItem = null;
+		buyItem = OnBuy;
+		string message = string.Format("Do you want to buy {0}?", InAppData.inappReadableNames[id]);
+		EtceteraAndroidManager.alertButtonClickedEvent += buyItem;
+		EtceteraAndroid.showAlert(string.Empty, message, "Buy", "Cancel");
+	}
 
-		internal bool _003C_003Em__2D()
+	internal void ShowShop(string pressedbutton)
+	{
+		EtceteraAndroidManager.alertButtonClickedEvent -= showShop;
+		if (!pressedbutton.Equals("Cancel"))
 		{
-			return _003C_003Ef__this._pauser != null && _003C_003Ef__this._pauser.paused;
+			coinsShop.thisScript.notEnoughCoins = true;
+			coinsShop.thisScript.onReturnAction = act;
+			coinsShop.showCoinsShop();
 		}
+	}
 
-		internal void _003C_003Em__2E()
+	internal void ShowShopYes()
+	{
+		showShop("Yes!");
+	}
+
+	internal string id;
+
+	internal Action act;
+
+	internal void InitShop()
+	{
+		coinsShop.thisScript.notEnoughCoins = false;
+		coinsShop.thisScript.onReturnAction = null;
+		if (id == null)
 		{
-			if (_003C_003Ef__this == null)
+			string arg = string.Join(", ", idsArr);
+			string message = string.Format("idsArr[{0}] == null;    idsArr = [{1}]", iStorey, arg);
+			Debug.LogError(message);
+			return;
+		}
+		int num = ((!VirtualCurrencyHelper.prices.ContainsKey(id)) ? (10 * (1 + iStorey)) : VirtualCurrencyHelper.prices[id]);
+		int @int = Storager.getInt(Defs.Coins, false);
+		newCoins = @int - num;
+		actualBuy = AddWeapon;
+		Action action = TryBuy;
+		showShop = null;
+		showShop = ShowShop;
+		if (newCoins >= 0)
+		{
+			actualBuy();
+		}
+		else if (customDialogPrefab != null)
+		{
+			GameObject gameObject = UnityEngine.Object.Instantiate(customDialogPrefab) as GameObject;
+			CustomDialog component = gameObject.GetComponent<CustomDialog>();
+			component.yesPressed = ShowShopYes;
+		}
+	}
+
+	internal Func<bool> pauserIsPaused;
+
+	internal bool Paused()
+	{
+		return _pauser != null && _pauser.paused;
+	}
+
+	internal void RespawnPlayer()
+	{
+		transform.parent.transform.localScale = new Vector3(1f, 1f, 1f);
+		isDeadFrame = false;
+		Invoke("SetNoKilled", 0.5f);
+		_weaponManager.myPlayer.GetComponent<SkinName>().camPlayer.transform.parent = _weaponManager.myPlayer.transform;
+		if (!pauserIsPaused())
+		{
+			if (_leftJoystick != null)
 			{
-				_003C_003Ef__this = Globals.PlayerMove;
+				_leftJoystick.SetActive(true);
 			}
-			_003C_003Ef__this.transform.parent.transform.localScale = new Vector3(1f, 1f, 1f);
-			_003C_003Ef__this.isDeadFrame = false;
-			_003C_003Ef__this.Invoke("SetNoKilled", 0.5f);
-			_003C_003Ef__this._weaponManager.myPlayer.GetComponent<SkinName>().camPlayer.transform.parent = _003C_003Ef__this._weaponManager.myPlayer.transform;
-			if (!pauserIsPaused())
+			if (_rightJoystick != null)
 			{
-				if (_003C_003Ef__this._leftJoystick != null)
-				{
-					_003C_003Ef__this._leftJoystick.SetActive(true);
-				}
-				if (_003C_003Ef__this._rightJoystick != null)
-				{
-					_003C_003Ef__this._rightJoystick.SetActive(true);
-				}
+				_rightJoystick.SetActive(true);
 			}
-			_003C_003Ef__this._rightJoystick.SendMessage("HasAmmo");
-			if (_003C_003Ef__this.isGravFlipped && _003C_003Ef__this.isMine) {
-				Physics.gravity *= -1;
-			}
-			if (_003C_003Ef__this.isMine) {
-				_003C_003Ef__this.isGravFlipped = false;
-			}
-			float understand = _003C_003Ef__this.CurHealth;
-			_003C_003Ef__this.CurHealth = _003C_003Ef__this.MaxHealth;
-			IncomprehensibleGarbler.Dispatch("UrnyguPunatr", _003C_003Ef__this, understand);
-			Debug.Log("zoneCreatePlayer " + _003C_003Ef__this.zoneCreatePlayer.Length + " " + UnityEngine.Random.Range(0, _003C_003Ef__this.zoneCreatePlayer.Length));
-			GameObject gameObject = _003C_003Ef__this.zoneCreatePlayer[UnityEngine.Random.Range(0, _003C_003Ef__this.zoneCreatePlayer.Length)];
-			BoxCollider component = gameObject.GetComponent<BoxCollider>();
-			Vector2 vector = new Vector2(component.size.x * gameObject.transform.localScale.x, component.size.z * gameObject.transform.localScale.z);
-			Rect rect = new Rect(gameObject.transform.position.x - vector.x / 2f, gameObject.transform.position.z - vector.y / 2f, vector.x, vector.y);
-			Vector3 position = new Vector3(rect.x + UnityEngine.Random.Range(0f, rect.width), gameObject.transform.position.y + 2f, rect.y + UnityEngine.Random.Range(0f, rect.height));
-			_003C_003Ef__this.transform.parent.transform.position = position;
-			_003C_003Ef__this.Invoke("ChangePositionAfterRespawn", 0.01f);
-			foreach (Weapon playerWeapon in _003C_003Ef__this._weaponManager.playerWeapons)
-			{
-				playerWeapon.currentAmmoInClip = playerWeapon.weaponPrefab.GetComponent<WeaponSounds>().ammoInClip;
-				playerWeapon.currentAmmoInBackpack = playerWeapon.weaponPrefab.GetComponent<WeaponSounds>().InitialAmmo;
-			}
+		}
+		_rightJoystick.SendMessage("HasAmmo");
+		if (isGravFlipped && isMine) {
+			Physics.gravity *= -1;
+		}
+		if (isMine) {
+			isGravFlipped = false;
+		}
+		float understand = CurHealth;
+		CurHealth = MaxHealth;
+		IncomprehensibleGarbler.Dispatch("UrnyguPunatr", this, understand);
+		Debug.Log("zoneCreatePlayer " + zoneCreatePlayer.Length + " " + UnityEngine.Random.Range(0, zoneCreatePlayer.Length));
+		GameObject gameObject = zoneCreatePlayer[UnityEngine.Random.Range(0, zoneCreatePlayer.Length)];
+		BoxCollider component = gameObject.GetComponent<BoxCollider>();
+		Vector2 vector = new Vector2(component.size.x * gameObject.transform.localScale.x, component.size.z * gameObject.transform.localScale.z);
+		Rect rect = new Rect(gameObject.transform.position.x - vector.x / 2f, gameObject.transform.position.z - vector.y / 2f, vector.x, vector.y);
+		Vector3 position = new Vector3(rect.x + UnityEngine.Random.Range(0f, rect.width), gameObject.transform.position.y + 2f, rect.y + UnityEngine.Random.Range(0f, rect.height));
+		transform.parent.transform.position = position;
+		Invoke("ChangePositionAfterRespawn", 0.01f);
+		foreach (Weapon playerWeapon in _weaponManager.playerWeapons)
+		{
+			playerWeapon.currentAmmoInClip = playerWeapon.weaponPrefab.GetComponent<WeaponSounds>().ammoInClip;
+			playerWeapon.currentAmmoInBackpack = playerWeapon.weaponPrefab.GetComponent<WeaponSounds>().InitialAmmo;
 		}
 	}
 
@@ -1290,27 +1235,23 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void showCategory()
 	{
-		_003CshowCategory_003Ec__AnonStorey24 _003CshowCategory_003Ec__AnonStorey = new _003CshowCategory_003Ec__AnonStorey24();
-		_003CshowCategory_003Ec__AnonStorey._003C_003Ef__this = this;
 		bool flag = false;
 		GUI.depth = 0;
 		GUI.enabled = !StoreKitEventListener.restoreInProcess && !flag;
 		RestoreButton(flag);
 		GUI.enabled = !StoreKitEventListener.restoreInProcess && !flag;
 		_purchaseActivityIndicator.SetActive(StoreKitEventListener.restoreInProcess);
-		_003CshowCategory_003Ec__AnonStorey.idsArr = ((prefs.GetInt("MultyPlayer") == 1) ? StoreKitEventListener.categoriesMulti[currentCategory] : StoreKitEventListener.categoriesSingle[currentCategory]);
-		int num = _003CshowCategory_003Ec__AnonStorey.idsArr.Length;
-		_003CshowCategory_003Ec__AnonStorey25 _003CshowCategory_003Ec__AnonStorey2 = new _003CshowCategory_003Ec__AnonStorey25();
-		_003CshowCategory_003Ec__AnonStorey2._003C_003Ef__this = this;
-		_003CshowCategory_003Ec__AnonStorey2.i = 0;
-		while (_003CshowCategory_003Ec__AnonStorey2.i < num && !flag)
+		idsArr = ((prefs.GetInt("MultyPlayer") == 1) ? StoreKitEventListener.categoriesMulti[currentCategory] : StoreKitEventListener.categoriesSingle[currentCategory]);
+		int num = idsArr.Length;
+		iStorey = 0;
+		while (iStorey < num && !flag)
 		{
 			GUIStyle value = puliInApp;
-			string text = _003CshowCategory_003Ec__AnonStorey.idsArr[_003CshowCategory_003Ec__AnonStorey2.i];
+			string text = idsArr[iStorey];
 			if (text == null)
 			{
-				string arg = string.Join(", ", _003CshowCategory_003Ec__AnonStorey.idsArr);
-				string message = string.Format("Ids: [{0}];    idsArr[{1}] == null", arg, _003CshowCategory_003Ec__AnonStorey2.i);
+				string arg = string.Join(", ", idsArr);
+				string message = string.Format("Ids: [{0}];    idsArr[{1}] == null", arg, iStorey);
 				Debug.LogError(message);
 			}
 			else if (_actionsForPurchasedItems.ContainsKey(text))
@@ -1331,7 +1272,7 @@ public sealed class Player_move_c : MonoBehaviour
 			int num3 = ((!Application.isEditor && Application.platform != RuntimePlatform.Android) ? healthInApp.normal.background.width : 512);
 			float num4 = (float)(num3 * Screen.height) / 768f * num2;
 			float num5 = num4 * 1.6736401f;
-			Rect position = new Rect((float)(Screen.width / (num + 1) * (_003CshowCategory_003Ec__AnonStorey2.i + 1)) - num4 * 0.5f, (float)Screen.height * 0.62f - 367f * (float)Screen.height / 768f * 0.5f - num5 * 0.15f, num4, num5);
+			Rect position = new Rect((float)(Screen.width / (num + 1) * (iStorey + 1)) - num4 * 0.5f, (float)Screen.height * 0.62f - 367f * (float)Screen.height / 768f * 0.5f - num5 * 0.15f, num4, num5);
 			if (value == pulemetInApp && Storager.getInt(Defs.MinerWeaponSett, true) > 0)
 			{
 				GUI.DrawTexture(position, minerWeaponSoldTexture, ScaleMode.StretchToFill);
@@ -1425,17 +1366,13 @@ public sealed class Player_move_c : MonoBehaviour
 				GUI.enabled = !StoreKitEventListener.purchaseInProcess && !flag;
 				if (GUI.Button(position, string.Empty, value))
 				{
-					_003CshowCategory_003Ec__AnonStorey23 _003CshowCategory_003Ec__AnonStorey3 = new _003CshowCategory_003Ec__AnonStorey23();
-					_003CshowCategory_003Ec__AnonStorey3._003C_003Ef__ref_002436 = _003CshowCategory_003Ec__AnonStorey;
-					_003CshowCategory_003Ec__AnonStorey3._003C_003Ef__ref_002437 = _003CshowCategory_003Ec__AnonStorey2;
-					_003CshowCategory_003Ec__AnonStorey3._003C_003Ef__this = this;
-					_003CshowCategory_003Ec__AnonStorey3.id = _003CshowCategory_003Ec__AnonStorey.idsArr[_003CshowCategory_003Ec__AnonStorey2.i];
-					_003CshowCategory_003Ec__AnonStorey3.act = null;
-					_003CshowCategory_003Ec__AnonStorey3.act = _003CshowCategory_003Ec__AnonStorey3._003C_003Em__26;
-					_003CshowCategory_003Ec__AnonStorey3.act();
+					id = idsArr[iStorey];
+					act = null;
+					act = InitShop;
+					act();
 				}
 			}
-			_003CshowCategory_003Ec__AnonStorey2.i++;
+			iStorey++;
 		}
 		_shopResume(flag);
 		coinsPlashka.thisScript.enabled = true && !flag;
@@ -2208,7 +2145,7 @@ public sealed class Player_move_c : MonoBehaviour
 			string elixirID = StoreKitEventListener.elixirID;
 			if (_003C_003Ef__am_0024cacheCF == null)
 			{
-				_003C_003Ef__am_0024cacheCF = _003CStart_003Em__27;
+				_003C_003Ef__am_0024cacheCF = IncrementElixer;
 			}
 			actionsForPurchasedItems.Add(elixirID, new KeyValuePair<Action, GUIStyle>(_003C_003Ef__am_0024cacheCF, elixirInapp));
 			_actionsForPurchasedItems.Add("crystalsword", new KeyValuePair<Action, GUIStyle>(providesword, crystalSwordInapp));
@@ -2217,7 +2154,7 @@ public sealed class Player_move_c : MonoBehaviour
 			_actionsForPurchasedItems.Add(StoreKitEventListener.magicbow, new KeyValuePair<Action, GUIStyle>(providemagicbow, magicBowInappStyle));
 			_actionsForPurchasedItems.Add(StoreKitEventListener.spas, new KeyValuePair<Action, GUIStyle>(providespas, spasStyle));
 			_actionsForPurchasedItems.Add(StoreKitEventListener.axe, new KeyValuePair<Action, GUIStyle>(provideaxe, axeStyle));
-			_actionsForPurchasedItems.Add(StoreKitEventListener.armor, new KeyValuePair<Action, GUIStyle>(_003CStart_003Em__28, armorStyle));
+			_actionsForPurchasedItems.Add(StoreKitEventListener.armor, new KeyValuePair<Action, GUIStyle>(ResetArmor, armorStyle));
 			_actionsForPurchasedItems.Add(StoreKitEventListener.famas, new KeyValuePair<Action, GUIStyle>(provideFAMAS, famasStyle));
 			_actionsForPurchasedItems.Add(StoreKitEventListener.glock, new KeyValuePair<Action, GUIStyle>(provideGlock, glockStyle));
 			_actionsForPurchasedItems.Add(StoreKitEventListener.chainsaw, new KeyValuePair<Action, GUIStyle>(provideChainsaw, chainsawStyle));
@@ -2354,10 +2291,10 @@ public sealed class Player_move_c : MonoBehaviour
 			GameObject original2 = Resources.Load("InGameGUI") as GameObject;
 			original2.GetComponent<InGameGUI>().playerMoveC = this;
 			inGameGUI = (UnityEngine.Object.Instantiate(original2) as GameObject).GetComponent<InGameGUI>();
-			inGameGUI.health = _003CStart_003Em__29;
-			inGameGUI.armor = _003CStart_003Em__2A;
-			inGameGUI.killsToMaxKills = _003CStart_003Em__2B;
-			inGameGUI.timeLeft = _003CStart_003Em__2C;
+			inGameGUI.health = CurrentHealth;
+			inGameGUI.armor = CurrentArmor;
+			inGameGUI.killsToMaxKills = KillsLeft;
+			inGameGUI.timeLeft = TimeLeft;
 			inGameGUI.ChangeWeapon(((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).weaponPrefab.GetComponent<WeaponSounds>());
 			AddButtonHandlers();
 		}
@@ -4082,9 +4019,7 @@ public sealed class Player_move_c : MonoBehaviour
 					Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 74f, Time.deltaTime * 30f);
 				}
 			}
-		}	
-		_003CUpdate_003Ec__AnonStorey28 _003CUpdate_003Ec__AnonStorey = new _003CUpdate_003Ec__AnonStorey28();
-		_003CUpdate_003Ec__AnonStorey._003C_003Ef__this = this;
+		}
 		if (_weaponManager.myPlayer != null && _singleOrMultiMine())
 		{
 			GlobalGameController.posMyPlayer = _weaponManager.myPlayer.transform.position;
@@ -4112,8 +4047,8 @@ public sealed class Player_move_c : MonoBehaviour
 			_weaponManager.currentWeaponSounds.transform.localPosition = new Vector3(0, -1.7f, 0);
 		else
 			_weaponManager.currentWeaponSounds.transform.localPosition = new Vector3(0, -2f, 0);*/
-		_003CUpdate_003Ec__AnonStorey.pauserIsPaused = _003CUpdate_003Ec__AnonStorey._003C_003Em__2D;
-		if (!_003CUpdate_003Ec__AnonStorey.pauserIsPaused() && canReceiveSwipes && !isInappWinOpen)
+		pauserIsPaused = Paused;
+		if (!pauserIsPaused() && canReceiveSwipes && !isInappWinOpen)
 		{
 			Rect rect = new Rect((float)Screen.width - 264f * (float)Screen.width / 1024f, (float)Screen.height - 94f * (float)Screen.width / 1024f - 95f * (float)Screen.width / 1024f, 264f * (float)Screen.width / 1024f, 95f * (float)Screen.width / 1024f);
 			if (!showChat)
@@ -4230,7 +4165,7 @@ public sealed class Player_move_c : MonoBehaviour
 			if (isMine) {
 				DispatchDie();
 			}
-			HOTween.From(base.transform.parent.transform, 2f, new TweenParms().Prop("localRotation", new Vector3(0f, 2520f, 0f)).Ease(EaseType.EaseInCubic).OnComplete(_003CUpdate_003Ec__AnonStorey._003C_003Em__2E));
+			HOTween.From(base.transform.parent.transform, 2f, new TweenParms().Prop("localRotation", new Vector3(0f, 2520f, 0f)).Ease(EaseType.EaseInCubic).OnComplete(RespawnPlayer));
 		}
 		else
 		{
@@ -4910,38 +4845,32 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[CompilerGenerated]
-	private static void _003CStart_003Em__27()
+	private static void IncrementElixer()
 	{
 		Defs.NumberOfElixirs++;
 	}
 
-	[CompilerGenerated]
-	private void _003CStart_003Em__28()
+	private void ResetArmor()
 	{
 		curArmor = MaxArmor;
 	}
 
-	[CompilerGenerated]
-	private float _003CStart_003Em__29()
+	private float CurrentHealth()
 	{
 		return CurHealth;
 	}
 
-	[CompilerGenerated]
-	private float _003CStart_003Em__2A()
+	private float CurrentArmor()
 	{
 		return curArmor;
 	}
 
-	[CompilerGenerated]
-	private string _003CStart_003Em__2B()
+	private string KillsLeft()
 	{
 		return "Kills \n" + countKills + "/" + maxCountKills;
 	}
 
-	[CompilerGenerated]
-	private string _003CStart_003Em__2C()
+	private string TimeLeft()
 	{
 		if (zombiManager != null)
 		{
