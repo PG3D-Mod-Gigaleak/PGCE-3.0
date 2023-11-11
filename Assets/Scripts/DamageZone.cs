@@ -8,7 +8,7 @@ public class DamageZone : MonoBehaviour
     public float coopDamage;
 	public float multiplayerDamage;
 	public float damageCooldown;
-    private float timer;
+    public float timer;
     private PhotonView photonView;
 	private bool isMulti;
 	private bool isInet;
@@ -19,37 +19,28 @@ public class DamageZone : MonoBehaviour
 	private bool isKilled;
 	private int amount;
 	public bool isPierce = false;
+	public GameObject originalObject;
+	public GameObject damageSender;
 	private void Awake()
 	{
 		isMulti = prefs.GetInt("MultyPlayer") == 1;
 		isInet = true;//prefs.GetString("TypeConnect").Equals("inet");
 		isCompany = false;//prefs.GetInt("company", 0) == 1;
-		isCOOP = prefs.GetInt("COOP", 0) == 1;
-	}
-	private void Start()
-	{
-		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
-		photonView = PhotonView.Get(this);
-		timer = 0f;
-		if (isMulti)
-		{
-			isMine = photonView.isMine;
-		}
-		if (isMulti && isMine)
-		{
-            return;
-		}
-		else if (!isMulti)
-		{
-            return;
-		}
-		if (!isMulti || isMine)
-		{
-			return;
-		}
+		isCOOP = prefs.GetInt("COOP") == 1;
 	}
     void OnTriggerStay(Collider other)
     {
+		originalObject = gameObject;
+		GameObject[] FindSender = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject gameObject in FindSender)
+		{
+			isMine = gameObject.GetComponent<FirstPersonControl>().isMine;
+			if (isMine == true)
+			{
+				damageSender = gameObject;
+			}
+		}
+		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
 		if ( (timer <= 0f) && isPierce == false )
 		{
         if (other.tag == "ZombieCollider")
@@ -118,15 +109,15 @@ public class DamageZone : MonoBehaviour
 					}
 		}
 		}
-		else if ( isPierce == true )
+		else if (isPierce == true)
 		{
             if (other.tag == "ZombieCollider")
             {
-				other.transform.parent.GetComponent<InitializeHealthbar>().DamageNPC("Zombie",coopDamage,multiplayerDamage,damageCooldown,_weaponManager);
+				other.transform.parent.GetComponent<InitializeHealthbar>().DamageNPC("Zombie",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
 		    }
             if (other.tag == "BodyCollider")
 		    {
-				other.transform.parent.GetComponent<InitializeHealthbar>().DamageNPC("Player",coopDamage,multiplayerDamage,damageCooldown,_weaponManager);
+				other.transform.parent.GetComponent<InitializeHealthbar>().DamageNPC("Player",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
 		    }
 		}
 
