@@ -175,6 +175,7 @@ public class GameLoad : MonoBehaviour
 			}
 			currentTask.text = "Loading Boss (" + obj.name + ")";
 			Encyclopedia.storedEntities.Add(obj as GameObject);
+			// yield return null;
 		}
 		StartCoroutine(LoadEnemiesIntoDictionary());
 		yield break;

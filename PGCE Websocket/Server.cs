@@ -5,6 +5,7 @@ using WebSocketSharp.Server;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
+using System.Runtime.CompilerServices;
 
 namespace PGCE
 {
@@ -38,22 +39,7 @@ namespace PGCE
 			{
 				try
 				{
-					PlayerSession GenSession = PlayerSessionManager.CreateNewSession();
-					if (givenInput.ContainsKey("uid") && givenInput.ContainsKey("ak"))
-					{
-						AccountParameters? result = Helpers.GetAccountInfo(givenInput["uid"]);
-						if (result == null) {
-							throw new Exception("Result was NULL!");
-						}
-						AccountParameters confirmedResult = (AccountParameters)result;
-						if (!Helpers.MatchingHash2Nonhash((string)givenInput["ak"], confirmedResult.AuthKey))
-							throw new Exception("Authkey invalid");
-						if (Helpers.AccountBanned(confirmedResult))
-							throw new Exception("The account is banned");
-					}
-					output["s_id"] = GenSession.SessionID;
-					output["d_ky"] = GenSession.DecryptionKey;
-					output["response"] = "success";
+					output = CommandRelay.Run("ensure_ws_alive", this, givenInput, Sender);
 				}
 				catch (Exception exception)
 				{
@@ -70,13 +56,7 @@ namespace PGCE
 			{
 				try
 				{
-					AccountParameters? result = Helpers.CreateAccount();
-					if (result == null) {
-						throw new Exception("Result was NULL!");
-					}
-					output["givenID"] = $"{((AccountParameters)result).ID}";
-					output["authcret"] = $"{((AccountParameters)result).AuthKey}";
-					output["response"] = "success";
+					output = CommandRelay.Run("create_user", this, givenInput, Sender);
 				}
 				catch (Exception exception)
 				{
