@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class Teleport1 : MonoBehaviour
 {
-    private void onTriggerEnter(Collider other) 
+    public float x;
+    public float y;
+    public float z;
+    public bool currentPos;
+    private void OnTriggerEnter(Collider other) 
     {
-
-        other.transform.position = new Vector3(-50f,0f,0f);
-        Debug.LogError("Teleported");
+        if (other.tag == "Player" && currentPos == true)
+        {
+        other.transform.position = new Vector3(transform.position.x + x,transform.position.y + y,transform.position.z + z);
+        Debug.LogError("Teleported1");
+        }
+        if (other.tag == "Player" && currentPos == false)
+        {
+        other.transform.position = new Vector3(x,y,z);
+        Debug.LogError("Teleported2");
+        }
     }
 }

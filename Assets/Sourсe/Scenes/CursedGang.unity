@@ -9678,6 +9678,8 @@ GameObject:
   - component: {fileID: 1180747018}
   - component: {fileID: 1180747019}
   - component: {fileID: 1180747021}
+  - component: {fileID: 1180747022}
+  - component: {fileID: 1180747020}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -9756,6 +9758,22 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.054511085, y: 0.060010076, z: 0.26286674}
     m_Extent: {x: 0.38525712, y: 0.69902676, z: 1.0131785}
   m_DirtyAABB: 0
+--- !u!114 &1180747020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180747017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8309b0f88f867344fbd3a0684484677d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  x: 0
+  y: 0
+  z: -10
+  currentPos: 1
 --- !u!33 &1180747021
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -9764,6 +9782,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1180747017}
   m_Mesh: {fileID: 4300000, guid: f7ec29bb459edf44abbadaaa9970b359, type: 2}
+--- !u!65 &1180747022
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180747017}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.38206166, y: 1, z: 1.2714276}
+  m_Center: {x: 0.15162806, y: 0.00000006018759, z: 0.13570957}
 --- !u!1 &1193621594
 GameObject:
   m_ObjectHideFlags: 0
@@ -18893,7 +18924,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1960539607}
-  - component: {fileID: 1960539608}
   m_Layer: 0
   m_Name: MachineGamer
   m_TagString: Untagged
@@ -18919,19 +18949,6 @@ Transform:
   m_Father: {fileID: 1758960257}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1960539608
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1960539606}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.9346743, z: 1}
-  m_Center: {x: 0, y: 0.9754453, z: 0}
 --- !u!1 &1975175226
 GameObject:
   m_ObjectHideFlags: 0
@@ -19278,6 +19295,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8309b0f88f867344fbd3a0684484677d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  x: 0
+  y: 0
+  z: 0
+  currentPos: 0
 --- !u!33 &1989851493
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -19297,8 +19318,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.29489213, y: 1, z: 1.2714279}
-  m_Center: {x: 0.14501855, y: 0.00000004965826, z: 0.13570957}
+  m_Size: {x: 0.38206166, y: 1, z: 1.2714276}
+  m_Center: {x: 0.15162806, y: 0.00000006018759, z: 0.13570957}
 --- !u!1 &2037054642
 GameObject:
   m_ObjectHideFlags: 0
@@ -20362,8 +20383,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4583784563434720812}
-  - component: {fileID: 4579647142116184089}
-  - component: {fileID: 4579647142116184090}
   m_Layer: 0
   m_Name: Nix
   m_TagString: Untagged
@@ -20371,31 +20390,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!65 &4579647142116184089
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4579647142116184088}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2.5151682, z: 1}
-  m_Center: {x: -0, y: 0.7575841, z: 0}
---- !u!114 &4579647142116184090
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4579647142116184088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8309b0f88f867344fbd3a0684484677d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4583726980625189202
 Transform:
   m_ObjectHideFlags: 0
