@@ -33,7 +33,7 @@ Transform:
   - {fileID: 4079748252144680}
   m_Father: {fileID: 4322523044961606}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 138.20084, y: -0.00000057795654, z: -0.00000057795654}
+  m_LocalEulerAnglesHint: {x: 90.00001, y: 0, z: 0}
 --- !u!33 &33160293832325786
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -104,7 +104,7 @@ Transform:
   - {fileID: 4902053465589370}
   m_Father: {fileID: 4517000955633204}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 3.3389761, y: 7.0253687, z: -9.1501465}
+  m_LocalEulerAnglesHint: {x: 0.000006830189, y: 0, z: 0}
 --- !u!137 &137138845830994962
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -314,7 +314,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4425721933583130}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0.000020686715, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.000022888185, y: 90, z: 0}
 --- !u!33 &33486121248963370
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -353,7 +353,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4517000955633204}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -8.338975, y: -43.125614, z: 7.074914}
+  m_LocalEulerAnglesHint: {x: -33.50302, y: -47.4766, z: 62.10589}
 --- !u!33 &33569925485392168
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -494,7 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swapTime: 2.25
+  swapTime: 1.325
   isSwapIn: 1
   isSwapOut: 1
   shoot: {fileID: 8300000, guid: d0e6e6e30a1d88b409ac545e672b26d8, type: 3}
@@ -518,6 +518,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 77.5
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -548,6 +549,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -685,7 +693,7 @@ Transform:
   - {fileID: 4425721933583130}
   m_Father: {fileID: 4517000955633204}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 80.55736, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 35.045135, y: 0, z: 0}
 --- !u!33 &33470623297822144
 MeshFilter:
   m_ObjectHideFlags: 0
