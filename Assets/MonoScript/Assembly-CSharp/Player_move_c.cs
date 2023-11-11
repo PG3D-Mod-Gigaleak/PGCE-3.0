@@ -2500,13 +2500,7 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public static int WeaponIDFromName(string name)
 	{
-		int returnID = 0;
-		Match m = Regex.Match(name, @"(?!Weapon)[0-9](?!\(Clone\))");
-		if (m.Success)
-		{
-			int.TryParse(m.Value, out returnID);
-		}
-		return returnID;	
+		return int.Parse(name.Replace("Weapon", "").Replace("(Clone)", "").Trim());	
 	}
 
 	private void _HitPlayer(GameObject plr)
@@ -3868,7 +3862,6 @@ public sealed class Player_move_c : MonoBehaviour
                     {
                     gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Stop();
                     gameObject.transform.GetChild(0).GetChild(0).GetComponent<WeaponSounds>().animationObject.GetComponent<Animation>().Play("Inspect" + doubleInspectIndex);
-					Debug.LogError("alolooo");
                     DoDoubleInspect();
                     }
 				}
