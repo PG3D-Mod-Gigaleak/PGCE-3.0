@@ -124,7 +124,7 @@ public class GlobalGameController
 		coinsBase = 1;
 		coinsBaseAdding = 0;
 		levelsToGetCoins = 1;
-		AppVersion = "3.11";
+		AppVersion = "2.1";
 		for (int i = 0; i < NumOfLevels - 1; i++)
 		{
 			levelMapping.Add(i);
