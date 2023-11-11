@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 225062414998474441}
   m_Layer: 0
   m_Name: IntoPortal
-  m_TagString: Untagged
+  m_TagString: OrangePortal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,8 +43,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1.5}
+  m_Center: {x: 0, y: 0, z: 0.025}
 --- !u!114 &225062414998474441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   otherPortal: {fileID: 0}
+  cooldown: 0
 --- !u!1 &1872956888387220838
 GameObject:
   m_ObjectHideFlags: 0

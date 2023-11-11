@@ -98,6 +98,10 @@ public class Rocket : MonoBehaviour
 		if (other.transform.parent != null)
 		{
 		}
+		if ((other.gameObject.tag == "BluePortal" || other.gameObject.tag == "OrangePortal"))
+		{
+			return;
+		}
 		if ((!other.gameObject.tag.Equals("Player") || !(other.gameObject == _weaponManager.myPlayer)) && (!(other.transform.parent != null) || !other.transform.parent.gameObject.tag.Equals("Player") || !(other.transform.parent.gameObject == _weaponManager.myPlayer)))
 		{
 			KillRocket();
@@ -130,6 +134,10 @@ public class Rocket : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
+		if ((other.tag == "BluePortal" || other.tag == "OrangePortal"))
+		{
+			return;
+		}
 		if ((isMulti || (!other.gameObject.tag.Equals("Player") && (!(other.transform.parent != null) || !other.transform.parent.gameObject.tag.Equals("Player")))) && (!isMulti || ((!other.gameObject.tag.Equals("Player") || !(other.gameObject == _weaponManager.myPlayer)) && (!(other.transform.parent != null) || !other.transform.parent.gameObject.tag.Equals("Player") || !(other.transform.parent.gameObject == _weaponManager.myPlayer)))))
 		{
 			KillRocket();
@@ -163,6 +171,10 @@ public class Rocket : MonoBehaviour
 		RaycastHit otherHit;
         if (Physics.Raycast(oldPosition, fwd, out otherHit, Vector3.Distance(oldPosition, transform.position))) {
 			Collider other = otherHit.collider;
+			if ((other.tag == "BluePortal" || other.tag == "OrangePortal"))
+		    {
+		    	return;
+		    }
 			if ((!other.gameObject.tag.Equals("Player") || !(other.gameObject == _weaponManager.myPlayer)) && (!(other.transform.parent != null) || !other.transform.parent.gameObject.tag.Equals("Player") || !(other.transform.parent.gameObject == _weaponManager.myPlayer)) && other.gameObject != gameObject)
 			{
 				KillRocket();
