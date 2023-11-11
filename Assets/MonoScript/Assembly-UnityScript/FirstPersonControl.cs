@@ -289,9 +289,12 @@ public class FirstPersonControl : MonoBehaviour
 				can = false;
 			}
 			#endif
-			if (Globals.PlayerMove && Globals.PlayerMove.inGameGUI.chatInput.isSelected) {
-				can = false;
-			}
+			try
+			{
+				if (Globals.PlayerMove && Globals.PlayerMove.inGameGUI.chatInput.isSelected) {
+					can = false;
+				}
+			} catch {}
 			float ad = 0;
 			float offs = 0;
 			if (can) {

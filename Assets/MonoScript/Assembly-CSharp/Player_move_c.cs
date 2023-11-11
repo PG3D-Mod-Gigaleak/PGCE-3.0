@@ -173,6 +173,10 @@ public sealed class Player_move_c : MonoBehaviour
 
 		internal void _003C_003Em__2E()
 		{
+			if (_003C_003Ef__this == null)
+			{
+				_003C_003Ef__this = Globals.PlayerMove;
+			}
 			_003C_003Ef__this.transform.parent.transform.localScale = new Vector3(1f, 1f, 1f);
 			_003C_003Ef__this.isDeadFrame = false;
 			_003C_003Ef__this.Invoke("SetNoKilled", 0.5f);
@@ -779,7 +783,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		get
 		{
-			if (!_weaponManager.currentWeaponSounds.isDouble)
+			if (!_weaponManager.currentWeaponSounds.isDouble || _weaponManager.currentWeaponSounds.secondBulletSpawn == null)
 			{
 				return _bulletSpawnPoint.transform;
 			}
@@ -3677,7 +3681,10 @@ public sealed class Player_move_c : MonoBehaviour
 		if(_weaponManager.currentWeaponSounds.isSwapIn)
 		{
 			isSwappin = true;
-			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play("SwapIn");
+			try
+			{
+				_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play("SwapIn");
+			} catch {}
 			if (prefs.GetInt("MultyPlayer") == 1)
 			{
 				photonView.RPC("SwapInGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
@@ -3694,7 +3701,10 @@ public sealed class Player_move_c : MonoBehaviour
 	public IEnumerator SwapOutRoutine(CategoryType category)
 	{
 		isSwappin = true;
-		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play("SwapOut");
+		try
+		{
+			_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>().Play("SwapOut");
+		} catch {}
 		if (prefs.GetInt("MultyPlayer") == 1)
 		{
 			photonView.RPC("SwapOutGunPhoton", PhotonTargets.Others, base.gameObject.GetComponent<PhotonView>().viewID);
