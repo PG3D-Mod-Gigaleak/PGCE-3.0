@@ -10,23 +10,23 @@ public class Portal : MonoBehaviour
 	public Transform otherPortal;
 	public float cooldown = 0f;
 
-	void OnTriggerEnter(Collider other)
+	void OnTriggerStay(Collider other)
 	{
 		if (cooldown <= 0f)
 		{
+			otherPortal.GetChild(3).GetComponent<Portal>().cooldown = 0.25f;
+			cooldown = 0.25f;
+			otherPortal.GetChild(3).GetComponent<Portal>().cooldown = 0.25f;
+			cooldown = 0.25f;
 		    if (other.tag == "ZombieCollider")
 		    {
-		    other.transform.parent.position = otherPortal.position + otherPortal.transform.forward;
-		    other.transform.parent.rotation = otherPortal.rotation;
-			otherPortal.GetChild(3).GetComponent<Portal>().cooldown = 0.1f;
-			cooldown = 0.1f;
+		        other.transform.parent.position = otherPortal.position + otherPortal.transform.forward;
+		        other.transform.parent.rotation = otherPortal.rotation;
 		    }
 		    else
 		    {
-		    other.transform.position = otherPortal.position + otherPortal.transform.forward;
-		    other.transform.rotation = otherPortal.rotation;
-			otherPortal.GetChild(3).GetComponent<Portal>().cooldown = 0.1f;
-			cooldown = 0.1f;
+		        other.transform.position = otherPortal.position + otherPortal.transform.forward;
+		        other.transform.rotation = otherPortal.rotation;
 		    }
 		}
 	}
