@@ -138,7 +138,10 @@ public sealed class Player_move_c : MonoBehaviour
 				_rightJoystick.SetActive(true);
 			}
 		}
-		_rightJoystick.SendMessage("HasAmmo");
+		if (_rightJoystick != null)
+		{
+			_rightJoystick.SendMessage("HasAmmo");
+		}
 		if (isGravFlipped && isMine) {
 			Physics.gravity *= -1;
 		}
@@ -1940,17 +1943,26 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 		prefs.SetInt("setSeriya", _weaponManager.currentWeaponSounds.isSerialShooting ? 1 : 0);
 		prefs.Save();
-		_rightJoystick.SendMessage("setSeriya", _weaponManager.currentWeaponSounds.isSerialShooting, SendMessageOptions.DontRequireReceiver);
+		if (_rightJoystick != null)
+		{
+			_rightJoystick.SendMessage("setSeriya", _weaponManager.currentWeaponSounds.isSerialShooting, SendMessageOptions.DontRequireReceiver);
+		}
 		if (shouldSetMaxAmmo)
 		{
 		}
 		if (((Weapon)_weaponManager.playerWeapons[_weaponManager.CurrentWeaponIndex]).currentAmmoInClip > 0 || _weaponManager.currentWeaponSounds.isMelee)
 		{
-			_rightJoystick.SendMessage("HasAmmo");
+			if (_rightJoystick != null)
+			{
+				_rightJoystick.SendMessage("HasAmmo");
+			}
 		}
 		else
 		{
-			_rightJoystick.SendMessage("NoAmmo");
+			if (_rightJoystick != null)
+			{
+				_rightJoystick.SendMessage("NoAmmo");
+			}
 		}
 		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("Reload")].layer = 1;
 		_weaponManager.currentWeaponSounds.animationObject.GetComponent<Animation>()[myCAnim("Shoot")].layer = 1;
@@ -2073,6 +2085,16 @@ public sealed class Player_move_c : MonoBehaviour
 		myIp = _ip;
 	}
 
+	private void Awake()
+	{
+		photonView = PhotonView.Get(this);
+
+		if (photonView.isMine)
+		{
+			Globals.PlayerMove = this;
+		}
+	}
+
 	private void Start()
 	{
 		thirdWave = new string[]{
@@ -2098,7 +2120,6 @@ public sealed class Player_move_c : MonoBehaviour
 				}
 			}
 		}
-		photonView = PhotonView.Get(this);
 		if (prefs.GetInt("MultyPlayer") != 1)
 		{
 			productIdentifiers = StoreKitEventListener.idsForSingle;
@@ -2517,10 +2538,11 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			base.GetComponent<AudioSource>().PlayOneShot(_weaponManager.currentWeaponSounds.reload);
 		}
+		if (_rightJoystick != null)
 		{
-		_rightJoystick.SendMessage("HasAmmo");
-	    }
+			_rightJoystick.SendMessage("HasAmmo");
 		}
+	}
 	public void OpenChat()
 	{
 		if (prefs.GetInt("MultyPlayer") == 1 && !_pauser.paused && prefs.GetInt("ChatOn", 1) == 1)
@@ -4160,8 +4182,11 @@ public sealed class Player_move_c : MonoBehaviour
 			isKilled = true;
 			isDeadFrame = true;
 			StartCoroutine(FlashWhenDead());
-			_leftJoystick?.SetActive(false);
-			_rightJoystick?.SetActive(false);
+			if (_leftJoystick != null && _rightJoystick != null)
+			{
+				_leftJoystick.SetActive(false);
+				_rightJoystick.SetActive(false);
+			}
 			if (isMine) {
 				DispatchDie();
 			}
