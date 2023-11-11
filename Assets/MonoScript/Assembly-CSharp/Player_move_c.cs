@@ -2500,13 +2500,8 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public static int WeaponIDFromName(string name)
 	{
-		int returnID = 0;
-		Match m = Regex.Match(name, @"(?!Weapon)[0-9](?!\(Clone\))");
-		if (m.Success)
-		{
-			int.TryParse(m.Value, out returnID);
-		}
-		return returnID;	
+		Debug.LogError(name.Replace("Weapon", "").Replace("(Clone)", "").Trim());
+		return int.Parse(name.Replace("Weapon", "").Replace("(Clone)", "").Trim());	
 	}
 
 	private void _HitPlayer(GameObject plr)
