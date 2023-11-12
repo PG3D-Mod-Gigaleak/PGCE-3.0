@@ -16,6 +16,8 @@ public class Weapon : MonoBehaviour
 
 	public AudioClip shootSound;
 
+	public Transform bulletSpawn;
+
 	protected bool hasSwapIn, idle;
 
 	protected string shootAnimation, idleAnimation;
@@ -39,7 +41,7 @@ public class Weapon : MonoBehaviour
 		source = GetComponent<AudioSource>();
 	}
 
-	protected virtual void PlayAudio(AudioClip clip, float volume = 1f)
+	protected void PlayAudio(AudioClip clip, float volume = 1f)
 	{
 		source.PlayOneShot(clip, volume);
 	}
