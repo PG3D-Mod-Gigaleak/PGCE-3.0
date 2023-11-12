@@ -7,7 +7,7 @@ public class AphexTwinMenu : MonoBehaviour
 {
 	public PlayerAnimationController playerAnim;
 
-	public Material theCrazy;
+	public Material theCrazy, lastMat;
 
 	public GameObject rotationage;
 
@@ -51,7 +51,10 @@ public class AphexTwinMenu : MonoBehaviour
 		{ 
 			op.Add(t, t.position);
 		}*/
-		Invoke("Beginnage", 11.8f);
+        lastMat = playerAnim.skinModel.sharedMaterial;
+		Invoke("Beginnage", 11.9f);
+        Invoke("UnBeginnage", 68.3f);
+        Invoke("Beginnage", 79.5f);
 		amazingLabel.gameObject.SetActive(true);
 		OriginalF1Scale = f1.GetTextureScale("_MainTex");
 		OriginalF2Scale = f2.GetTextureScale("_MainTex");
@@ -95,5 +98,18 @@ public class AphexTwinMenu : MonoBehaviour
 		{
 			rotator.enabled = true;
 		}
+	}
+
+    private void UnBeginnage()
+	{
+		begun = false;
+		playerAnim.skinModel.sharedMaterial = lastMat;
+
+		foreach (ZeichenKraftwerk.Rotator rotator in rotationage.GetComponentsInChildren<ZeichenKraftwerk.Rotator>())
+		{
+			rotator.enabled = false;
+		}
+
+        rotationage.GetComponent<ZeichenKraftwerk.Rotator>().enabled = true;
 	}
 }
