@@ -14,15 +14,19 @@ public class Weapon : MonoBehaviour
 
 	public GameObject bonusPrefab;
 
-	public AudioClip shootSound;
+	public AudioClip shootSound, chargeSound, unchargeSound;
 
-	public Transform bulletSpawn;
+	public int burstCount;
 
-	protected bool hasSwapIn, idle;
+	public ExtraShoot[] extraShootAnimations;
+
+	public AltWeapon[] alternateShots;
+
+	protected bool hasSwapIn, idle, hasChargeUp, hasChargeDown;
 
 	protected string shootAnimation, idleAnimation;
 
-	protected const string ShootAnimation = "Shoot", IdleAnimation = "Idle";
+	protected const string ShootAnimation = "Shoot", IdleAnimation = "Idle", SwapIn = "SwapIn", ChargeUp = "ChargeUp", ChargeDown = "ChargeDown";
 
 	protected PhotonView view;
 
@@ -33,12 +37,15 @@ public class Weapon : MonoBehaviour
 	protected virtual void Awake()
 	{
 		view = GetComponentInParent<PhotonView>();
-		hasSwapIn = weaponAnimation.GetClip("SwapIn") != null;
+		source = GetComponent<AudioSource>();
+
+		hasSwapIn = weaponAnimation.GetClip(SwapIn) != null;
+
+		hasChargeUp = weaponAnimation.GetClip(ChargeUp) != null;
+		hasChargeDown = weaponAnimation.GetClip(ChargeDown) != null;
 
 		shootAnimation = Defs.CAnim(weaponAnimation.gameObject, ShootAnimation);
 		idleAnimation = Defs.CAnim(weaponAnimation.gameObject, IdleAnimation);
-
-		source = GetComponent<AudioSource>();
 	}
 
 	protected void PlayAudio(AudioClip clip, float volume = 1f)
@@ -55,4 +62,18 @@ public class Weapon : MonoBehaviour
 	public virtual void Shoot() {}
 
 	public virtual string DisplayAmmoCount() { return ""; }
+
+	public class AltWeapon
+	{
+		public Weapon weapon;
+
+		public KeyCode altKey;
+	}
+
+	public class ExtraShoot
+	{
+		public string animation;
+
+		public Transform bulletSpawn;
+	}
 }

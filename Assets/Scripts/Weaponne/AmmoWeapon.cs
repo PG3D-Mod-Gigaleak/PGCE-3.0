@@ -14,6 +14,8 @@ public class AmmoWeapon : Weapon
 
     public float bloomMin, bloomMax, bloomPerShot, bloomRecover, bloomRecoverTimer;
 
+    public Transform bulletSpawn;
+
     public float bloom { get; set; }
 
     protected float bloomTimer;
