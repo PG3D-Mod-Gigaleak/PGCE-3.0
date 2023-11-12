@@ -42,8 +42,8 @@ public class WeaponsComparer : IComparer
 
 	public int Compare(object x, object y)
 	{
-		string name = ((Weapon)x).weaponPrefab.name;
-		string name2 = ((Weapon)y).weaponPrefab.name;
+		string name = ((WeaponOld)x).weaponPrefab.name;
+		string name2 = ((WeaponOld)y).weaponPrefab.name;
 		if (prefs.GetInt("MultyPlayer", 0) == 1)
 		{
 			return Array.IndexOf(multiplayerWeaponsOrd, name2).CompareTo(Array.IndexOf(multiplayerWeaponsOrd, name));

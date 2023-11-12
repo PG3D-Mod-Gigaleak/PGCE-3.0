@@ -166,7 +166,7 @@ public sealed class GameOver : MonoBehaviour
 	{
 		Defs.NumberOfElixirs--;
 		WeaponManager component = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
-		foreach (Weapon playerWeapon in component.playerWeapons)
+		foreach (WeaponOld playerWeapon in component.playerWeapons)
 		{
 			WeaponSounds component2 = playerWeapon.weaponPrefab.GetComponent<WeaponSounds>();
 			if (playerWeapon.currentAmmoInClip + playerWeapon.currentAmmoInBackpack < component2.InitialAmmo + component2.ammoInClip)

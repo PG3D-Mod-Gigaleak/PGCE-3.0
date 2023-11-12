@@ -509,7 +509,7 @@ public sealed class WeaponManager : MonoBehaviour
 	{
 		foreach (object obj in _playerWeapons)
 		{
-			if (((Weapon)obj).weaponPrefab.name == prefs.GetString(cat))
+			if (((WeaponOld)obj).weaponPrefab.name == prefs.GetString(cat))
 			{
 				_playerWeapons.Remove(obj);
 				break;
@@ -529,7 +529,7 @@ public sealed class WeaponManager : MonoBehaviour
             }
         }
 
-		Weapon weapon = new Weapon();
+		WeaponOld weapon = new WeaponOld();
 		weapon.weaponPrefab = sounds;
 		weapon.currentAmmoInBackpack = weapon.weaponPrefab.GetComponent<WeaponSounds>().InitialAmmo;
 		weapon.currentAmmoInClip = weapon.weaponPrefab.GetComponent<WeaponSounds>().ammoInClip;
@@ -539,7 +539,7 @@ public sealed class WeaponManager : MonoBehaviour
 
 		foreach (object obj in _playerWeapons)
 		{
-			Debug.LogError(((Weapon)obj).weaponPrefab.name);
+			Debug.LogError(((WeaponOld)obj).weaponPrefab.name);
 		}
 	}
 
@@ -559,7 +559,7 @@ public sealed class WeaponManager : MonoBehaviour
 			GameObject gameObject = array[i] as GameObject;
 			if (/*gameObject.CompareTag(_initialWeaponName) || gameObject.CompareTag("Knife") */ /*Array.IndexOf(_initialMultiplayerWeaponTags, gameObject.tag) >= 0 || (prefs.GetInt("MultyPlayer") == 1 && Array.IndexOf(_initialMultiplayerWeaponTags, gameObject.tag) >= 0)*/gameObject.name.Replace("(Clone)", "") == (prefs.GetString("cat1")) || gameObject.name.Replace("(Clone)", "") == (prefs.GetString("cat2")) || gameObject.name.Replace("(Clone)", "") == (prefs.GetString("cat3")) || gameObject.name.Replace("(Clone)", "") == (prefs.GetString("cat4")) || gameObject.name.Replace("(Clone)", "") == (prefs.GetString("cat5")))
 			{
-				Weapon weapon = new Weapon();
+				WeaponOld weapon = new WeaponOld();
 				weapon.weaponPrefab = gameObject;
 				weapon.currentAmmoInBackpack = weapon.weaponPrefab.GetComponent<WeaponSounds>().InitialAmmo;
 				weapon.currentAmmoInClip = weapon.weaponPrefab.GetComponent<WeaponSounds>().ammoInClip;
@@ -612,7 +612,7 @@ public sealed class WeaponManager : MonoBehaviour
 			if (gameObject == null)
 			if (gameObject.name.Equals(prefabName))
 			{
-				Weapon weapon = new Weapon();
+				WeaponOld weapon = new WeaponOld();
 				weapon.weaponPrefab = gameObject;
 				weapon.currentAmmoInBackpack = weapon.weaponPrefab.GetComponent<WeaponSounds>().InitialAmmo;
 				weapon.currentAmmoInClip = weapon.weaponPrefab.GetComponent<WeaponSounds>().ammoInClip;
@@ -625,7 +625,7 @@ public sealed class WeaponManager : MonoBehaviour
 	public bool AddWeapon(GameObject weaponPrefab, out int score)
 	{
 		score = 0;
-		foreach (Weapon playerWeapon in playerWeapons)
+		foreach (WeaponOld playerWeapon in playerWeapons)
 		{
 			if (playerWeapon.weaponPrefab.CompareTag(weaponPrefab.tag))
 			{
@@ -637,7 +637,7 @@ public sealed class WeaponManager : MonoBehaviour
 				return false;
 			}
 		}
-		Weapon weapon2 = new Weapon();
+		WeaponOld weapon2 = new WeaponOld();
 		weapon2.weaponPrefab = weaponPrefab;
 		weapon2.currentAmmoInBackpack = weapon2.weaponPrefab.GetComponent<WeaponSounds>().InitialAmmo;
 		weapon2.currentAmmoInClip = weapon2.weaponPrefab.GetComponent<WeaponSounds>().ammoInClip;
@@ -951,7 +951,7 @@ public sealed class WeaponManager : MonoBehaviour
 		{
 			return false;
 		}
-		Weapon weapon = (Weapon)playerWeapons[idx];
+		WeaponOld weapon = (WeaponOld)playerWeapons[idx];
 		WeaponSounds component = weapon.weaponPrefab.GetComponent<WeaponSounds>();
 		if (weapon.currentAmmoInBackpack < component.MaxAmmoWithRespectToInApp)
 		{
@@ -967,7 +967,7 @@ public sealed class WeaponManager : MonoBehaviour
 
 	public void AddHeal()
 	{
-		Weapon weapon = (Weapon)playerWeapons[CurrentWeaponIndex];
+		WeaponOld weapon = (WeaponOld)playerWeapons[CurrentWeaponIndex];
 		WeaponSounds component = weapon.weaponPrefab.GetComponent<WeaponSounds>();
 		if (weapon.currentAmmoInClip < component.maxHealItems)
 		{
@@ -977,7 +977,7 @@ public sealed class WeaponManager : MonoBehaviour
 
 	public void AddThrowObject()
 	{
-		Weapon weapon = (Weapon)playerWeapons[CurrentWeaponIndex];
+		WeaponOld weapon = (WeaponOld)playerWeapons[CurrentWeaponIndex];
 		WeaponSounds component = weapon.weaponPrefab.GetComponent<WeaponSounds>();
 		if (weapon.currentAmmoInClip < component.throwObjects)
 		{
@@ -987,7 +987,7 @@ public sealed class WeaponManager : MonoBehaviour
 
 	public void SetMaxAmmoFrAllWeapons()
 	{
-		foreach (Weapon playerWeapon in playerWeapons)
+		foreach (WeaponOld playerWeapon in playerWeapons)
 		{
 			playerWeapon.currentAmmoInClip = playerWeapon.weaponPrefab.GetComponent<WeaponSounds>().ammoInClip;
 			playerWeapon.currentAmmoInBackpack = playerWeapon.weaponPrefab.GetComponent<WeaponSounds>().MaxAmmoWithRespectToInApp;
@@ -1226,16 +1226,16 @@ public sealed class WeaponManager : MonoBehaviour
 		yield return new WaitForSeconds(timeToWait);
 		if (currentWeaponSounds != bkp)
 			yield break;
-		int num = currentWeaponSounds.ammoInClip - ((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInClip;
-		if (((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInBackpack >= num)
+		int num = currentWeaponSounds.ammoInClip - ((WeaponOld)playerWeapons[CurrentWeaponIndex]).currentAmmoInClip;
+		if (((WeaponOld)playerWeapons[CurrentWeaponIndex]).currentAmmoInBackpack >= num)
 		{
-			((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInClip += num;
-			((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInBackpack -= num;
+			((WeaponOld)playerWeapons[CurrentWeaponIndex]).currentAmmoInClip += num;
+			((WeaponOld)playerWeapons[CurrentWeaponIndex]).currentAmmoInBackpack -= num;
 		}
 		else
 		{
-			((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInClip += ((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInBackpack;
-			((Weapon)playerWeapons[CurrentWeaponIndex]).currentAmmoInBackpack = 0;
+			((WeaponOld)playerWeapons[CurrentWeaponIndex]).currentAmmoInClip += ((WeaponOld)playerWeapons[CurrentWeaponIndex]).currentAmmoInBackpack;
+			((WeaponOld)playerWeapons[CurrentWeaponIndex]).currentAmmoInBackpack = 0;
 		}
 		myPlayer.GetComponent<SkinName>().playerMoveC.reloading = false;
 		yield break;

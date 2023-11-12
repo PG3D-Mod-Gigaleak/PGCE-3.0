@@ -158,6 +158,7 @@ public class ArmoryNGUI : MonoBehaviour
         if (Application.loadedLevelName.StartsWith("Menu_"))
         {
             MenuGUI.instance.gameObject.SetActive(true);
+            MenuGUI.instance.playerCamera.enabled = true;
         }
         else
         {

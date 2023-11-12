@@ -55,6 +55,10 @@ public class AphexTwinMenu : MonoBehaviour
 		Invoke("Beginnage", 11.9f);
         Invoke("UnBeginnage", 68.3f);
         Invoke("Beginnage", 79.5f);
+		Invoke("UnBeginnage", 206.3f);
+		Invoke("Beginnage", 235.7f);
+		Invoke("UnBeginnage", 285f);
+		MenuBackgroundMusic.myAudioSOurce.loop = false;
 		amazingLabel.gameObject.SetActive(true);
 		OriginalF1Scale = f1.GetTextureScale("_MainTex");
 		OriginalF2Scale = f2.GetTextureScale("_MainTex");
@@ -78,6 +82,12 @@ public class AphexTwinMenu : MonoBehaviour
 			{
 				theDecibels = MenuBackgroundMusic.myAudioSOurce.gameObject.GetComponent<DecibelMeasurer>();
 			}
+		}
+		if (!MenuBackgroundMusic.myAudioSOurce.isPlaying)
+		{
+			UnBeginnage();
+			Start();
+			MenuBackgroundMusic.myAudioSOurce.Play();
 		}
 		cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 70f - (theDecibels.decibels * 100f), Time.deltaTime * 20f);
 		UVMovementInfluence = Mathf.Lerp(UVMovementInfluence, (theDecibels.decibels * UVMovementInfluenceMultiplier), Time.deltaTime * 5f);

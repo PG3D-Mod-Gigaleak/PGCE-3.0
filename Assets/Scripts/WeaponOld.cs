@@ -1,9 +1,7 @@
-using UnityEngine;
-
-public class Weapon
+﻿using UnityEngine;
+public class WeaponOld
 {
 	public GameObject weaponPrefab;
-
 	public CategoryType category
 	{
 		get
@@ -11,7 +9,6 @@ public class Weapon
 			return weaponPrefab.GetComponent<WeaponSounds>().category;
 		}
 	}
-
 	public int currentAmmoInBackpack;
 	private int pcaib;
 	public int currentAmmoInClip

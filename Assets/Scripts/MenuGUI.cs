@@ -7,6 +7,8 @@ public class MenuGUI : MonoBehaviour
 {
 	public static MenuGUI instance;
 
+	public Camera playerCamera;
+
 	public void EnterDeathmatch()
 	{
 		loading = true;
@@ -21,6 +23,8 @@ public class MenuGUI : MonoBehaviour
 	{
 		ArmoryNGUI.instance.gameObject.SetActive(true);
 		gameObject.SetActive(false);
+
+		playerCamera.enabled = false;
 	}
 
 	public void EnterTesting()
