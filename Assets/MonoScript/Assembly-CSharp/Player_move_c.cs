@@ -624,6 +624,8 @@ public sealed class Player_move_c : MonoBehaviour
 
 	public Camera gunCam;
 
+	private bool alreadySurvival = false;
+
 	public int playerID()
 	{
 		return PhotonNetwork.player.ID;
@@ -2296,8 +2298,8 @@ public sealed class Player_move_c : MonoBehaviour
 		_SetGunFlashActive(false);
 		if (prefs.GetInt("MultyPlayer") != 1)
 		{
-			//CurHealth = prefs.GetFloat(Defs.CurrentHealthSett, MaxPlayerHealth);
-			//curArmor = prefs.GetFloat(Defs.CurrentArmorSett, MaxArmor);
+			CurHealth = prefs.GetFloat(Defs.CurrentHealthSett, MaxPlayerHealth);
+			curArmor = prefs.GetFloat(Defs.CurrentArmorSett, 0f);
 		}
 		else
 		{
@@ -3805,6 +3807,17 @@ public sealed class Player_move_c : MonoBehaviour
 
 	private void Update()
 	{
+		if ((prefs.GetInt("MultyPlayer") == 0 && prefs.GetInt("COOP") == 0))
+		{
+			_weaponManager.myPlayer = gameObject.transform.parent.gameObject;
+			_weaponManager.myGun = gameObject.transform.GetChild(0).GetChild(0).gameObject;
+			if (alreadySurvival == false)
+			{
+				CurHealth = 100f;
+				curArmor = 0f;
+				alreadySurvival = true;
+			}
+		}
 		if (isMine) {
 			foreach (GameObject bodyCollider in GameObject.FindGameObjectsWithTag("BodyCollider")) {
 				if (bodyCollider.transform.parent.GetComponent<FirstPersonControl>().playerGameObject.GetComponent<Player_move_c>().isMine) {

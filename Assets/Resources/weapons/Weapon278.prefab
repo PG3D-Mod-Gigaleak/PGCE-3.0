@@ -888,6 +888,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 22.5
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -918,6 +919,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -6115,8 +6123,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coopDamage: 75
-  multiplayerDamage: 5
+  multiplayerDamage: 2.5
   damageCooldown: 0.035
+  timer: 0
+  _weaponManager: {fileID: 0}
+  isPierce: 0
+  originalObject: {fileID: 0}
+  damageSender: {fileID: 0}
 --- !u!114 &5036743920075851511
 MonoBehaviour:
   m_ObjectHideFlags: 0

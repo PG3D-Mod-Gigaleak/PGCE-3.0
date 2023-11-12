@@ -10,7 +10,7 @@ public class TestingController : MonoBehaviour
 		prefs.SetInt("MultyPlayer", 0);
 		prefs.SetInt("COOP", 0);
 		GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>().Reset();
-		prefs.SetFloat(Defs.CurrentHealthSett, Player_move_c.MaxPlayerHealth);
+		prefs.SetFloat(Defs.CurrentHealthSett, 100f);
 		prefs.SetFloat(Defs.CurrentArmorSett, 0f);
 		FlurryPluginWrapper.LogSurvivalModePress();
 		LoadConnectScene.sceneToLoad = "Cementery";

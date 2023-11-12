@@ -143,6 +143,7 @@ MonoBehaviour:
   isRandom: 0
   isForward: 0
   onlyHorizontal: 0
+  lastSpawnedtime: 0
   frequency: 0.5
   positionObject: {x: 0, y: 0, z: 0}
   rotationObject: {x: 0, y: 0, z: 0}
@@ -228,6 +229,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 20
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -258,6 +260,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -277,7 +286,7 @@ MonoBehaviour:
   armoryScale: {x: 50, y: 50, z: 50}
   armoryRotation: {x: 0, y: 0, z: 0}
   armoryPosition: {x: 0, y: 0, z: 0}
-  category: 0
+  category: 3
   isZooming: 0
   scopeNum: 0
   zoomFov: 0
