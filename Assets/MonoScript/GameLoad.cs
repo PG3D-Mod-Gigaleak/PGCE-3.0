@@ -115,14 +115,14 @@ public class GameLoad : MonoBehaviour
 		yield break;
 	}
 	public IEnumerator CacheAllPhotonViewItems() {
-		#if UNITY_EDITOR
+		/*#if UNITY_EDITOR
 		// tysm ender
 		currentTask.text = "Caching PhotonView Objects (might take a while!)";
 		yield return null;
 		List<GameObject> allObjects = Resources.LoadAll<GameObject>("").ToList();
 		yield return allObjects;
 		MiscCache.photonViewGameObjects.AddRange(allObjects.FindAll(x => x.GetComponent<PhotonView>() != null));
-		#endif
+		#endif*/
 		Done();
 		yield break;
 	}

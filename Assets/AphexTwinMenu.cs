@@ -68,6 +68,17 @@ public class AphexTwinMenu : MonoBehaviour
 
 	private void Update()
 	{
+		if (MenuBackgroundMusic.myAudioSOurce != null)
+		{
+			if (!MenuBackgroundMusic.myAudioSOurce.GetComponent<DecibelMeasurer>())
+			{
+				theDecibels = MenuBackgroundMusic.myAudioSOurce.gameObject.AddComponent<DecibelMeasurer>();
+			}
+			else
+			{
+				theDecibels = MenuBackgroundMusic.myAudioSOurce.gameObject.GetComponent<DecibelMeasurer>();
+			}
+		}
 		cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 70f - (theDecibels.decibels * 100f), Time.deltaTime * 20f);
 		UVMovementInfluence = Mathf.Lerp(UVMovementInfluence, (theDecibels.decibels * UVMovementInfluenceMultiplier), Time.deltaTime * 5f);
 		if (Random.Range(0f, 10f) > 5f)
