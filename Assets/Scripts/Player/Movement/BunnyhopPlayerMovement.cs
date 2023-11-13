@@ -14,4 +14,8 @@ public class BunnyhopPlayerMovement : JumpPlayerMovement
 	public float runtimeAtLastJump = 0f;
 	public float bhopJumpHoldTimeout = 0.2f;
 	public bool isHoldingJump = false;
+	public override float GetSpeedModifier()
+	{
+		return base.GetSpeedModifier() * currentBhopSpeedMultiplier;
+	}
 }

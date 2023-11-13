@@ -13,8 +13,63 @@ public class DefaultPlayerMovement : MonoBehaviour
 			JumpCallback();
 		}
 	}
-	public virtual void MoveCallback() {} // stub
+	public virtual void MoveCallback()
+	{
+		joystickOffset = KeyboardToJoystickPosition();
+		HandleSetSpeed();
+		UpdateVelocity();
+		MoveCharacter();
+	}
+	public virtual void UpdateGrounded() {} // stub
+	public virtual bool IsGrounded()
+	{
+		// TODO: re-add the gravflip grounded check :3
+		return characterController.isGrounded;
+	}
+	public virtual void UpdateVelocity()
+	{
+		if (IsGrounded())
+		{
+			UpdateGrounded();
+		}
+		else
+		{
+			velocity.y += Physics.gravity.y * Time.deltaTime;
+		}
+		if (constantSpeed)
+		{
+			currentForwardSpeed = constantForwardSpeed;
+			currentBackwardSpeed = constantBackwardSpeed;
+			currentSidestepSpeed = constantSidestepSpeed;
+		}
+		float joystickXOffset = joystickOffset.x;
+		float joystickYOffset = joystickOffset.y;
+		if (joystickYOffset > 0)
+		{
+			velocity += myTransform.forward * joystickYOffset * currentForwardSpeed;
+		}
+		else if (joystickYOffset < 0)
+		{
+			velocity += myTransform.forward * joystickYOffset * currentBackwardSpeed;
+		}
+		velocity += myTransform.forward * joystickXOffset * currentSidestepSpeed;
+	}
+	public virtual void HandleSetSpeed() {} // stub
+	public virtual void MoveCharacter()
+	{
+		characterController.Move(velocity * Time.deltaTime);
+	}
 	public virtual void JumpCallback() {} // stub
+	public virtual float GetSpeedModifier()
+	{
+		return GlobalSpeedMultiplier;
+	}
+	public virtual void Start()
+	{
+		myTransform = GetComponent<Transform>();
+		characterController = GetComponent<CharacterController>();
+		playerGameObject = Globals.PlayerMove.gameObject;
+	}
 	public virtual void Update()
 	{
 		HandleInput();
@@ -51,9 +106,14 @@ public class DefaultPlayerMovement : MonoBehaviour
 	public float currentForwardSpeed = 0f;
 	public float currentBackwardSpeed = 0f;
 	public float currentSidestepSpeed = 0f;
+	public float constantForwardSpeed = 6f;
+	public float constantBackwardSpeed = 3f;
+	public float constantSidestepSpeed = 3f;
+	public bool constantSpeed = true;
 	public const float GlobalSpeedMultiplier = 1.35f;
 	[Header("Default Movement Variables")]
 	public Vector2 joystickOffset;
+	public Vector3 velocity;
 	public KeyCode forwardKey = KeyCode.W;
 	public KeyCode backwardKey = KeyCode.S;
 	public KeyCode leftKey = KeyCode.A;
