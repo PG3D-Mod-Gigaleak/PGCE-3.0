@@ -8,6 +8,13 @@ public class StackWeapon : Weapon
 
     public int currentAmmo { get; set; }
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        currentAmmo = ammo;
+    }
+
     public override void Shoot()
     {
         if (currentAmmo <= 0)
@@ -17,19 +24,23 @@ public class StackWeapon : Weapon
 
         if (!shooting)
         {
-            ammo--;
+            currentAmmo--;
             weaponAnimation.Play(shootAnimation);
 
             PlayAudio(shootSound);
-            ShootSuccess();
+            Invoke("ShootSuccess", shotDelay);
         }
     }
-
     
     public override string DisplayAmmoCount()
     {
         return currentAmmo.ToString();
     }
 
-    protected virtual void ShootSuccess() { }
+    public override void CollectAmmo(int count)
+    {
+        currentAmmo = Mathf.Clamp(currentAmmo + count, 0, maxAmmo);
+    }
+
+    protected virtual void ShootSuccess() {}
 }

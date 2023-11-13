@@ -66,8 +66,8 @@ public class AmmoWeapon : Weapon
             weaponAnimation.Play(shootAnimation);
 
             PlayAudio(shootSound);
-            ShootSuccess();
-            
+            Invoke("ShootSuccess", shotDelay);
+
             UpdateBloom(bloom + bloomPerShot);
         }
     }
@@ -116,6 +116,11 @@ public class AmmoWeapon : Weapon
             currentAmmoInClip += currentAmmoInBackpack;
             currentAmmoInBackpack = 0;
         }
+    }
+
+    public override void CollectAmmo(int count)
+    {
+        currentAmmoInBackpack = Mathf.Clamp(currentAmmoInBackpack + count, 0, maxAmmoInBackpack);
     }
 
     protected virtual void ShootSuccess() {}

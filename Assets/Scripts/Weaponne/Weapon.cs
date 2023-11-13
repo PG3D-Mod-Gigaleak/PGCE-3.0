@@ -22,7 +22,11 @@ public class Weapon : MonoBehaviour
 
 	public AltWeapon[] alternateShots;
 
-	protected bool hasSwapIn, idle, hasChargeUp, hasChargeDown;
+	public int scopeIndex = -1;
+
+	public float shotDelay;
+
+	protected bool hasSwapIn, idle, hasChargeUp, hasChargeDown, hasScope;
 
 	protected string shootAnimation, idleAnimation;
 
@@ -43,6 +47,7 @@ public class Weapon : MonoBehaviour
 
 		PMC = Globals.PlayerMove;
 
+		hasScope = scopeIndex != -1;
 		hasSwapIn = weaponAnimation.GetClip(SwapIn) != null;
 
 		hasChargeUp = weaponAnimation.GetClip(ChargeUp) != null;
@@ -63,9 +68,11 @@ public class Weapon : MonoBehaviour
 		weaponAnimation.Play(idleAnimation);
 	}
 
-	public virtual void Shoot() {}
-
 	public virtual string DisplayAmmoCount() { return ""; }
+
+	public virtual void CollectAmmo(int count) {}
+
+	public virtual void Shoot() {}
 
 	public class AltWeapon
 	{

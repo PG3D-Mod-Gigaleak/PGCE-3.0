@@ -10,7 +10,7 @@ public class Globals
 	{
 		get
 		{
-			return PlayerMove.GetComponentInChildren<SkinName>().gameObject;
+			return PlayerMove.GetComponentInParent<SkinName>().gameObject;
 		}
 	}
 	public static SkinName SkinName
