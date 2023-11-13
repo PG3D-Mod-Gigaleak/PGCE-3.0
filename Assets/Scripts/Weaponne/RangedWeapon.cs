@@ -33,13 +33,13 @@ public class RangedWeapon : AmmoWeapon
             bool flag;
             if ((hitInfo.collider.gameObject.transform.parent == null && !hitInfo.collider.gameObject.transform.CompareTag("Player")) || (hitInfo.collider.gameObject.transform.parent != null && !hitInfo.collider.gameObject.transform.parent.CompareTag("Enemy") && !hitInfo.collider.gameObject.transform.parent.CompareTag("Player")))
 			{
-				UnityEngine.Object.Instantiate(Globals.PlayerMove.hole, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
-				UnityEngine.Object.Instantiate(Globals.PlayerMove.wallParticle, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
+				UnityEngine.Object.Instantiate(PMC.hole, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
+				UnityEngine.Object.Instantiate(PMC.wallParticle, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
 				flag = false;
 			}
 			else
 			{
-				UnityEngine.Object.Instantiate(Globals.PlayerMove.bloodParticle, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
+				UnityEngine.Object.Instantiate(PMC.bloodParticle, hitInfo.point + hitInfo.normal * 0.001f, Quaternion.FromToRotation(Vector3.up, hitInfo.normal));
 				flag = true;
 			}
 			if (prefs.GetInt("MultyPlayer") == 1)
@@ -70,7 +70,7 @@ public class RangedWeapon : AmmoWeapon
 						WeaponManager.sharedManager.myTable.GetComponent<NetworkStartTable>().synchState();
 					}
 				}
-				Globals.PlayerMove.inGameGUI.Hitmark();
+				PMC.inGameGUI.Hitmark();
 			}
             //we'll open this can of worms later
 			//if (prefs.GetInt("MultyPlayer") == 1)
@@ -79,7 +79,7 @@ public class RangedWeapon : AmmoWeapon
 			//}
 			if ((hitInfo.collider.gameObject.CompareTag("BodyCollider") || hitInfo.collider.gameObject.CompareTag("HeadCollider")) && prefs.GetInt("MultyPlayer") == 1 && prefs.GetInt("COOP", 0) != 1 && !hitInfo.collider.transform.parent.gameObject.GetComponent<FirstPersonControl>().playerGameObject.GetComponent<Player_move_c>().isMine)
 			{
-				Globals.PlayerMove.MinusLivePlayer(hitInfo.collider.transform.parent.gameObject.GetComponent<PhotonView>().viewID, Player_move_c.WeaponIDFromName(name), hitInfo.collider.gameObject.CompareTag("HeadCollider"));
+				PMC.MinusLivePlayer(hitInfo.collider.transform.parent.gameObject.GetComponent<PhotonView>().viewID, Player_move_c.WeaponIDFromName(name), hitInfo.collider.gameObject.CompareTag("HeadCollider"));
 			}
         }
     }
@@ -97,10 +97,10 @@ public class RangedWeapon : AmmoWeapon
 	{
 		if (_isBloodParticle)
 		{
-			UnityEngine.Object.Instantiate(Globals.PlayerMove.bloodParticle, _pos, _rot);
+			UnityEngine.Object.Instantiate(PMC.bloodParticle, _pos, _rot);
 			return;
 		}
-		UnityEngine.Object.Instantiate(Globals.PlayerMove.hole, _pos, _rot);
-		UnityEngine.Object.Instantiate(Globals.PlayerMove.wallParticle, _pos, _rot);
+		UnityEngine.Object.Instantiate(PMC.hole, _pos, _rot);
+		UnityEngine.Object.Instantiate(PMC.wallParticle, _pos, _rot);
 	}
 }

@@ -32,12 +32,16 @@ public class Weapon : MonoBehaviour
 
 	protected AudioSource source;
 
+	protected Player_move_c PMC;
+
 	protected bool shooting { get { return weaponAnimation.IsPlaying(shootAnimation); } }
 
 	protected virtual void Awake()
 	{
 		view = GetComponentInParent<PhotonView>();
 		source = GetComponent<AudioSource>();
+
+		PMC = Globals.PlayerMove;
 
 		hasSwapIn = weaponAnimation.GetClip(SwapIn) != null;
 

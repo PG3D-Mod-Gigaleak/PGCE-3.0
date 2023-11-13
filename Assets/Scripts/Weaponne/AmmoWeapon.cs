@@ -60,14 +60,21 @@ public class AmmoWeapon : Weapon
             return;
         }
 
-        if (!shooting)
+        if (!shooting && !reloading)
         {
+            currentAmmoInClip--;
             weaponAnimation.Play(shootAnimation);
-            PlayAudio(shootSound);
 
+            PlayAudio(shootSound);
             ShootSuccess();
+            
             UpdateBloom(bloom + bloomPerShot);
         }
+    }
+
+    public override string DisplayAmmoCount()
+    {
+        return currentAmmoInClip + "/" + currentAmmoInBackpack;
     }
 
     public virtual void UpdateBloom(float bloom, bool setTimer = true)
