@@ -44,12 +44,17 @@ public class DefaultPlayerMovement : MonoBehaviour
 		}
 		float joystickXOffset = joystickOffset.x;
 		float joystickYOffset = joystickOffset.y;
+		float old_y = velocity.y;
 		velocity = (joystickYOffset < 0 ? myTransform.forward * joystickYOffset * currentBackwardSpeed : myTransform.forward * joystickYOffset * currentForwardSpeed) + myTransform.right * joystickXOffset * currentSidestepSpeed;
+		velocity.y = old_y;
 	}
 	public virtual void HandleSetSpeed() {} // stub
 	public virtual void MoveCharacter()
 	{
-		characterController.Move(velocity * Time.deltaTime);
+		Vector3 velocityExcludeY = velocity;
+		velocityExcludeY.x *= GetSpeedModifier();
+		velocityExcludeY.z *= GetSpeedModifier();
+		characterController.Move(velocityExcludeY * Time.deltaTime);
 	}
 	public virtual void JumpCallback() {} // stub
 	public virtual float GetSpeedModifier()

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465878, g: 0.4964224, b: 0.57482475, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -241,7 +241,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 807044541}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a27cf167f56743c6784388648e19f3fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d6c3428849e14493b1379c1d1b46f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   currentForwardSpeed: 0
@@ -258,9 +258,23 @@ MonoBehaviour:
   leftKey: 97
   rightKey: 100
   jumpKey: 32
-  characterController: {fileID: 807044543}
-  myTransform: {fileID: 807044544}
-  playerGameObject: {fileID: 807044541}
+  characterController: {fileID: 0}
+  myTransform: {fileID: 0}
+  playerGameObject: {fileID: 0}
+  jumpHeight: 4.5
+  jumping: 0
+  currentBhopSpeedMultiplier: 1
+  initialBhopSpeedMultiplierIncrement: 0.25
+  currentBhopSpeedMultiplierIncrement: 0.25
+  bhopJumpDelayTimeout: 0.05
+  currentBhopTimer: 0
+  runtime: 0
+  runtimeAtLastJump: 0
+  bhopJumpHoldTimeout: 0.2
+  isHoldingJump: 0
+  forwardAcceleration: 6
+  backwardAcceleration: 3
+  sidestepAcceleration: 3
 --- !u!143 &807044543
 CharacterController:
   m_ObjectHideFlags: 0
