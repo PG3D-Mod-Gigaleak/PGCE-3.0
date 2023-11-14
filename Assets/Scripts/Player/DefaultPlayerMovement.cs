@@ -44,15 +44,7 @@ public class DefaultPlayerMovement : MonoBehaviour
 		}
 		float joystickXOffset = joystickOffset.x;
 		float joystickYOffset = joystickOffset.y;
-		if (joystickYOffset > 0)
-		{
-			velocity += myTransform.forward * joystickYOffset * currentForwardSpeed;
-		}
-		else if (joystickYOffset < 0)
-		{
-			velocity += myTransform.forward * joystickYOffset * currentBackwardSpeed;
-		}
-		velocity += myTransform.forward * joystickXOffset * currentSidestepSpeed;
+		velocity = (joystickYOffset < 0 ? myTransform.forward * joystickYOffset * currentBackwardSpeed : myTransform.forward * joystickYOffset * currentForwardSpeed) + myTransform.right * joystickXOffset * currentSidestepSpeed;
 	}
 	public virtual void HandleSetSpeed() {} // stub
 	public virtual void MoveCharacter()
