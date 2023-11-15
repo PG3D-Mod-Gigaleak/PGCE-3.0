@@ -66,14 +66,13 @@ public class Rocket : MonoBehaviour
 		}
 		if (!isMulti || isMine)
 		{
-			Invoke("Remove", 7f);
+			Invoke(nameof(Remove), 7f);
 			return;
 		}
 		GetComponent<BoxCollider>().enabled = false;
 		base.transform.GetComponent<Rigidbody>().isKinematic = true;
 	}
 
-	[Obfuscation(Exclude = true)]
 	private void Remove()
 	{
 		if (!isMulti)
@@ -154,11 +153,10 @@ public class Rocket : MonoBehaviour
 		}
 		else if (isMine)
 		{
-			Invoke("DestroyRocket", 0.1f);
+			Invoke(nameof(DestroyRocket), 0.1f);
 		}
 	}
 
-	[Obfuscation(Exclude = true)]
 	private void DestroyRocket()
 	{
 		PhotonNetwork.Destroy(base.gameObject);
@@ -186,10 +184,9 @@ public class Rocket : MonoBehaviour
 
 	public void ImDestroyRPC()
 	{
-		Invoke("ImDestroy", 0.2f);
+		Invoke(nameof(ImDestroy), 0.2f);
 	}
 
-	[Obfuscation(Exclude = true)]
 	public void ImDestroy()
 	{
 		Object.Destroy(base.gameObject);

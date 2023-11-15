@@ -29,11 +29,10 @@ public class PickupItemSyncer : Photon.MonoBehaviour
 
         if (PhotonNetwork.playerList.Length >= 2)
         {
-            this.Invoke("AskForPickupItemSpawnTimes", 2.0f);
+            this.Invoke(nameof(AskForPickupItemSpawnTimes), 2.0f);
         }
     }
 
-    [Beebyte.Obfuscator.SkipRename]
     public void AskForPickupItemSpawnTimes()
     {
         if (this.IsWaitingForPickupInit)

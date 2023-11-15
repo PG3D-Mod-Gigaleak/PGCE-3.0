@@ -575,7 +575,7 @@ public sealed class MainMenu : MonoBehaviour
 			FacebookSessionLoginBehavior sessionLoginBehavior = FacebookSessionLoginBehavior.SSO_WITH_FALLBACK;
 			ServiceLocator.FacebookFacade.SetSessionLoginBehavior(sessionLoginBehavior);
 		}
-		Invoke("setEnabledGUI", 0.1f);
+		Invoke(nameof(setEnabledGUI), 0.1f);
 		if (GlobalGameController.isFullVersion)
 		{
 			prefs.SetInt("FullVersion", 1);
@@ -677,7 +677,7 @@ public sealed class MainMenu : MonoBehaviour
 		{
 			TwitterManager.requestDidFinishEvent -= OnTwitterPost;
 			showMessagTiwtter = true;
-			Invoke("hideMessagTwitter", 3f);
+			Invoke(nameof(hideMessagTwitter), 3f);
 		}
 	}
 
@@ -694,7 +694,6 @@ public sealed class MainMenu : MonoBehaviour
 		}
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void setEnabledGUI()
 	{
 		isFirstFrame = false;
@@ -755,7 +754,7 @@ public sealed class MainMenu : MonoBehaviour
 			Debug.Log("sendMessag");
 			clickButtonFacebook = false;
 			showMessagFacebook = true;
-			Invoke("hideMessag", 3f);
+			Invoke(nameof(hideMessag), 3f);
 			Facebook.instance.postMessage(_SocialMessage(), completionHandler);
 			return;
 		}
@@ -788,13 +787,11 @@ public sealed class MainMenu : MonoBehaviour
 		CleanFacebookEvents();
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void hideMessag()
 	{
 		showMessagFacebook = false;
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void hideMessagTwitter()
 	{
 		showMessagTiwtter = false;

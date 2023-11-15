@@ -15,10 +15,9 @@ public class TimedObjectDestructor : MonoBehaviour
 
 	public virtual void Awake()
 	{
-		Invoke("DestroyNow", timeOut);
+		Invoke(nameof(DestroyNow), timeOut);
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	public virtual void DestroyNow()
 	{
 		if (detachChildren)

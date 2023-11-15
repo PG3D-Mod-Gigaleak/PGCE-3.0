@@ -28,7 +28,7 @@ public class StackWeapon : Weapon
             weaponAnimation.Play(shootAnimation);
 
             PlayAudio(shootSound);
-            Invoke("ShootSuccess", shotDelay);
+            Invoke(nameof(ShootSuccess), shotDelay);
         }
     }
     

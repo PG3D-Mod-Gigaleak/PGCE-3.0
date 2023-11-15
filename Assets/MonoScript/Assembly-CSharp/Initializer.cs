@@ -181,10 +181,9 @@ public sealed class Initializer : MonoBehaviour
 		Vector3 position = ((GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]) ? _initPlayerPositions[index] : new Vector3(-0.72f, 1.75f, -13.23f));
 		float y = ((GlobalGameController.currentLevel != GlobalGameController.levelMapping[0]) ? _rots[index] : 0f);
 		UnityEngine.Object.Instantiate(_playerPrefab, position, Quaternion.Euler(0f, y, 0f));
-		Invoke("SetupObjectThatNeedsPlayer", 0.01f);
+		Invoke(nameof(SetupObjectThatNeedsPlayer), 0.01f);
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	public void SetupObjectThatNeedsPlayer()
 	{
 		if (prefs.GetInt("MultyPlayer") == 1)
@@ -277,7 +276,7 @@ public sealed class Initializer : MonoBehaviour
 			timerShow -= Time.deltaTime;
 			Debug.Log("OnLeftRoom (local) init update");
 			showLoading = true;
-			Invoke("goToConnect", 0.1f);
+			Invoke(nameof(goToConnect), 0.1f);
 		}
 	}
 
@@ -307,7 +306,6 @@ public sealed class Initializer : MonoBehaviour
 		}
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void goToConnect()
 	{
 		ConnectGUI.Local();
@@ -319,7 +317,7 @@ public sealed class Initializer : MonoBehaviour
 		if (prefs.GetInt("ExitGame") == 1)
 		{
 			showLoading = true;
-			Invoke("goToConnect", 0.1f);
+			Invoke(nameof(goToConnect), 0.1f);
 			if (!(_weaponManager == null) && !(_weaponManager.myTable == null))
 			{
 				_weaponManager.myTable.GetComponent<NetworkStartTable>().isShowNickTable = false;
@@ -364,11 +362,10 @@ public sealed class Initializer : MonoBehaviour
 			UnityEngine.Object.Destroy(gameObject2);
 		}
 		isDisconnect = true;
-		Invoke("ConnectToPhoton", 3f);
+		Invoke(nameof(ConnectToPhoton), 3f);
 		_purchaseActivityIndicator.SetActive(true);
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void ConnectToPhoton()
 	{
 		if (!isCancelReConnect)
@@ -390,7 +387,7 @@ public sealed class Initializer : MonoBehaviour
 		Debug.Log("OnFailedToConnectToPhoton. StatusCode: " + parameters);
 		if (!isCancelReConnect)
 		{
-			Invoke("ConnectToPhoton", 3f);
+			Invoke(nameof(ConnectToPhoton), 3f);
 		}
 	}
 
@@ -399,7 +396,6 @@ public sealed class Initializer : MonoBehaviour
 		ConnectToRoom();
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void ConnectToRoom()
 	{
 		Debug.Log("OnJoinedLobby " + prefs.GetString("RoomName"));
@@ -416,7 +412,7 @@ public sealed class Initializer : MonoBehaviour
 		isNotConnectRoom = true;
 		if (countConnectToRoom < 6)
 		{
-			Invoke("ConnectToRoom", 3f);
+			Invoke(nameof(ConnectToRoom), 3f);
 		}
 		else
 		{

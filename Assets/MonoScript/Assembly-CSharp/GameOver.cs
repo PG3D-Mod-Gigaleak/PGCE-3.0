@@ -108,11 +108,10 @@ public sealed class GameOver : MonoBehaviour
 		{
 			_purchaseActivityIndicator.SetActive(false);
 		}
-		Invoke("setAppropriateProducts", 0.01f);
+		Invoke(nameof(setAppropriateProducts), 0.01f);
 		coinsPlashka.thisScript.enabled = true;
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void setAppropriateProducts()
 	{
 		_products = _listener._products;

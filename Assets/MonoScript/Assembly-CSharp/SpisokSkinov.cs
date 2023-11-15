@@ -737,7 +737,6 @@ public sealed class SpisokSkinov : MonoBehaviour
 		ViborChastiTela.skinIzm = false;
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	public void hideMsg()
 	{
 		msgSaveShow = false;
@@ -746,7 +745,7 @@ public sealed class SpisokSkinov : MonoBehaviour
 	public void showMsg()
 	{
 		msgSaveShow = true;
-		Invoke("hideMsg", 2f);
+		Invoke(nameof(hideMsg), 2f);
 	}
 
 	private void OnDestroy()
@@ -824,7 +823,7 @@ public sealed class SpisokSkinov : MonoBehaviour
 		{
 			TwitterManager.requestDidFinishEvent -= OnTwitterPost;
 			showMessagTiwtter = true;
-			Invoke("hideMessagTwitter", 3f);
+			Invoke(nameof(hideMessagTwitter), 3f);
 		}
 	}
 
@@ -833,13 +832,11 @@ public sealed class SpisokSkinov : MonoBehaviour
 		TwitterManager.requestDidFinishEvent -= OnTwitterPost;
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void hideMessag()
 	{
 		showMessagFacebook = false;
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void hideMessagTwitter()
 	{
 		showMessagTiwtter = false;
@@ -900,7 +897,7 @@ public sealed class SpisokSkinov : MonoBehaviour
 			Debug.Log("sendMessag");
 			clickButtonFacebook = false;
 			showMessagFacebook = true;
-			Invoke("hideMessag", 3f);
+			Invoke(nameof(hideMessag), 3f);
 			Facebook.instance.postMessage(_SocialMessage(), completionHandler);
 			return;
 		}

@@ -71,11 +71,10 @@ public class PickupItemSimple : Photon.MonoBehaviour
         {
             // this script simply disables the GO for a while until it respawns.
             this.gameObject.SetActive(false);
-            Invoke("RespawnAfter", timeUntilRespawn);
+            Invoke(nameof(RespawnAfter), timeUntilRespawn);
         }
     }
 
-    [Beebyte.Obfuscator.SkipRename]
     public void RespawnAfter()
     {
         if (this.gameObject != null)

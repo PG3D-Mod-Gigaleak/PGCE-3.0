@@ -359,7 +359,7 @@ public sealed class Switcher : MonoBehaviour
 		}
 		else
 		{
-			Invoke("LoadMenu", Time.unscaledDeltaTime);
+			Invoke(nameof(LoadMenu), Time.unscaledDeltaTime);
 		}
 	}
 
@@ -382,7 +382,6 @@ public sealed class Switcher : MonoBehaviour
 		//}
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void LoadMenu()
 	{
 		StartCoroutine(a());

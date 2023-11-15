@@ -50,7 +50,7 @@ public class Bullet : MonoBehaviour
 		}
 		if (lifetime != -1f)
 		{
-			Invoke("DestroySelf", lifetime);
+			Invoke(nameof(DestroySelf), lifetime);
 		}
 	}
 
@@ -59,7 +59,6 @@ public class Bullet : MonoBehaviour
 		transform.position += transform.forward * (Time.deltaTime * speed);
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	void DestroySelf()
 	{
 		Destroy(gameObject);

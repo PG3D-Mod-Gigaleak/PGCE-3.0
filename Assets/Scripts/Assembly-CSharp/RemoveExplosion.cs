@@ -10,10 +10,9 @@ internal sealed class RemoveExplosion : MonoBehaviour
 		{
 			base.GetComponent<AudioSource>().Play();
 		}
-		Invoke("Remove", 7f);
+		Invoke(nameof(Remove), 7f);
 	}
 
-	[Obfuscation(Exclude = true)]
 	private void Remove()
 	{
 		Object.Destroy(base.gameObject);

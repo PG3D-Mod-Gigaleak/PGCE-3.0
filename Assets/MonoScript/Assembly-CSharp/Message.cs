@@ -13,10 +13,9 @@ public sealed class Message : MonoBehaviour
 	private void Start()
 	{
 		Object.DontDestroyOnLoad(base.gameObject);
-		Invoke("Remove", 2f);
+		Invoke(nameof(Remove), 2f);
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void Remove()
 	{
 		Object.Destroy(base.gameObject);

@@ -418,7 +418,7 @@ public sealed class ConnectGUI : MonoBehaviour
 		{
 			showPasswordEnterForm = false;
 			isPasswordIncorrect = true;
-			Invoke("disableGuiIncorrectPassword", 2f);
+			Invoke(nameof(disableGuiIncorrectPassword), 2f);
 		}
 	}
 
@@ -461,7 +461,7 @@ public sealed class ConnectGUI : MonoBehaviour
 			}
 		}
 		Resources.UnloadUnusedAssets();
-		Invoke("setEnabledGUI", 0.1f);
+		Invoke(nameof(setEnabledGUI), 0.1f);
 		_purchaseActivityIndicator = StoreKitEventListener.purchaseActivityInd;
 		if (typeConnect == 2)
 		{
@@ -1155,7 +1155,7 @@ public sealed class ConnectGUI : MonoBehaviour
 	{
 		LANBroadcastService component = GetComponent<LANBroadcastService>();
 		component.StartSearchBroadCasting(seachServer, isNotServer);
-		Invoke("checkConSuccess", 1f);
+		Invoke(nameof(checkConSuccess), 1f);
 	}
 
 	private void disconnectGame()
@@ -1438,7 +1438,7 @@ public sealed class ConnectGUI : MonoBehaviour
 						prefs.SetString("MapName", receivedMessage.map);
 						showLoading = true;
 						setFonLoading(receivedMessage.map);
-						Invoke("goGame", 0.1f);
+						Invoke(nameof(goGame), 0.1f);
 						component.StopBroadCasting();
 					}
 					FlurryPluginWrapper.LogEnteringMap(typeConnect, receivedMessage.map);
