@@ -20,6 +20,15 @@ public class BunnyhopPlayerMovement : JumpPlayerMovement
 		{
 			currentBhopTimer = 0;
 		}
+		if (Input.GetKey(jumpKey))
+		{
+			runtime += Time.deltaTime;
+		}
+		else
+		{
+			runtime = 0;
+		}
+		isHoldingJump = runtime > bhopJumpHoldTimeout;
 	}
 	public override void UpdateGrounded()
 	{
@@ -46,7 +55,6 @@ public class BunnyhopPlayerMovement : JumpPlayerMovement
 	public float bhopJumpDelayTimeout = 0.05f;
 	public float currentBhopTimer = 0f;
 	public float runtime = 0f;
-	public float runtimeAtLastJump = 0f;
 	public float bhopJumpHoldTimeout = 0.2f;
 	public bool isHoldingJump = false;
 }
