@@ -1516,6 +1516,164 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &3136223489716132220
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3298015020839742415}
+  - component: {fileID: 1028589803188895668}
+  - component: {fileID: 7232279858337425185}
+  m_Layer: 0
+  m_Name: Defense
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3298015020839742415
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3136223489716132220}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4608379396959920661}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1028589803188895668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3136223489716132220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da923ef974d0d904da4a5816e3d981b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  swapTime: 0.5
+  isSwapIn: 0
+  isSwapOut: 0
+  shoot: {fileID: 0}
+  reload: {fileID: 0}
+  empty: {fileID: 0}
+  isSerialShooting: 1
+  bonusPrefab: {fileID: 4603270032849788163}
+  InitialAmmo: 0
+  ammoInClip: 0
+  maxAmmo: 0
+  isMelee: 1
+  range: 0
+  damage: 0
+  speedModifier: 0
+  animationObject: {fileID: 4603270032849788163}
+  Probability: 1
+  damageRange: {x: -5, y: 5}
+  gunPosition: {x: 0, y: -1.7, z: 0}
+  preview: {fileID: 2800000, guid: bd376acd480c7d144aa0f20355a47766, type: 3}
+  inAppExtensionModifier: 10
+  meleeAngle: 0
+  multiplayerDamage: 0
+  meleeAttackTimeModifier: 0
+  hasammunition: 0
+  isHeal: 0
+  healAmount: 0
+  HealArmor: 0
+  maxHealItems: 0
+  bloomLow: 0
+  bloomHigh: 0
+  isShotgun: 0
+  numOfPellets: 0
+  hasAlternateShot: 0
+  hasInspect: 0
+  hasDoubleInspect: 0
+  alternateShot: {fileID: 0}
+  hasRecoil: 0
+  recoil: 0
+  hasUpgrades: 0
+  isChargeUp: 0
+  chargeUp: {fileID: 0}
+  chargeDown: {fileID: 0}
+  SpeedBoost: 0
+  speedBoostAmount: 0
+  speedBoostDuration: 0
+  isDouble: 0
+  price: 125000
+  weaponName: True Murasama
+  oldMeleeSystem: 0
+  emptyState: 0
+  throwObject: 0
+  throwObjects: 0
+  isGrav: 0
+  infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
+  startZone: {x: 1, y: 1}
+  tekKoof: 1
+  upKoofFire: 2
+  maxKoof: 26
+  downKoofFirst: 1.5
+  downKoof: 0.1
+  timeBeforeDownKoof: 0.5
+  railgun: 0
+  flamethrower: 0
+  bazooka: 0
+  rocketNum: 0
+  bazookaExplosionRadius: 5
+  bazookaExplosionRadiusSelf: 2.5
+  bazookaImpulseRadius: 6
+  bazookaSpeed: 2
+  grenadeLauncher: 0
+  armoryScale: {x: 50, y: 50, z: 50}
+  armoryRotation: {x: 0, y: 0, z: 0}
+  armoryPosition: {x: 0, y: 0, z: 0}
+  category: 2
+  isZooming: 0
+  scopeNum: 0
+  zoomFov: 0
+  secondBulletSpawn: {fileID: 0}
+  shootLineColor: {r: 0.4044118, g: 0.4044118, b: 0.4044118, a: 1}
+  bulletIndex: 0
+--- !u!114 &7232279858337425185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3136223489716132220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25ae6de24cfdc3469b586d164d376d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents: []
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &3240180725609685427
 GameObject:
   m_ObjectHideFlags: 0
@@ -2217,6 +2375,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4605889767891881907}
+  - {fileID: 3298015020839742415}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2256,6 +2415,7 @@ MonoBehaviour:
   meleeAngle: 90
   multiplayerDamage: 150
   meleeAttackTimeModifier: 0.65
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -2264,10 +2424,10 @@ MonoBehaviour:
   bloomHigh: 0
   isShotgun: 0
   numOfPellets: 0
-  hasAlternateShot: 0
-  hasInspect: 1
+  hasAlternateShot: 1
+  hasInspect: 0
   hasDoubleInspect: 0
-  alternateShot: {fileID: 0}
+  alternateShot: {fileID: 1028589803188895668}
   hasRecoil: 0
   recoil: 0
   hasUpgrades: 0
@@ -2286,6 +2446,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -3321,7 +3488,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 0
 --- !u!4 &6151432329092176177
 Transform:
@@ -3331,7 +3498,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7971084042066479913}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.19455923, y: -2.93643, z: 0.32073736}
+  m_LocalPosition: {x: 0.103, y: -2.93643, z: 0.32073736}
   m_LocalScale: {x: 5.0846252, y: 5.183169, z: 0.16810995}
   m_Children: []
   m_Father: {fileID: 4608569929141894807}
