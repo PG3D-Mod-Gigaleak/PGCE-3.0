@@ -13,10 +13,8 @@ GameObject:
   - component: {fileID: 5858180234204421337}
   - component: {fileID: 5917024947354924321}
   - component: {fileID: 5956969083786808507}
-  - component: {fileID: 3669327953710905076}
   - component: {fileID: 2925679163976505461}
   - component: {fileID: 5005088418226573184}
-  - component: {fileID: 3671315702563879561}
   m_Layer: 0
   m_Name: Weapon282
   m_TagString: Untagged
@@ -121,7 +119,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 6
       minScalar: 0.7
       maxCurve:
         serializedVersion: 2
@@ -916,12 +914,48 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
+          value: 0
+          inSlope: 16.233334
+          outSlope: 16.233334
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.06160164
+          value: 1
+          inSlope: 8.116667
+          outSlope: 8.116667
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.12715688
           value: 1
           inSlope: 0
           outSlope: 0
           tangentMode: 34
           weightedMode: 0
-          inWeight: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.24845995
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
+          time: 0.50513345
+          value: 1
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 34
+          weightedMode: 0
+          inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
           time: 1
@@ -4777,22 +4811,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!111 &3669327953710905076
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6020258191913226195}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: a58bb86d70005a44b9db9b113e1ada38, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: a58bb86d70005a44b9db9b113e1ada38, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &2925679163976505461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4826,16 +4844,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5
   m_Center: {x: 0.010585904, y: 0.04034031, z: 0.000000004808939}
---- !u!114 &3671315702563879561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6020258191913226195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85e7516dcb931034ab0f77fe7948325a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eulersPerSecond: {x: 360, y: 360, z: 360}
