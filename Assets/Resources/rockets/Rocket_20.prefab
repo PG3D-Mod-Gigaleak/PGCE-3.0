@@ -189,9 +189,9 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.68571484, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.5601052, g: 1, b: 0, a: 1}
   m_Intensity: 5
-  m_Range: 5
+  m_Range: 2
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -222,7 +222,7 @@ Light:
       e33: 1
     m_UseCullingMatrixOverride: 0
   m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
+  m_DrawHalo: 1
   m_Flare: {fileID: 0}
   m_RenderMode: 0
   m_CullingMask:
@@ -375,7 +375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866161655817652}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000016292068}
-  m_LocalPosition: {x: 0, y: 30.450256, z: -18.554718}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4006052622160857}
@@ -445,8 +445,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 20
-      minScalar: 10
+      scalar: 0
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve: []
@@ -525,8 +525,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 4
-      minScalar: 2
+      scalar: 1.5
+      minScalar: 1.5
       maxCurve:
         serializedVersion: 2
         m_Curve: []
@@ -746,7 +746,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 20
       minScalar: 10
       maxCurve:
         serializedVersion: 2
