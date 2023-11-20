@@ -66,6 +66,7 @@ public class OreSpawner : MonoBehaviour
 	            RenderSettings.ambientLight = AstralColor;
                 RenderSettings.fogColor = AstralColor;
                 RenderSettings.fogDensity = newDensity;
+                GameObject.Find("Directional Light").GetComponent<Light>().color = AstralColor;
                 isAstral = true;
             }
         }
