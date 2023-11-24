@@ -126,6 +126,32 @@ public class DamageZone : MonoBehaviour
 //                    Debug.LogError("DamagePlayer");
     }
 
+	private void OnCollisionEnter(Collision other)
+	{
+		originalObject = gameObject;
+		GameObject[] FindSender = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject gameObject in FindSender)
+		{
+			isMine = gameObject.GetComponent<FirstPersonControl>().isMine;
+			if (isMine == true)
+			{
+				damageSender = gameObject;
+			}
+		}
+		_weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
+		Debug.LogError("RocketCollide");
+		if (gameObject.transform.GetChild(0).gameObject.GetComponent<LifeRocket>().VelocityDamage == true)
+		{
+			if (other.gameObject.tag == "ZombieCollider")
+			{
+				other.gameObject.transform.parent.gameObject.GetComponent<InitializeHealthbar>().DamageNPC("Zombie",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
+			}
+            if (other.gameObject.tag == "BodyCollider" || other.gameObject.tag == "HeadCollider" )
+		    {
+				other.gameObject.transform.parent.gameObject.GetComponent<InitializeHealthbar>().DamageNPC("Player",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
+		    }
+	    }
+	}
     void Update()
     {
         timer -= Time.deltaTime;
