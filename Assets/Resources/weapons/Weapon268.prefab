@@ -212,6 +212,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 0
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -242,6 +243,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -340,7 +348,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2706388761002147457}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -66.257, y: 94.049, z: -69.541}
+  m_LocalEulerAnglesHint: {x: -72.12428, y: 73.315575, z: -47.863754}
 --- !u!33 &2731305447010688256
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -510,7 +518,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2706388761002147457}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 7.6770005, y: -23.438002, z: 20.518002}
+  m_LocalEulerAnglesHint: {x: 6.6719704, y: -17.552948, z: 10.259389}
 --- !u!33 &2732026514170781737
 MeshFilter:
   m_ObjectHideFlags: 0
