@@ -494,6 +494,14 @@ MonoBehaviour:
   hitTexture: {fileID: 2800000, guid: 6f5b96be682e8b04f8635781cfd80397, type: 3}
   typeZombInMas: 0
   tekAnim: -1
+  SelfObject: {fileID: 0}
+  _weaponManager: {fileID: 0}
+  healthoffriendly: 1
+  healthofenemy: 1
+  damagetofriendly: 1
+  damagetoenemy: 1
+  OtherName: 
+  SelfName: 
 --- !u!114 &7922421395255531592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,8 +514,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba4837fc99673249a5700f4cbf4b434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alreadyHealthbar: 0
   Healthbar: {fileID: 3361972340383323923, guid: 8fc79a260fe40e749a518c0f56a43cee,
     type: 3}
+  maxhealth: 0
+  alreadyTimedBar: 0
+  previousObjects: []
 --- !u!1 &1424389593454508
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class CursedArena : MonoBehaviour
     public List<GameObject> ListOfEnemies;
     private bool PlayerInitiate = false;
 
-    private int Phase1Index = 1;
+    private int Phase1Index = 0;
     private int Phase2Index = 2;
     private int Phase3Index = 3;
     private AudioSource bgmusic;
@@ -33,7 +33,7 @@ public class CursedArena : MonoBehaviour
         if (GameObject.Find("Player(Clone)") && PlayerInitiate == false)
         {
             PlayerInitiate = true;
-            BossRush(1);
+            BossRush(0);
         }
     }
 
@@ -79,14 +79,6 @@ public class CursedArena : MonoBehaviour
         {
             CurrentEnemy.transform.GetChild(0).GetComponent<Sounds>().health = 10000f;
             CurrentEnemy.GetComponent<ZombiUpravlenie>().health = 10000f;
-        }
-        foreach (Transform child in transform)
-        {
-            if (child.gameObject.tag == "ZombieCollider" || child.gameObject.tag == "Player")
-            {
-                continue;
-            }
-            child.gameObject.tag = "donotchange";
         }
 
 
