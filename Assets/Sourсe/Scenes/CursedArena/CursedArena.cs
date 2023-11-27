@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class CursedArena : MonoBehaviour
 {
-
     public Color Phase1Color;
     public Color Phase2Color;
     public Color Phase3Color;
@@ -13,9 +12,11 @@ public class CursedArena : MonoBehaviour
     public AudioClip Phase2Music;
     public AudioClip Phase3Music;
     public Color fogColor;
+    public Material Skybox1;
+    public Material Skybox2;
+    public Material Skybox3;
     public List<GameObject> ListOfEnemies;
     private bool PlayerInitiate = false;
-
     private int Phase1Index = 0;
     private int Phase2Index = 2;
     private int Phase3Index = 3;
@@ -45,7 +46,7 @@ public class CursedArena : MonoBehaviour
             bgmusic.clip = Phase1Music;
             bgmusic.volume = 1f;
             bgmusic.Play();
-            // RenderSettings.skybox.color = Phase1Color;
+            RenderSettings.skybox = Skybox1;
             RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, Phase1Color, 1f);
             RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor,Phase1Color,1f);
         }
@@ -55,6 +56,7 @@ public class CursedArena : MonoBehaviour
             bgmusic.clip = Phase2Music;
             bgmusic.volume = 1f;
             bgmusic.Play();
+            RenderSettings.skybox = Skybox2;
             // RenderSettings.skybox.color = Phase2Color;
             RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, Phase2Color, 1f);
             RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor,Phase2Color,1f);
@@ -65,6 +67,7 @@ public class CursedArena : MonoBehaviour
             bgmusic.clip = Phase3Music;
             bgmusic.volume = 1f;
             bgmusic.Play();
+            RenderSettings.skybox = Skybox3;
             // RenderSettings.skybox.color = Phase3Color;
             RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, Phase3Color, 1f);
             RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor,Phase3Color,1f);
