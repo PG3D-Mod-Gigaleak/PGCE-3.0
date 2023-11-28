@@ -22,7 +22,11 @@ public class LockDetect : MonoBehaviour
     private Transform oldTarget = null;
     private Collider takenTarget = null;
     public bool hasTarget = false;
-
+    
+    void Start()
+    {
+        LockCrosshair.GetComponent<DespawnObject>().hostObject = gameObject;
+    }
     public void DamageCall()
     {
         if (hasTarget == true)
