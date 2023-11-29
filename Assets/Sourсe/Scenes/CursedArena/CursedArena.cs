@@ -72,7 +72,7 @@ public class CursedArena : MonoBehaviour
             RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, Phase3Color, 1f);
             RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor,Phase3Color,1f);
         }
-        GameObject CurrentEnemy = Instantiate(ListOfEnemies[EnemyIndex], new Vector3(Random.Range(-10,10),transform.position.y,Random.Range(-10,10)), Quaternion.identity);
+        GameObject CurrentEnemy = PhotonNetwork.Instantiate(LoadEnemy(EnemyIndex), new Vector3(Random.Range(-10,10),transform.position.y,Random.Range(-10,10)), Quaternion.identity, 0);
         if (CurrentEnemy.TryGetComponent<ZombiUpravlenie>(out ZombiUpravlenie health) == false)
         {
             Destroy(CurrentEnemy);
@@ -90,6 +90,12 @@ public class CursedArena : MonoBehaviour
 //        CurrentEnemy.GetComponent<BotMovement>().enabled = false;
 //        CurrentEnemy.GetComponent<BotAI>().enabled = false;
         CheckHealth(EnemyIndex, CurrentEnemy);
+    }
+
+    string LoadEnemy(int EnemyIndex)
+    {
+        string enemy = ListOfEnemies[EnemyIndex].name;
+        return enemy.StartsWith("Enemy") ? "enemies/" + enemy : "bosses/" + enemy;
     }
 
     void CheckHealth(int EnemyIndex, GameObject CurrentEnemy)

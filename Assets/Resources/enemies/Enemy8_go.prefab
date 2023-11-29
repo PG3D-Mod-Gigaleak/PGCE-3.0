@@ -640,6 +640,9 @@ GameObject:
   - component: {fileID: 114188727161880803}
   - component: {fileID: 195486411947728353}
   - component: {fileID: 4320928760194097742}
+  - component: {fileID: 4818576367887635532}
+  - component: {fileID: 3805506345454262925}
+  - component: {fileID: 7891256132483964140}
   m_Layer: 0
   m_Name: Enemy8_go
   m_TagString: Enemy
@@ -860,5 +863,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba4837fc99673249a5700f4cbf4b434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alreadyHealthbar: 0
   Healthbar: {fileID: 3361972340383323923, guid: 8fc79a260fe40e749a518c0f56a43cee,
     type: 3}
+  maxhealth: 0
+  alreadyTimedBar: 0
+  previousObjects: []
+--- !u!114 &4818576367887635532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950321264163080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25ae6de24cfdc3469b586d164d376d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 2
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents: []
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
+--- !u!114 &3805506345454262925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950321264163080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6cd61039c0dbd74b9e32d7e213dfe26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7891256132483964140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950321264163080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d54524176ea4f954fac69b6112f095e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerKill: {fileID: 0}
+  deaded: 0
+  Friendly: 0
+  target: {fileID: 0}
+  health: 0
+  hitTexture: {fileID: 2800000, guid: 6f5b96be682e8b04f8635781cfd80397, type: 3}
+  typeZombInMas: 0
+  tekAnim: -1
+  SelfObject: {fileID: 0}
+  _weaponManager: {fileID: 0}
+  healthoffriendly: 1
+  healthofenemy: 1
+  damagetofriendly: 1
+  damagetoenemy: 1
+  OtherName: 
+  SelfName: 
