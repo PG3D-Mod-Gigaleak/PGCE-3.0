@@ -25,6 +25,8 @@ public class DamageZone : MonoBehaviour
 	public bool SendData = false;
 	public bool Damaged = false;
 	public bool OnlyDamageByScript = false;
+	public bool UseCollisionEnter = false;
+	private bool CollisionDamage = false;
 
 	public Transform target = null;
 	private void Awake()
@@ -34,7 +36,7 @@ public class DamageZone : MonoBehaviour
 		isCompany = false;//prefs.GetInt("company", 0) == 1;
 		isCOOP = prefs.GetInt("COOP") == 1;
 	}
-    void OnTriggerStay(Collider other)
+    public void OnTriggerStay(Collider other)
     {
 		if (OnlyDamageByScript == false)
 		{
@@ -158,9 +160,9 @@ public class DamageZone : MonoBehaviour
 		}
 		timer = damageCooldown;
 	}
-	private void OnCollisionEnter(Collision other)
+	public void OnCollisionEnter(Collision other)
 	{
-		if (gameObject.transform.GetChild(0).gameObject.GetComponent<LifeRocket>().VelocityDamage == true && OnlyDamageByScript == false)
+		if (CollisionDamage == true && OnlyDamageByScript == false)
 		{
 		    originalObject = gameObject;
 		    GameObject[] FindSender = GameObject.FindGameObjectsWithTag("Player");
@@ -192,5 +194,9 @@ public class DamageZone : MonoBehaviour
     void Update()
     {
 		timer -= Time.deltaTime;
+		if (gameObject.transform.GetChild(0).gameObject.GetComponent<LifeRocket>().VelocityDamage == true || UseCollisionEnter == true)
+		{
+			CollisionDamage = true;
+		}
     }
 }
