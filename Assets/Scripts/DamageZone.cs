@@ -26,7 +26,7 @@ public class DamageZone : MonoBehaviour
 	public bool Damaged = false;
 	public bool OnlyDamageByScript = false;
 	public bool UseCollisionEnter = false;
-	private bool CollisionDamage = false;
+	public bool CollisionDamage = false;
 
 	public Transform target = null;
 	private void Awake()
@@ -179,15 +179,19 @@ public class DamageZone : MonoBehaviour
     
 		    if (other.gameObject.tag == "ZombieCollider")
 		    {
+				if (SendData == true)
+		        {
+		        	Damaged = true;
+		        }
 		    	other.gameObject.transform.parent.gameObject.GetComponent<InitializeHealthbar>().DamageNPC("Zombie",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
 		    }
             if (other.gameObject.tag == "BodyCollider" || other.gameObject.tag == "HeadCollider" )
 		    {
+				if (SendData == true)
+		        {
+		        	Damaged = true;
+		        }
 		    	other.gameObject.transform.parent.gameObject.GetComponent<InitializeHealthbar>().DamageNPC("Player",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
-		    }
-		    if (SendData == true)
-		    {
-		    	Damaged = true;
 		    }
 	    }
 	}
