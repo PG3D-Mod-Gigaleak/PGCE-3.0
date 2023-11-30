@@ -14,12 +14,11 @@ public class TogglePGX : MonoBehaviour
         {
             isHolding = true;
             isEnabled = true;
-            peekpivot = gameObject.transform;
-            peekpivot.GetChild(0).GetComponent<Camera>().renderingPath = RenderingPath.DeferredShading;
-            peekpivot.GetChild(0).GetComponent<PostProcessVolume>().enabled = true;
-            peekpivot.GetChild(0).GetComponent<PostProcessLayer>().enabled = true;
-            peekpivot.GetChild(0).GetChild(0).GetComponent<Camera>().renderingPath = RenderingPath.DeferredShading;
-            peekpivot.GetChild(0).GetChild(0).GetComponent<PostProcessLayer>().enabled = true;
+            gameObject.transform.GetComponent<Camera>().renderingPath = RenderingPath.DeferredShading;
+            gameObject.transform.GetComponent<PostProcessVolume>().enabled = true;
+            gameObject.transform.GetComponent<PostProcessLayer>().enabled = true;
+            gameObject.transform.GetChild(0).GetComponent<Camera>().renderingPath = RenderingPath.DeferredShading;
+            gameObject.transform.GetChild(0).GetComponent<PostProcessLayer>().enabled = true;
         }
         else if (Input.GetKeyUp(KeyCode.P) && isHolding == true && isEnabled == true)
         {
@@ -29,12 +28,11 @@ public class TogglePGX : MonoBehaviour
         {
             isHolding = true;
             isEnabled = false;
-            peekpivot = gameObject.transform;
-            peekpivot.GetChild(0).GetComponent<Camera>().renderingPath = RenderingPath.Forward;
-            peekpivot.GetChild(0).GetComponent<PostProcessVolume>().enabled = false;
-            peekpivot.GetChild(0).GetComponent<PostProcessLayer>().enabled = false;
-            peekpivot.GetChild(0).GetChild(0).GetComponent<Camera>().renderingPath = RenderingPath.Forward;
-            peekpivot.GetChild(0).GetChild(0).GetComponent<PostProcessLayer>().enabled = false;
+            gameObject.transform.GetComponent<Camera>().renderingPath = RenderingPath.Forward;
+            gameObject.transform.GetComponent<PostProcessVolume>().enabled = false;
+            gameObject.transform.GetComponent<PostProcessLayer>().enabled = false;
+            gameObject.transform.GetChild(0).GetComponent<Camera>().renderingPath = RenderingPath.Forward;
+            gameObject.transform.GetChild(0).GetComponent<PostProcessLayer>().enabled = false;
         }
         else if (Input.GetKeyUp(KeyCode.P) && isHolding == true && isEnabled == false)
         {
