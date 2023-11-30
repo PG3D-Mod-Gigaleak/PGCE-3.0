@@ -14,8 +14,10 @@ public class PGXPool : MonoBehaviour
             foreach (GameObject player in Players)
             {
                 peekpivot = player.transform.Find("PeekPivot");
+                peekpivot.GetChild(0).GetComponent<Camera>().renderingPath = RenderingPath.DeferredShading;
                 peekpivot.GetChild(0).GetComponent<PostProcessVolume>().enabled = true;
                 peekpivot.GetChild(0).GetComponent<PostProcessLayer>().enabled = true;
+                peekpivot.GetChild(0).GetChild(0).GetComponent<Camera>().renderingPath = RenderingPath.DeferredShading;
                 peekpivot.GetChild(0).GetChild(0).GetComponent<PostProcessLayer>().enabled = true;
             }
         }
