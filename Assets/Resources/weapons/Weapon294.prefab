@@ -854,8 +854,10 @@ MonoBehaviour:
   LockCrosshair: {fileID: 2266002984261409097, guid: 298b763252f79004398515e7bea2732e,
     type: 3}
   Impact: {fileID: 1203038422714984, guid: 45e7c3d110e389c4fbbb08c99d680d51, type: 3}
+  hasLaser: 0
+  Laser: {fileID: 0}
   SameTarget: 0
-  maxMultiplayerDamage: 200
+  maxMultiplayerDamage: 2
   maxCoopDamage: 10000
   lockTime: 3
   alreadyInstantiated: 0
@@ -883,4 +885,6 @@ MonoBehaviour:
   SendData: 1
   Damaged: 0
   OnlyDamageByScript: 1
+  UseCollisionEnter: 0
+  CollisionDamage: 0
   target: {fileID: 0}
