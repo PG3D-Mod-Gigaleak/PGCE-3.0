@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-
+using UnityEngine.Rendering.PostProcessing;
 public class CursedArena : MonoBehaviour
 {
     public Color Phase1Color;
@@ -15,6 +15,10 @@ public class CursedArena : MonoBehaviour
     public Material Skybox1;
     public Material Skybox2;
     public Material Skybox3;
+
+    public Color GradingColor1;
+    public Color GradingColor2;
+    public Color GradingColor3;
     public List<GameObject> ListOfEnemies;
     private bool PlayerInitiate = false;
     private int Phase1Index = 0;
@@ -49,6 +53,20 @@ public class CursedArena : MonoBehaviour
             RenderSettings.skybox = Skybox1;
             RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, Phase1Color, 1f);
             RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor,Phase1Color,1f);
+            GameObject.Find("Directional light").GetComponent<Light>().color = Phase1Color;
+            GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject player in Players)
+            {
+                Transform peekpivot = player.transform.Find("PeekPivot");
+                PostProcessVolume postprocessvolume = peekpivot.GetChild(0).GetComponent<PostProcessVolume>();
+                Bloom _bl;
+                ColorGrading _cg;
+                // postprocessvolume.profile.TryGetSettings(out _bl);
+                postprocessvolume.profile.TryGetSettings(out _cg);
+                //_bl.color.value = Phase1Color;
+                _cg.colorFilter.value = Phase1Color;
+                _cg.colorFilter.value = GradingColor1;
+            }
         }
         else if (EnemyIndex == Phase2Index)
         {
@@ -60,6 +78,20 @@ public class CursedArena : MonoBehaviour
             // RenderSettings.skybox.color = Phase2Color;
             RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, Phase2Color, 1f);
             RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor,Phase2Color,1f);
+            GameObject.Find("Directional light").GetComponent<Light>().color = Phase2Color;
+            GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject player in Players)
+            {
+                Transform peekpivot = player.transform.Find("PeekPivot");
+                PostProcessVolume postprocessvolume = peekpivot.GetChild(0).GetComponent<PostProcessVolume>();
+                Bloom _bloom;
+                ColorGrading _cg;
+                // postprocessvolume.profile.TryGetSettings(out _bloom);
+                postprocessvolume.profile.TryGetSettings(out _cg);
+                // _bloom.color.value = Phase2Color;
+                _cg.colorFilter.value = Phase2Color;
+                _cg.colorFilter.value = GradingColor2;
+            }
         }
         else if (EnemyIndex == Phase3Index)
         {
@@ -71,6 +103,19 @@ public class CursedArena : MonoBehaviour
             // RenderSettings.skybox.color = Phase3Color;
             RenderSettings.ambientLight = Color.Lerp(RenderSettings.ambientLight, Phase3Color, 1f);
             RenderSettings.fogColor = Color.Lerp(RenderSettings.fogColor,Phase3Color,1f);
+            GameObject.Find("Directional light").GetComponent<Light>().color = Phase3Color;
+            GameObject[] Players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject player in Players)
+            {
+                Transform peekpivot = player.transform.Find("PeekPivot");
+                PostProcessVolume postprocessvolume = peekpivot.GetChild(0).GetComponent<PostProcessVolume>();
+                Bloom _bloom;
+                ColorGrading _cg;
+                // postprocessvolume.profile.TryGetSettings(out _bloom);
+                postprocessvolume.profile.TryGetSettings(out _cg);
+                // _bloom.color.value = Phase3Color;
+                _cg.colorFilter.value = GradingColor3;
+            }
         }
         GameObject CurrentEnemy = PhotonNetwork.Instantiate(LoadEnemy(EnemyIndex), new Vector3(Random.Range(-10,10),transform.position.y,Random.Range(-10,10)), Quaternion.identity, 0);
         if (CurrentEnemy.TryGetComponent<ZombiUpravlenie>(out ZombiUpravlenie health) == false)
