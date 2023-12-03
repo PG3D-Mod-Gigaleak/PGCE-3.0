@@ -9,6 +9,13 @@ public class ZenithSword : MonoBehaviour
     public float decelerationmulti = 1f;
     public Transform spawner;
     public bool GoBack = false;
+    public List<GameObject> ImpactList = new List<GameObject>();
+    public GameObject ImpactFX;
+    public float ImpactCooldownS;
+    void Start()
+    {
+        ImpactCooldownS = gameObject.GetComponent<DamageZone>().damageCooldown;
+    }
 
     public float Distance = 0f;
     void Update()
@@ -33,5 +40,43 @@ public class ZenithSword : MonoBehaviour
         {
             Destroy(transform.parent.gameObject);
         }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "BodyCollider")
+        {
+            if (other.transform.parent == host)
+            {
+                return;
+            }
+        }
+        if (!ImpactList.Contains(other.gameObject))
+        {
+            if (other.tag == "ZombieCollider" && other.transform.parent.GetComponent<ZombiUpravlenie>().health > 0f)
+            {
+                GameObject Impact = Instantiate(ImpactFX, other.transform.position, Quaternion.identity);
+                Color swordcolor = gameObject.GetComponent<Renderer>().material.GetColor("_Color");
+                Impact.GetComponent<ParticleSystemRenderer>().material.SetColor("_TintColor",swordcolor);
+                ImpactList.Add(other.gameObject);
+                int newindex = ImpactList.Count - 1;
+                StartCoroutine(ImpactCooldown(ImpactList[newindex]));
+            }
+            if (other.tag == "BodyCollider" && other.transform.parent.GetComponent<SkinName>().playerMoveC.CurHealth > 0f)
+            {
+                GameObject Impact = Instantiate(ImpactFX, other.transform.position, Quaternion.identity);
+                Color swordcolor = gameObject.GetComponent<Renderer>().material.GetColor("_Color");
+                Impact.GetComponent<ParticleSystemRenderer>().material.SetColor("_TintColor",swordcolor);
+                ImpactList.Add(other.gameObject);
+                int newindex = ImpactList.Count - 1;
+                StartCoroutine(ImpactCooldown(ImpactList[newindex]));
+            }
+        }
+    }
+
+    IEnumerator ImpactCooldown(GameObject newobject)
+    {
+        yield return new WaitForSeconds(ImpactCooldownS);
+        ImpactList.Remove(newobject);
     }
 }
