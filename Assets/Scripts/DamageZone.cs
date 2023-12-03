@@ -198,9 +198,13 @@ public class DamageZone : MonoBehaviour
     void Update()
     {
 		timer -= Time.deltaTime;
-		if (gameObject.transform.GetChild(0).gameObject.GetComponent<LifeRocket>().VelocityDamage == true || UseCollisionEnter == true)
+		LifeRocket _lf = GetComponentInChildren<LifeRocket>();
+		if (_lf != null)
 		{
-			CollisionDamage = true;
+		    if (_lf.VelocityDamage == true || UseCollisionEnter == true)
+		    {
+		    	CollisionDamage = true;
+		    }
 		}
     }
 }
