@@ -64,7 +64,6 @@ public class CursedArena : MonoBehaviour
                 // postprocessvolume.profile.TryGetSettings(out _bl);
                 postprocessvolume.profile.TryGetSettings(out _cg);
                 //_bl.color.value = Phase1Color;
-                _cg.colorFilter.value = Phase1Color;
                 _cg.colorFilter.value = GradingColor1;
             }
         }
@@ -89,7 +88,6 @@ public class CursedArena : MonoBehaviour
                 // postprocessvolume.profile.TryGetSettings(out _bloom);
                 postprocessvolume.profile.TryGetSettings(out _cg);
                 // _bloom.color.value = Phase2Color;
-                _cg.colorFilter.value = Phase2Color;
                 _cg.colorFilter.value = GradingColor2;
             }
         }
