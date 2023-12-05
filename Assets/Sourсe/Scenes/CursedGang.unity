@@ -3615,19 +3615,19 @@ MonoBehaviour:
   BossPos: {x: 22, y: 2, z: 144}
   SpawnToSpawnBox: 0
   SpawnBox: {fileID: 0}
-  ChangeFog: 0
+  ChangeFog: 1
   fogColor: {r: 0, g: 0, b: 0, a: 0}
-  fogDensity: 0
-  ChangeSkybox: 0
-  AmbientColor: {r: 0, g: 0, b: 0, a: 0}
-  SkyboxColor: {r: 0, g: 0, b: 0, a: 0}
-  ChangeToSkybox: {fileID: 0}
-  ChangeGrading: 0
-  ColorGradingColor: {r: 0, g: 0, b: 0, a: 0}
-  ChangeLight: 0
-  DirectionalLightColor: {r: 0, g: 0, b: 0, a: 0}
-  DirectionalLightIntensity: 0
-  DirectionalLightRange: 0
+  fogDensity: 0.18
+  ChangeSkybox: 1
+  AmbientColor: {r: 0.4392157, g: 0, b: 1, a: 0}
+  SkyboxColor: {r: 0.4392157, g: 0, b: 1, a: 0}
+  ChangeToSkybox: {fileID: 2100000, guid: 5aee31da8eefd0643ab24847936c30d3, type: 2}
+  ChangeGrading: 1
+  ColorGradingColor: {r: 0.78044766, g: 0.6084906, b: 1, a: 1}
+  ChangeLight: 1
+  DirectionalLightColor: {r: 0.4392157, g: 0, b: 1, a: 1}
+  DirectionalLightIntensity: 1
+  DirectionalLightRange: 1
   ArenaEnable: {fileID: 896886285}
 --- !u!33 &845238997
 MeshFilter:
@@ -19486,7 +19486,7 @@ Transform:
   m_GameObject: {fileID: 2037054642}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -30, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 10, y: 1.5, z: 10}
   m_Children:
   - {fileID: 1527733673}
   m_Father: {fileID: 0}

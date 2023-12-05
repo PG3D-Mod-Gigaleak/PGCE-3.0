@@ -61,15 +61,19 @@ public class Bullet : MonoBehaviour
 
 	void DestroySelf()
 	{
-		Destroy(gameObject);
 		if (destroyEffect)
 		{
 			Instantiate(effect, transform.position, transform.rotation);
 		}
+		Destroy(gameObject);
 	}
 
-	void OnTriggerEnter()
+	void OnTriggerEnter(Collider other)
 	{
+		// if (gameObject.tag == "MarksmanBullet" && ( other.tag == "PlayerCoin" || other.tag == "EnemyCoin" ))
+		// {
+		// 	return;
+		// }
 		DestroySelf();
 	}
 

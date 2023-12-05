@@ -185,7 +185,7 @@ public class DamageZone : MonoBehaviour
 		        }
 		    	other.gameObject.transform.parent.gameObject.GetComponent<InitializeHealthbar>().DamageNPC("Zombie",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
 		    }
-            if (other.gameObject.tag == "BodyCollider" || other.gameObject.tag == "HeadCollider" )
+            else if (other.gameObject.tag == "BodyCollider" || other.gameObject.tag == "HeadCollider")
 		    {
 				if (SendData == true)
 		        {
@@ -193,6 +193,14 @@ public class DamageZone : MonoBehaviour
 		        }
 		    	other.gameObject.transform.parent.gameObject.GetComponent<InitializeHealthbar>().DamageNPC("Player",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
 		    }
+			else if (other.gameObject.tag == "Player")
+			{
+				if (SendData == true)
+		        {
+		        	Damaged = true;
+		        }
+				other.gameObject.GetComponent<InitializeHealthbar>().DamageNPC("Player",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
+			}
 	    }
 	}
     void Update()
