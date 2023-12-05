@@ -6,7 +6,6 @@ public class TogglePGX : MonoBehaviour
 {
     private bool isHolding = false;
     private bool isEnabled = false;
-    private Transform peekpivot;
     void Update()
     {
 

@@ -31,6 +31,7 @@ public class Teleport1 : MonoBehaviour
     public float DirectionalLightIntensity;
     public float DirectionalLightRange;
     public GameObject ArenaEnable;
+    private Transform maincamera = null;
 
     void Start()
     {
@@ -71,7 +72,15 @@ public class Teleport1 : MonoBehaviour
         if (ChangeGrading == true)
         {
             Transform peekpivot = player.transform.Find("PeekPivot");
-            PostProcessVolume postprocessvolume = peekpivot.GetChild(0).GetComponent<PostProcessVolume>();
+            if (peekpivot.transform.Find("Main Camera"))
+            {
+            maincamera = peekpivot.transform.Find("Main Camera");
+            }
+            else
+            {
+            maincamera = player.transform.Find("Main Camera");
+            }
+            PostProcessVolume postprocessvolume = maincamera.GetComponent<PostProcessVolume>();
             Bloom _bl;
             ColorGrading _cg;
             // postprocessvolume.profile.TryGetSettings(out _bl);
