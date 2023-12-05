@@ -133,50 +133,50 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 
 	public static void SetTextureRecursivelyFrom(GameObject obj, Texture txt)
 	{
-		foreach (Transform item in obj.transform)
-		{
-			if ((bool)item.gameObject.GetComponent<Renderer>() && (bool)item.gameObject.GetComponent<Renderer>().material)
-			{
-				if (item.gameObject.GetComponent<Renderer>().materials.Length > 1 && item.gameObject.name.Equals("raven_head"))
-				{
-					Material[] materials = item.gameObject.GetComponent<Renderer>().materials;
-					foreach (Material material in materials)
-					{
-						if (material.name.Equals("raven_eye (Instance)"))
-						{
-							if (GlobalGameController.currentLevel == 6)
-							{
-								material.color = new Color(0.32156864f, 0f, 44f / 85f);
-							}
-						}
-						else
-						{
-							if (item.tag != "donotchange" && item.tag != "ObjectLabel")
-							{
-								material.mainTexture = txt;
-							}
-						}
-					}
-				}
-				else
-				{
-					if (item.tag != "donotchange" && item.tag != "ObjectLabel")
-					{
-						item.gameObject.GetComponent<Renderer>().material.mainTexture = txt;
-					}
-				}
-			}
-			SetTextureRecursivelyFrom(item.gameObject, txt);
-		}
+		// foreach (Transform item in obj.transform)
+		// {
+		// 	if ((bool)item.gameObject.GetComponent<Renderer>() && (bool)item.gameObject.GetComponent<Renderer>().material)
+		// 	{
+		// 		if (item.gameObject.GetComponent<Renderer>().materials.Length > 1 && item.gameObject.name.Equals("raven_head"))
+		// 		{
+		// 			Material[] materials = item.gameObject.GetComponent<Renderer>().materials;
+		// 			foreach (Material material in materials)
+		// 			{
+		// 				if (material.name.Equals("raven_eye (Instance)"))
+		// 				{
+		// 					if (GlobalGameController.currentLevel == 6)
+		// 					{
+		// 						material.color = new Color(0.32156864f, 0f, 44f / 85f);
+		// 					}
+		// 				}
+		// 				else
+		// 				{
+		// 					if (item.tag != "donotchange" && item.tag != "ObjectLabel")
+		// 					{
+		// 						material.mainTexture = txt;
+		// 					}
+		// 				}
+		// 			}
+		// 		}
+		// 		else
+		// 		{
+		// 			if (item.tag != "donotchange" && item.tag != "ObjectLabel")
+		// 			{
+		// 				item.gameObject.GetComponent<Renderer>().material.mainTexture = txt;
+		// 			}
+		// 		}
+		// 	}
+		//     SetTextureRecursivelyFrom(item.gameObject, txt);
+		// }
 	}
 
 	private IEnumerator Flash()
 	{
-		_flashing = true;
-		SetTextureRecursivelyFrom(_modelChild, hitTexture);
+		// _flashing = true;
+		// SetTextureRecursivelyFrom(_modelChild, hitTexture);
 		yield return new WaitForSeconds(0.125f);
-		SetTextureRecursivelyFrom(_modelChild, _skin);
-		_flashing = false;
+		// SetTextureRecursivelyFrom(_modelChild, _skin);
+		// _flashing = false;
 	}
 
 	private void Start()

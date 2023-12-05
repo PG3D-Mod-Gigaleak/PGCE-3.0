@@ -28,7 +28,7 @@ public class SupportLogging : MonoBehaviour
     {
         if (LogTrafficStats)
         {
-            this.InvokeRepeating("LogStats", 10, 10);
+            this.InvokeRepeating(nameof(LogStats), 10, 10);
         }
     }
 
@@ -43,7 +43,6 @@ public class SupportLogging : MonoBehaviour
         this.CancelInvoke();
     }
 
-    [Beebyte.Obfuscator.SkipRename]
     public void LogStats()
     {
         if (this.LogTrafficStats)

@@ -40,7 +40,9 @@ public class Bullet : MonoBehaviour
 	}
 
 	public Light pointLight;
-
+	public bool GoesThroughWalls;
+	public bool OldVelocitySystem;
+	public Rigidbody _rg;
 	void Start()
 	{
 		if (changeColor)
@@ -50,27 +52,49 @@ public class Bullet : MonoBehaviour
 		}
 		if (lifetime != -1f)
 		{
-			Invoke("DestroySelf", lifetime);
+			Invoke(nameof(DestroySelf), lifetime);
 		}
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
-		transform.position += transform.forward * (Time.deltaTime * speed);
+		transform.TryGetComponent<Rigidbody>(out _rg);
+		if (_rg == null && GoesThroughWalls == false)
+		{
+			_rg = gameObject.AddComponent<Rigidbody>();
+			BoxCollider _bc = gameObject.AddComponent<BoxCollider>();
+			_bc.center = gameObject.GetComponent<BoxCollider>().center;
+			_bc.size = gameObject.GetComponent<BoxCollider>().size;
+		}
+		if (_rg != null)
+		{
+		_rg.interpolation = RigidbodyInterpolation.Extrapolate;
+		_rg.isKinematic = false;
+		_rg.useGravity = false;
+		_rg.velocity = new Vector3(0f,0f,0f);
+		_rg.AddForce(transform.forward * speed * 100);
+		}
+		if (OldVelocitySystem == true)
+		{
+			transform.position += transform.forward * (Time.deltaTime * speed);
+		}
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	void DestroySelf()
 	{
-		Destroy(gameObject);
 		if (destroyEffect)
 		{
 			Instantiate(effect, transform.position, transform.rotation);
 		}
+		Destroy(gameObject);
 	}
 
-	void OnTriggerEnter()
+	void OnTriggerEnter(Collider other)
 	{
+		// if (gameObject.tag == "MarksmanBullet" && ( other.tag == "PlayerCoin" || other.tag == "EnemyCoin" ))
+		// {
+		// 	return;
+		// }
 		DestroySelf();
 	}
 

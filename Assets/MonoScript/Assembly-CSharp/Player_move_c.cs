@@ -125,7 +125,7 @@ public sealed class Player_move_c : MonoBehaviour
 	{
 		transform.parent.transform.localScale = new Vector3(1f, 1f, 1f);
 		isDeadFrame = false;
-		Invoke("SetNoKilled", 0.5f);
+		Invoke(nameof(SetNoKilled), 0.5f);
 		_weaponManager.myPlayer.GetComponent<SkinName>().camPlayer.transform.parent = _weaponManager.myPlayer.transform;
 		if (!pauserIsPaused())
 		{
@@ -158,7 +158,7 @@ public sealed class Player_move_c : MonoBehaviour
 		Rect rect = new Rect(gameObject.transform.position.x - vector.x / 2f, gameObject.transform.position.z - vector.y / 2f, vector.x, vector.y);
 		Vector3 position = new Vector3(rect.x + UnityEngine.Random.Range(0f, rect.width), gameObject.transform.position.y + 2f, rect.y + UnityEngine.Random.Range(0f, rect.height));
 		transform.parent.transform.position = position;
-		Invoke("ChangePositionAfterRespawn", 0.01f);
+		Invoke(nameof(ChangePositionAfterRespawn), 0.01f);
 		foreach (WeaponOld playerWeapon in _weaponManager.playerWeapons)
 		{
 			playerWeapon.currentAmmoInClip = playerWeapon.weaponPrefab.GetComponent<WeaponSounds>().ammoInClip;
@@ -2019,7 +2019,6 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void SendSpeedModifier()
 	{
 		if (_player != null)
@@ -2307,7 +2306,7 @@ public sealed class Player_move_c : MonoBehaviour
 			CurHealth = MaxPlayerHealth;
 			IncomprehensibleGarbler.Dispatch("UrnyguPunatr", this, understand);
 		}
-		Invoke("SendSpeedModifier", 0.5f);
+		Invoke(nameof(SendSpeedModifier), 0.5f);
 		GameObject gameObject3 = (GameObject)UnityEngine.Object.Instantiate(renderAllObjectPrefab, Vector3.zero, Quaternion.identity);
 		if (_singleOrMultiMine())
 		{
@@ -4237,7 +4236,6 @@ public sealed class Player_move_c : MonoBehaviour
 		Destroy(base.gameObject.transform.parent.gameObject);
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void SetNoKilled()
 	{
 		randomRespawnIndex = UnityEngine.Random.Range(0, respawnPlayerSounds.Length);
@@ -4246,7 +4244,6 @@ public sealed class Player_move_c : MonoBehaviour
 		isKilled = false;
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void ChangePositionAfterRespawn()
 	{
 		if ((bool)base.transform.parent)

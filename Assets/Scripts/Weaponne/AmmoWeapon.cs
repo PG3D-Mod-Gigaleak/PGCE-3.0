@@ -66,7 +66,7 @@ public class AmmoWeapon : Weapon
             weaponAnimation.Play(shootAnimation);
 
             PlayAudio(shootSound);
-            Invoke("ShootSuccess", shotDelay);
+            Invoke(nameof(ShootSuccess), shotDelay);
 
             UpdateBloom(bloom + bloomPerShot);
         }

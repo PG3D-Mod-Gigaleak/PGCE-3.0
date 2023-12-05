@@ -35,15 +35,22 @@ public class InitializeHealthbar : MonoBehaviour
     {
         if (gameObject.CompareTag("Enemy"))
         {
-        gameObject.transform.GetChild(0).tag="ZombieCollider";
-        gameObject.AddComponent<Rigidbody>();
-        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        gameObject.transform.GetChild(0).gameObject.tag= "ZombieCollider";
+        gameObject.transform.GetChild(0).gameObject.AddComponent<Rigidbody>();
+        gameObject.transform.GetChild(0).gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        gameObject.transform.GetChild(0).gameObject.GetComponent<Rigidbody>().useGravity = false;
         maxhealth = transform.GetChild(0).GetComponent<Sounds>().health;
         }
         else if (gameObject.CompareTag("Player"))
         {
-        gameObject.AddComponent<Rigidbody>();
-        gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        gameObject.transform.GetChild(5).gameObject.tag = "BodyCollider";
+        gameObject.transform.GetChild(5).gameObject.AddComponent<Rigidbody>();
+        gameObject.transform.GetChild(5).gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        gameObject.transform.GetChild(5).gameObject.GetComponent<Rigidbody>().useGravity = false;
+        gameObject.transform.GetChild(6).gameObject.tag = "HeadCollider";
+        gameObject.transform.GetChild(6).gameObject.AddComponent<Rigidbody>();
+        gameObject.transform.GetChild(6).gameObject.GetComponent<Rigidbody>().isKinematic = true;
+        gameObject.transform.GetChild(6).gameObject.GetComponent<Rigidbody>().useGravity = false;
         maxhealth = 100f;
         }
     }
@@ -103,6 +110,7 @@ public class InitializeHealthbar : MonoBehaviour
             }
         }
     }
+    
     public void DamageNPC(string typenpc, float coopDamage, float multiplayerDamage, float damageCooldown, WeaponManager _weaponManager, GameObject orgObject, GameObject Sender)
     {
         void DamageNPC2()

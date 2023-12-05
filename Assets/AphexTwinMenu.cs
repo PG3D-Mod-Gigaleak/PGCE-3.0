@@ -52,12 +52,12 @@ public class AphexTwinMenu : MonoBehaviour
 			op.Add(t, t.position);
 		}*/
         lastMat = playerAnim.skinModel.sharedMaterial;
-		Invoke("Beginnage", 11.9f);
-        Invoke("UnBeginnage", 68.3f);
-        Invoke("Beginnage", 79.5f);
-		Invoke("UnBeginnage", 206.3f);
-		Invoke("Beginnage", 235.7f);
-		Invoke("UnBeginnage", 285f);
+		Invoke(nameof(Beginnage), 11.9f);
+        Invoke(nameof(UnBeginnage), 68.3f);
+        Invoke(nameof(Beginnage), 79.5f);
+		Invoke(nameof(UnBeginnage), 206.3f);
+		Invoke(nameof(Beginnage), 235.7f);
+		Invoke(nameof(UnBeginnage), 285f);
 		MenuBackgroundMusic.myAudioSOurce.loop = false;
 		amazingLabel.gameObject.SetActive(true);
 		OriginalF1Scale = f1.GetTextureScale("_MainTex");

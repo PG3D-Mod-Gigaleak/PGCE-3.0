@@ -455,7 +455,6 @@ public sealed class NetworkStartTable : MonoBehaviour
 		}
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	public void startPlayer()
 	{
 		_playerPrefab = Resources.Load("Player") as GameObject;
@@ -616,7 +615,6 @@ public sealed class NetworkStartTable : MonoBehaviour
 		component2.viewID = _id;
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	public void synchState()
 	{
 		if (prefs.GetInt("COOP", 0) == 0)
@@ -691,7 +689,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 		{
 			TwitterManager.requestDidFinishEvent -= OnTwitterPost;
 			showMessagTiwtter = true;
-			Invoke("hideMessagTwitter", 3f);
+			Invoke(nameof(hideMessagTwitter), 3f);
 		}
 	}
 
@@ -700,13 +698,11 @@ public sealed class NetworkStartTable : MonoBehaviour
 		TwitterManager.requestDidFinishEvent -= OnTwitterPost;
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void hideMessag()
 	{
 		showMessagFacebook = false;
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void hideMessagTwitter()
 	{
 		showMessagTiwtter = false;
@@ -767,7 +763,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 			Debug.Log("sendMessag");
 			clickButtonFacebook = false;
 			showMessagFacebook = true;
-			Invoke("hideMessag", 3f);
+			Invoke(nameof(hideMessag), 3f);
 			Facebook.instance.postMessage(_SocialMessage(), completionHandler);
 			return;
 		}
@@ -848,7 +844,7 @@ public sealed class NetworkStartTable : MonoBehaviour
 				showTable = GlobalGameController.showTableMyPlayer;
 				if (!showTable)
 				{
-					Invoke("startPlayer", 0.1f);
+					Invoke(nameof(startPlayer), 0.1f);
 				}
 			}
 			currentCamera = GameObject.FindGameObjectWithTag("GameController").GetComponent<Initializer>().tc.GetComponent<Camera>();
@@ -872,13 +868,13 @@ public sealed class NetworkStartTable : MonoBehaviour
 			{
 				CountKills = GlobalGameController.Score;
 				score = GlobalGameController.Score;
-				Invoke("synchState", 1f);
+				Invoke(nameof(synchState), 1f);
 			}
 			else
 			{
 				CountKills = -1;
 				score = -1f;
-				Invoke("synchState", 1f);
+				Invoke(nameof(synchState), 1f);
 			}
 			synchState();
 			mySkin = SkinsManager.currentMultiplayerSkin();

@@ -66,14 +66,13 @@ public class Rocket : MonoBehaviour
 		}
 		if (!isMulti || isMine)
 		{
-			Invoke("Remove", 7f);
+			Invoke(nameof(Remove), 7f);
 			return;
 		}
 		GetComponent<BoxCollider>().enabled = false;
 		base.transform.GetComponent<Rigidbody>().isKinematic = true;
 	}
 
-	[Obfuscation(Exclude = true)]
 	private void Remove()
 	{
 		if (!isMulti)
@@ -93,22 +92,7 @@ public class Rocket : MonoBehaviour
 		Instantiate(Resources.Load<GameObject>("rockets/Rocket_" + rn), transform);
 	}
 
-	private void OnCollisionEnter(Collision other)
-	{
-		if (other.transform.parent != null)
-		{
-		}
-		if ((other.gameObject.tag == "BluePortal" || other.gameObject.tag == "OrangePortal"))
-		{
-			return;
-		}
-		if ((!other.gameObject.tag.Equals("Player") || !(other.gameObject == _weaponManager.myPlayer)) && (!(other.transform.parent != null) || !other.transform.parent.gameObject.tag.Equals("Player") || !(other.transform.parent.gameObject == _weaponManager.myPlayer)))
-		{
-			KillRocket();
-		}
-	}
-
-	private void KillRocket()
+	public void KillRocket()
 	{
 		if (isKilled)
 		{
@@ -145,7 +129,7 @@ public class Rocket : MonoBehaviour
 	}
 
 	[PunRPC]
-	private void Collide(string _weaponName)
+	public void Collide(string _weaponName)
 	{
 		BazookaExplosion(_weaponName);
 		if (!isMulti)
@@ -154,12 +138,11 @@ public class Rocket : MonoBehaviour
 		}
 		else if (isMine)
 		{
-			Invoke("DestroyRocket", 0.1f);
+			Invoke(nameof(DestroyRocket), 0.1f);
 		}
 	}
 
-	[Obfuscation(Exclude = true)]
-	private void DestroyRocket()
+	public void DestroyRocket()
 	{
 		PhotonNetwork.Destroy(base.gameObject);
 	}
@@ -186,10 +169,9 @@ public class Rocket : MonoBehaviour
 
 	public void ImDestroyRPC()
 	{
-		Invoke("ImDestroy", 0.2f);
+		Invoke(nameof(ImDestroy), 0.2f);
 	}
 
-	[Obfuscation(Exclude = true)]
 	public void ImDestroy()
 	{
 		Object.Destroy(base.gameObject);

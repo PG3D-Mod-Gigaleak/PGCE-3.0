@@ -353,7 +353,7 @@ public class UIDragDropItem : MonoBehaviour
 
 			// Re-enable the drag scroll view script
 			if (mDragScrollView != null)
-				Invoke("EnableDragScrollView", 0.001f);
+				Invoke(nameof(EnableDragScrollView), 0.001f);
 
 			// Notify the widgets that the parent has changed
 			NGUITools.MarkParentAsChanged(gameObject);
@@ -378,7 +378,6 @@ public class UIDragDropItem : MonoBehaviour
 	/// Reason: http://www.tasharen.com/forum/index.php?topic=10203.0
 	/// </summary>
 
-	[Beebyte.Obfuscator.SkipRename]
 	protected void EnableDragScrollView ()
 	{
 		if (mDragScrollView != null)

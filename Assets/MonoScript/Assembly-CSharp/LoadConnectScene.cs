@@ -17,7 +17,7 @@ public sealed class LoadConnectScene : MonoBehaviour
 		//{
 		//	loading = MenuSettings.GetCurrentMenu.loading;
 		//}
-		Invoke("_loadConnectScene", Time.unscaledDeltaTime);
+		Invoke(nameof(_loadConnectScene), Time.unscaledDeltaTime);
 		//aInd = StoreKitEventListener.purchaseActivityInd;
 		//if (aInd == null)
 		//{
@@ -43,7 +43,6 @@ public sealed class LoadConnectScene : MonoBehaviour
 		//GUI.DrawTexture(position, loading, ScaleMode.StretchToFill);
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void _loadConnectScene()
 	{
 		StartCoroutine(lcs());

@@ -211,8 +211,17 @@ MonoBehaviour:
   coopDamage: 300
   multiplayerDamage: 7.5
   damageCooldown: 0.05
+  timer: 0
   _weaponManager: {fileID: 0}
   isPierce: 1
+  originalObject: {fileID: 0}
+  damageSender: {fileID: 0}
+  SendData: 0
+  Damaged: 0
+  OnlyDamageByScript: 0
+  UseCollisionEnter: 0
+  CollisionDamage: 0
+  target: {fileID: 0}
 --- !u!64 &6487488052869052270
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -581,3 +590,6 @@ MonoBehaviour:
   destroyEffect: 0
   effect: {fileID: 0}
   pointLight: {fileID: 7308911134851459021}
+  GoesThroughWalls: 1
+  OldVelocitySystem: 1
+  _rg: {fileID: 0}

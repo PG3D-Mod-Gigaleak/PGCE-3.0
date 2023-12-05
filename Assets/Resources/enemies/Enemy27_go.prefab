@@ -286,7 +286,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4946731819279808}
-  - {fileID: 4208440499485130573}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -534,6 +533,14 @@ MonoBehaviour:
   hitTexture: {fileID: 2800000, guid: 6f5b96be682e8b04f8635781cfd80397, type: 3}
   typeZombInMas: 0
   tekAnim: -1
+  SelfObject: {fileID: 0}
+  _weaponManager: {fileID: 0}
+  healthoffriendly: 1
+  healthofenemy: 1
+  damagetofriendly: 1
+  damagetoenemy: 1
+  OtherName: 
+  SelfName: 
 --- !u!114 &2494132888329393307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -546,8 +553,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ba4837fc99673249a5700f4cbf4b434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alreadyHealthbar: 0
   Healthbar: {fileID: 3361972340383323923, guid: 8fc79a260fe40e749a518c0f56a43cee,
     type: 3}
+  maxhealth: 0
+  alreadyTimedBar: 0
+  previousObjects: []
 --- !u!1 &1364193986093046
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,11 +847,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4946731819279808}
-  - component: {fileID: 114310612835742236}
   - component: {fileID: 111821197101760006}
+  - component: {fileID: 114310612835742236}
   - component: {fileID: 114807602827764892}
-  - component: {fileID: 65028738200272350}
-  - component: {fileID: 9006640739166646967}
+  - component: {fileID: 5442610581943721460}
+  - component: {fileID: 3364965792128978864}
   m_Layer: 0
   m_Name: Enemy27
   m_TagString: ZombieCollider
@@ -865,33 +876,6 @@ Transform:
   m_Father: {fileID: 4958064661907536}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114310612835742236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1457609651179960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b50f97dac90042b4bb3208a2683c7cc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hurt: {fileID: 0}
-  voice: {fileID: 8300000, guid: bfae4f3e8010d3049833762953dda740, type: 3}
-  bite: {fileID: 8300000, guid: ec00596974c24cf4eb33fd795185b359, type: 3}
-  death: {fileID: 8300000, guid: 61c4b6684e6c7a94795e980c58914bdd, type: 3}
-  notAttackingSpeed: 1
-  attackingSpeed: 4
-  health: 150
-  attackDistance: 2
-  timeToHit: 0.25
-  detectRadius: 40
-  damagePerHit: 1
-  scorePerKill: 100
-  attackingSpeedRandomRange:
-  - -0.25
-  - 0.25
 --- !u!111 &111821197101760006
 Animation:
   m_ObjectHideFlags: 0
@@ -912,6 +896,33 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &114310612835742236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457609651179960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b50f97dac90042b4bb3208a2683c7cc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hurt: {fileID: 8300000, guid: 54ae552d0ce52894ca75ac5a9d03f27e, type: 3}
+  voice: {fileID: 8300000, guid: bfae4f3e8010d3049833762953dda740, type: 3}
+  bite: {fileID: 8300000, guid: ec00596974c24cf4eb33fd795185b359, type: 3}
+  death: {fileID: 8300000, guid: 61c4b6684e6c7a94795e980c58914bdd, type: 3}
+  notAttackingSpeed: 1
+  attackingSpeed: 4
+  health: 150
+  attackDistance: 2
+  timeToHit: 0.25
+  detectRadius: 40
+  damagePerHit: 1
+  scorePerKill: 100
+  attackingSpeedRandomRange:
+  - -0.25
+  - 0.25
 --- !u!114 &114807602827764892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,7 +939,7 @@ MonoBehaviour:
   descriptio: not native to the pixel world, can only be found in the world of call
     of mini. extremely dangerous, take caution.
   ruleOut: 0
---- !u!65 &65028738200272350
+--- !u!65 &5442610581943721460
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -939,24 +950,104 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.3622613, y: 0.8932967, z: 0.5194367}
-  m_Center: {x: -0.016461134, y: 0.44901776, z: 0.00938189}
---- !u!54 &9006640739166646967
-Rigidbody:
+  m_Size: {x: 1.4502021, y: 1.6023672, z: 1}
+  m_Center: {x: 0.004576504, y: 0.7926942, z: 0}
+--- !u!82 &3364965792128978864
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1457609651179960}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 4dd1283b32a2fa34c81d4160d1a2e68a, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 3
+  MaxDistance: 25
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1464251264157284
 GameObject:
   m_ObjectHideFlags: 0
@@ -1362,64 +1453,3 @@ Transform:
   m_Father: {fileID: 4946731819279808}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -3.4058838, y: -0.00014315327, z: 90}
---- !u!1 &6687600570012378222
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4208440499485130573}
-  - component: {fileID: 2976122235092392601}
-  - component: {fileID: 4501428487700855863}
-  m_Layer: 0
-  m_Name: ZombieHeadCollider
-  m_TagString: HeadCollider
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4208440499485130573
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6687600570012378222}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.127, y: 1.152, z: -0.056}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4958064661907536}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &2976122235092392601
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6687600570012378222}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!65 &4501428487700855863
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6687600570012378222}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.65944433, y: 0.68174386, z: 0.6759788}
-  m_Center: {x: 0.018334985, y: 0.10492265, z: -0.0311286}

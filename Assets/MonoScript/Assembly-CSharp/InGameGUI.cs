@@ -115,7 +115,7 @@ public class InGameGUI : MonoBehaviour
 	{
 		if (prefs.GetInt("AddCoins", 0) == 1)
 		{
-			Invoke("GenerateMiganie", 1f);
+			Invoke(nameof(GenerateMiganie), 1f);
 			prefs.SetInt("AddCoins", 0);
 		}
 		#if USES_WEBSOCKET
@@ -156,7 +156,6 @@ public class InGameGUI : MonoBehaviour
 		playerMoveC.SendChat(chatInputVal);
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void GenerateMiganie()
 	{
 		CoinsMessage.FireCoinsAddedEvent();

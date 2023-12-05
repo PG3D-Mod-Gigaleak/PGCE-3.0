@@ -60,7 +60,7 @@ public class EtceteraUIManager : MonoBehaviourGUI
 		if (GUILayout.Button("Show Progress Dialog"))
 		{
 			EtceteraAndroid.showProgressDialog("Progress is happening", "it will be over in just a second...");
-			Invoke("hideProgress", 1f);
+			Invoke(nameof(hideProgress), 1f);
 		}
 		if (GUILayout.Button("Text to Speech Speak"))
 		{
@@ -112,7 +112,6 @@ public class EtceteraUIManager : MonoBehaviourGUI
 		}
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	private void hideProgress()
 	{
 		EtceteraAndroid.hideProgressDialog();

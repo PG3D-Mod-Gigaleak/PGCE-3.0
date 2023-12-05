@@ -6,7 +6,7 @@ public class DestroyAfterTime : MonoBehaviour
 {
     void Start()
     {
-        Invoke("DestroyThis", time);
+        Invoke(nameof(DestroyThis), time);
     }
 
     public float time;

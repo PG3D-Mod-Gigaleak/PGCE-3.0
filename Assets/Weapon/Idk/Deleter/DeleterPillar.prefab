@@ -203,11 +203,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6595332642560483060}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1564ab90d26660146b0227a66314c362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hostObject: {fileID: 0}
+  hostTransform: {fileID: 0}
+  Lifespan: 0
+  DespawnNow: 0
 --- !u!114 &2496538415836168092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,3 +341,7 @@ MonoBehaviour:
   isPierce: 1
   originalObject: {fileID: 0}
   damageSender: {fileID: 0}
+  SendData: 0
+  Damaged: 0
+  OnlyDamageByScript: 0
+  target: {fileID: 0}

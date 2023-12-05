@@ -282,7 +282,7 @@ public class FirstPersonControl : MonoBehaviour
 			moveTouchPad.position = updateKeyboardControls();
 			if (Cursor.lockState == CursorLockMode.Locked)
 			{
-				rotateTouchPad.position = new Vector2(Input.GetAxis("Mouse X") * 10f, Input.GetAxis("Mouse Y") * 10f);
+				rotateTouchPad.position = new Vector2(Input.GetAxisRaw("Mouse X") * 10f, Input.GetAxisRaw("Mouse Y") * 10f);
 			}
 			#if UNITY_EDITOR
 			if (Globals.PlayerMove && Globals.PlayerMove.showingAdminInput) {
@@ -446,7 +446,7 @@ public class FirstPersonControl : MonoBehaviour
 		{
 		}
 		float @float = prefs.GetFloat("SensitivitySett", 12f);
-		vector2 *= Time.deltaTime * @float;
+		vector2 *= 0.01f * @float;
 		thisTransform.Rotate(0f, vector2.x, 0f, Space.World);
 		cameraPivot.Rotate(0f - vector2.y * (Globals.PlayerMove.isGravFlipped ? -1 : 1), 0f, 0f);
 	}

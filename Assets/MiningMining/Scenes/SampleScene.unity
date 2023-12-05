@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0.63159925, b: 0.92847574, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.5940959, b: 0.86994, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -939,6 +939,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -969,6 +970,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 3, y: 3}
   tekKoof: 3
   upKoofFire: 0.4
@@ -1352,6 +1360,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -1382,6 +1391,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 3, y: 3}
   tekKoof: 3
   upKoofFire: 0.4
@@ -4090,6 +4106,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -4120,6 +4137,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 3, y: 3}
   tekKoof: 3
   upKoofFire: 0.4
@@ -4860,6 +4884,7 @@ GameObject:
   - component: {fileID: 625443123}
   - component: {fileID: 625443122}
   - component: {fileID: 625443126}
+  - component: {fileID: 625443127}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -4958,6 +4983,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!111 &625443127
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 625443121}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: aa54a894111bd8349818a6142881d98a, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: aa54a894111bd8349818a6142881d98a, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &628014049
 GameObject:
   m_ObjectHideFlags: 0
@@ -7090,6 +7131,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -7120,6 +7162,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 3, y: 3}
   tekKoof: 3
   upKoofFire: 0.4
@@ -14177,6 +14226,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -14207,6 +14257,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 3, y: 3}
   tekKoof: 3
   upKoofFire: 0.4
@@ -16168,6 +16225,14 @@ MonoBehaviour:
   - {fileID: 1641142893270832734, guid: 3cc61157ef3e8f3498459e52e0de713b, type: 3}
   - {fileID: 8931973307374990843, guid: 630722dee821b5049906450a4335d070, type: 3}
   cooldownRandom: {x: 0.005, y: 0.01}
+  AstralChance: 0.1
+  AstralColor: {r: 0.12858143, g: 0, b: 0.21698111, a: 0}
+  newDensity: 0.12
+  AstralMusic: {fileID: 8300000, guid: 65a8efb5464910c4faecc7e7a40cb3be, type: 3}
+  AstralSkybox: {fileID: 2100000, guid: e9efd284d93c5f942a59da8fb25cd915, type: 2}
+  AstralOre: {fileID: 3918095903364825079, guid: 77aaba21cc09b40478e18199332efec7,
+    type: 3}
+  isAstral: 0
 --- !u!4 &1810488303
 Transform:
   m_ObjectHideFlags: 0
@@ -22360,6 +22425,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 1
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -22390,6 +22456,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 3, y: 3}
   tekKoof: 3
   upKoofFire: 0.4

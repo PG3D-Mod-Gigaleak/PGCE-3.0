@@ -500,7 +500,6 @@ Transform:
   m_LocalScale: {x: 1.2565686, y: 1.256569, z: 1.256569}
   m_Children:
   - {fileID: 1297907339884704212}
-  - {fileID: 2687374560129911030}
   m_Father: {fileID: 3278737495612769865}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -825,50 +824,6 @@ Transform:
   m_Father: {fileID: 2829672367529158979}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -0.014759409, y: 0.56435126, z: -0.054822523}
---- !u!1 &5400596256320112199
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2687374560129911030}
-  - component: {fileID: 5653267349200103108}
-  m_Layer: 0
-  m_Name: DeadCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2687374560129911030
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5400596256320112199}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.762, z: 0}
-  m_LocalScale: {x: 0.41027823, y: -1.4337207, z: 0.2679682}
-  m_Children: []
-  m_Father: {fileID: 8422356257623464511}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5653267349200103108
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5400596256320112199}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5401657811293498005
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,6 +834,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8913900771791350624}
   - component: {fileID: 6333541826993722007}
+  - component: {fileID: 3084837699815915771}
+  - component: {fileID: 518668217812789267}
   m_Layer: 0
   m_Name: Ender_Mesh
   m_TagString: Untagged
@@ -965,6 +922,46 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.060003698, y: -0.008771181, z: -0.037388086}
     m_Extent: {x: 0.7881932, y: 0.35731846, z: 0.32642716}
   m_DirtyAABB: 0
+--- !u!64 &3084837699815915771
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401657811293498005}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 072e6d84dcd230e4d81f80ae17c34a85, type: 2}
+--- !u!114 &518668217812789267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5401657811293498005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d577cce6a41e7a439db58f707e32c51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coopDamage: 10000
+  multiplayerDamage: 200
+  damageCooldown: 10
+  timer: 0
+  _weaponManager: {fileID: 0}
+  isPierce: 1
+  originalObject: {fileID: 0}
+  damageSender: {fileID: 0}
+  SendData: 1
+  Damaged: 0
+  OnlyDamageByScript: 0
+  UseCollisionEnter: 0
+  CollisionDamage: 0
+  target: {fileID: 0}
 --- !u!1 &5448852816350377844
 GameObject:
   m_ObjectHideFlags: 0
@@ -1420,6 +1417,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 25
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -1430,6 +1428,7 @@ MonoBehaviour:
   numOfPellets: 0
   hasAlternateShot: 0
   hasInspect: 0
+  hasDoubleInspect: 0
   alternateShot: {fileID: 0}
   hasRecoil: 0
   recoil: 0
@@ -1449,6 +1448,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2

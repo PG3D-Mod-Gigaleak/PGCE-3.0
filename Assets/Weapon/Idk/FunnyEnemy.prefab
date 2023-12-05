@@ -796,11 +796,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1378921367420317146}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1564ab90d26660146b0227a66314c362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hostObject: {fileID: 0}
+  hostTransform: {fileID: 0}
+  Lifespan: 30
+  DespawnNow: 0
 --- !u!114 &4729568353206888912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -818,6 +822,7 @@ MonoBehaviour:
     type: 3}
   maxhealth: 0
   alreadyTimedBar: 0
+  previousObjects: []
 --- !u!1 &1378929964216619602
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,11 +927,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1384760975216925100}
   - component: {fileID: 1346619334799281776}
-  - component: {fileID: 1423485516650480050}
   - component: {fileID: 1345308597341913706}
   - component: {fileID: 1347098745490364656}
-  - component: {fileID: 2082078493090522007}
   - component: {fileID: 7768968531433611692}
+  - component: {fileID: 4422116757101629185}
   m_Layer: 0
   m_Name: Enemy27
   m_TagString: ZombieCollider
@@ -977,19 +981,6 @@ MonoBehaviour:
   attackingSpeedRandomRange:
   - -0.25
   - 0.25
---- !u!65 &1423485516650480050
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1378970597760511444}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.3622613, y: 1.6022296, z: 0.85264283}
-  m_Center: {x: -0.016461134, y: 0.8034842, z: -0.08742508}
 --- !u!111 &1345308597341913706
 Animation:
   m_ObjectHideFlags: 0
@@ -1026,22 +1017,6 @@ MonoBehaviour:
   descriptio: not native to the pixel world, can only be found in the world of call
     of mini. extremely dangerous, take caution.
   ruleOut: 0
---- !u!54 &2082078493090522007
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1378970597760511444}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!82 &7768968531433611692
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1054,7 +1029,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4dd1283b32a2fa34c81d4160d1a2e68a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1062,8 +1037,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 3
+  MaxDistance: 25
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1138,6 +1113,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &4422116757101629185
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378970597760511444}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4502021, y: 1.6023672, z: 1}
+  m_Center: {x: 0.004576504, y: 0.7926942, z: 0}
 --- !u!1 &1378997134295261788
 GameObject:
   m_ObjectHideFlags: 0

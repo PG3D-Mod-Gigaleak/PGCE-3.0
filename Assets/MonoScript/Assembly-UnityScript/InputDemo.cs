@@ -31,7 +31,7 @@ public class InputDemo : MonoBehaviour
 		enteredText = string.Empty;
 		acceptInput = true;
 		textObject = FlyingText.GetObject("-", new Vector3(-7f, 6f, 0f), Quaternion.identity);
-		InvokeRepeating("BlinkCursor", 0.5f, 0.5f);
+		InvokeRepeating(nameof(BlinkCursor), 0.5f, 0.5f);
 	}
 
 	public virtual void OnGUI()
@@ -81,7 +81,6 @@ public class InputDemo : MonoBehaviour
 		//return new _0024ExplodeText_002493(this).GetEnumerator();
 	}
 
-	[Beebyte.Obfuscator.SkipRename]
 	public virtual void BlinkCursor()
 	{
 		if (cursorChar == "-"[0])
