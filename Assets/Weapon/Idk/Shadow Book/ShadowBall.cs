@@ -15,6 +15,8 @@ public class ShadowBall : MonoBehaviour
         if (Discharge == true && AlreadyDischarged == false)
         {
             AlreadyDischarged = true;
+            gameObject.GetComponent<AudioSource>().enabled = true;
+            gameObject.GetComponent<AudioSource>().Play();
             Discharg();
         }
         if (transform.localScale.x < 0f && transform.localScale.y < 0f && transform.localScale.z < 0f)
@@ -27,8 +29,8 @@ public class ShadowBall : MonoBehaviour
     {
         if (Discharge == false && AlreadyDischarged == false)
         {
-            transform.localScale = new Vector3(transform.localScale.x + 0.02f, transform.localScale.y + 0.02f, transform.localScale.z + 0.02f);
-            detectRadius += 0.2f;
+            transform.localScale = new Vector3(transform.localScale.x + 0.05f, transform.localScale.y + 0.05f, transform.localScale.z + 0.05f);
+            detectRadius += 0.5f;
         }
     }
 
@@ -66,8 +68,8 @@ public class ShadowBall : MonoBehaviour
             SpawnedOrb.transform.LookAt(Target.position);
             SpawnedOrb.GetComponent<Rigidbody>().AddForce(SpawnedOrb.transform.forward * 1500);
         }
-        transform.localScale = new Vector3(transform.localScale.x - 0.02f,transform.localScale.y - 0.02f,transform.localScale.z - 0.02f);
-        detectRadius -= 0.2f;
+        transform.localScale = new Vector3(transform.localScale.x - 0.25f,transform.localScale.y - 0.25f,transform.localScale.z - 0.25f);
+        detectRadius -= 2.5f;
         yield return new WaitForSeconds(OrbCooldown);
         Discharg();
     }

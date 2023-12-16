@@ -36,7 +36,7 @@ public class PrismShower : MonoBehaviour
             rayhit = false;
             cursor = new Vector3(host.transform.rotation.x,host.transform.rotation.y,host.transform.rotation.z);
         }
-        Vector3 RandomPos = host.transform.position + new Vector3(Random.Range(-5f,5f), 5f, 0f);
+        Vector3 RandomPos = host.transform.position + new Vector3(Random.Range(-10f,10f), 5f, 0f);
         GameObject prism = Instantiate(Prism, RandomPos, Quaternion.identity);
         prism.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
         if (rayhit == true)
