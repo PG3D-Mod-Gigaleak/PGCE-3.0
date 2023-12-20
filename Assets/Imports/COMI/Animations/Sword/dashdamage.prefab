@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8165245802060485865
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8660091447442160419}
+  - component: {fileID: 8103972505966353658}
+  - component: {fileID: 5613307455558368535}
+  - component: {fileID: 152961546903721230}
+  - component: {fileID: 2594477476553009587}
+  m_Layer: 0
+  m_Name: dashdamage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8660091447442160419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8165245802060485865}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.024569744, y: 1.9130058, z: 0.9646171}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8103972505966353658
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8165245802060485865}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5613307455558368535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8165245802060485865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d577cce6a41e7a439db58f707e32c51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coopDamage: 3000
+  multiplayerDamage: 0
+  damageCooldown: 10
+  timer: 0
+  _weaponManager: {fileID: 0}
+  isPierce: 1
+  originalObject: {fileID: 0}
+  damageSender: {fileID: 0}
+  SendData: 1
+  Damaged: 0
+  OnlyDamageByScript: 0
+  UseCollisionEnter: 0
+  CollisionDamage: 0
+  target: {fileID: 0}
+--- !u!114 &152961546903721230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8165245802060485865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1564ab90d26660146b0227a66314c362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hostObject: {fileID: 0}
+  hostTransform: {fileID: 0}
+  Lifespan: 0.05
+  DespawnNow: 0
+--- !u!114 &2594477476553009587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8165245802060485865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 748323359b4c8914bae0bd87bec3e70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlreadyHit: []
+  slasheffect: {fileID: 1899739708798838, guid: c7ad43e6fb1469c4e957994d54c63967,
+    type: 3}
