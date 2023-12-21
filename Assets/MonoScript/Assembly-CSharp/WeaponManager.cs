@@ -51,7 +51,7 @@ public sealed class WeaponManager : MonoBehaviour
 
 	private UnityEngine.Object[] _weaponsInGame;
 
-	private ArrayList _playerWeapons = new ArrayList();
+	public ArrayList _playerWeapons = new ArrayList();
 
 	public int CurrentWeaponIndex;
 
