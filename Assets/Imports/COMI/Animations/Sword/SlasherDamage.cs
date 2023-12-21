@@ -14,8 +14,23 @@ public class SlasherDamage : MonoBehaviour
             {
                 if (!AlreadyHit.Contains(other.gameObject))
                 {
-                    Instantiate(slasheffect, other.transform.position, Quaternion.identity);
-                    AlreadyHit.Add(other.gameObject);
+                    if (gameObject.GetComponent<DamageZone>().IgnorePlayerSender == true)
+                    {
+                        if (other.transform.parent.gameObject.GetComponent<FirstPersonControl>().isMine == true)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            Instantiate(slasheffect, other.transform.position, Quaternion.identity);
+                            AlreadyHit.Add(other.gameObject);
+                        }
+                    }
+                    else
+                    {
+                        Instantiate(slasheffect, other.transform.position, Quaternion.identity);
+                        AlreadyHit.Add(other.gameObject);
+                    }
                 }
             }
         }
@@ -26,6 +41,7 @@ public class SlasherDamage : MonoBehaviour
                 if (!AlreadyHit.Contains(other.gameObject))
                 {
                     Instantiate(slasheffect, other.transform.position, Quaternion.identity);
+                    AlreadyHit.Add(other.gameObject);
                 }
             }
         }

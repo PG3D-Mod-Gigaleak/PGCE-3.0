@@ -27,7 +27,7 @@ public class DamageZone : MonoBehaviour
 	public bool OnlyDamageByScript = false;
 	public bool UseCollisionEnter = false;
 	public bool CollisionDamage = false;
-
+    public bool IgnorePlayerSender = false;
 	public Transform target = null;
 	private void Awake()
 	{
@@ -131,7 +131,10 @@ public class DamageZone : MonoBehaviour
 		        }
                 if (other.tag == "BodyCollider")
 		        {
-		    		other.transform.parent.GetComponent<InitializeHealthbar>().DamageNPC("Player",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
+					if (IgnorePlayerSender == true && other.transform.parent.gameObject != damageSender)
+					{
+						other.transform.parent.GetComponent<InitializeHealthbar>().DamageNPC("Player",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
+					}
 		        }
 		    	if (SendData == true)
 		        {
