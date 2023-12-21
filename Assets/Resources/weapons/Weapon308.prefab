@@ -164,14 +164,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3493672999780586331}
-  m_LocalRotation: {x: 3.5527137e-15, y: -0.0000001539644, z: 5.469914e-22, w: 1}
-  m_LocalPosition: {x: 0.2644026, y: 0, z: 0}
+  m_LocalRotation: {x: -0.25350377, y: 0.020045068, z: -0.07623528, w: 0.9641173}
+  m_LocalPosition: {x: 0.264, y: 0, z: -0.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8615976938098729538}
   m_Father: {fileID: 5764755722117169379}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 29.419, y: 0, z: 32.025}
+  m_LocalEulerAnglesHint: {x: -29.062002, y: 5.0740004, z: -10.358001}
 --- !u!33 &2182858787562953561
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -10097,14 +10097,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8594163692994577811}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.2355974, y: -0.052, z: -0}
+  m_LocalRotation: {x: -0.8030306, y: -0.07695378, z: 0.10630544, w: 0.5813082}
+  m_LocalPosition: {x: -0.236, y: -0.052, z: -0.278}
   m_LocalScale: {x: -0.9999999, y: -1.0000001, z: -1.0000004}
   m_Children:
   - {fileID: 6234059998536770709}
   m_Father: {fileID: 5764755722117169379}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -71.648, y: 49.028004, z: -25.042002}
+  m_LocalEulerAnglesHint: {x: -66.528, y: -139.21101, z: 141.64}
 --- !u!33 &1069057987180920327
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -10165,6 +10165,7 @@ GameObject:
   - component: {fileID: 8720328115782303298}
   - component: {fileID: 8720965856605281514}
   - component: {fileID: 8720375567765612530}
+  - component: {fileID: 916982855276718102}
   m_Layer: 0
   m_Name: Weapon308
   m_TagString: Weapon
@@ -10196,13 +10197,16 @@ Animation:
   m_GameObject: {fileID: 8689522660484836836}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: f69891d990638fa4d9238d1158586108, type: 2}
+  m_Animation: {fileID: 7400000, guid: cc13f095213a7d54daf3f2fff5dbd08b, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: f69891d990638fa4d9238d1158586108, type: 2}
-  - {fileID: 7400000, guid: d7752a36ec06dd343ad36dc70fc07e94, type: 2}
-  - {fileID: 7400000, guid: d67eb6ee49384c243885929d8b1f94c4, type: 2}
-  - {fileID: 7400000, guid: 053ae9375f5e1334a878ccf75fa17e7b, type: 2}
-  - {fileID: 7400000, guid: 472f3fe766a3e0743af4fd3382622c22, type: 2}
+  - {fileID: 7400000, guid: cc13f095213a7d54daf3f2fff5dbd08b, type: 2}
+  - {fileID: 7400000, guid: 1de89b131d3f37741ac50c3a6e41824c, type: 2}
+  - {fileID: 7400000, guid: 40e97313161d13640ace3a96337ef306, type: 2}
+  - {fileID: 7400000, guid: bc1cae73af988c548a10294150cd1250, type: 2}
+  - {fileID: 7400000, guid: 96c7d64b671411c439b1f885a7778cfb, type: 2}
+  - {fileID: 7400000, guid: 750e3c02ca03960459b13310211c93cc, type: 2}
+  - {fileID: 7400000, guid: 3cc07d991af07254b9f044bff3596c1a, type: 2}
+  - {fileID: 7400000, guid: 5451164965e53ce46b46247b46eadaf5, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -10219,7 +10223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c837305dbd0cdc4c83a3ad9e4e22dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationClip_0: {fileID: 7400000, guid: d67eb6ee49384c243885929d8b1f94c4, type: 2}
+  animationClip_0: {fileID: 7400000, guid: 40e97313161d13640ace3a96337ef306, type: 2}
   int_0: 8
   int_1: 16
   meleeWeaponTrail_0: {fileID: 0}
@@ -10248,8 +10252,8 @@ MonoBehaviour:
   maxAmmo: 0
   isMelee: 1
   range: 3
-  damage: 400
-  speedModifier: 1.15
+  damage: 1500
+  speedModifier: 1.3
   animationObject: {fileID: 8689522660484836836}
   Probability: 1
   damageRange: {x: -15, y: 15}
@@ -10269,7 +10273,7 @@ MonoBehaviour:
   isShotgun: 0
   numOfPellets: 0
   hasAlternateShot: 0
-  hasInspect: 0
+  hasInspect: 1
   hasDoubleInspect: 0
   alternateShot: {fileID: 0}
   hasRecoil: 0
@@ -10281,7 +10285,7 @@ MonoBehaviour:
   SpeedBoost: 0
   speedBoostAmount: 0
   speedBoostDuration: 0
-  isDouble: 0
+  isDouble: 1
   price: 5000
   weaponName: Thor's Gauntlet
   oldMeleeSystem: 0
@@ -10349,6 +10353,18 @@ MonoBehaviour:
   instantiationId: 0
   currentMasterID: -1
   isRuntimeInstantiated: 0
+--- !u!114 &916982855276718102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8689522660484836836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec50b75b280f8c74fbc614c2d986aac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8888600141627589305
 GameObject:
   m_ObjectHideFlags: 0

@@ -78,6 +78,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 	public float damagetoenemy = 1f;
 	public string OtherName = "";
 	public string SelfName = "";
+	public bool DontDieYet = false;
 
 	public string myCAnim(string a){
         return Defs.CAnim(_modelChild, a);
@@ -363,7 +364,22 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 			player = target.gameObject;
 			if (health <= 0f)
 			{
-			    photonView.RPC("Death", PhotonTargets.All);
+				gameObject.TryGetComponent<CheckForWeapon>(out CheckForWeapon cfw);
+				if (cfw)
+				{
+					if (cfw.hasWeapon == true && DontDieYet == true)
+				    {
+				    	return;
+				    }
+					else
+				    {
+                        photonView.RPC("Death", PhotonTargets.All);
+				    }
+				}
+				else
+				{
+                    photonView.RPC("Death", PhotonTargets.All);
+				}
 			}
 		}
 		else if (falling)

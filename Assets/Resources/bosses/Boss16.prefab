@@ -434,7 +434,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4788293949948233031}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 4.918246, y: -274.4651, z: -405.7841}
+  m_LocalEulerAnglesHint: {x: -83.75675, y: -336.60394, z: -561.3474}
 --- !u!33 &4822035027546163067
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1973,7 +1973,7 @@ Transform:
   - {fileID: 4846306046346958647}
   m_Father: {fileID: 7855559644430953551}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: -2.9570072, y: -1.0400906, z: -5.252998}
+  m_LocalEulerAnglesHint: {x: -1.7804186, y: -13.381985, z: -10.401027}
 --- !u!33 &7882322828228632687
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2149,7 +2149,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7855607924503007929}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 1.5270644, y: 3.9787526, z: -89.208855}
+  m_LocalEulerAnglesHint: {x: 25.658915, y: 29.614628, z: -87.36519}
 --- !u!33 &7881885028295812261
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2325,7 +2325,7 @@ Transform:
   - {fileID: 4788293949948233031}
   m_Father: {fileID: 7855559644430953551}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 43.842003, y: -75.29386, z: -33.890022}
+  m_LocalEulerAnglesHint: {x: -15.96244, y: -88.12873, z: -190.34717}
 --- !u!33 &7882085572458222423
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2404,7 +2404,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7855607924503007929}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 4.8482924, y: -1.4380718, z: -90.55915}
+  m_LocalEulerAnglesHint: {x: -0.82555723, y: -29.33712, z: -90.41676}
 --- !u!33 &7882386857391375535
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2504,9 +2504,10 @@ GameObject:
   - component: {fileID: 7818847660633817469}
   - component: {fileID: 7819349593859049827}
   - component: {fileID: 7818761350470498771}
-  - component: {fileID: 7768825923180701708}
   - component: {fileID: 531507444016713946}
   - component: {fileID: 7057543215104956144}
+  - component: {fileID: 2765999088393429762}
+  - component: {fileID: 220547150860095824}
   m_Layer: 0
   m_Name: Boss16
   m_TagString: Enemy
@@ -2755,6 +2756,7 @@ MonoBehaviour:
   damagetoenemy: 1
   OtherName: 
   SelfName: 
+  DontDieYet: 1
 --- !u!114 &7818761350470498771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2781,44 +2783,6 @@ MonoBehaviour:
   instantiationId: 0
   currentMasterID: -1
   isRuntimeInstantiated: 0
---- !u!114 &7768825923180701708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7859592760318426419}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c75f614d0cd7b28498b8d5ce02120cf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onSecond:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7825416406703307875}
-        m_MethodName: RemoveClip
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 7400000, guid: d33fff7bd421f544a8155a3e3bf81533,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AnimationClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 7825416406703307875}
-        m_MethodName: Stop
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &531507444016713946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2831,20 +2795,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a23092d037683484aada1b29daf26aad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doSecond:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7768825923180701708}
-        m_MethodName: set_enabled
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
 --- !u!114 &7057543215104956144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2863,6 +2813,35 @@ MonoBehaviour:
   maxhealth: 0
   alreadyTimedBar: 0
   previousObjects: []
+--- !u!114 &2765999088393429762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7859592760318426419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feba42667c019cd4e9bdb8abb8082568, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alreadyLastPhase: 0
+  LastPhase: {fileID: 7400000, guid: dee040e56d0a6014c9568aee23ab4368, type: 2}
+  anim: {fileID: 0}
+--- !u!114 &220547150860095824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7859592760318426419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 650a14a81f5efe948bcb7f3923cf441d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasWeapon: 0
+  WeaponName: Weapon269
 --- !u!1 &7859677892321142791
 GameObject:
   m_ObjectHideFlags: 0
@@ -2897,7 +2876,7 @@ Transform:
   - {fileID: 7855847617034884027}
   m_Father: {fileID: 7855607924503007929}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 2.5408669, y: -1.0610002, z: -85.551}
+  m_LocalEulerAnglesHint: {x: -6.1737757, y: 3.365939, z: -86.693954}
 --- !u!33 &7881928289126161737
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2976,7 +2955,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7855559644430953551}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 41.034, y: -14.745001, z: 16.472}
+  m_LocalEulerAnglesHint: {x: -72.89074, y: -83.57523, z: 93.375496}
 --- !u!33 &7882286543743018059
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3037,6 +3016,7 @@ GameObject:
   - component: {fileID: 7821747300108919099}
   - component: {fileID: 7821653520631034321}
   - component: {fileID: 7922806455747790935}
+  - component: {fileID: 8286211109570985608}
   m_Layer: 0
   m_Name: Boss16
   m_TagString: ZombieCollider
@@ -3079,7 +3059,7 @@ Animation:
   m_GameObject: {fileID: 7861001683502920571}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 0}
+  m_Animation: {fileID: 7400000, guid: dee040e56d0a6014c9568aee23ab4368, type: 2}
   m_Animations:
   - {fileID: 7400000, guid: ce1e43ed89cd50d40ab985177dc79ba6, type: 2}
   - {fileID: 7400000, guid: 87bb520903bb9ae45ac434c2fe664c49, type: 2}
@@ -3089,6 +3069,7 @@ Animation:
   - {fileID: 7400000, guid: 5f4e578302ffbab44bc5b28c2b0c7a15, type: 2}
   - {fileID: 7400000, guid: 388a808122c23544fb6b13b1d679b7e6, type: 2}
   - {fileID: 7400000, guid: 1b0b566e41f749b4493caef0dbd992e5, type: 2}
+  - {fileID: 7400000, guid: dee040e56d0a6014c9568aee23ab4368, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -3148,6 +3129,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &8286211109570985608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7861001683502920571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f34ffe4ce7c82c64da64fcbd44804362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BeamAttack: {fileID: 7400000, guid: 9d4b54744fbc9244bb797cdbe9c617fe, type: 2}
+  UmbrellaAttack: {fileID: 7400000, guid: 8e77c5e6579c0924ca0bc84d797c4d9d, type: 2}
+  DashAttack: {fileID: 7400000, guid: 783011efdc538134a903dec17fc9a214, type: 2}
+  BlindAttack: {fileID: 7400000, guid: d9a34f1219ba55e46954efdc22753e3b, type: 2}
+  LastPhaseHealth: 1000000
+  LastPhaseMusic: {fileID: 8300000, guid: 58437ab769f36a04d8b10510e6581f39, type: 3}
 --- !u!1 &8174075026759138386
 GameObject:
   m_ObjectHideFlags: 0

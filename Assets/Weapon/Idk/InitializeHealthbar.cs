@@ -10,9 +10,9 @@ public class InitializeHealthbar : MonoBehaviour
     public GameObject Healthbar;
     private float health;
     public float maxhealth;
-    private float timer = 0f;
-    private float timer2 = 0f;
-    private float timer3 = 0f;
+    public float timer = 0f;
+    public float timer2 = 0f;
+    public float timer3 = 0f;
     public int alreadyTimedBar = 0;
     private PhotonView photonView;
 	private bool isMulti;
