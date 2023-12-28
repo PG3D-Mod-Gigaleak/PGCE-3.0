@@ -12,7 +12,7 @@ public class DespawnObject : MonoBehaviour
     private bool hasObject;
     private bool hasTransform;
 
-    void Start()
+    public void Start()
     {
         if (hostObject != null)
         {

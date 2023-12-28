@@ -478,6 +478,7 @@ MonoBehaviour:
   damagetoenemy: 1
   OtherName: 
   SelfName: 
+  DontDieYet: 0
 --- !u!114 &8621006825731133193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,6 +495,9 @@ MonoBehaviour:
   Healthbar: {fileID: 3361972340383323923, guid: 8fc79a260fe40e749a518c0f56a43cee,
     type: 3}
   maxhealth: 0
+  timer: 0
+  timer2: 0
+  timer3: 0
   alreadyTimedBar: 0
   previousObjects: []
 --- !u!1 &1225852891655734
@@ -896,7 +900,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434630707165172}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4dd1283b32a2fa34c81d4160d1a2e68a, type: 3}
