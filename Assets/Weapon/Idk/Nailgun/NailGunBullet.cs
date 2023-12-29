@@ -27,6 +27,20 @@ public class NailGunBullet : MonoBehaviour
         {
             return;
         }
+        if (other.tag == "BodyCollider")
+        {
+            if (other.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.CurHealth <= 0f)
+            {
+                return;
+            }
+        }
+        if (other.tag == "ZombieCollider")
+        {
+            if (other.transform.parent.gameObject.GetComponent<ZombiUpravlenie>().health <= 0f)
+            {
+                return;
+            }
+        }
         if (other.tag == "BodyCollider" || other.tag == "ZombieCollider")
         {
             gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);

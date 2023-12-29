@@ -17,7 +17,10 @@ public class NailGunShoot : MonoBehaviour
 
     public void Start()
     {
+        if (!TryGetComponent<NailGunTurret>(out NailGunTurret ngt))
+        {
         player = host.transform.parent.parent.parent.gameObject;
+        }
     }
     public void Shoot()
     {
@@ -35,5 +38,6 @@ public class NailGunShoot : MonoBehaviour
     {
         GameObject turrete = Instantiate(turret, player.transform.position + new Vector3(Random.Range(-3f,3f),-0.5f,Random.Range(-3f,3f)), Quaternion.identity);
         turrete.GetComponent<NailGunTurret>().player = player;
+        turrete.GetComponent<NailGunShoot>().player = player;
     }
 }
