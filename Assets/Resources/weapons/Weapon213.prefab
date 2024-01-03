@@ -94,7 +94,7 @@ Transform:
   - {fileID: 7046556384350093728}
   m_Father: {fileID: 760466047131594630}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -185.65715, y: 0, z: -90}
+  m_LocalEulerAnglesHint: {x: -94.186356, y: 0, z: -90.00001}
 --- !u!33 &789774634363630542
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -586,6 +586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 269025251540469364}
   - component: {fileID: 4467472876539467295}
+  - component: {fileID: 7557539257417908574}
   m_Layer: 0
   m_Name: Ultrakill_revolver
   m_TagString: Untagged
@@ -662,6 +663,102 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.000003818044, y: 0.0014400326, z: -0.0014407581}
     m_Extent: {x: 0.00034293073, y: 0.001445343, z: 0.0020791283}
   m_DirtyAABB: 0
+--- !u!82 &7557539257417908574
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922419062817137375}
+  m_Enabled: 0
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 5ad20cf056ed1724f963d452d1449a7b, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 3
+  MaxDistance: 25
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &5146569694280465873
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,7 +811,7 @@ MonoBehaviour:
   multiplayerDamage: 25
   RicochetRadius: 50
   throwNow: 0
-  cooldown: 0.45
+  cooldown: 0.18
   rotationFace: {fileID: 760003861893877819}
   Coin: {fileID: 3779611961990103509, guid: 5c23928629f48a440b02a98d9181a10c, type: 3}
   RicochetVelocity: 10000

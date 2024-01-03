@@ -7,12 +7,21 @@ public class NailGunBullet : MonoBehaviour
     public GameObject bleed;
     public GameObject player;
     public GameObject tip;
-    public float bleedamage;
-    public float initdamage;
+    public float bleedmultidamage;
+    public float initmultidamage;
+    public float initcoopdamage;
+    public float bleedcoopdamage;
     public float cooldown;
     public float lifetime;
     public bool alreadyhit;
     public List<GameObject> array = new List<GameObject>();
+    void Start()
+    {
+        gameObject.GetComponent<DespawnObject>().Lifespan = lifetime;
+        gameObject.GetComponent<DespawnObject>().enabled = false;
+        gameObject.GetComponent<DespawnObject>().enabled = true;
+        gameObject.GetComponent<DespawnObject>().Start();
+    }
     void OnTriggerEnter(Collider other)
     {
         if (array.Contains(other.gameObject) || alreadyhit == true)
@@ -46,8 +55,10 @@ public class NailGunBullet : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
             GameObject bleeder = Instantiate(bleed, tip.transform.position, transform.rotation);
             bleeder.GetComponent<NailGunBleed>().target = other.gameObject;
-            bleeder.GetComponent<NailGunBleed>().bleedamage = bleedamage;
-            bleeder.GetComponent<NailGunBleed>().initdamage = initdamage;
+            bleeder.GetComponent<NailGunBleed>().bleedmultidamage = bleedmultidamage;
+            bleeder.GetComponent<NailGunBleed>().initmultidamage = initmultidamage;
+            bleeder.GetComponent<NailGunBleed>().bleedcoopdamage = bleedcoopdamage;
+            bleeder.GetComponent<NailGunBleed>().initcoopdamage = initcoopdamage;
             bleeder.GetComponent<NailGunBleed>().cooldown = cooldown;
             bleeder.GetComponent<NailGunBleed>().lifetime = lifetime;
             bleeder.GetComponent<NailGunBleed>().Nail = gameObject;
@@ -58,6 +69,18 @@ public class NailGunBullet : MonoBehaviour
             gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
             gameObject.GetComponent<DespawnObject>().Start();
             alreadyhit = true;
+        }
+        if (other.transform.name == "NailGunBullet(Clone)")
+        {
+            return;
+        }
+        else if (other.transform.parent.name == "NailGunBullet(Clone)")
+        {
+            return;
+        }
+        else if (other.transform.parent.parent.name == "NailGunBullet(Clone)")
+        {
+            return;
         }
         else
         {

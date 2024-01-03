@@ -131,10 +131,14 @@ public class DamageZone : MonoBehaviour
 		        }
                 if (other.tag == "BodyCollider")
 		        {
-					if (IgnorePlayerSender == true && other.transform.parent.gameObject != damageSender)
+					if (IgnorePlayerSender == true)
 					{
-						other.transform.parent.GetComponent<InitializeHealthbar>().DamageNPC("Player",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
+						if (other.transform.parent.gameObject == damageSender)
+						{
+							return;
+						}
 					}
+					other.transform.parent.GetComponent<InitializeHealthbar>().DamageNPC("Player",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
 		        }
 		    	if (SendData == true)
 		        {

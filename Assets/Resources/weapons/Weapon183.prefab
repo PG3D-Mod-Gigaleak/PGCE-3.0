@@ -135,6 +135,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7902334920057702704}
   - component: {fileID: 7795401366131779147}
+  - component: {fileID: 6281541389023076472}
   m_Layer: 0
   m_Name: mp5
   m_TagString: Untagged
@@ -182,6 +183,26 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &6281541389023076472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7899408977077110555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da88c00604f5804ab215673dcbc1608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addFov: 0
+  cam: {fileID: 0}
+  host: {fileID: 7900231801495645480}
+  startingfov: 0
+  zoomchecker: {fileID: 7102975778897634458, guid: e04f2b6df9dc57e4e99019bef3618bad,
+    type: 3}
+  ChangeAccuracy: 1
+  startZone: {x: 1, y: 1}
 --- !u!1 &7899512602563846727
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,6 +608,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 12
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -599,7 +621,7 @@ MonoBehaviour:
   hasInspect: 0
   hasDoubleInspect: 1
   alternateShot: {fileID: 0}
-  hasRecoil: 1
+  hasRecoil: 0
   recoil: 1
   hasUpgrades: 0
   isChargeUp: 0
@@ -617,6 +639,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -641,7 +670,7 @@ MonoBehaviour:
   scopeNum: 8
   zoomFov: 100
   secondBulletSpawn: {fileID: 0}
-  shootLineColor: {r: 0.4044118, g: 0.4044118, b: 0.4044118, a: 1}
+  shootLineColor: {r: 1, g: 0.9638132, b: 0, a: 1}
   bulletIndex: 0
 --- !u!114 &7796772866093677407
 MonoBehaviour:

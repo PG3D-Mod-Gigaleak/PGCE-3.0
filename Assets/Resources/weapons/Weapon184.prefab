@@ -328,6 +328,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7600387309491019271}
   - component: {fileID: 7558001554618133912}
+  - component: {fileID: 8288847347470718232}
   m_Layer: 0
   m_Name: Revolver
   m_TagString: Untagged
@@ -369,10 +370,32 @@ Animation:
   - {fileID: 7400000, guid: a361022be2f21f54c9969bae0075acc3, type: 2}
   - {fileID: 7400000, guid: d787dc408a05c90419383113b6382aa9, type: 2}
   - {fileID: 7400000, guid: 7b8a21ecf1556804d9b0f73847fcc92e, type: 2}
+  - {fileID: 7400000, guid: 4e61db57a0a51194ea4ca0ed4ec233e4, type: 2}
+  - {fileID: 7400000, guid: 571ba8d8f81fca5409b64fa0b569dde7, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &8288847347470718232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7596775436125393265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da88c00604f5804ab215673dcbc1608, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addFov: 0
+  cam: {fileID: 0}
+  host: {fileID: 7596823881392638617}
+  startingfov: 0
+  zoomchecker: {fileID: 7102975778897634458, guid: e04f2b6df9dc57e4e99019bef3618bad,
+    type: 3}
+  ChangeAccuracy: 1
+  startZone: {x: 1, y: 1}
 --- !u!1 &7596778165354156113
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,6 +528,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 65
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -515,7 +539,7 @@ MonoBehaviour:
   numOfPellets: 0
   hasAlternateShot: 0
   hasInspect: 0
-  hasDoubleInspect: 0
+  hasDoubleInspect: 1
   alternateShot: {fileID: 0}
   hasRecoil: 0
   recoil: 0
@@ -535,6 +559,13 @@ MonoBehaviour:
   throwObjects: 0
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -555,7 +586,7 @@ MonoBehaviour:
   armoryRotation: {x: 0, y: 0, z: 0}
   armoryPosition: {x: 0, y: 0, z: 0}
   category: 3
-  isZooming: 1
+  isZooming: 0
   scopeNum: 7
   zoomFov: 60
   secondBulletSpawn: {fileID: 0}
@@ -865,7 +896,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7597090024884977477}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 1.2090086, z: 0.57858914}
+  m_LocalPosition: {x: -0, y: 1.209009, z: 0.5785891}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7599836562585181261}

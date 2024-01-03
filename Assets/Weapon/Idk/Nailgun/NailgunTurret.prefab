@@ -786,15 +786,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Nail: {fileID: 3890929948916865299, guid: 8a4276aa4887d5a4eb0b9b7f05a3d056, type: 3}
-  velocity: 1000
+  velocity: 2500
   host: {fileID: 7123096538005668523}
   player: {fileID: 0}
   turret: {fileID: 0}
   spawner: {fileID: 7123096538912119653}
-  bleedamage: 1
-  initdamage: 3
+  bleedmultidamage: 1
+  initmultidamage: 2.5
+  initcoopdamage: 125
+  bleedcoopdamage: 75
   cooldown: 1
   lifetime: 4.5
+  isNailShot: 0
+  inaccuracy1: {x: 0, y: 0, z: 0}
+  inaccuracy2: {x: 0, y: 0, z: 0}
+  nails: 0
+  accuratenail: 0
 --- !u!114 &1055023530793438145
 MonoBehaviour:
   m_ObjectHideFlags: 0

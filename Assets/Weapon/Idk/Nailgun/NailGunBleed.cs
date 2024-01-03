@@ -5,8 +5,10 @@ using UnityEngine;
 public class NailGunBleed : MonoBehaviour
 {
     public GameObject target;
-    public float bleedamage;
-    public float initdamage;
+	public float bleedmultidamage;
+    public float initmultidamage;
+    public float initcoopdamage;
+    public float bleedcoopdamage;
     public float cooldown;
     public float lifetime;
     public Vector3 posdiff;
@@ -37,12 +39,12 @@ public class NailGunBleed : MonoBehaviour
             if (!isMulti)
 		    	{
 		    		BotHealth component = target.transform.parent.gameObject.GetComponent<BotHealth>();
-		    		component.adjustHealth(0f - (initdamage * 100), Camera.main.transform);
+		    		component.adjustHealth(0f - initcoopdamage, Camera.main.transform);
 		    	}
 		    float health = target.transform.parent.gameObject.GetComponent<ZombiUpravlenie>().health;
 		    if (health > 0f)
 		    {
-		    	health -= initdamage * 50;
+		    	health -= initcoopdamage;
 		    	target.transform.parent.gameObject.GetComponent<ZombiUpravlenie>().setHealth(health, true);
 		    	GlobalGameController.Score += 5;
 		    	if (health <= 0f)
@@ -61,7 +63,7 @@ public class NailGunBleed : MonoBehaviour
 		    bool isHeadShot = false;
 		    if (flag)
 		    {
-		    float num2 = initdamage;
+		    float num2 = initmultidamage;
 		    float num3 = num2 - target.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.curArmor;
 		    if (num3 < 0f)
 		    {
@@ -127,12 +129,12 @@ public class NailGunBleed : MonoBehaviour
             if (!isMulti)
 		    	{
 		    		BotHealth component = target.transform.parent.gameObject.GetComponent<BotHealth>();
-		    		component.adjustHealth(0f - (bleedamage * 100), Camera.main.transform);
+		    		component.adjustHealth(0f - (bleedcoopdamage), Camera.main.transform);
 		    	}
 		    float health = target.transform.parent.gameObject.GetComponent<ZombiUpravlenie>().health;
 		    if (health > 0f)
 		    {
-		    	health -= bleedamage * 100;
+		    	health -= bleedcoopdamage;
 		    	target.transform.parent.gameObject.GetComponent<ZombiUpravlenie>().setHealth(health, true);
 		    	GlobalGameController.Score += 5;
 		    	if (health <= 0f)
@@ -151,7 +153,7 @@ public class NailGunBleed : MonoBehaviour
 		    bool isHeadShot = false;
 		    if (flag)
 		    {
-		        float num2 = bleedamage;
+		        float num2 = bleedmultidamage;
 		        float num3 = num2 - target.transform.parent.gameObject.GetComponent<SkinName>().playerMoveC.curArmor;
 		        if (num3 < 0f)
 		        {
