@@ -25,13 +25,25 @@ public class COMDHShotgunImpact : MonoBehaviour
                 {
                     Instantiate(effect, other.transform.position + new Vector3(0,1,0), Quaternion.identity);
                     array.Add(other.gameObject);
+                    StartCoroutine(Remove(other.gameObject));
                 }
             }
             else if (other.tag == "ZombieCollider")
             {
                 Instantiate(effect, other.transform.position + new Vector3(0,1f,0), Quaternion.identity);
                 array.Add(other.gameObject);
+                StartCoroutine(Remove(other.gameObject));
             }
+        }
+    }
+
+    IEnumerator Remove(GameObject game)
+    {
+        float cooldown = gameObject.GetComponent<DamageZone>().damageCooldown;
+        yield return new WaitForSeconds(cooldown);
+        if (array.Contains(game.gameObject))
+        {
+            array.Remove(game.gameObject);
         }
     }
 }

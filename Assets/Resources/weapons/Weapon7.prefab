@@ -148,6 +148,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 25
   meleeAttackTimeModifier: 27.5
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -157,6 +158,8 @@ MonoBehaviour:
   isShotgun: 0
   numOfPellets: 0
   hasAlternateShot: 0
+  hasInspect: 0
+  hasDoubleInspect: 0
   alternateShot: {fileID: 0}
   hasRecoil: 0
   recoil: 0
@@ -175,6 +178,14 @@ MonoBehaviour:
   throwObject: 0
   throwObjects: 0
   isGrav: 0
+  infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -421,7 +432,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fe27a3551c64f7b4281439740fb2341f, type: 2}
+  - {fileID: 2100000, guid: 52ef2ec9c621e60438c87ee13bc893f1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
