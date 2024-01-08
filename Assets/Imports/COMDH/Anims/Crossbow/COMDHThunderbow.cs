@@ -28,6 +28,7 @@ public class COMDHThunderbow : MonoBehaviour
 	private int amount;
     private float nomove;
     private float move;
+    private AnimationState previousanim;
 	private void Awake()
 	{
 		isMulti = prefs.GetInt("MultyPlayer") == 1;
@@ -113,8 +114,14 @@ public class COMDHThunderbow : MonoBehaviour
                 target.GetComponent<Sounds>().notAttackingSpeed = 0f;
                 move = target.GetComponent<Sounds>().attackingSpeed;
                 target.GetComponent<Sounds>().attackingSpeed = 0f;
-                // target.GetComponent<Animation>().Stop();
-                // target.GetComponent<Animation>().enabled = false;
+                foreach (AnimationState state in target.GetComponent<Animation>())
+                {
+                    if (target.GetComponent<Animation>().IsPlaying(state.name))
+                    {
+                        previousanim = state;
+                        state.speed = 0f;
+                    }
+                }
             }
         }
         yield return new WaitForSeconds(stuntime);
@@ -128,8 +135,8 @@ public class COMDHThunderbow : MonoBehaviour
             {
             target.GetComponent<Sounds>().notAttackingSpeed = nomove;
             target.GetComponent<Sounds>().attackingSpeed = move;
-            // target.GetComponent<Animation>().enabled = true;
-            // target.GetComponent<Animation>().Play();
+            target.GetComponent<Animation>().enabled = true;
+            previousanim.speed = 1f;
             }
         }
         yield return new WaitForSeconds(2f);
