@@ -480,6 +480,27 @@ MonoBehaviour:
       bossSpawns: []
       MaxZombies: 100
       difficulty: 7
+    - MyName: Lobotomy
+      myEnemies: []
+      enemies:
+      - name: 48
+        prefab: {fileID: 1115111193166136, guid: 9b55042a24ad05e41bcac25e4cd69ad7,
+          type: 3}
+        skin: {fileID: 0}
+      - name: 49
+        prefab: {fileID: 1115111193166136, guid: 3256b69ef7f9cc444a2340e0e6590502,
+          type: 3}
+        skin: {fileID: 0}
+      - name: 50
+        prefab: {fileID: 1115111193166136, guid: 2d77d708fd1d96644b574ab356a256d6,
+          type: 3}
+        skin: {fileID: 0}
+      myPath: enemyskins/
+      MaxTime: 300
+      ZombieSpawnMultiplier: 12
+      bossSpawns: []
+      MaxZombies: 50
+      difficulty: 7
   coopMaps:
   - Winter
   - Utopia
@@ -494,3 +515,4 @@ MonoBehaviour:
   - CursedGang
   - SampleScene
   - CursedArena
+  - Lobotomy

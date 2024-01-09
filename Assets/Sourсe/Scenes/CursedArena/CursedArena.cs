@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using System.Linq;
 public class CursedArena : MonoBehaviour
 {
     public Color Phase1Color;
@@ -19,7 +19,7 @@ public class CursedArena : MonoBehaviour
     public Color GradingColor1;
     public Color GradingColor2;
     public Color GradingColor3;
-    public List<GameObject> ListOfEnemies;
+    public List<GameObject> ListOfEnemies = new List<GameObject>(300);
     private bool PlayerInitiate = false;
     private int Phase1Index = 0;
     private int Phase2Index = 2;
@@ -30,6 +30,38 @@ public class CursedArena : MonoBehaviour
     void Start()
     {
         bgmusic = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
+        for (int i = 1;; i++)
+        {
+            GameObject vare1 = Resources.Load<GameObject>("enemies/Enemy"+i+"_go");
+            GameObject vare2 = Resources.Load<GameObject>("enemies/Enemy"+i);
+            if (vare1 == null)
+            {
+                if (vare2 == null)
+                {
+                    break;
+                }
+                else
+                {
+                    ListOfEnemies.Add(vare2);
+                }
+            }
+            else
+            {
+                ListOfEnemies.Add(vare1);
+            }
+        }
+        for (int j = 1;; j++)
+        {
+            GameObject vare3 = Resources.Load<GameObject>("bosses/Boss"+j);
+            if (vare3 == null)
+            {
+                break;
+            }
+            else
+            {
+                ListOfEnemies.Add(vare3);
+            }
+        }
         Phase2Index = ListOfEnemies.Count * 1/3;
         Phase3Index = ListOfEnemies.Count * 2/3;
     }
