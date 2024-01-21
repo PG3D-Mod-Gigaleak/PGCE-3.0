@@ -6,20 +6,14 @@ using WebSocketSharp.Server;
 
 public class EnsureAliveCommand : BaseCommand
 {
-	public EnsureAliveCommand() : base()
+	public EnsureAliveCommand() : base("ensure_ws_alive")
 	{
 		
-	}
-	public override string command_name 
-	{ 
-		get
-		{
-			return "ensure_ws_alive";
-		}
 	}
 	public override Dictionary<string, object> Run(WebSocketBehavior caller_behavior, Dictionary<string, object> parameters, PlayerSession? sender)
 	{
 		PlayerSession GenSession = PlayerSessionManager.CreateNewSession();
+		Console.WriteLine($"[DEBUG] params null? ${parameters == null}");
 		if (parameters.ContainsKey("uid") && parameters.ContainsKey("ak"))
 		{
 			AccountParameters? result = Helpers.GetAccountInfo(parameters["uid"]);

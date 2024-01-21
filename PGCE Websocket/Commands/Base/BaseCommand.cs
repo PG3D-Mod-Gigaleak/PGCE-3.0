@@ -5,10 +5,10 @@ using WebSocketSharp.Server;
 
 public class BaseCommand
 {
-	public Dictionary<string, object> output = new Dictionary<string, object>();
-	public BaseCommand()
+	public Dictionary<string, object> output = new Dictionary<string, object>(){};
+	public BaseCommand(string my_name)
 	{
-		CommandRelay.commands.Add(command_name, GetType());
+		command_name = my_name;
 	}
 	public virtual string command_name { get; }
 	public virtual Dictionary<string, object> Run(WebSocketBehavior caller_behavior, Dictionary<string, object> parameters, PlayerSession? sender)

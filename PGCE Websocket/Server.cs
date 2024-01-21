@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System.Net;
 using System.Text;
 using System.Runtime.CompilerServices;
+using SixLabors.ImageSharp;
 
 namespace PGCE
 {
@@ -45,6 +46,7 @@ namespace PGCE
 				{
 					output["response"] = "failed";
 					output["cause"] = $"{exception.Message}";
+					Console.WriteLine($"[EXCEPTION] {exception.ToString()}");
 				}
 			}
 			else if (action == "close_session")
@@ -215,6 +217,21 @@ namespace PGCE
 					{
 						string r = PG3D.FilterBadWorld.FilterString((string)givenInput["newname"]);
 						confirmedResult.Name = r.Substring(0, Math.Clamp(r.Length, 0, 20)).RemoveColorCode();
+					}
+					if (givenInput.ContainsKey("newskin"))
+					{
+						string sk = (string)givenInput["newskin"];
+						if (sk.Length > 522240) // 64 * 32 * 255, just to be 100% sure
+							throw new Exception("Not allowed");
+						
+						// check if image size is actually 64x32
+						byte[] bytes = Convert.FromBase64String(sk);
+						using (MemoryStream ms = new MemoryStream(bytes))  
+						{
+							using Image skin = Image.Load(ms);
+							if (skin.Size.Width != 64 && skin.Size.Height != 32)
+								throw new Exception("Not allowed");
+						}
 					}
 					if (givenInput.ContainsKey("newcoins"))
 						confirmedResult.Coins = Convert.ToInt64((string)givenInput["newcoins"]);

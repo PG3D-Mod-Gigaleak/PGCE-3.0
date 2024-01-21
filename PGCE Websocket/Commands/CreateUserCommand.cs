@@ -6,16 +6,9 @@ using WebSocketSharp.Server;
 
 public class CreateUserCommand : BaseCommand
 {
-	public CreateUserCommand() : base()
+	public CreateUserCommand() : base("create_user")
 	{
 		
-	}
-	public override string command_name 
-	{ 
-		get
-		{
-			return "create_user";
-		}
 	}
 	public override Dictionary<string, object> Run(WebSocketBehavior caller_behavior, Dictionary<string, object> parameters, PlayerSession? sender)
 	{

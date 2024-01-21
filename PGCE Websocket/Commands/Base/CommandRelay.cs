@@ -5,16 +5,17 @@ using WebSocketSharp.Server;
 
 public class CommandRelay
 {
-	public static Dictionary<string, Type> commands = new Dictionary<string, Type>{};
+	public static Dictionary<string, BaseCommand> commands = new Dictionary<string, BaseCommand>{
+		{"ensure_ws_alive", new EnsureAliveCommand()},
+		{"create_user", new CreateUserCommand()},
+	};
 	public static Dictionary<string, object> Run(string command_name, WebSocketBehavior original_behavior, Dictionary<string, object> parameters, PlayerSession? sender)
 	{
 		if (commands.ContainsKey(command_name))
 		{
-			Type c = commands[command_name];
-			BaseCommand new_command_instance = (BaseCommand)c.GetConstructor(System.Reflection.BindingFlags.Default, Type.EmptyTypes).Invoke(null, null);
-			if (new_command_instance != null)
+			if (commands[command_name] != null)
 			{
-				return new_command_instance.Run(original_behavior, parameters, sender);
+				return commands[command_name].Run(original_behavior, parameters, sender);
 			}
 		}
 		else
