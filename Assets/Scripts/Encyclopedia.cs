@@ -40,7 +40,7 @@ public class Encyclopedia : MonoBehaviour
 				CreateButton(enemy, false);
 				continue;
 			}
-			CreateButton(enemy, true);
+			CreateButton(enemy, false);
 		}
 		enemyGridList.Reposition();
 		FixParticles();
