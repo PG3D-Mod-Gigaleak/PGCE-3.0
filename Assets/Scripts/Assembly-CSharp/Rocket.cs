@@ -39,6 +39,7 @@ public class Rocket : MonoBehaviour
 	private WeaponManager _weaponManager;
 
 	private bool isKilled;
+	private Vector3 position;
 
 	private void Awake()
 	{
@@ -179,7 +180,15 @@ public class Rocket : MonoBehaviour
 
 	public void BazookaExplosion(string explosionName)
 	{
-		Vector3 position = base.transform.position;
+		base.transform.GetChild(0).TryGetComponent<ForceNoRigidbody>(out ForceNoRigidbody _fnr);
+		if (_fnr)
+		{
+			position = base.transform.GetChild(0).position;
+		}
+		else
+		{
+			position = base.transform.position;
+		}
 		string path = ResPath.Combine("Explosions", explosionName);
 		GameObject gameObject = Resources.Load(path) as GameObject;
 		if (gameObject == null)

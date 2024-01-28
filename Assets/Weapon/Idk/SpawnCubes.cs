@@ -41,16 +41,18 @@ public class SpawnCubes : MonoBehaviour
         if (hasUser == true && onlyHorizontal == false && isRandom == false)
         {
             Vector3 forwardPos = transform.position + positionObject + transform.forward*distance;
-            Quaternion forwardRot = User.transform.rotation;
+            Vector3 forwardRot = User.transform.rotation.eulerAngles + distanceRotation;
             Debug.LogError("Spawned1");
-            Instantiate(Prefab, forwardPos, forwardRot);
+            GameObject cube = Instantiate(Prefab, forwardPos, Quaternion.identity);
+            cube.transform.localEulerAngles = forwardRot;
         }
         else if (hasUser == true && onlyHorizontal == true && isRandom == false)
         {
             Vector3 forwardPosFixed = transform.position + distancePosition*distance;
-            Quaternion forwardRot = User.transform.rotation;
+            Vector3 forwardRot = User.transform.rotation.eulerAngles + distanceRotation;
             Debug.LogError("Spawned2");
-            Instantiate(Prefab, forwardPosFixed, forwardRot);
+            GameObject cube = Instantiate(Prefab, forwardPosFixed, Quaternion.identity);
+            cube.transform.localEulerAngles = forwardRot;
         }
         else if (hasUser == false && onlyHorizontal == false && isRandom == false)
         {
