@@ -145,7 +145,7 @@ public class COMDHThunderbow : MonoBehaviour
 
     public void Shoot()
     {
-        GameObject bullet = Instantiate(Bullet, spawner.transform.position, host.transform.rotation);
+        GameObject bullet = PhotonNetwork.Instantiate(LoadObject(Bullet), spawner.transform.position, host.transform.rotation,0);
         bullet.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
         bullet.GetComponent<Rigidbody>().AddForce(host.transform.forward * velocity);
         bullet.GetComponent<COMDHThunderbow>().multiplayerDamage = multiplayerDamage;
@@ -169,7 +169,7 @@ public class COMDHThunderbow : MonoBehaviour
             {
                 if (!(other.transform.parent.GetComponent<ZombiUpravlenie>().health <= 0f))
                 {
-                    GameObject effect = Instantiate(stuneffect, gameObject.transform.position + new Vector3(0f,0.5f,0f), Quaternion.identity);
+                    GameObject effect = PhotonNetwork.Instantiate(LoadObject(stuneffect), gameObject.transform.position + new Vector3(0f,0.5f,0f), Quaternion.identity,0);
                     effect.GetComponent<COMDHThunderbow>().isStunEffect = true;
                     effect.transform.parent = other.transform.parent;
                     effect.GetComponent<COMDHThunderbow>().multiplayerDamage = multiplayerDamage;
@@ -186,7 +186,7 @@ public class COMDHThunderbow : MonoBehaviour
             {
                 if (!(other.transform.parent.GetComponent<SkinName>().playerMoveC.CurHealth <= 0f))
                 {
-                    GameObject effect = Instantiate(stuneffect, gameObject.transform.position + new Vector3(0f,0.5f,0f), Quaternion.identity);
+                    GameObject effect = PhotonNetwork.Instantiate(LoadObject(stuneffect), gameObject.transform.position + new Vector3(0f,0.5f,0f), Quaternion.identity,0);
                     effect.GetComponent<COMDHThunderbow>().isStunEffect = true;
                     effect.transform.parent = other.transform.parent;
                     effect.GetComponent<COMDHThunderbow>().multiplayerDamage = multiplayerDamage;
@@ -204,5 +204,17 @@ public class COMDHThunderbow : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    string LoadObject(GameObject Object)
+    {
+        GameObject Prefab = Object;
+        Prefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+        if (!_pv)
+        {
+            Prefab.AddComponent<PhotonView>();
+        }
+        string ObjectName = Object.name;
+        return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
     }
 }

@@ -103,9 +103,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3083682537532165443}
-  - component: {fileID: 731754594524000746}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -125,39 +124,6 @@ Transform:
   m_Father: {fileID: 5107845821250217565}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &731754594524000746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2283827347117260227}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e6dcb4e84307f4b982ce71a00c0bde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Prefab: {fileID: 1378921367420317146, guid: d5e8d1a015c7d7b4db117a551ba30376, type: 3}
-  User: {fileID: 5109346359847769576}
-  hasUser: 0
-  isRandom: 0
-  isForward: 0
-  onlyHorizontal: 0
-  lastSpawnedtime: 0
-  frequency: 0.5
-  positionObject: {x: 0, y: 0, z: 0}
-  rotationObject: {x: 0, y: 0, z: 0}
-  scaleObject: {x: 0, y: 0, z: 0}
-  distance: 0
-  distancePosition: {x: 0, y: 0, z: 0}
-  distanceRotation: {x: 0, y: 0, z: 0}
-  distanceScale: {x: 0, y: 0, z: 0}
-  x1: 0
-  x2: 0
-  y1: 0
-  y2: 0
-  z1: 0
-  z2: 0
 --- !u!1 &5109346359847769576
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +341,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5107845821250217565}
   - component: {fileID: 5145022796089106984}
+  - component: {fileID: 2505731914084427161}
   m_Layer: 0
   m_Name: Pixlgun
   m_TagString: Untagged
@@ -411,7 +378,7 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: b4bf3b6e7e7d1c24990b62f345266227, type: 2}
   - {fileID: 7400000, guid: 7461eb1a74d454d44897347c3e900d50, type: 2}
-  - {fileID: 7400000, guid: dae9b0636cb7ac94c9f1de54671f510c, type: 2}
+  - {fileID: 7400000, guid: 0679a6f404d6d57429bd1c4b2a80529d, type: 2}
   - {fileID: 7400000, guid: c608ee0e732b3ce458ffc5af1a8755c7, type: 2}
   - {fileID: 7400000, guid: f8c71c814ffef2c44bfdd36e69d26faa, type: 2}
   - {fileID: 7400000, guid: 74c795e741d32d34ea3816662205f076, type: 2}
@@ -421,6 +388,20 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &2505731914084427161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5109453579778970189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43be039ddde8afd4791e08021ef2c2c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnpoint: {fileID: 2283827347117260227}
+  npc: {fileID: 1378921367420317146, guid: d5e8d1a015c7d7b4db117a551ba30376, type: 3}
 --- !u!1 &5109582661071775863
 GameObject:
   m_ObjectHideFlags: 0

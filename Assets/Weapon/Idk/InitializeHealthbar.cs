@@ -23,7 +23,6 @@ public class InitializeHealthbar : MonoBehaviour
 	private bool isKilled;
 	private int amount;
     public List<GameObject> previousObjects = new List<GameObject>();
-
     private void Awake()
 	{
 		isMulti = prefs.GetInt("MultyPlayer") == 1;
@@ -94,23 +93,23 @@ public class InitializeHealthbar : MonoBehaviour
             if (alreadyHealthbar == 0)
             {
                 Healthbar.GetComponent<HealthNPC>().targetNPC = transform;
-                Instantiate(Healthbar, transform.position, Quaternion.identity);
-                if (gameObject.CompareTag("Enemy"))
-                {
-                    gameObject.transform.GetChild(0).tag="ZombieCollider";
-                    gameObject.AddComponent<Rigidbody>();
-                    gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                }
-                else if (gameObject.CompareTag("Player"))
-                {
-                    gameObject.AddComponent<Rigidbody>();
-                    gameObject.GetComponent<Rigidbody>().isKinematic = true;
-                }
+                Healthbar.TryGetComponent<PhotonView>(out PhotonView _pv);
+            if (!_pv)
+            {
+                Healthbar.AddComponent<PhotonView>();
+            }
+                PhotonNetwork.Instantiate(LoadHealthbar(Healthbar), transform.position, Quaternion.identity,0);
                 alreadyHealthbar = 1;
             }
         }
     }
-    
+
+    string LoadHealthbar(GameObject Healthbar)
+    {
+        string HealthbarName = Healthbar.name;
+        return "Instantiatables/healthbars/" + HealthbarName;
+    }
+    // Since every enemy has this script attached, I added some functions to make every enemy compatible with new types of weapons
     public void DamageNPC(string typenpc, float coopDamage, float multiplayerDamage, float damageCooldown, WeaponManager _weaponManager, GameObject orgObject, GameObject Sender)
     {
         void DamageNPC2()

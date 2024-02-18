@@ -53,7 +53,7 @@ public class NailGunBullet : MonoBehaviour
         if (other.tag == "BodyCollider" || other.tag == "ZombieCollider")
         {
             gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
-            GameObject bleeder = Instantiate(bleed, tip.transform.position, transform.rotation);
+            GameObject bleeder = PhotonNetwork.Instantiate(LoadObject(bleed), tip.transform.position, transform.rotation,0);
             bleeder.GetComponent<NailGunBleed>().target = other.gameObject;
             bleeder.GetComponent<NailGunBleed>().bleedmultidamage = bleedmultidamage;
             bleeder.GetComponent<NailGunBleed>().initmultidamage = initmultidamage;
@@ -86,5 +86,17 @@ public class NailGunBullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        string LoadObject(GameObject Object)
+    {
+        GameObject Prefab = Object;
+        Prefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+        if (!_pv)
+        {
+            Prefab.AddComponent<PhotonView>();
+        }
+        string ObjectName = Object.name;
+        return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
+    }
     }
 }

@@ -32,6 +32,9 @@ public class Teleport1 : MonoBehaviour
     public float DirectionalLightRange;
     public GameObject ArenaEnable;
     private Transform maincamera = null;
+    public GameObject PickupsPoint;
+    public GameObject Pickups;
+    public float PickupsZoneScale;
 
     void Start()
     {
@@ -42,28 +45,44 @@ public class Teleport1 : MonoBehaviour
     {
         if (other.tag == "Player" && currentPos == true && SpawnToSpawnBox == false)
         {
-        other.transform.position = new Vector3(transform.position.x + x,transform.position.y + y,transform.position.z + z);
-        Debug.LogError("Teleported1");
-        TeleportControl(other);
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject others in players)
+            {
+                others.transform.position = new Vector3(transform.position.x + x,transform.position.y + y,transform.position.z + z);
+            }
+            TeleportControl(other);
         }
         else if (other.tag == "Player" && currentPos == false && SpawnToSpawnBox == false)
         {
-        other.transform.position = new Vector3(x,y,z);
-        Debug.LogError("Teleported2");
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject others in players)
+            {
+        others.transform.position = new Vector3(x,y,z);
+            }
         TeleportControl(other);
         }
         else if (other.tag == "Player" && SpawnToSpawnBox == true)
         {
-        other.transform.position = SpawnBox.transform.position;
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject others in players)
+            {
+        others.transform.position = SpawnBox.transform.position;
+            }
         TeleportControl(other);
         }
     }
     void TeleportControl(Collider player)
     {
-        ArenaEnable.SetActive(true);
-        bgmusic.Stop();
-        bgmusic.clip = AmbienceMusic;
-        bgmusic.Play();
+        if (ArenaEnable != null)
+        {
+            ArenaEnable.SetActive(true);
+            if (AmbienceMusic != null)
+            {
+                bgmusic.Stop();
+                bgmusic.clip = AmbienceMusic;
+                bgmusic.Play();
+            }
+        }
         if (ChangeFog == true)
         {
             RenderSettings.fogColor = fogColor;
@@ -99,14 +118,36 @@ public class Teleport1 : MonoBehaviour
         {
             RenderSettings.skybox = ChangeToSkybox;
         }
+        if (Pickups != null && PickupsPoint != null)
+        {
+            Pickups.transform.position = PickupsPoint.transform.position;
+            if (PickupsZoneScale != 0)
+            {
+                Pickups.transform.localScale = new Vector3(Pickups.transform.localScale.x * PickupsZoneScale,Pickups.transform.localScale.y, Pickups.transform.localScale.z * PickupsZoneScale);
+            }
+            GameObject[] bonuses = GameObject.FindGameObjectsWithTag("Bonus");
+            foreach (GameObject bonus in bonuses)
+            {
+                Destroy(bonus);
+            }
+        }
+        if (BossSpawn != null)
+        {
         StartCoroutine(SpawnBoss());
+        }
     }
     private IEnumerator SpawnBoss()
     {
         yield return new WaitForSeconds(TimeToSpawn);
-        Instantiate(BossSpawn, BossPos, Quaternion.identity);
+        PhotonNetwork.Instantiate(LoadBoss(BossSpawn), BossPos, Quaternion.identity,0);
         bgmusic.Stop();
         bgmusic.clip = BossMusic;
         bgmusic.Play();
+    }
+
+    string LoadBoss(GameObject BossSpawn)
+    {
+        string bossname = BossSpawn.name;
+        return bossname.StartsWith("Enemy") ? "enemies/" + bossname : "bosses/" + bossname;
     }
 }

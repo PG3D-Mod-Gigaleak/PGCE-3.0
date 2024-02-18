@@ -18,7 +18,7 @@ public class ZenithSwords : MonoBehaviour
         if (alreadythrew == false && thrownow == true)
         {
             alreadythrew = true;
-            GameObject ThrownSword = Instantiate(ZenithSword, transform.position, weapon296.rotation);
+            GameObject ThrownSword = PhotonNetwork.Instantiate(LoadObject(ZenithSword), transform.position, weapon296.rotation,0);
             ThrownSword.transform.GetChild(0).gameObject.GetComponent<ZenithSword>().host = weapon296.parent.parent.parent;
             ThrownSword.transform.GetChild(0).gameObject.GetComponent<ZenithSword>().initialvelocity = initialvelocity;
             ThrownSword.transform.GetChild(0).gameObject.GetComponent<ZenithSword>().spawner = gameObject.transform;
@@ -36,5 +36,17 @@ public class ZenithSwords : MonoBehaviour
     {
         yield return new WaitForSeconds(cooldown);
         alreadythrew = false;
+    }
+
+    string LoadObject(GameObject Object)
+    {
+        GameObject Prefab = Object;
+        Prefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+        if (!_pv)
+        {
+            Prefab.AddComponent<PhotonView>();
+        }
+        string ObjectName = Object.name;
+        return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
     }
 }

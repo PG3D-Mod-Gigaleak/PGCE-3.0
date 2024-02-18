@@ -23,7 +23,7 @@ public class PlayerCoinThrow : MonoBehaviour
         if (throwNow == true && Thrown == false)
         {
             Thrown = true;
-            GameObject coin = Instantiate(Coin, rotationFace.position + rotationFace.forward * 2, rotationFace.rotation);
+            GameObject coin = PhotonNetwork.Instantiate(LoadObject(Coin), rotationFace.position + rotationFace.forward * 2, rotationFace.rotation,0);
             coin.GetComponent<Rigidbody>().AddForce(rotationFace.forward * forwardVelocity);
             coin.GetComponent<Coin>().mindist = RicochetRadius;
             coin.GetComponent<DamageZone>().coopDamage = coopDamage;
@@ -38,5 +38,17 @@ public class PlayerCoinThrow : MonoBehaviour
     {
         yield return new WaitForSeconds(cooldown);
         Thrown = false;
+    }
+
+    string LoadObject(GameObject Object)
+    {
+        GameObject Prefab = Object;
+        Prefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+        if (!_pv)
+        {
+            Prefab.AddComponent<PhotonView>();
+        }
+        string ObjectName = Object.name;
+        return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
     }
 }

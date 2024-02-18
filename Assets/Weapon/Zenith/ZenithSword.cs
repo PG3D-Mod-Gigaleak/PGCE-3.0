@@ -55,7 +55,7 @@ public class ZenithSword : MonoBehaviour
         {
             if (other.tag == "ZombieCollider" && other.transform.parent.GetComponent<ZombiUpravlenie>().health > 0f)
             {
-                GameObject Impact = Instantiate(ImpactFX, other.transform.position, Quaternion.identity);
+                GameObject Impact = PhotonNetwork.Instantiate(LoadObject(ImpactFX), other.transform.position, Quaternion.identity,0);
                 Color swordcolor = gameObject.GetComponent<Renderer>().material.GetColor("_Color");
                 Impact.GetComponent<ParticleSystemRenderer>().material.SetColor("_TintColor",swordcolor);
                 ImpactList.Add(other.gameObject);
@@ -64,7 +64,7 @@ public class ZenithSword : MonoBehaviour
             }
             if (other.tag == "BodyCollider" && other.transform.parent.GetComponent<SkinName>().playerMoveC.CurHealth > 0f)
             {
-                GameObject Impact = Instantiate(ImpactFX, other.transform.position, Quaternion.identity);
+                GameObject Impact = PhotonNetwork.Instantiate(LoadObject(ImpactFX), other.transform.position, Quaternion.identity,0);
                 Color swordcolor = gameObject.GetComponent<Renderer>().material.GetColor("_Color");
                 Impact.GetComponent<ParticleSystemRenderer>().material.SetColor("_TintColor",swordcolor);
                 ImpactList.Add(other.gameObject);
@@ -78,5 +78,17 @@ public class ZenithSword : MonoBehaviour
     {
         yield return new WaitForSeconds(ImpactCooldownS);
         ImpactList.Remove(newobject);
+    }
+
+    string LoadObject(GameObject Object)
+    {
+        GameObject Prefab = Object;
+        Prefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+        if (!_pv)
+        {
+            Prefab.AddComponent<PhotonView>();
+        }
+        string ObjectName = Object.name;
+        return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
     }
 }

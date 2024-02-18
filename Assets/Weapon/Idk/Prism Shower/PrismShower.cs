@@ -37,7 +37,7 @@ public class PrismShower : MonoBehaviour
             cursor = new Vector3(host.transform.rotation.x,host.transform.rotation.y,host.transform.rotation.z);
         }
         Vector3 RandomPos = host.transform.position + new Vector3(Random.Range(-10f,10f), 5f, 0f);
-        GameObject prism = Instantiate(Prism, RandomPos, Quaternion.identity);
+        GameObject prism = PhotonNetwork.Instantiate(LoadObject(Prism), RandomPos, Quaternion.identity,0);
         prism.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
         if (rayhit == true)
         {
@@ -58,7 +58,7 @@ public class PrismShower : MonoBehaviour
         int angle = 0;
         for(int i = 0; i < 24; i++)
         {
-            GameObject prism = Instantiate(Prism, player.position, player.rotation);
+            GameObject prism = PhotonNetwork.Instantiate(LoadObject(Prism), player.position, player.rotation,0);
             prism.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
             Vector3 finalrot = new Vector3(0, angle, 0);
             Quaternion finalrotation = Quaternion.Euler(finalrot);
@@ -69,5 +69,17 @@ public class PrismShower : MonoBehaviour
             prism.GetComponent<DamageZone>().multiplayerDamage = multiDamage;
             angle += 15;
         }
+    }
+
+    string LoadObject(GameObject Object)
+    {
+        GameObject Prefab = Object;
+        Prefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+        if (!_pv)
+        {
+            Prefab.AddComponent<PhotonView>();
+        }
+        string ObjectName = Object.name;
+        return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
     }
 }

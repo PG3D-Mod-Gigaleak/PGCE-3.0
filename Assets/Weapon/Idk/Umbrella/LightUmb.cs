@@ -40,7 +40,7 @@ public class LightUmb : MonoBehaviour
             {
                 if (Vector3.Distance(player.transform.position, game.transform.position) < distance && game.transform.parent.GetComponent<ZombiUpravlenie>().health > 0f && !enemylist.Contains(game.gameObject))
                 {
-                    GameObject Orb = Instantiate(orb, player.transform.position + new Vector3(0f,0.5f,0f), host.transform.rotation);
+                    GameObject Orb = PhotonNetwork.Instantiate(LoadObject(orb), player.transform.position + new Vector3(0f,0.5f,0f), host.transform.rotation,0);
                     Orb.GetComponent<LightUmb>().player = player;
                     Orb.GetComponent<LightUmb>().target = game.transform.parent.gameObject;
                     Orb.GetComponent<LightUmb>().velocity = velocity;
@@ -56,7 +56,7 @@ public class LightUmb : MonoBehaviour
             {
                 if (Vector3.Distance(player.transform.position, game.transform.position) < distance && game.transform.parent.GetComponent<SkinName>().playerMoveC.CurHealth > 0f && game.transform.parent.gameObject != player && !enemylist.Contains(game.gameObject))
                 {
-                    GameObject Orb = Instantiate(orb, player.transform.position + new Vector3(0f,0.5f,0f), host.transform.rotation);
+                    GameObject Orb = PhotonNetwork.Instantiate(LoadObject(orb), player.transform.position + new Vector3(0f,0.5f,0f), host.transform.rotation,0);
                     Orb.GetComponent<LightUmb>().player = player;
                     Orb.GetComponent<LightUmb>().target = game.transform.parent.gameObject;
                     Orb.GetComponent<LightUmb>().velocity = velocity;
@@ -85,7 +85,7 @@ public class LightUmb : MonoBehaviour
 
     public IEnumerator Umb(Vector3 pos)
     {
-        GameObject Um = Instantiate(umbrella, pos + new Vector3(Random.Range(-x,x),y,Random.Range(-z,z)), Quaternion.identity);
+        GameObject Um = PhotonNetwork.Instantiate(LoadObject(umbrella), pos + new Vector3(Random.Range(-x,x),y,Random.Range(-z,z)), Quaternion.identity,0);
         Um.transform.localEulerAngles = Um.transform.rotation.eulerAngles + new Vector3(90f,0f,0f);
         Um.transform.localEulerAngles = Um.transform.rotation.eulerAngles + new Vector3(Random.Range(-45,45),Random.Range(-45,45),Random.Range(-45,45));
         Um.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
@@ -130,5 +130,17 @@ public class LightUmb : MonoBehaviour
             gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
             Exploded = true;
         }
+    }
+
+    string LoadObject(GameObject Object)
+    {
+        GameObject Prefab = Object;
+        Prefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+        if (!_pv)
+        {
+            Prefab.AddComponent<PhotonView>();
+        }
+        string ObjectName = Object.name;
+        return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
     }
 }

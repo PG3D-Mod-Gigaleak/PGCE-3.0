@@ -43,7 +43,7 @@ public class SpawnCubes : MonoBehaviour
             Vector3 forwardPos = transform.position + positionObject + transform.forward*distance;
             Vector3 forwardRot = User.transform.rotation.eulerAngles + distanceRotation;
             Debug.LogError("Spawned1");
-            GameObject cube = Instantiate(Prefab, forwardPos, Quaternion.identity);
+            GameObject cube = PhotonNetwork.Instantiate(LoadObject(Prefab), forwardPos, Quaternion.identity,0);
             cube.transform.localEulerAngles = forwardRot;
         }
         else if (hasUser == true && onlyHorizontal == true && isRandom == false)
@@ -51,7 +51,7 @@ public class SpawnCubes : MonoBehaviour
             Vector3 forwardPosFixed = transform.position + distancePosition*distance;
             Vector3 forwardRot = User.transform.rotation.eulerAngles + distanceRotation;
             Debug.LogError("Spawned2");
-            GameObject cube = Instantiate(Prefab, forwardPosFixed, Quaternion.identity);
+            GameObject cube = PhotonNetwork.Instantiate(LoadObject(Prefab), forwardPosFixed, Quaternion.identity,0);
             cube.transform.localEulerAngles = forwardRot;
         }
         else if (hasUser == false && onlyHorizontal == false && isRandom == false)
@@ -59,7 +59,7 @@ public class SpawnCubes : MonoBehaviour
             Vector3 forwardPos = transform.position + positionObject + transform.forward*distance;
             Quaternion forwardRot = User.transform.rotation;
             Debug.LogError("Spawned3");
-            Instantiate(Prefab, forwardPos, Quaternion.Euler(rotationObject));
+            PhotonNetwork.Instantiate(LoadObject(Prefab), forwardPos, Quaternion.Euler(rotationObject),0);
         
         }
         else if (hasUser == false && onlyHorizontal == true && isRandom == false)
@@ -67,7 +67,7 @@ public class SpawnCubes : MonoBehaviour
             Vector3 forwardPosFixed = transform.position + distancePosition*distance;
             Quaternion forwardRot = User.transform.rotation;
             Debug.LogError("Spawned4");
-            Instantiate(Prefab, forwardPosFixed, Quaternion.Euler(rotationObject));
+            PhotonNetwork.Instantiate(LoadObject(Prefab), forwardPosFixed, Quaternion.Euler(rotationObject),0);
             }
         else if (isRandom == true)
         {
@@ -78,7 +78,19 @@ public class SpawnCubes : MonoBehaviour
             Vector3 finalPos = transform.position + randomPos;
             Quaternion forwardRot = User.transform.rotation;
             Debug.LogError("Spawned5");
-            Instantiate(Prefab, finalPos, Quaternion.Euler(rotationObject));
+            PhotonNetwork.Instantiate(LoadObject(Prefab), finalPos, Quaternion.Euler(rotationObject),0);
+        }
+
+        string LoadObject(GameObject Object)
+        {
+            GameObject checkPrefab = Object;
+            checkPrefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+            if (!_pv)
+            {
+                checkPrefab.AddComponent<PhotonView>();
+            }
+            string ObjectName = Object.name;
+            return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
         }
     }
     void Update() {

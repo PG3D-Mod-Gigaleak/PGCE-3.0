@@ -63,7 +63,7 @@ public class ShadowBall : MonoBehaviour
         // }
         if (Target != null)
         {
-            GameObject SpawnedOrb = Instantiate(ShadowOrb, transform.position, Quaternion.identity);
+            GameObject SpawnedOrb = PhotonNetwork.Instantiate(LoadObject(ShadowOrb), transform.position, Quaternion.identity,0);
             SpawnedOrb.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
             SpawnedOrb.transform.LookAt(Target.position);
             SpawnedOrb.GetComponent<Rigidbody>().AddForce(SpawnedOrb.transform.forward * 1500);
@@ -72,5 +72,17 @@ public class ShadowBall : MonoBehaviour
         detectRadius -= 2.5f;
         yield return new WaitForSeconds(OrbCooldown);
         Discharg();
+    }
+
+    string LoadObject(GameObject Object)
+    {
+        GameObject Prefab = Object;
+        Prefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+        if (!_pv)
+        {
+            Prefab.AddComponent<PhotonView>();
+        }
+        string ObjectName = Object.name;
+        return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
     }
 }

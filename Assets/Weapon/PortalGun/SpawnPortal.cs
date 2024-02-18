@@ -24,21 +24,32 @@ public class SpawnPortal : MonoBehaviour
         Blue = GameObject.Find("PortalBlue(Clone)");
         if (GameObject.Find("PortalBlue(Clone)") && !GameObject.Find("PortalOrange(Clone)"))
         {
-            Instantiate(OrangePortal, transform.position, transform.rotation);
+            PhotonNetwork.Instantiate(LoadObject(OrangePortal), transform.position, transform.rotation, 0);
         }
         else if (!GameObject.Find("PortalBlue(Clone)") && GameObject.Find("PortalOrange(Clone)"))
         {
-            Instantiate(BluePortal, transform.position, transform.rotation);
+            PhotonNetwork.Instantiate(LoadObject(BluePortal), transform.position, transform.rotation, 0);
         }
         else if (GameObject.Find("PortalBlue(Clone)") && GameObject.Find("PortalOrange(Clone)"))
         {
             Debug.LogError("NextPortalSet");
-            Instantiate(BluePortal, transform.position, transform.rotation);
+            PhotonNetwork.Instantiate(LoadObject(BluePortal), transform.position, transform.rotation, 0);
         }
         else
         {
             Debug.LogError("NoPortal");
-            Instantiate(BluePortal, transform.position, transform.rotation);
+            PhotonNetwork.Instantiate(LoadObject(BluePortal), transform.position, transform.rotation, 0);
         }
     }
+        string LoadObject(GameObject Object)
+        {
+            GameObject checkPrefab = Object;
+            checkPrefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+            if (!_pv)
+            {
+                checkPrefab.AddComponent<PhotonView>();
+            }
+            string ObjectName = Object.name;
+            return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
+        }
 }

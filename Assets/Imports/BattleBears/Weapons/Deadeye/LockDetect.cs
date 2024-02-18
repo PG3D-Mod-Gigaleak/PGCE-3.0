@@ -26,15 +26,16 @@ public class LockDetect : MonoBehaviour
     void Start()
     {
         LockCrosshair.GetComponent<DespawnObject>().hostObject = gameObject;
+
     }
     public void DamageCall()
     {
         if (hasTarget == true)
         {
-            Instantiate(Impact, target.position, Quaternion.identity);
+            PhotonNetwork.Instantiate(LoadObject(Impact), target.position, Quaternion.identity,0);
             if (hasLaser == true)
             {
-                GameObject TheLaser = Instantiate(Laser, (transform.parent.GetChild(2).position + target.position) / 2, Laser.transform.rotation);
+                GameObject TheLaser = PhotonNetwork.Instantiate(LoadObject(Laser), (transform.parent.GetChild(2).position + target.position) / 2, Laser.transform.rotation, 0);
                 TheLaser.GetComponent<Animation>().Play("Laser");
                 TheLaser.transform.LookAt(target.position); 
                 TheLaser.transform.localScale = new Vector3(TheLaser.transform.localScale.x,TheLaser.transform.localScale.y,(TheLaser.transform.localScale.z * Vector3.Distance(target.transform.position,transform.parent.GetChild(2).position)) * 1f * (2f/3f));
@@ -43,7 +44,7 @@ public class LockDetect : MonoBehaviour
             Destroy(Crosshair);
             gameObject.GetComponent<DamageZone>().multiplayerDamage = 0;
             gameObject.GetComponent<DamageZone>().coopDamage = 0;
-            Crosshair = Instantiate(LockCrosshair, transform.position, Quaternion.identity);
+            Crosshair = PhotonNetwork.Instantiate(LoadObject(LockCrosshair), transform.position, Quaternion.identity,0);
             Crosshair.GetComponent<Animation>().Play("LockCrosshair");
             alreadyInstantiated = true;
             SameTarget = true;
@@ -103,7 +104,7 @@ public class LockDetect : MonoBehaviour
                 Destroy(Crosshair);
                 gameObject.GetComponent<DamageZone>().multiplayerDamage = 0;
                 gameObject.GetComponent<DamageZone>().coopDamage = 0;
-                Crosshair = Instantiate(LockCrosshair, transform.position, Quaternion.identity);
+                Crosshair = PhotonNetwork.Instantiate(LoadObject(LockCrosshair), transform.position, Quaternion.identity,0);
                 Crosshair.GetComponent<Animation>().Play("LockCrosshair");
                 alreadyInstantiated = true;
                 SameTarget = true;
@@ -136,12 +137,24 @@ public class LockDetect : MonoBehaviour
                 Destroy(Crosshair);
                 gameObject.GetComponent<DamageZone>().multiplayerDamage = 0;
                 gameObject.GetComponent<DamageZone>().coopDamage = 0;
-                Crosshair = Instantiate(LockCrosshair, transform.position, Quaternion.identity);
+                Crosshair = PhotonNetwork.Instantiate(LoadObject(LockCrosshair), transform.position, Quaternion.identity,0);
                 Crosshair.GetComponent<Animation>().Play("LockCrosshair");
                 alreadyInstantiated = true;
             }
         }
         oldTarget = target;
         RealTargets = new List<Collider>();
+    }
+
+    string LoadObject(GameObject Object)
+    {
+        GameObject Prefab = Object;
+        Prefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+        if (!_pv)
+        {
+            Prefab.AddComponent<PhotonView>();
+        }
+        string ObjectName = Object.name;
+        return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
     }
 }

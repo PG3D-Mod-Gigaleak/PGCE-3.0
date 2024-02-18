@@ -16,10 +16,22 @@ public class PortalTravel : MonoBehaviour
             float y = Random.Range(2,10f);
             float z = Random.Range(-10f,10f);
             Vector3 randposition = new Vector3(x,y,z);
-            GameObject NixSpawn = Instantiate(Nix, TargetObject.position, TargetObject.rotation);
+            GameObject NixSpawn = PhotonNetwork.Instantiate(LoadObject(Nix), TargetObject.position, TargetObject.rotation,0);
             NixSpawn.transform.position += randposition;
             NixSpawn.GetComponent<NixShoot>().targetObject = TargetObject;
             NixSpawn.transform.LookAt(NixSpawn.GetComponent<NixShoot>().targetObject.position);
         }
+    }
+
+    string LoadObject(GameObject Object)
+    {
+        GameObject Prefab = Object;
+        Prefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+        if (!_pv)
+        {
+            Prefab.AddComponent<PhotonView>();
+        }
+        string ObjectName = Object.name;
+        return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
     }
 }

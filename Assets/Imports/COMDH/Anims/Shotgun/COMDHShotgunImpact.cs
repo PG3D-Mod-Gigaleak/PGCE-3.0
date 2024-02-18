@@ -23,14 +23,14 @@ public class COMDHShotgunImpact : MonoBehaviour
             {
                 if (other.transform.parent.gameObject != player)
                 {
-                    Instantiate(effect, other.transform.position + new Vector3(0,1,0), Quaternion.identity);
+                    PhotonNetwork.Instantiate(LoadObject(effect), other.transform.position + new Vector3(0,1,0), Quaternion.identity,0);
                     array.Add(other.gameObject);
                     StartCoroutine(Remove(other.gameObject));
                 }
             }
             else if (other.tag == "ZombieCollider")
             {
-                Instantiate(effect, other.transform.position + new Vector3(0,1f,0), Quaternion.identity);
+                PhotonNetwork.Instantiate(LoadObject(effect), other.transform.position + new Vector3(0,1f,0), Quaternion.identity,0);
                 array.Add(other.gameObject);
                 StartCoroutine(Remove(other.gameObject));
             }
@@ -45,5 +45,17 @@ public class COMDHShotgunImpact : MonoBehaviour
         {
             array.Remove(game.gameObject);
         }
+    }
+
+    string LoadObject(GameObject Object)
+    {
+        GameObject Prefab = Object;
+        Prefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+        if (!_pv)
+        {
+            Prefab.AddComponent<PhotonView>();
+        }
+        string ObjectName = Object.name;
+        return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
     }
 }

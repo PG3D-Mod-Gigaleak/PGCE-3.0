@@ -33,7 +33,7 @@ public class NailGunShoot : MonoBehaviour
     {
         if (isNailShot == false)
         {
-        GameObject nail = Instantiate(Nail, spawner.transform.position, host.transform.rotation);
+        GameObject nail = PhotonNetwork.Instantiate(LoadObject(Nail), spawner.transform.position, host.transform.rotation,0);
         nail.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
         nail.GetComponent<Rigidbody>().AddForce(host.transform.forward * velocity);
         nail.GetComponent<NailGunBullet>().bleedmultidamage = bleedmultidamage;
@@ -48,7 +48,7 @@ public class NailGunShoot : MonoBehaviour
         {
             if (accuratenail == true)
             {
-                GameObject nail = Instantiate(Nail, spawner.transform.position, host.transform.rotation);
+                GameObject nail = PhotonNetwork.Instantiate(LoadObject(Nail), spawner.transform.position, host.transform.rotation,0);
                 nail.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
                 nail.GetComponent<Rigidbody>().AddForce(host.transform.forward * velocity);
                 nail.GetComponent<NailGunBullet>().bleedmultidamage = bleedmultidamage;
@@ -62,7 +62,7 @@ public class NailGunShoot : MonoBehaviour
             for (int i = 0; i<nails; i++)
             {
             Vector3 randomrot = new Vector3(Random.Range(inaccuracy1.x,inaccuracy2.x),Random.Range(inaccuracy1.y,inaccuracy2.y),Random.Range(inaccuracy1.y,inaccuracy2.y));
-            GameObject nail = Instantiate(Nail, spawner.transform.position, Quaternion.identity);
+            GameObject nail = PhotonNetwork.Instantiate(LoadObject(Nail), spawner.transform.position, Quaternion.identity,0);
             nail.transform.localEulerAngles = host.transform.rotation.eulerAngles + randomrot;
             nail.GetComponent<Rigidbody>().velocity = new Vector3(0f,0f,0f);
             nail.GetComponent<Rigidbody>().AddForce(nail.transform.forward * velocity * Random.Range(0.5f,1f));
@@ -79,8 +79,20 @@ public class NailGunShoot : MonoBehaviour
 
     public void Turret()
     {
-        GameObject turrete = Instantiate(turret, player.transform.position + new Vector3(Random.Range(-3f,3f),-0.5f,Random.Range(-3f,3f)), Quaternion.identity);
+        GameObject turrete = PhotonNetwork.Instantiate(LoadObject(turret), player.transform.position + new Vector3(Random.Range(-3f,3f),-0.5f,Random.Range(-3f,3f)), Quaternion.identity,0);
         turrete.GetComponent<NailGunTurret>().player = player;
         turrete.GetComponent<NailGunShoot>().player = player;
+    }
+
+    string LoadObject(GameObject Object)
+    {
+        GameObject Prefab = Object;
+        Prefab.TryGetComponent<PhotonView>(out PhotonView _pv);
+        if (!_pv)
+        {
+            Prefab.AddComponent<PhotonView>();
+        }
+        string ObjectName = Object.name;
+        return ObjectName.StartsWith("Enemy") ? "Instantiatables/enemyobjects/" + ObjectName : "Instantiatables/playerobjects/" + ObjectName;
     }
 }
