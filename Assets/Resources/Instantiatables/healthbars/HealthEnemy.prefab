@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1577446058468837081}
   - component: {fileID: 2685237471011181282}
   - component: {fileID: 2556294927523330028}
+  - component: {fileID: 981698057719720496}
   m_Layer: 0
   m_Name: HealthEnemy
   m_TagString: Untagged
@@ -50,6 +51,8 @@ MonoBehaviour:
   targetPos: {x: 0, y: -10, z: 0}
   targetNPC: {fileID: 0}
   fillBar: {fileID: 4431395917002841044}
+  timer: 1
+  health1: 0
 --- !u!111 &2685237471011181282
 Animation:
   m_ObjectHideFlags: 0
@@ -80,6 +83,32 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.1, z: 0.01}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &981698057719720496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3361972340383323923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d25ae6de24cfdc3469b586d164d376d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerId: 0
+  group: 0
+  OwnerShipWasTransfered: 0
+  prefixBackup: -1
+  synchronization: 0
+  onSerializeTransformOption: 3
+  onSerializeRigidBodyOption: 2
+  ownershipTransfer: 0
+  ObservedComponents: []
+  ObservedComponentsFoldoutOpen: 1
+  viewIdField: 0
+  instantiationId: -1
+  currentMasterID: -1
+  isRuntimeInstantiated: 0
 --- !u!1 &3576194402626852491
 GameObject:
   m_ObjectHideFlags: 0
