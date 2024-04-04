@@ -15,6 +15,6 @@ public class FriendlySummon : MonoBehaviour
     string LoadFriendly(GameObject npc)
     {
         string friendlyname = npc.name;
-        return "friendlysummons/" + friendlyname;
+        return "Instantiatables/friendlysummons/" + friendlyname;
     }
 }
