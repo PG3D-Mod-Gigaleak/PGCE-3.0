@@ -13,7 +13,10 @@ public class COMDHShotgunImpact : MonoBehaviour
 
     void Start()
     {
+        if (host != null)
+        {
         player = host.transform.parent.parent.parent.gameObject;
+        }
     }
     void OnTriggerStay(Collider other)
     {

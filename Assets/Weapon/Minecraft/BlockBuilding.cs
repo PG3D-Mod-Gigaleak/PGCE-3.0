@@ -8,13 +8,7 @@ public class BlockBuilding : MonoBehaviour
     public bool isPlace;
     public bool isRemove;
     public bool isRemodel;
-    public Material Dirt;
-    public Material Grass;
-    public Material Stone;
-    public Material Cobblestone;
-    public Material Plank;
-    public Material Lamp;
-    public Material Wood;
+    public List<Material> Textures = new List<Material>();
     public Material PlaceHammer;
     public Material RemoveHammer;
     public Material RemodelHammer;
@@ -35,6 +29,11 @@ public class BlockBuilding : MonoBehaviour
     private float distancetopoint;
     private GameObject SelectBlock;
     public GameObject hammer;
+    public LayerMask Mask;
+    private Vector3 VectorDiff = new Vector3(0f,0f,0f);
+    private Vector3 PlacementVector = new Vector3(0f,0f,0f);
+    public int FoundIndex = 0;
+    public int NewIndex = 0;
 
     void FixedUpdate()
     {
@@ -48,59 +47,27 @@ public class BlockBuilding : MonoBehaviour
             maincamera = player.transform.Find("Main Camera").GetComponent<Camera>();
         }
         toolray = maincamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(toolray, out blockside))
+        if (Physics.Raycast(toolray, out blockside, RayDistance, Mask))
         {
-            Physics.Raycast(toolray, out blockside);
-            if (Vector3.Distance(player.transform.position, blockside.point) < 5f && isPlace)
+            Physics.Raycast(toolray, out blockside, RayDistance, Mask);
+            if (isPlace)
             {
-                Debug.LogError("Vector3");
-                blocksides = GameObject.FindGameObjectsWithTag("Block");
-                distancetopoint = 5f;
-                SelectBlock = null;
-                foreach (GameObject side in blocksides)
-                {
-                    if (Vector3.Distance(side.transform.position,blockside.point) < distancetopoint && Vector3.Distance(side.transform.position,player.transform.position) < 5f)
-                    {
-                        distancetopoint = Vector3.Distance(side.transform.position,blockside.point);
-                        SelectBlock = side;
-                    }
-                }
-                Debug.LogError("is Blockside");
-                GameObject TemporaryBlock = Instantiate(GridBlock, SelectBlock.transform.parent.position + new Vector3(0f,1.5f,0f), Quaternion.identity);
+                SelectBlock = blockside.collider.gameObject;
+                VectorDiff = SelectBlock.transform.position - SelectBlock.transform.parent.position;
+                PlacementVector = VectorDiff * 1.8181818181818181818181818181818f;
+                GameObject TemporaryBlock = Instantiate(GridBlock, SelectBlock.transform.parent.position + PlacementVector, Quaternion.identity);
                 StartCoroutine(TemporaryGrid(TemporaryBlock));
             }
-            else if (Vector3.Distance(player.transform.position, blockside.point) < 5f && isRemove)
+            else if (isRemove)
             {
-                Debug.LogError("Vector3");
-                blocksides = GameObject.FindGameObjectsWithTag("Block");
-                distancetopoint = 5f;
-                SelectBlock = null;
-                foreach (GameObject block in blocksides)
-                {
-                    if (Vector3.Distance(block.transform.position,blockside.point) < distancetopoint && Vector3.Distance(block.transform.position,player.transform.position) < 5f)
-                    {
-                        distancetopoint = Vector3.Distance(block.transform.position,blockside.point);
-                        SelectBlock = block;
-                    }
-                }
+                SelectBlock = blockside.collider.gameObject;
                 GameObject TemporaryBlock = Instantiate(DeleteGrid, SelectBlock.transform.parent.position + new Vector3(0f,0,0f), Quaternion.identity);
                 TemporaryBlock.transform.localScale = new Vector3(TemporaryBlock.transform.localScale.x * 1.2f,TemporaryBlock.transform.localScale.y * 1.2f,TemporaryBlock.transform.localScale.z * 1.2f);
                 StartCoroutine(TemporaryGrid(TemporaryBlock));
             }
-            else if (Vector3.Distance(player.transform.position, blockside.point) < 5f && isRemodel)
+            else if (isRemodel)
             {
-                Debug.LogError("Vector3");
-                blocksides = GameObject.FindGameObjectsWithTag("Block");
-                distancetopoint = 5f;
-                SelectBlock = null;
-                foreach (GameObject block in blocksides)
-                {
-                    if (Vector3.Distance(block.transform.position,blockside.point) < distancetopoint && Vector3.Distance(block.transform.position,player.transform.position) < 5f)
-                    {
-                        distancetopoint = Vector3.Distance(block.transform.position,blockside.point);
-                        SelectBlock = block;
-                    }
-                }
+                SelectBlock = blockside.collider.gameObject;
                 GameObject TemporaryBlock = Instantiate(RemodelGrid, SelectBlock.transform.parent.position + new Vector3(0f,0,0f), Quaternion.identity);
                 TemporaryBlock.transform.localScale = new Vector3(TemporaryBlock.transform.localScale.x * 1.2f,TemporaryBlock.transform.localScale.y * 1.2f,TemporaryBlock.transform.localScale.z * 1.2f);
                 StartCoroutine(TemporaryGrid(TemporaryBlock));
@@ -143,65 +110,54 @@ public class BlockBuilding : MonoBehaviour
                 maincamera = player.transform.Find("Main Camera").GetComponent<Camera>();
             }
             toolray = maincamera.ScreenPointToRay(Input.mousePosition);
-            Physics.Raycast(toolray, out blockside);
-            if (Vector3.Distance(player.transform.position, blockside.point) < 5f && isPlace)
+            Physics.Raycast(toolray, out blockside, RayDistance, Mask);
+            if (isPlace)
             {
-                Debug.LogError("Vector3 placing");
-                blocksides = GameObject.FindGameObjectsWithTag("Block");
-                distancetopoint = 5f;
-                SelectBlock = null;
-                foreach (GameObject side in blocksides)
-                {
-                    if (Vector3.Distance(side.transform.position,blockside.point) < distancetopoint && Vector3.Distance(side.transform.position,player.transform.position) < 5f)
-                    {
-                        distancetopoint = Vector3.Distance(side.transform.position,blockside.point);
-                        SelectBlock = side;
-                    }
-                }
-                Debug.LogError("Vector3 placed");
+                SelectBlock = blockside.collider.gameObject;
                 if (SelectBlock != null)
                 {
-                GameObject TemmplateBlock = Instantiate(TemplateBlock, SelectBlock.transform.parent.position + new Vector3(0f,1.5f,0f), Quaternion.identity);
+                GameObject TemmplateBlock = Instantiate(TemplateBlock, SelectBlock.transform.parent.position + PlacementVector, Quaternion.identity);
                 }
             }
-            else if (Vector3.Distance(player.transform.position, blockside.point) < 5f && isRemove)
+            else if (isRemove)
             {
-                Debug.LogError("Vector3 removing");
-                blocksides = GameObject.FindGameObjectsWithTag("Block");
-                distancetopoint = 5f;
-                SelectBlock = null;
-                foreach (GameObject side in blocksides)
-                {
-                    if (Vector3.Distance(side.transform.position,blockside.point) < distancetopoint && Vector3.Distance(side.transform.position,player.transform.position) < 5f)
-                    {
-                        distancetopoint = Vector3.Distance(side.transform.position,blockside.point);
-                        SelectBlock = side;
-                    }
-                }
-                Debug.LogError("Vector3 removed");
+                SelectBlock = blockside.collider.gameObject;
                 if (SelectBlock != null)
                 {
                 Destroy(SelectBlock.transform.parent.gameObject);
                 }
             }
-            else if (Vector3.Distance(player.transform.position, blockside.point) < 5f && isRemodel)
+            else if (isRemodel)
             {
-                Debug.LogError("Vector3 remodeling");
-                blocksides = GameObject.FindGameObjectsWithTag("Block");
-                distancetopoint = 5f;
-                SelectBlock = null;
-                foreach (GameObject side in blocksides)
-                {
-                    if (Vector3.Distance(side.transform.position,blockside.point) < distancetopoint && Vector3.Distance(side.transform.position,player.transform.position) < 5f)
-                    {
-                        distancetopoint = Vector3.Distance(side.transform.position,blockside.point);
-                        SelectBlock = side;
-                    }
-                }
-                Debug.LogError("Vector3 remodeled");
+                FoundIndex = 0;
+                NewIndex = 0;
+                SelectBlock = blockside.collider.gameObject;
                 if (SelectBlock != null)
                 {
-                SelectBlock.GetComponent<Renderer>().material = Plank;
+                
+                if (SelectBlock.transform.parent.gameObject.GetComponent<Renderer>().material.name == "lamp");
+                {
+                    Destroy(SelectBlock.transform.parent.gameObject.GetComponent<Light>());
+                }
+                for (int mat = 0; mat < Textures.Count; mat++)
+                {
+                    if (Textures[mat].mainTexture == SelectBlock.transform.parent.gameObject.GetComponent<Renderer>().material.mainTexture)
+                    {
+                        FoundIndex = Textures.IndexOf(Textures[mat]);
+                    }
+                }
+                NewIndex = FoundIndex + 1;
+                if (NewIndex > Textures.Count - 1)
+                {
+                    NewIndex = 0;
+                }
+                Material newmat = Textures[NewIndex];
+                if (newmat.name == "lamp")
+                {
+                    SelectBlock.transform.parent.gameObject.AddComponent<Light>();
+                }
+                SelectBlock.transform.parent.gameObject.GetComponent<Renderer>().material.SetTexture("_MainTex", newmat.mainTexture);
+                SelectBlock.transform.parent.gameObject.GetComponent<Renderer>().material.name = newmat.name;
                 }
             }
     }

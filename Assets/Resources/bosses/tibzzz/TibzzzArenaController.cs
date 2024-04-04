@@ -15,16 +15,28 @@ public class TibzzzArenaController : MonoBehaviour
     public float phase2numerator;
     public int EnemiesKilled;
     public int EnemyCount;
-    public int EnemiesSpawned;
+    public int EnemyNow;
     public bool isController;
     public float tiobspawncooldown;
     public bool isDead;
     public float timer;
+    public List<GameObject> specialtiobs = new List<GameObject>();
+    public int SpecialCount;
+    private GameObject tiob;
+    private AudioSource bgm;
+    public int OverallCount;
+    public int CurrentCount;
+    public bool beginboss;
+    
+    void Awake()
+    {
+        OverallCount = EnemyCount + SpecialCount;
+    }
     void Start()
     {
         if (isController)
         {
-        AudioSource bgm = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
+        bgm = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
         StartCoroutine(MusicDelay(bgm));
         }
     }
@@ -40,43 +52,74 @@ public class TibzzzArenaController : MonoBehaviour
 
     void Update()
     {
-        if (isController)
-        {
-        timer -= Time.deltaTime;
-        }
         if (!isController && !isDead)
         {
             if (gameObject.GetComponent<ZombiUpravlenie>().deaded == true)
             {
                 isDead = true;
-                GameObject.Find("TibzzzArenaControler").GetComponent<TibzzzArenaController>().EnemiesKilled += 1;
+                GameObject.Find("TibzzzArenaController").GetComponent<TibzzzArenaController>().EnemiesKilled += 1;
                 gameObject.GetComponent<TibzzzArenaController>().enabled = false;
             }
         }
-        else if (isController && (timer < 0f) && (EnemiesKilled < EnemyCount) && (EnemiesSpawned < EnemyCount) && enemies.Count > 0)
+        if (isController)
+        {
+        timer -= Time.deltaTime;
+        CurrentCount = OverallCount - EnemiesKilled;
+        }
+        if (EnemiesKilled < OverallCount && timer < 0f)
         {
             timer = tiobspawncooldown;
-            int tiobindex = Random.Range(0,enemies.Count - 1);
-            GameObject newtiob = enemies[tiobindex];
-            float newposx = Random.Range(-tiobspawnarea.x,tiobspawnarea.x);
-            float newposy = Random.Range(-tiobspawnarea.y,tiobspawnarea.y);
-            float newposz = Random.Range(-tiobspawnarea.z,tiobspawnarea.z);
-            GameObject tiob = PhotonNetwork.Instantiate(LoadEnemy(tiobindex), transform.position + new Vector3(newposx,newposy,newposz), Quaternion.identity, 0);
-            tiob.AddComponent<TibzzzArenaController>();
-            tiob.GetComponent<TibzzzArenaController>().isController = false;
-            EnemiesSpawned += 1;
+            int dice1 = Random.Range(1,6);
+            if (dice1 != 5 && EnemyCount > 0)
+            {
+                int tiobindex = Random.Range(0,enemies.Count - 1);
+                GameObject newtiob = enemies[tiobindex];
+                float newposx = Random.Range(-tiobspawnarea.x,tiobspawnarea.x);
+                float newposy = Random.Range(-tiobspawnarea.y,tiobspawnarea.y);
+                float newposz = Random.Range(-tiobspawnarea.z,tiobspawnarea.z);
+                tiob = PhotonNetwork.Instantiate(LoadEnemy(newtiob), transform.position + new Vector3(newposx,newposy,newposz), Quaternion.identity, 0);
+                tiob.AddComponent<TibzzzArenaController>();
+                tiob.GetComponent<TibzzzArenaController>().isController = false;
+                EnemyCount -= 1;
+            }
+            else if (SpecialCount > 0)
+            {
+                int tiobindex = Random.Range(0,enemies.Count - 1);
+                GameObject newtiob = enemies[tiobindex];
+                float newposx = Random.Range(-tiobspawnarea.x,tiobspawnarea.x);
+                float newposy = Random.Range(-tiobspawnarea.y,tiobspawnarea.y);
+                float newposz = Random.Range(-tiobspawnarea.z,tiobspawnarea.z);
+                int dice2 = Random.Range(0,specialtiobs.Count - 1);
+                tiob = PhotonNetwork.Instantiate(LoadEnemy(specialtiobs[dice2]), transform.position + new Vector3(newposx,newposy,newposz), Quaternion.identity, 0);
+                tiob.AddComponent<TibzzzArenaController>();
+                tiob.GetComponent<TibzzzArenaController>().isController = false;
+                SpecialCount -= 1;
+            }
+        }
+        else if ((timer < 0f) && (EnemiesKilled >= OverallCount) && beginboss == false)
+        {
+            beginboss = true;
+            StartCoroutine(tibzzzphase1delay());
         }
     }
 
-    string LoadEnemy(int tiobindex)
+    IEnumerator tibzzzphase1delay()
     {
-        string enemy = enemies[tiobindex].name;
-        return enemy.StartsWith("Enemy") ? "enemies/" + enemy : "bosses/" + enemy;
+        bgm.Stop();
+        bgm.clip = ambienceMusic;
+        bgm.Play();
+        yield return new WaitForSeconds(10f);
+        float newposx = Random.Range(-tiobspawnarea.x,tiobspawnarea.x);
+        float newposy = Random.Range(-tiobspawnarea.y,tiobspawnarea.y);
+        float newposz = Random.Range(-tiobspawnarea.z,tiobspawnarea.z);
+        GameObject tibzz = PhotonNetwork.Instantiate(LoadEnemy(tibzzz), transform.position + new Vector3(newposx,newposy,newposz), Quaternion.identity, 0);
+        bgm.Stop();
+        bgm.clip = tibzzzphase1;
+        bgm.Play();
     }
-
-    string LoadEnemy(GameObject tibzzz)
+    string LoadEnemy(GameObject tiob)
     {
-        string tibzzzname = tibzzz.name;
-        return "bosses/" + tibzzzname;
+        string enemy = tiob.name;
+        return enemy.StartsWith("Enemy") ? "enemies/" + enemy : "bosses/" + enemy;
     }
 }
