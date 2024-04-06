@@ -46,13 +46,11 @@ namespace PGCE
 				{
 					output["response"] = "failed";
 					output["cause"] = $"{exception.Message}";
-					Console.WriteLine($"[EXCEPTION] {exception.ToString()}");
 				}
 			}
 			else if (action == "close_session")
 			{
-				PlayerSessionManager.DestroySession(SenderSessionID);
-				output["response"] = "success";
+				output = CommandRelay.Run("close_session", this, givenInput, Sender);
 			}
 			else if (action == "create_user")
 			{
@@ -73,15 +71,7 @@ namespace PGCE
 			{
 				try
 				{
-					AccountParameters? result = Helpers.GetAccountInfo(givenInput["uid"]);
-					if (result == null) {
-						throw new Exception("Result was NULL!");
-					}
-					AccountParameters confirmedResult = (AccountParameters)result;
-					if (!Helpers.MatchingHash2Nonhash((string)givenInput["ak"], confirmedResult.AuthKey))
-						throw new Exception("Authkey invalid");
-					output["banned"] = confirmedResult.Banned;
-					output["response"] = "success";
+					output = CommandRelay.Run("user_banned", this, givenInput, Sender);
 				}
 				catch (Exception exception)
 				{
