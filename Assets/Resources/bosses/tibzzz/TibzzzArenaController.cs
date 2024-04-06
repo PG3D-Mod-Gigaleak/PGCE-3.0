@@ -27,6 +27,9 @@ public class TibzzzArenaController : MonoBehaviour
     public int OverallCount;
     public int CurrentCount;
     public bool beginboss;
+    public UILabel TiobsKilledLabel;
+    public string TiobCounter;
+    public GameObject TibzzzUIRoot;
     
     void Awake()
     {
@@ -36,9 +39,18 @@ public class TibzzzArenaController : MonoBehaviour
     {
         if (isController)
         {
+        timer = tiobspawncooldown;
+        TibzzzUIRoot.SetActive(true);
         bgm = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
         StartCoroutine(MusicDelay(bgm));
+        CounterUpdate();
         }
+    }
+
+    void CounterUpdate()
+    {
+        TiobCounter = string.Format("{0}/{1}", EnemiesKilled, OverallCount);
+        TiobsKilledLabel.text = TiobCounter;
     }
 
     IEnumerator MusicDelay(AudioSource bgm)
@@ -59,6 +71,7 @@ public class TibzzzArenaController : MonoBehaviour
                 isDead = true;
                 GameObject.Find("TibzzzArenaController").GetComponent<TibzzzArenaController>().EnemiesKilled += 1;
                 gameObject.GetComponent<TibzzzArenaController>().enabled = false;
+                GameObject.Find("TibzzzArenaController").GetComponent<TibzzzArenaController>().CounterUpdate();
             }
         }
         if (isController)
@@ -105,6 +118,7 @@ public class TibzzzArenaController : MonoBehaviour
 
     IEnumerator tibzzzphase1delay()
     {
+        TibzzzUIRoot.GetComponent<Animation>().Play("CounterDisappear");
         bgm.Stop();
         bgm.clip = ambienceMusic;
         bgm.Play();
