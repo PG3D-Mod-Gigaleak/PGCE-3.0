@@ -1,13 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// using UnityEngine.Rendering.PostProcessing;
+// using System;
 
 public class OptionsMenuController : MonoBehaviour {
 	public UISlider volumeSlider;
+	public UISlider bloomIntensitySlider;
 	public UILabel volumeLabel;
 	public AudioSource auSr;
 	public AudioClip testingAudioCli;
+	public GameObject postpanel;
 	private int retardedWorkaround = 100;
+
+	// Written by Noobite, new to NGUI
+	// public PostProcessProfile postProfile;
+	// public Texture disabledTexture;
+	// public Texture enabledTexture;
+	// public UIToggle bloomToggle;
+	
 	private void Start() {
 		volumeSlider.value = prefs.GetFloat("setVolm", 1);
 	}
@@ -29,5 +40,27 @@ public class OptionsMenuController : MonoBehaviour {
 		AudioListener.volume = volumeSlider.value;
 		auSr.PlayOneShot(testingAudioCli);
 		volumeLabel.text = "Volume (" + (int)Mathf.RoundToInt(volumeSlider.value * 100) + "%)";
+	}
+
+	public void PostSettings() {
+		postpanel.SetActive(true);
+		auSr.PlayOneShot(testingAudioCli);
+	}
+
+	// public void ResetPost() {
+    // 
+    // }
+    // 
+    // public void BloomIntensity() {
+    // 
+    // }
+    // 
+    // public void BloomToggle() {
+    // 
+	// }
+
+	public void BackToSettings() {
+		postpanel.SetActive(false);
+		auSr.PlayOneShot(testingAudioCli);
 	}
 }
