@@ -8,8 +8,8 @@ public class TogglePGX : MonoBehaviour
     private bool isEnabled = false;
     void Update()
     {
-
-        if (Input.GetKeyDown(KeyCode.P) && isHolding == false && isEnabled == false)
+        string key = prefs.GetString("ToggleKey");
+        if (Input.GetKeyDown(key) && isHolding == false && isEnabled == false)
         {
             isHolding = true;
             isEnabled = true;
@@ -19,11 +19,11 @@ public class TogglePGX : MonoBehaviour
             gameObject.transform.GetChild(0).GetComponent<Camera>().renderingPath = RenderingPath.DeferredShading;
             gameObject.transform.GetChild(0).GetComponent<PostProcessLayer>().enabled = true;
         }
-        else if (Input.GetKeyUp(KeyCode.P) && isHolding == true && isEnabled == true)
+        else if (Input.GetKeyUp(key) && isHolding == true && isEnabled == true)
         {
             isHolding = false;
         }
-        else if (Input.GetKeyDown(KeyCode.P) && isHolding == false && isEnabled == true)
+        else if (Input.GetKeyDown(key) && isHolding == false && isEnabled == true)
         {
             isHolding = true;
             isEnabled = false;
@@ -33,7 +33,7 @@ public class TogglePGX : MonoBehaviour
             gameObject.transform.GetChild(0).GetComponent<Camera>().renderingPath = RenderingPath.Forward;
             gameObject.transform.GetChild(0).GetComponent<PostProcessLayer>().enabled = false;
         }
-        else if (Input.GetKeyUp(KeyCode.P) && isHolding == true && isEnabled == false)
+        else if (Input.GetKeyUp(key) && isHolding == true && isEnabled == false)
         {
             isHolding = false;
         }

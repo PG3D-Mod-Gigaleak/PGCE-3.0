@@ -12,6 +12,7 @@ public class OptionsMenuController : MonoBehaviour {
 	public AudioClip testingAudioCli;
 	public GameObject postpanel;
 	private int retardedWorkaround = 100;
+	public UIInput ToggleKeyInput;
 
 	// Written by Noobite, new to NGUI
 	// public PostProcessProfile postProfile;
@@ -21,6 +22,23 @@ public class OptionsMenuController : MonoBehaviour {
 	
 	private void Start() {
 		volumeSlider.value = prefs.GetFloat("setVolm", 1);
+		if (prefs.GetString("ToggleKey") == "") 
+		{
+			prefs.SetString("ToggleKey", "p");
+		}
+		ToggleKeyInput.value = prefs.GetString("ToggleKey");
+	}
+
+	public void SaveToggleKey() {
+		prefs.SetString("ToggleKey", ToggleKeyInput.value);
+		StartCoroutine(LabelAnimation(ToggleKeyInput));
+		auSr.PlayOneShot(testingAudioCli);
+	}
+
+	IEnumerator LabelAnimation(UIInput input) {
+		input.label.color = new Color(255, 0, 0);
+		yield return new WaitForSeconds(0.5f);
+		input.label.color = new Color(255, 255, 255);
 	}
 	public void Close() {
 		Application.LoadLevel(Defs.CurrentMainMenuScene);

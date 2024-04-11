@@ -12,6 +12,7 @@ public class PROMusket : MonoBehaviour
     public GameObject shootbox;
     public GameObject host;
     public AudioClip explosionclip;
+    // public bool CanRicochet;
 
     private Vector3 lastVelocity;
 
@@ -24,11 +25,19 @@ public class PROMusket : MonoBehaviour
         orb.GetComponent<Rigidbody>().AddForce(host.transform.forward * velocity);
     }
 
+    // public void Start()
+    // {
+    //     CanRicochet = false;
+    //     StartCoroutine(Cooldown());
+    // }
+
     void OnCollisionEnter(Collision other)
     {
         if (isBullet)
         {
             ReflectCount -= 1;
+            // CanRicochet = false;
+            // StartCoroutine(Cooldown());
             GameObject Explosion = Instantiate(explosion, other.contacts[0].point, Quaternion.identity);
             if (ReflectCount < 0)
             {
@@ -46,6 +55,11 @@ public class PROMusket : MonoBehaviour
         }
     }
 
+    // IEnumerator Cooldown()
+    // {
+    //     yield return new WaitForSeconds(0.025f);
+    //     CanRicochet = true;
+    // }
     void LateUpdate()
     {
         if (isBullet)
