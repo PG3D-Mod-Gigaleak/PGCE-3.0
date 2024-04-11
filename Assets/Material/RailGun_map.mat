@@ -4,9 +4,12 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: RailGun_map
-  m_Shader: {fileID: 10, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords:
+  m_Shader: {fileID: 4800000, guid: cac441299909bd941959a458900b803c, type: 3}
+  m_ShaderKeywords: 
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -17,7 +20,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Illum:
-        m_Texture: {fileID: 2800000, guid: 8276100715ff13f4d98c5225116b6848, type: 3}
+        m_Texture: {fileID: 2800000, guid: abead1153aa61ff4695dbe7d34e8a17e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -27,5 +30,8 @@ Material:
     m_Floats:
     - _Emission: 2
     - _EmissionLM: 0
+    - _IllumColorMult: 1
+    - _IllumModify: 1
     m_Colors:
-    - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _IllumColor: {r: 1, g: 1, b: 1, a: 1}
