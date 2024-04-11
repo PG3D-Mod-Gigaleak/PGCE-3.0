@@ -29,6 +29,7 @@ public class DamageZone : MonoBehaviour
 	public bool CollisionDamage = false;
     public bool IgnorePlayerSender = false;
 	public Transform target = null;
+	public string ObjectIgnore;
 	private void Awake()
 	{
 		isMulti = prefs.GetInt("MultyPlayer") == 1;
@@ -44,7 +45,11 @@ public class DamageZone : MonoBehaviour
 		    GameObject[] FindSender = GameObject.FindGameObjectsWithTag("Player");
 		    foreach (GameObject gameObject in FindSender)
 		    {
-		    	isMine = gameObject.GetComponent<FirstPersonControl>().isMine;
+		    	gameObject.TryGetComponent<FirstPersonControl>(out FirstPersonControl fps);
+				if (fps)
+				{
+					isMine = fps.isMine;
+				}
 		    	if (isMine == true)
 		    	{
 		    		damageSender = gameObject;
@@ -53,7 +58,7 @@ public class DamageZone : MonoBehaviour
 		    _weaponManager = GameObject.FindGameObjectWithTag("WeaponManager").GetComponent<WeaponManager>();
 		    if ( (timer <= 0f) && isPierce == false )
 		    {
-            if (other.tag == "ZombieCollider")
+            if (other.tag == "ZombieCollider" && other.gameObject.name != ObjectIgnore)
             {
 		    	    if (!isMulti)
 		    	    	{
@@ -77,7 +82,7 @@ public class DamageZone : MonoBehaviour
 		    		}
 		    		timer = damageCooldown;
 		    }
-            if (other.tag == "BodyCollider")
+            if (other.tag == "BodyCollider" || other.tag == "HeadCollider" && other.gameObject.name != ObjectIgnore)
 		    {
 		    	        bool flag = false;
 		    			flag = other.transform.parent.gameObject.GetComponent<PhotonView>().isMine;
@@ -125,11 +130,11 @@ public class DamageZone : MonoBehaviour
 		    }
 		    else if (isPierce == true)
 		    {
-                if (other.tag == "ZombieCollider")
+                if (other.tag == "ZombieCollider" && other.gameObject.name != ObjectIgnore)
                 {
 		    		other.transform.parent.GetComponent<InitializeHealthbar>().DamageNPC("Zombie",coopDamage,multiplayerDamage,damageCooldown,_weaponManager,originalObject,damageSender);
 		        }
-                if (other.tag == "BodyCollider")
+                if (other.tag == "BodyCollider" || other.tag == "HeadCollider")
 		        {
 					if (IgnorePlayerSender == true)
 					{

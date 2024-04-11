@@ -249,6 +249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6933281135331699796}
   - component: {fileID: 7040122625739483169}
+  - component: {fileID: 8533796058245189291}
   m_Layer: 0
   m_Name: Pixlgun
   m_TagString: Untagged
@@ -289,10 +290,29 @@ Animation:
   - {fileID: 7400000, guid: c662cf1a1e795394c8fa2eb850970c1d, type: 2}
   - {fileID: 7400000, guid: 0b4a80804eb89e94395fec0bfcd3e89d, type: 2}
   - {fileID: 7400000, guid: 97603e24daa6d5b4292ba69f1a6bc2e9, type: 2}
+  - {fileID: 7400000, guid: 5fc759b6e5b1eb34084576ea1621d4aa, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &8533796058245189291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934747615206250564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bc6d12e021733d46bf03cd750e4fad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletline: {fileID: 0}
+  isBullet: 0
+  spawnbox: {fileID: 0}
+  pixlgun: {fileID: 0}
+  isCandy: 1
+  host: {fileID: 6934782233347661793}
 --- !u!1 &6934782233347661793
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +394,7 @@ MonoBehaviour:
   isShotgun: 0
   numOfPellets: 0
   hasAlternateShot: 0
-  hasInspect: 0
+  hasInspect: 1
   hasDoubleInspect: 0
   alternateShot: {fileID: 0}
   hasRecoil: 0
@@ -480,6 +500,7 @@ GameObject:
   - component: {fileID: 6933287738806812573}
   - component: {fileID: 6935558595749656147}
   - component: {fileID: 6947549315379607283}
+  - component: {fileID: 484854656436695853}
   m_Layer: 0
   m_Name: FPS_PLAYER_Arm_right
   m_TagString: Arms
@@ -501,7 +522,7 @@ Transform:
   - {fileID: 8336194692731509058}
   m_Father: {fileID: 6933191831218140785}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 169.274, y: -189.093, z: -284.33002}
+  m_LocalEulerAnglesHint: {x: 166.0636, y: -205.30092, z: -286.8556}
 --- !u!33 &6935558595749656147
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -549,6 +570,102 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!82 &484854656436695853
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934877777755923070}
+  m_Enabled: 0
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c44bb7871186f3941a3c1302086de577, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &6934990148716008214
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +697,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6933191831218140785}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 7.2360005, y: 14.137001, z: -78.32201}
+  m_LocalEulerAnglesHint: {x: -53.582493, y: -46.143047, z: -25.752953}
 --- !u!33 &6939931001825095708
 MeshFilter:
   m_ObjectHideFlags: 0

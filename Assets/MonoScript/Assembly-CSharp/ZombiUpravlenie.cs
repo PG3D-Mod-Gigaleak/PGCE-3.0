@@ -311,7 +311,7 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 				    GameObject[] array = GameObject.FindGameObjectsWithTag("Player");
 				    if (array.Length > 0)
 				    {
-						timeToUpdateTarget = 0.5f;
+						timeToUpdateTarget = 0.2f;
 				    	float num2 = Vector3.Distance(base.transform.position, array[0].transform.position);
 				    	target = array[0].transform;
 				    	GameObject[] array2 = array;
@@ -346,13 +346,13 @@ public sealed class ZombiUpravlenie : MonoBehaviour
 				    }
 					if (RealTargets[0] != null)
 					{
-					    timeToUpdateTarget = 0.5f;
+					    timeToUpdateTarget = 0.2f;
 				        float num2 = Vector3.Distance(base.transform.position, RealTargets[0].transform.position);
 				        target = RealTargets[0].transform;
 				        foreach (GameObject gameObject in RealTargets)
 				        {
 				        	float num3 = Vector3.Distance(base.transform.position, gameObject.transform.position);
-				        	if (num3 < num2)
+				        	if (num3 < num2 && gameObject.GetComponent<ZombiUpravlenie>().health > 0f)
 				        	{
 				        		num2 = Vector3.Distance(base.transform.position, gameObject.transform.position);
 				        		target = gameObject.transform;
