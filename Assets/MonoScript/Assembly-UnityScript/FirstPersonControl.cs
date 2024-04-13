@@ -90,6 +90,7 @@ public class FirstPersonControl : MonoBehaviour
 	public float timeAtLastPress = 0.0f;
 
 	public float holdTimeout = 0.2f;
+	public Vector3 motion;
 
 	public bool isHoldingJump = false;
 	//
@@ -332,7 +333,7 @@ public class FirstPersonControl : MonoBehaviour
 			camSway.offset = Mathf.Lerp(camSway.offset, offs, Time.deltaTime * camSwaySpeed);
 		}
 		SetSpeedModifier();
-		Vector3 motion = thisTransform.TransformDirection(new Vector3(moveTouchPad.position.x, 0f, moveTouchPad.position.y));
+		motion = thisTransform.TransformDirection(new Vector3(moveTouchPad.position.x, 0f, moveTouchPad.position.y));
 		motion.y = 0f;
 		motion.Normalize();
 		Vector2 vector = new Vector2(Mathf.Abs(moveTouchPad.position.x), Mathf.Abs(moveTouchPad.position.y));
@@ -383,14 +384,20 @@ public class FirstPersonControl : MonoBehaviour
 		else
 		{
 			bhopAllowTimer = 0;
+			if (gameObject.GetComponent<ULTRADashing>().isDashing == false)
+			{
 			velocity.y += Physics.gravity.y * Time.deltaTime;
+			}
 			if (rotateTouchPad.jumpPressed)
 			{
 				rotateTouchPad.jumpPressed = false;
 			}
 		}
 		motion += velocity;
+		if (gameObject.GetComponent<ULTRADashing>().isDashing == false)
+		{
 		motion += Physics.gravity;
+		}
 		motion *= Time.deltaTime;
 		timeUpdateAnim -= Time.deltaTime;
 		if (!(timeUpdateAnim >= 0f) && isGrounded)
@@ -413,7 +420,7 @@ public class FirstPersonControl : MonoBehaviour
 			return;
 		}
 		character.Move(motion);
-		if (isGrounded)
+		if (isGrounded && gameObject.GetComponent<ULTRADashing>().isDashing == false)
 		{
 			velocity = Vector3.zero;
 		}

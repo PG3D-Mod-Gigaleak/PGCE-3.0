@@ -247,7 +247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5605592329492983968}
   m_Layer: 0
-  m_Name: Boss9 1
+  m_Name: Boss19 1
   m_TagString: donotchange
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -520,6 +520,7 @@ MonoBehaviour:
   damagetoenemy: 1
   OtherName: 
   SelfName: 
+  DontDieYet: 0
 --- !u!114 &6404636314233043891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,6 +537,9 @@ MonoBehaviour:
   Healthbar: {fileID: 3685649897239460993, guid: c4a0c10800e032c48a8e84171b1bdecf,
     type: 3}
   maxhealth: 0
+  timer: 0
+  timer2: 0
+  timer3: 0
   alreadyTimedBar: 0
   previousObjects: []
 --- !u!114 &5498882289221692433
@@ -739,7 +743,7 @@ GameObject:
   - component: {fileID: 5497783447653998699}
   - component: {fileID: 5562967283053445292}
   m_Layer: 0
-  m_Name: Boss17
+  m_Name: Boss19
   m_TagString: ZombieCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -769,15 +773,15 @@ Animation:
   m_GameObject: {fileID: 5611466873957289808}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: b8a004d7d008fcf4e98c9c90e231364b, type: 2}
+  m_Animation: {fileID: 7400000, guid: 3a06affa08eb9ed4b9f515b773598183, type: 2}
   m_Animations:
-  - {fileID: 7400000, guid: b8a004d7d008fcf4e98c9c90e231364b, type: 2}
-  - {fileID: 7400000, guid: f9a895a390e19894aa84ec7d00c8e804, type: 2}
-  - {fileID: 7400000, guid: 25ed7995e09fab34bba1e33dfc768d51, type: 2}
-  - {fileID: 7400000, guid: 5e346e6177d377a499b5178d6193fa6b, type: 2}
-  - {fileID: 7400000, guid: 45aef0a973bfcd043894ca63d1258f9c, type: 2}
-  - {fileID: 7400000, guid: 31a6109ed76c31742875d747dba51f9b, type: 2}
-  - {fileID: 7400000, guid: a53a21bfeb3eb7b4ea001c86e57856a4, type: 2}
+  - {fileID: 7400000, guid: 3a06affa08eb9ed4b9f515b773598183, type: 2}
+  - {fileID: 7400000, guid: baeb43491ef7d7848a6ff05f369a6daa, type: 2}
+  - {fileID: 7400000, guid: 516349bf97584ed40a9533d4feabda33, type: 2}
+  - {fileID: 7400000, guid: ad0a538d71292d1498851a37d5b20a28, type: 2}
+  - {fileID: 7400000, guid: 1f4985d8305f764419742c282685309b, type: 2}
+  - {fileID: 7400000, guid: 95af9990f7be0504a83a14145efbc6bd, type: 2}
+  - {fileID: 7400000, guid: 4bbd101303814ee48832260d2dd0c9f5, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -794,10 +798,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b50f97dac90042b4bb3208a2683c7cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hurt: {fileID: 8300000, guid: d1a3cab07dc2cac4b8c5632f9a6ec688, type: 3}
-  voice: {fileID: 0}
-  bite: {fileID: 8300000, guid: 08ac6b74cda90034f9a41f5dae10a76a, type: 3}
-  death: {fileID: 8300000, guid: ab8c7568a4e10b142bbe8bf706bc1498, type: 3}
+  hurt: {fileID: 8300000, guid: 25d8c7871206cbe478c7dccbe95cc5b4, type: 3}
+  voice: {fileID: 8300000, guid: 54ae552d0ce52894ca75ac5a9d03f27e, type: 3}
+  bite: {fileID: 8300000, guid: 54ae552d0ce52894ca75ac5a9d03f27e, type: 3}
+  death: {fileID: 8300000, guid: ed946bdbdd6ac054e96a9d7be6244b79, type: 3}
   notAttackingSpeed: 3
   attackingSpeed: 3
   health: 60000

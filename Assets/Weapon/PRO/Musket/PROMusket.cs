@@ -12,7 +12,8 @@ public class PROMusket : MonoBehaviour
     public GameObject shootbox;
     public GameObject host;
     public AudioClip explosionclip;
-    // public bool CanRicochet;
+    public AnimationClip explosionanim;
+    public bool CanRicochet;
 
     private Vector3 lastVelocity;
 
@@ -25,25 +26,28 @@ public class PROMusket : MonoBehaviour
         orb.GetComponent<Rigidbody>().AddForce(host.transform.forward * velocity);
     }
 
-    // public void Start()
-    // {
-    //     CanRicochet = false;
-    //     StartCoroutine(Cooldown());
-    // }
+    public void Start()
+    {
+        CanRicochet = false;
+        StartCoroutine(Cooldown());
+    }
 
     void OnCollisionEnter(Collision other)
     {
         if (isBullet)
         {
             ReflectCount -= 1;
-            // CanRicochet = false;
-            // StartCoroutine(Cooldown());
+            CanRicochet = false;
+            StartCoroutine(Cooldown());
             GameObject Explosion = Instantiate(explosion, other.contacts[0].point, Quaternion.identity);
             if (ReflectCount < 0)
             {
             Explosion.GetComponent<AudioSource>().Stop();
+            Explosion.GetComponent<Animation>().Stop();
             Explosion.GetComponent<AudioSource>().clip = explosionclip;
+            Explosion.GetComponent<Animation>().clip = explosionanim;
             Explosion.GetComponent<AudioSource>().Play();
+            Explosion.GetComponent<Animation>().Play();
             }
             float lastSpeed = lastVelocity.magnitude;
             gameObject.GetComponent<Rigidbody>().velocity = Vector3.Reflect(lastVelocity.normalized, other.contacts[0].normal) * Mathf.Max(lastSpeed, 0);
@@ -55,11 +59,11 @@ public class PROMusket : MonoBehaviour
         }
     }
 
-    // IEnumerator Cooldown()
-    // {
-    //     yield return new WaitForSeconds(0.025f);
-    //     CanRicochet = true;
-    // }
+    IEnumerator Cooldown()
+    {
+        yield return new WaitForSeconds(0.02f);
+        CanRicochet = true;
+    }
     void LateUpdate()
     {
         if (isBullet)

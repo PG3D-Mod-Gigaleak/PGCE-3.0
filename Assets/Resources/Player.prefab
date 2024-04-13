@@ -6206,6 +6206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfda770234fa0aa4e97c38c56e9c2edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnabled: 0
 --- !u!1 &1380329182296280
 GameObject:
   m_ObjectHideFlags: 0
@@ -8106,6 +8107,7 @@ GameObject:
   - component: {fileID: 114562743884575598}
   - component: {fileID: 114411550837766502}
   - component: {fileID: 1717766936398117819}
+  - component: {fileID: 4188390798140210860}
   m_Layer: 14
   m_Name: Player
   m_TagString: Player
@@ -8198,6 +8200,7 @@ MonoBehaviour:
   time: 0
   timeAtLastPress: 0
   holdTimeout: 0.2
+  motion: {x: 0, y: 0, z: 0}
   isHoldingJump: 0
   gravGroundCheck: {fileID: 4925974933239102}
 --- !u!114 &114942210423268394
@@ -8304,6 +8307,34 @@ MonoBehaviour:
   timer3: 0
   alreadyTimedBar: 0
   previousObjects: []
+--- !u!114 &4188390798140210860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991673729806072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d84c6ae5d98b1246a9639155cd97f6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DashUIRoot: {fileID: 5850024313241250997, guid: 78eb500af66a2e54dbcada9ba61d95a8,
+    type: 3}
+  DashCount: 0
+  DashMax: 3
+  DashTimer: 0
+  DashTimer2: 0
+  DashDuration: 0.35
+  DashCooldown: 0.1
+  DashSpeed: 25
+  DashProgress: 0
+  AuSr: {fileID: 0}
+  DashSound: {fileID: 8300000, guid: 5fd1e2f1b962911449b77d5dd3892f80, type: 3}
+  DashNotify: {fileID: 8300000, guid: 6c9b94157fd419f4495dcd8b327e3260, type: 3}
+  isDashing: 0
+  BarOn: {r: 0, g: 1, b: 0.9430566, a: 0.39215687}
+  BarOff: {r: 0, g: 0.5566038, b: 0.5566038, a: 0.39215687}
 --- !u!1 &894920682538729885
 GameObject:
   m_ObjectHideFlags: 0

@@ -1866,13 +1866,13 @@ public sealed class Player_move_c : MonoBehaviour
 		}
 	}
 
-	private bool sprinting
-	{
-		get
-		{
-			return Input.GetKey(KeyCode.LeftShift);
-		}
-	}
+	// private bool sprinting
+	// {
+	// 	get
+	// 	{
+	// 		return Input.GetKey(KeyCode.LeftShift);
+	// 	}
+	// }
 
 	public float GetSpeedMod()
 	{
@@ -1880,7 +1880,7 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			Achievements.Give("slowdown");
 		}
-		return sprinting ? _weaponManager.currentWeaponSounds.speedModifier * 1.5f : _weaponManager.currentWeaponSounds.speedModifier;
+		return _weaponManager.currentWeaponSounds.speedModifier; // sprinting ? _weaponManager.currentWeaponSounds.speedModifier; * 1.5f : _weaponManager.currentWeaponSounds.speedModifier;
 	}
 
 	public void ChangeWeapon(int index, bool shouldSetMaxAmmo = true)
@@ -3950,16 +3950,16 @@ public sealed class Player_move_c : MonoBehaviour
 			{
 				if (!parentedAnimation.IsPlaying("ParentedWalk"))
 				{
-					if (sprinting)
-					{
-						parentedAnimation["ParentedWalk"].speed = _weaponManager.currentWeaponSounds.speedModifier * 1.4f;
-						parentedAnimation.CrossFade("ParentedWalk", 0.1f);
-					}
-					else
-					{
+					// if (sprinting)
+					// {
+					// 	parentedAnimation["ParentedWalk"].speed = _weaponManager.currentWeaponSounds.speedModifier * 1.4f;
+					// 	parentedAnimation.CrossFade("ParentedWalk", 0.1f);
+					// }
+					// else
+					// {
 						parentedAnimation["ParentedWalk"].speed = _weaponManager.currentWeaponSounds.speedModifier;
 						parentedAnimation.CrossFade("ParentedWalk", 0.1f);
-					}
+					// }
 				}
 			}
 			else
@@ -3998,10 +3998,10 @@ public sealed class Player_move_c : MonoBehaviour
 				inGameGUI.chatInput.isSelected = true;
 				showChat = true;
 			}
-			if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift))
-			{
-				parentedAnimation.Stop();
-			}
+			// if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.LeftShift))
+			// {
+			// 	parentedAnimation.Stop();
+			// }
 			if (Input.GetKeyDown(KeyCode.F2) && !ArmoryNGUI.instance.gameObject.activeInHierarchy)
 			{
 				actuallyOpenIt = true;
@@ -4032,20 +4032,20 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 		}
 		if (!isZoomed && isMine && !armoryGuiOverlayed) {
-			if (sprinting)
-			{
-				if (Camera.main.fieldOfView < 90f)
-				{
-					Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 91f, Time.deltaTime * 15f);
-				}
-			}
-			else
-			{
+			// if (sprinting)
+			// {
+			// 	if (Camera.main.fieldOfView < 90f)
+			// 	{
+			// 		Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 91f, Time.deltaTime * 15f);
+			// 	}
+			// }
+			// else
+			// {
 				if (Camera.main.fieldOfView > 75f)
 				{
 					Camera.main.fieldOfView = Mathf.Lerp(Camera.main.fieldOfView, 74f, Time.deltaTime * 30f);
 				}
-			}
+			// }
 		}
 		if (_weaponManager.myPlayer != null && _singleOrMultiMine())
 		{
