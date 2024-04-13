@@ -3948,7 +3948,7 @@ public sealed class Player_move_c : MonoBehaviour
 			}
 			if (walking)
 			{
-				if (!parentedAnimation.IsPlaying("ParentedWalk"))
+				if (!parentedAnimation.IsPlaying("ParentedWalk") && !gameObject.transform.parent.gameObject.GetComponent<ULTRADashing>().isDashing)
 				{
 					// if (sprinting)
 					// {
@@ -3962,7 +3962,7 @@ public sealed class Player_move_c : MonoBehaviour
 					// }
 				}
 			}
-			else
+			else if (!gameObject.transform.parent.gameObject.GetComponent<ULTRADashing>().isDashing)
 			{
 				if (!parentedAnimation.IsPlaying("ParentedIdle"))
 				{

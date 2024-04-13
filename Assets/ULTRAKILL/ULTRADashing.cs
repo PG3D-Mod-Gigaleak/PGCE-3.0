@@ -26,25 +26,59 @@ public class ULTRADashing : MonoBehaviour
     private UITexture bar3;
     public Color BarOn;
     public Color BarOff;
+    private GameObject guncam;
+    public AnimationClip DashFront;
+    public AnimationClip DashBack;
+    public AnimationClip DashLeft;
+    public AnimationClip DashRight;
     void Start()
     {
         DashCount = DashMax;
         DashProgress = 150;
+    }
+
+    void Reset()
+    {
+        if (!fpc)
+        {
         fpc = gameObject.GetComponent<FirstPersonControl>();
-        if (DashUIRoot != null)
+        }
+        if (DashUIRoot != null && !DashRoot)
         {
             DashRoot = Instantiate(DashUIRoot, new Vector3(Random.Range(-100f, 100f), Random.Range(-100f, 100f), Random.Range(-100f, 100f)), Quaternion.identity);
             bar1 = DashRoot.transform.Find("Bar1").gameObject.GetComponent<UITexture>();
             bar2 = DashRoot.transform.Find("Bar2").gameObject.GetComponent<UITexture>();
             bar3 = DashRoot.transform.Find("Bar3").gameObject.GetComponent<UITexture>();
         }
+        if (!AuSr)
+        {
         AuSr = gameObject.AddComponent<AudioSource>();
-
+        }
+        if (!guncam)
+        {
+            if (transform.Find("PeekPivot").GetChild(0).GetChild(0).gameObject)
+            {
+                guncam = transform.Find("PeekPivot").GetChild(0).GetChild(0).gameObject;
+            }
+            else if (transform.Find("Main Camera").GetChild(0).gameObject)
+            {
+                guncam = transform.Find("Main Camera").GetChild(0).gameObject;
+            }
+        }
     }
     void Update()
     {
         DashTimer -= Time.deltaTime;
         DashTimer2 -= Time.deltaTime;
+        // Get Camera
+        if (transform.Find("Main Camera"))
+        {
+            guncam = transform.Find("Main Camera").GetChild(0).gameObject;
+        }
+        else if (transform.Find("PeekPivot").GetChild(0).GetChild(0).gameObject)
+        {
+            guncam = transform.Find("PeekPivot").GetChild(0).GetChild(0).gameObject;
+        }
         // Bar Checks
         if (DashCount == 0)
         {
@@ -93,45 +127,64 @@ public class ULTRADashing : MonoBehaviour
         if (Input.GetKey("w") && Input.GetKey("d") && Input.GetKeyDown(KeyCode.LeftShift) && DashTimer < 0f && DashCount > 0)
         {
             Vector3 velocity = gameObject.transform.forward * newDashSpeed + gameObject.transform.right * newDashSpeed;
+            guncam.GetComponent<Animation>().Stop();
+            guncam.GetComponent<Animation>().Play(DashRight.name);
             StartCoroutine(Dashing(velocity));
         }
         else if (Input.GetKey("w") && Input.GetKey("a") && Input.GetKeyDown(KeyCode.LeftShift) && DashTimer < 0f && DashCount > 0)
         {
             Vector3 velocity = gameObject.transform.forward * newDashSpeed + gameObject.transform.right * -newDashSpeed;
+            guncam.GetComponent<Animation>().Stop();
+            guncam.GetComponent<Animation>().Play(DashLeft.name);
             StartCoroutine(Dashing(velocity));
         }
         else if (Input.GetKey("s") && Input.GetKey("d") && Input.GetKeyDown(KeyCode.LeftShift) && DashTimer < 0f && DashCount > 0)
         {
             Vector3 velocity = gameObject.transform.forward * -newDashSpeed + gameObject.transform.right * newDashSpeed;
+            guncam.GetComponent<Animation>().Stop();
+            guncam.GetComponent<Animation>().Play(DashRight.name);
             StartCoroutine(Dashing(velocity));
         }
         else if (Input.GetKey("s") && Input.GetKey("a") && Input.GetKeyDown(KeyCode.LeftShift) && DashTimer < 0f && DashCount > 0)
         {
             Vector3 velocity = gameObject.transform.forward * -newDashSpeed + gameObject.transform.right * -newDashSpeed;
+            guncam.GetComponent<Animation>().Stop();
+            guncam.GetComponent<Animation>().Play(DashLeft.name);
+            StartCoroutine(Dashing(velocity));
         }
         else if (Input.GetKey("w") && Input.GetKeyDown(KeyCode.LeftShift) && DashTimer < 0f && DashCount > 0)
         {
             Vector3 velocity = gameObject.transform.forward * newDashSpeed;
+            guncam.GetComponent<Animation>().Stop();
+            guncam.GetComponent<Animation>().Play(DashFront.name);
             StartCoroutine(Dashing(velocity));
         }
         else if (Input.GetKey("s") && Input.GetKeyDown(KeyCode.LeftShift) && DashTimer < 0f && DashCount > 0)
         {
             Vector3 velocity = gameObject.transform.forward * -newDashSpeed;
+            guncam.GetComponent<Animation>().Stop();
+            guncam.GetComponent<Animation>().Play(DashBack.name);
             StartCoroutine(Dashing(velocity));
         }
         else if (Input.GetKey("a") && Input.GetKeyDown(KeyCode.LeftShift) && DashTimer < 0f && DashCount > 0)
         {
             Vector3 velocity = gameObject.transform.right* -newDashSpeed;
+            guncam.GetComponent<Animation>().Stop();
+            guncam.GetComponent<Animation>().Play(DashLeft.name);
             StartCoroutine(Dashing(velocity));
         }
         else if (Input.GetKey("d") && Input.GetKeyDown(KeyCode.LeftShift) && DashTimer < 0f && DashCount > 0)
         {
             Vector3 velocity = gameObject.transform.right * newDashSpeed;
+            guncam.GetComponent<Animation>().Stop();
+            guncam.GetComponent<Animation>().Play(DashRight.name);
             StartCoroutine(Dashing(velocity));
         }
         else if (Input.GetKeyDown(KeyCode.LeftShift) && DashTimer < 0f && DashCount > 0)
         {
             Vector3 velocity = gameObject.transform.forward * newDashSpeed;
+            guncam.GetComponent<Animation>().Stop();
+            guncam.GetComponent<Animation>().Play(DashFront.name);
             StartCoroutine(Dashing(velocity));
         }
     }
@@ -172,5 +225,6 @@ public class ULTRADashing : MonoBehaviour
             AuSr.PlayOneShot(DashNotify);
             DashCount = 3;
         }
+        Reset();
     }
 }

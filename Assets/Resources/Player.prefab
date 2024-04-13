@@ -5560,7 +5560,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4766581313503082}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.58776927}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 8.616}
 --- !u!20 &20937941271881730
 Camera:
   m_ObjectHideFlags: 0
@@ -5618,6 +5618,10 @@ Animation:
   - {fileID: 7400000, guid: 4eeda75ef82c17b498acde4452ab4ce6, type: 2}
   - {fileID: 7400000, guid: 10713142823f0844f87c210310102c3e, type: 2}
   - {fileID: 7400000, guid: e5468ed0219d982429931593a33e0be1, type: 2}
+  - {fileID: 7400000, guid: 15c2523ea7fd1a8449f209a437f3511e, type: 2}
+  - {fileID: 7400000, guid: 7fa9a0eadf7f1c344ae39d00bc60532a, type: 2}
+  - {fileID: 7400000, guid: a6bfeb7515f5cb943a206a2c315a1634, type: 2}
+  - {fileID: 7400000, guid: e545e95a0fad4bf4d842a83a3b85c465, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
@@ -8325,7 +8329,7 @@ MonoBehaviour:
   DashMax: 3
   DashTimer: 0
   DashTimer2: 0
-  DashDuration: 0.35
+  DashDuration: 0.25
   DashCooldown: 0.1
   DashSpeed: 25
   DashProgress: 0
@@ -8335,6 +8339,10 @@ MonoBehaviour:
   isDashing: 0
   BarOn: {r: 0, g: 1, b: 0.9430566, a: 0.39215687}
   BarOff: {r: 0, g: 0.5566038, b: 0.5566038, a: 0.39215687}
+  DashFront: {fileID: 7400000, guid: 15c2523ea7fd1a8449f209a437f3511e, type: 2}
+  DashBack: {fileID: 7400000, guid: 7fa9a0eadf7f1c344ae39d00bc60532a, type: 2}
+  DashLeft: {fileID: 7400000, guid: e545e95a0fad4bf4d842a83a3b85c465, type: 2}
+  DashRight: {fileID: 7400000, guid: a6bfeb7515f5cb943a206a2c315a1634, type: 2}
 --- !u!1 &894920682538729885
 GameObject:
   m_ObjectHideFlags: 0
