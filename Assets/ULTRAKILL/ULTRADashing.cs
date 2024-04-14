@@ -208,7 +208,7 @@ public class ULTRADashing : MonoBehaviour
     {
         if (DashCount < DashMax)
         {
-        DashProgress += 1;
+        DashProgress += 0.5f;
         }
         if (DashProgress == 50 && DashCount < DashMax)
         {
