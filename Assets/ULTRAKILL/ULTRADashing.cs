@@ -34,7 +34,7 @@ public class ULTRADashing : MonoBehaviour
     void Start()
     {
         DashCount = DashMax;
-        DashProgress = 150;
+        DashProgress = 225;
     }
 
     void Reset()
@@ -196,7 +196,7 @@ public class ULTRADashing : MonoBehaviour
         DashTimer = DashCooldown;
         DashTimer2 = DashDuration;
         DashCount -= 1;
-        DashProgress -= 50;
+        DashProgress -= 75;
         fpc.velocity = new Vector3(fpc.velocity.x, 0f, fpc.velocity.z);
         fpc.motion = fpc.velocity;
         fpc.velocity += velocity;
@@ -208,19 +208,19 @@ public class ULTRADashing : MonoBehaviour
     {
         if (DashCount < DashMax)
         {
-        DashProgress += 0.5f;
+        DashProgress += 1f;
         }
-        if (DashProgress == 50 && DashCount < DashMax)
+        if (DashProgress == 75 && DashCount < DashMax)
         {
             AuSr.PlayOneShot(DashNotify);
             DashCount = 1;
         }
-        else if (DashProgress == 100 && DashCount < DashMax)
+        else if (DashProgress == 150 && DashCount < DashMax)
         {
             AuSr.PlayOneShot(DashNotify);
             DashCount = 2;
         }
-        else if (DashProgress == 150 && DashCount < DashMax)
+        else if (DashProgress == 225 && DashCount < DashMax)
         {
             AuSr.PlayOneShot(DashNotify);
             DashCount = 3;
