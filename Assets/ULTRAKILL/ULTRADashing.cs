@@ -192,6 +192,7 @@ public class ULTRADashing : MonoBehaviour
     IEnumerator Dashing(Vector3 velocity)
     {
         isDashing = true;
+        AuSr.pitch = 1f;
         AuSr.PlayOneShot(DashSound);
         DashTimer = DashCooldown;
         DashTimer2 = DashDuration;
@@ -212,16 +213,19 @@ public class ULTRADashing : MonoBehaviour
         }
         if (DashProgress == 75 && DashCount < DashMax)
         {
+            AuSr.pitch = 0.5f;
             AuSr.PlayOneShot(DashNotify);
             DashCount = 1;
         }
         else if (DashProgress == 150 && DashCount < DashMax)
         {
+            AuSr.pitch = 0.75f;
             AuSr.PlayOneShot(DashNotify);
             DashCount = 2;
         }
         else if (DashProgress == 225 && DashCount < DashMax)
         {
+            AuSr.pitch = 1f;
             AuSr.PlayOneShot(DashNotify);
             DashCount = 3;
         }

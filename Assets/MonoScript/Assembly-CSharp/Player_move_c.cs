@@ -2094,6 +2094,10 @@ public sealed class Player_move_c : MonoBehaviour
 		{
 			Globals.PlayerMove = this;
 		}
+		else if (prefs.GetInt("MultyPlayer") == 0 && prefs.GetInt("COOP") == 0)
+		{
+			Globals.PlayerMove = this;
+		}
 	}
 
 	private void Start()
@@ -3750,7 +3754,7 @@ public sealed class Player_move_c : MonoBehaviour
 		yield break;
 	}
 
-	private bool isZoomed;
+	public bool isZoomed;
 
 	public void ZoomPress()
 	{

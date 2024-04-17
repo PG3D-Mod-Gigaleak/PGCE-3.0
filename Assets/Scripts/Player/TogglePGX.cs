@@ -5,9 +5,29 @@ using UnityEngine.Rendering.PostProcessing;
 public class TogglePGX : MonoBehaviour
 {
     public bool isEnabled = false;
+    private Player_move_c player;
+    private MotionBlur _mb;
     void Update()
     {
+        if (gameObject.transform.parent.gameObject.name == "PeekPivot")
+        {
+        player = gameObject.transform.parent.parent.transform.Find("GameObject").gameObject.GetComponent<Player_move_c>();
+        }
+        else
+        {
+        player = gameObject.transform.parent.transform.Find("GameObject").gameObject.GetComponent<Player_move_c>();
+        }
         string key = prefs.GetString("ToggleKey");
+        if (player.isZoomed == true)
+        {
+            PostProcessProfile pp = gameObject.transform.GetComponent<PostProcessVolume>().profile;
+            pp.GetSetting<UnityEngine.Rendering.PostProcessing.MotionBlur>().enabled.value = false;
+        }
+        else
+        {
+            PostProcessProfile pp = gameObject.transform.GetComponent<PostProcessVolume>().profile;
+            pp.GetSetting<UnityEngine.Rendering.PostProcessing.MotionBlur>().enabled.value = true;
+        }
         if (Input.GetKeyDown(key) && isEnabled == false)
         {
             isEnabled = true;

@@ -58,7 +58,7 @@ public class FirstPersonControl : MonoBehaviour
 
 	private bool jump;
 
-	private GameObject _playerGun;
+	public GameObject _playerGun;
 
 	private float startForwardSpeed;
 
