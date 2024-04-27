@@ -501,12 +501,13 @@ MonoBehaviour:
   animationObject: {fileID: 6514918958159078765}
   Probability: 1
   damageRange: {x: -15, y: 15}
-  gunPosition: {x: 0, y: -1.7, z: 0}
+  gunPosition: {x: 0.1, y: -1.7, z: 0}
   preview: {fileID: 2800000, guid: aed161c8ac26a8e409c7392552ed22cf, type: 3}
   inAppExtensionModifier: 10
   meleeAngle: 45
   multiplayerDamage: 100
   meleeAttackTimeModifier: 0.57
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -537,6 +538,13 @@ MonoBehaviour:
   throwObjects: 30
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
@@ -737,6 +745,7 @@ MonoBehaviour:
   meleeAngle: 45
   multiplayerDamage: 25
   meleeAttackTimeModifier: 0.01
+  hasammunition: 0
   isHeal: 0
   healAmount: 0
   HealArmor: 0
@@ -767,6 +776,13 @@ MonoBehaviour:
   throwObjects: 30
   isGrav: 0
   infiniteAmmo: 0
+  isRandomDamage: 0
+  DamageMult1: 0
+  DamageMult2: 0
+  ChanceofSelf: 0
+  SelfChance: 0
+  ChanceofForceReload: 0
+  ReloadChance: 0
   startZone: {x: 1, y: 1}
   tekKoof: 1
   upKoofFire: 2
