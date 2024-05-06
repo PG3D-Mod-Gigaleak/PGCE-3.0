@@ -13,20 +13,33 @@ public class OptionsMenuController : MonoBehaviour {
 	public GameObject postpanel;
 	private int retardedWorkaround = 100;
 	public UIInput ToggleKeyInput;
-
-	// Written by Noobite, new to NGUI
-	// public PostProcessProfile postProfile;
-	// public Texture disabledTexture;
-	// public Texture enabledTexture;
-	// public UIToggle bloomToggle;
+	public GameObject PPDefaultToggle;
+	public Color disabledColor;
+	public Color enabledColor;
 	
 	private void Start() {
 		volumeSlider.value = prefs.GetFloat("setVolm", 1);
+		// PP Toggle Key
 		if (prefs.GetString("ToggleKey") == "") 
 		{
 			prefs.SetString("ToggleKey", "p");
 		}
 		ToggleKeyInput.value = prefs.GetString("ToggleKey");
+		// PP Default Toggle Check
+		if (prefs.GetString("PPDefault") == "")
+		{
+			prefs.SetString("PPDefault", "false");
+		}
+		if (prefs.GetString("PPDefault") == "true")
+		{
+			PPDefaultToggle.GetComponent<UIToggle>().value = true;
+			TogglePPDefault();
+		}
+		else
+		{
+			PPDefaultToggle.GetComponent<UIToggle>().value = false;
+			TogglePPDefault();
+		}
 	}
 
 	public void SaveToggleKey() {
@@ -65,20 +78,24 @@ public class OptionsMenuController : MonoBehaviour {
 		auSr.PlayOneShot(testingAudioCli);
 	}
 
-	// public void ResetPost() {
-    // 
-    // }
-    // 
-    // public void BloomIntensity() {
-    // 
-    // }
-    // 
-    // public void BloomToggle() {
-    // 
-	// }
-
 	public void BackToSettings() {
 		postpanel.SetActive(false);
 		auSr.PlayOneShot(testingAudioCli);
+	}
+
+	public void TogglePPDefault()
+	{
+		auSr.PlayOneShot(testingAudioCli);
+		bool enabled = PPDefaultToggle.GetComponent<UIToggle>().value;
+		if (enabled)
+		{
+			PPDefaultToggle.GetComponent<UITexture>().color = enabledColor;
+			prefs.SetString("PPDefault", "true");
+		}
+		else if (!enabled)
+		{
+			PPDefaultToggle.GetComponent<UITexture>().color = disabledColor;
+			prefs.SetString("PPDefault", "false");
+		}
 	}
 }
